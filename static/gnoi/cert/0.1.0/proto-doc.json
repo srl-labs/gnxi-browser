@@ -1,0 +1,1234 @@
+{
+  "files": [
+    {
+      "name": "cert.proto",
+      "description": "This file defines the gNOI API to be used for certificate installation and\nrotation.",
+      "package": "gnoi.certificate",
+      "hasEnums": true,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [
+        {
+          "name": "CertificateType",
+          "longName": "CertificateType",
+          "fullName": "gnoi.certificate.CertificateType",
+          "description": "Types of certificates.",
+          "values": [
+            {
+              "name": "CT_UNKNOWN",
+              "number": "0",
+              "description": "1 - 500 for public use.\n501 onwards for private use."
+            },
+            {
+              "name": "CT_X509",
+              "number": "1",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Type",
+          "longName": "Endpoint.Type",
+          "fullName": "gnoi.certificate.Endpoint.Type",
+          "description": "Type of endpoint that can use a cert. This list is to be extended based on\nconversation with vendors.",
+          "values": [
+            {
+              "name": "EP_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "EP_IPSEC_TUNNEL",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "EP_DAEMON",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "KeyType",
+          "longName": "KeyType",
+          "fullName": "gnoi.certificate.KeyType",
+          "description": "Algorithm to be used for generation the key pair.",
+          "values": [
+            {
+              "name": "KT_UNKNOWN",
+              "number": "0",
+              "description": "1 - 500, for known types.\n501 and onwards for private use."
+            },
+            {
+              "name": "KT_RSA",
+              "number": "1",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "CSR",
+          "longName": "CSR",
+          "fullName": "gnoi.certificate.CSR",
+          "description": "A Certificate Signing Request.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "type",
+              "description": "Type of certificate.",
+              "label": "",
+              "type": "CertificateType",
+              "longType": "CertificateType",
+              "fullType": "gnoi.certificate.CertificateType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "csr",
+              "description": "Bytes representing the CSR.\nThe exact encoding depends upon the type of certificate requested.\nfor X509: This should be the PEM encoded CSR.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CSRParams",
+          "longName": "CSRParams",
+          "fullName": "gnoi.certificate.CSRParams",
+          "description": "Parameters to be used when generating a Certificate Signing Request.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "type",
+              "description": "The type of certificate which will be associated for this CSR.",
+              "label": "",
+              "type": "CertificateType",
+              "longType": "CertificateType",
+              "fullType": "gnoi.certificate.CertificateType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "min_key_size",
+              "description": "Minimum size of the key to be used by the target when generating a\npublic/private key pair.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key_type",
+              "description": "If provided, the target must use the provided key type. If the target\ncannot use the algorithm specified in the key_type, it should cancel the\nstream with an Unimplemented error.",
+              "label": "",
+              "type": "KeyType",
+              "longType": "KeyType",
+              "fullType": "gnoi.certificate.KeyType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "common_name",
+              "description": "--- common set of parameters applicable for any type of certificate --- //\n\ne.g \"device.corp.google.com\"",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "country",
+              "description": "e.g \"US\"",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "state",
+              "description": "e.g \"CA\"",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "city",
+              "description": "e.g \"Mountain View\"",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "organization",
+              "description": "e.g \"Google\"",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "organizational_unit",
+              "description": "e.g \"Security\"",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ip_address",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "email_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CanGenerateCSRRequest",
+          "longName": "CanGenerateCSRRequest",
+          "fullName": "gnoi.certificate.CanGenerateCSRRequest",
+          "description": "A request to ask the target if it can generate key pairs.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key_type",
+              "description": "",
+              "label": "",
+              "type": "KeyType",
+              "longType": "KeyType",
+              "fullType": "gnoi.certificate.KeyType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "certificate_type",
+              "description": "",
+              "label": "",
+              "type": "CertificateType",
+              "longType": "CertificateType",
+              "fullType": "gnoi.certificate.CertificateType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key_size",
+              "description": "",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CanGenerateCSRResponse",
+          "longName": "CanGenerateCSRResponse",
+          "fullName": "gnoi.certificate.CanGenerateCSRResponse",
+          "description": "Response from the target about whether it can generate a CSR with the given\nparameters.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "can_generate",
+              "description": "",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Certificate",
+          "longName": "Certificate",
+          "fullName": "gnoi.certificate.Certificate",
+          "description": "A certificate.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "type",
+              "description": "Type of certificate.",
+              "label": "",
+              "type": "CertificateType",
+              "longType": "CertificateType",
+              "fullType": "gnoi.certificate.CertificateType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "certificate",
+              "description": "Actual certificate.\nThe exact encoding depends upon the type of certificate.\nfor X509, this should be a PEM encoded Certificate.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CertificateInfo",
+          "longName": "CertificateInfo",
+          "fullName": "gnoi.certificate.CertificateInfo",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "certificate_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "certificate",
+              "description": "",
+              "label": "",
+              "type": "Certificate",
+              "longType": "Certificate",
+              "fullType": "gnoi.certificate.Certificate",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "endpoints",
+              "description": "List of endpoints using this certificate.",
+              "label": "repeated",
+              "type": "Endpoint",
+              "longType": "Endpoint",
+              "fullType": "gnoi.certificate.Endpoint",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "modification_time",
+              "description": "System modification time when the certificate was installed/rotated in\nnanoseconds since epoch.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CertificateRevocationError",
+          "longName": "CertificateRevocationError",
+          "fullName": "gnoi.certificate.CertificateRevocationError",
+          "description": "An error message indicating why a certificate id could not be revoked.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "certificate_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "error_message",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Endpoint",
+          "longName": "Endpoint",
+          "fullName": "gnoi.certificate.Endpoint",
+          "description": "An endpoint represents an entity on the target which can use a certificate.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "type",
+              "description": "",
+              "label": "",
+              "type": "Type",
+              "longType": "Endpoint.Type",
+              "fullType": "gnoi.certificate.Endpoint.Type",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "endpoint",
+              "description": "Human readable identifier for an endpoint.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FinalizeRequest",
+          "longName": "FinalizeRequest",
+          "fullName": "gnoi.certificate.FinalizeRequest",
+          "description": "A Finalize message is sent to the target to confirm the Rotation of\nthe certificate and that the certificate should not be rolled back when\nthe RPC concludes. The certificate must be rolled back if the target returns\nan error after receiving a Finalize message.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "GenerateCSRRequest",
+          "longName": "GenerateCSRRequest",
+          "fullName": "gnoi.certificate.GenerateCSRRequest",
+          "description": "Request to generate the CSR.\nWhen this request is made for rotating an existing certificate as part of the\nRotate() RPC, then the target must ensure that the \"certificate_id\" is\nalready created and exists on the target. If the Certificate Rotation\nproceeds to load the certificate, it must associate the new certificate with\nthe previously created \"certificate_id\".\n\nWhen this request is made for installing a completely new certificate as part\nof the Install() RPC , then the target must ensure that the \"certificate_id\"\nis completely new and no entities on the target are should be bound to this\ncertificate_id. If any existing certificate matches the certificate_id, then\nthis request should fail.\n\nIf there is another ongoing Rotate/Install RPC with the same certificate_id,\nthe GenerateCSRRequest should fail.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "csr_params",
+              "description": "Parameters for creating a CSR.",
+              "label": "",
+              "type": "CSRParams",
+              "longType": "CSRParams",
+              "fullType": "gnoi.certificate.CSRParams",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "certificate_id",
+              "description": "The certificate id with which this CSR will be associated. The target\nconfiguration should bind an entity which wants to use a certificate to\nthe certificate_id it should use.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GenerateCSRResponse",
+          "longName": "GenerateCSRResponse",
+          "fullName": "gnoi.certificate.GenerateCSRResponse",
+          "description": "GenerateCSRResponse contains the CSR associated with the Certificate ID\nsupplied in the GenerateCSRRequest. When a Certificate is subsequently\ninstalled on the target in the same streaming RPC session, it must be\nassociated to that Certificate ID.\n\nAn Unimplemented error will be returned if the target cannot generate a CSR\nas per the request. In this case, the caller must generate its own key pair.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "csr",
+              "description": "",
+              "label": "",
+              "type": "CSR",
+              "longType": "CSR",
+              "fullType": "gnoi.certificate.CSR",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetCertificatesRequest",
+          "longName": "GetCertificatesRequest",
+          "fullName": "gnoi.certificate.GetCertificatesRequest",
+          "description": "The request to query all the certificates on the target.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "GetCertificatesResponse",
+          "longName": "GetCertificatesResponse",
+          "fullName": "gnoi.certificate.GetCertificatesResponse",
+          "description": "Response from the target about the certificates that exist on the target what\nwhat is using them.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "certificate_info",
+              "description": "",
+              "label": "repeated",
+              "type": "CertificateInfo",
+              "longType": "CertificateInfo",
+              "fullType": "gnoi.certificate.CertificateInfo",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "InstallCertificateRequest",
+          "longName": "InstallCertificateRequest",
+          "fullName": "gnoi.certificate.InstallCertificateRequest",
+          "description": "Request messages to install new certificates on the target.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "generate_csr",
+              "description": "",
+              "label": "",
+              "type": "GenerateCSRRequest",
+              "longType": "GenerateCSRRequest",
+              "fullType": "gnoi.certificate.GenerateCSRRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "install_request",
+              "defaultValue": ""
+            },
+            {
+              "name": "load_certificate",
+              "description": "",
+              "label": "",
+              "type": "LoadCertificateRequest",
+              "longType": "LoadCertificateRequest",
+              "fullType": "gnoi.certificate.LoadCertificateRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "install_request",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "InstallCertificateResponse",
+          "longName": "InstallCertificateResponse",
+          "fullName": "gnoi.certificate.InstallCertificateResponse",
+          "description": "Response Messages from the target for the InstallCertificateRequest.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "generated_csr",
+              "description": "",
+              "label": "",
+              "type": "GenerateCSRResponse",
+              "longType": "GenerateCSRResponse",
+              "fullType": "gnoi.certificate.GenerateCSRResponse",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "install_response",
+              "defaultValue": ""
+            },
+            {
+              "name": "load_certificate",
+              "description": "",
+              "label": "",
+              "type": "LoadCertificateResponse",
+              "longType": "LoadCertificateResponse",
+              "fullType": "gnoi.certificate.LoadCertificateResponse",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "install_response",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "KeyPair",
+          "longName": "KeyPair",
+          "fullName": "gnoi.certificate.KeyPair",
+          "description": "A message representing a pair of public/private keys.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "private_key",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "public_key",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "LoadCertificateAuthorityBundleRequest",
+          "longName": "LoadCertificateAuthorityBundleRequest",
+          "fullName": "gnoi.certificate.LoadCertificateAuthorityBundleRequest",
+          "description": "Bundle of CA certificates. Same as LoadCertificateRequest::ca_certificates.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "ca_certificates",
+              "description": "Squashes the existing certificate bundle.\nTo improve performance in the Target, certificates can be ordered.\nGroups of chained certificates should be last, where within, the root\ncertificate is the last one. E.g.:\nCertA, CertB, CertB-Root, CertC, CertC-Intermediate, CertC-Root",
+              "label": "repeated",
+              "type": "Certificate",
+              "longType": "Certificate",
+              "fullType": "gnoi.certificate.Certificate",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "LoadCertificateAuthorityBundleResponse",
+          "longName": "LoadCertificateAuthorityBundleResponse",
+          "fullName": "gnoi.certificate.LoadCertificateAuthorityBundleResponse",
+          "description": "Response from target after Loading a certificate authority bundle.\nIf the target could not load the certificates, it must end the RPC stream\nwith a suitable RPC error about why the Certificate was not loaded.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "LoadCertificateRequest",
+          "longName": "LoadCertificateRequest",
+          "fullName": "gnoi.certificate.LoadCertificateRequest",
+          "description": "LoadCertificateRequest instructs the target to store the given certificate.\n\nCase 1: Target Generated CSR and Key Pair.\nIf the target generated the CSR (and the public/private key pair) during the\nGenerateCSR request, then the target must associate the certificate with the\ncertificate ID specified in the preceding GenerateCSR request.\n\nCase 2: Externally Generated Key Pair.\nIf the target can not generate a CSR, then the public/private key pair is\ngenerated externally. In this case provide the target with the key pair,\nand the certificate_id to be associated with the new certificate.\n\nIf there is another ongoing Rotate/Install RPC with the same certificate_id,\nthe LoadCertificateRequest must fail.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "certificate",
+              "description": "The certificate to be Loaded on the target.",
+              "label": "",
+              "type": "Certificate",
+              "longType": "Certificate",
+              "fullType": "gnoi.certificate.Certificate",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key_pair",
+              "description": "The key pair to be used with the certificate. This is provided in the event\nthat the target cannot generate a CSR (and the corresponding public/private\nkeys).",
+              "label": "",
+              "type": "KeyPair",
+              "longType": "KeyPair",
+              "fullType": "gnoi.certificate.KeyPair",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "certificate_id",
+              "description": "Certificate Id of the above certificate. This is to be provided only when\nthere is an externally generated key pair.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ca_certificates",
+              "description": "Optional bundle of CA certificates. When not empty, the provided\ncertificates should squash the existing bundle. This field provides a\nsimplified means to provision a CA bundle that can be used to validate\nother peer's certificates.\nTo improve performance in the Target, certificates can be ordered.\nGroups of chained certificates should be last, where within, the root\ncertificate is the last one. E.g.:\nCertA, CertB, CertB-Root, CertC, CertC-Intermediate, CertC-Root",
+              "label": "repeated",
+              "type": "Certificate",
+              "longType": "Certificate",
+              "fullType": "gnoi.certificate.Certificate",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "LoadCertificateResponse",
+          "longName": "LoadCertificateResponse",
+          "fullName": "gnoi.certificate.LoadCertificateResponse",
+          "description": "Response from target after Loading a Certificate.\nIf the target could not load the certificate, it must end the RPC stream with\na suitable RPC error about why the Certificate was not loaded.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "RevokeCertificatesRequest",
+          "longName": "RevokeCertificatesRequest",
+          "fullName": "gnoi.certificate.RevokeCertificatesRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "certificate_id",
+              "description": "Certificates to revoke.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RevokeCertificatesResponse",
+          "longName": "RevokeCertificatesResponse",
+          "fullName": "gnoi.certificate.RevokeCertificatesResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "revoked_certificate_id",
+              "description": "List of certificates successfully revoked.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "certificate_revocation_error",
+              "description": "List of errors why certain certificates could not be revoked.",
+              "label": "repeated",
+              "type": "CertificateRevocationError",
+              "longType": "CertificateRevocationError",
+              "fullType": "gnoi.certificate.CertificateRevocationError",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RotateCertificateRequest",
+          "longName": "RotateCertificateRequest",
+          "fullName": "gnoi.certificate.RotateCertificateRequest",
+          "description": "Request messages to rotate existing certificates on the target.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "generate_csr",
+              "description": "",
+              "label": "",
+              "type": "GenerateCSRRequest",
+              "longType": "GenerateCSRRequest",
+              "fullType": "gnoi.certificate.GenerateCSRRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "rotate_request",
+              "defaultValue": ""
+            },
+            {
+              "name": "load_certificate",
+              "description": "",
+              "label": "",
+              "type": "LoadCertificateRequest",
+              "longType": "LoadCertificateRequest",
+              "fullType": "gnoi.certificate.LoadCertificateRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "rotate_request",
+              "defaultValue": ""
+            },
+            {
+              "name": "finalize_rotation",
+              "description": "",
+              "label": "",
+              "type": "FinalizeRequest",
+              "longType": "FinalizeRequest",
+              "fullType": "gnoi.certificate.FinalizeRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "rotate_request",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RotateCertificateResponse",
+          "longName": "RotateCertificateResponse",
+          "fullName": "gnoi.certificate.RotateCertificateResponse",
+          "description": "Response Messages from the target.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "generated_csr",
+              "description": "",
+              "label": "",
+              "type": "GenerateCSRResponse",
+              "longType": "GenerateCSRResponse",
+              "fullType": "gnoi.certificate.GenerateCSRResponse",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "rotate_response",
+              "defaultValue": ""
+            },
+            {
+              "name": "load_certificate",
+              "description": "",
+              "label": "",
+              "type": "LoadCertificateResponse",
+              "longType": "LoadCertificateResponse",
+              "fullType": "gnoi.certificate.LoadCertificateResponse",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "rotate_response",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "CertificateManagement",
+          "longName": "CertificateManagement",
+          "fullName": "gnoi.certificate.CertificateManagement",
+          "description": "The Certificate Management Service exported by targets.\n\nThe service primarily exports two main RPCs, Install \u0026 Rotate which are used\nfor installation of a new certificate, and rotation of an existing\ncertificate on a target, along with a few management related RPCs.\n\nIn addition, the actions from the Install and Rotate RPCs are made available\nas separate RPCs. These use the same request/response protos.",
+          "methods": [
+            {
+              "name": "Rotate",
+              "description": "Rotate will replace an existing Certificate on the target by creating a\nnew CSR request and placing the new Certificate based on the CSR on the\ntarget. If the stream is broken or any steps in the process fail the\ntarget must rollback to the original Certificate.\n\nThe following describes the sequence of messages that must be exchanged\nin the Rotate() RPC.\n\nSequence of expected messages:\nCase 1: When Target generates the CSR.\n\n  Step 1: Start the stream\n    Client \u003c---- Rotate() RPC stream begin ------\u003e Target\n\n  Step 2: CSR\n    Client -----\u003e GenerateCSRRequest----\u003e Target\n    Client \u003c----- GenerateCSRResponse \u003c--- Target\n\n  Step 3: Certificate Signing\n    Client gets the certificate signed by the CA.\n\n  Step 4: Send Certificate to Target.\n    Client --\u003e LoadCertificateRequest ----\u003e Target\n    Client \u003c-- LoadCertificateResponse \u003c--- Target\n\n  Step 5: Test/Validation by the client.\n    This step should be to create a new connection to the target using\n    The new certificate and validate that the certificate works.\n    Once verfied, the client will then proceed to finalize the rotation.\n    If the new connection cannot be completed the client will cancel the\n    RPC thereby forcing the target to rollback the certificate.\n\n  Step 6: Final commit.\n    Client ---\u003e FinalizeRequest ----\u003e Target\n\n\nCase 2: When Client generates the CSR.\n  Step 1: Start the stream\n    Client \u003c---- Rotate() RPC stream begin ----\u003e Target\n\n  Step 2: CSR\n    Client generates its own certificate.\n\n  Step 3: Certificate Signing\n    Client gets the certificate signed by the CA.\n\n  Step 4: Send Certificate to Target.\n    Client ---\u003e LoadCertificateRequest ----\u003e Target\n    Client \u003c--- LoadCertificateResponse \u003c--- Target\n\n  Step 5: Test/Validation by the client.\n\n  Step 6: Final commit.\n    Client ---\u003e FinalizeRequest ----\u003e Target",
+              "requestType": "RotateCertificateRequest",
+              "requestLongType": "RotateCertificateRequest",
+              "requestFullType": "gnoi.certificate.RotateCertificateRequest",
+              "requestStreaming": true,
+              "responseType": "RotateCertificateResponse",
+              "responseLongType": "RotateCertificateResponse",
+              "responseFullType": "gnoi.certificate.RotateCertificateResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "Install",
+              "description": "Install will put a new Certificate on the target by creating a new CSR\nrequest and placing the new Certificate based on the CSR on the target.The\nnew Certificate will be associated with a new Certificate Id on the target.\nIf the target has a pre existing Certificate with the given Certificate Id,\nthe operation should fail.\nIf the stream is broken or any steps in the process fail the target must\nrevert any changes in state.\n\nThe following describes the sequence of messages that must be exchanged\nin the Install() RPC.\n\nSequence of expected messages:\nCase 1: When Target generates the CSR-------------------------:\n\n  Step 1: Start the stream\n    Client \u003c---- Install() RPC stream begin ------\u003e Target\n\n  Step 2: CSR\n    Client -----\u003e GenerateCSRRequest() ----\u003e Target\n    Client \u003c---- GenerateCSRResponse() \u003c---- Target\n\n  Step 3: Certificate Signing\n    Client gets the certificate signed by the CA.\n\n  Step 4: Send Certificate to Target.\n    Client -\u003e LoadCertificateRequest() ----\u003e Target\n    Client \u003c- LoadCertificateResponse() \u003c--- Target\n\nCase 2: When Client generates the CSR-------------------------:\n  Step 1: Start the stream\n    Client \u003c---- Install() RPC stream begin ------\u003e Target\n\n  Step 2: CSR\n    Client generates its own certificate.\n\n  Step 3: Certificate Signing\n    Client gets the certificate signed by the CA.\n\n  Step 4: Send Certificate to Target.\n    Client -\u003e LoadCertificateRequest() ----\u003e Target\n    Client \u003c- LoadCertificateResponse() \u003c--- Target",
+              "requestType": "InstallCertificateRequest",
+              "requestLongType": "InstallCertificateRequest",
+              "requestFullType": "gnoi.certificate.InstallCertificateRequest",
+              "requestStreaming": true,
+              "responseType": "InstallCertificateResponse",
+              "responseLongType": "InstallCertificateResponse",
+              "responseFullType": "gnoi.certificate.InstallCertificateResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "GenerateCSR",
+              "description": "When credentials are generated on the device, generates a keypair and\nreturns the Certificate Signing Request (CSR). The CSR has the public key,\nwhich when signed by the CA, becomes the Certificate.",
+              "requestType": "GenerateCSRRequest",
+              "requestLongType": "GenerateCSRRequest",
+              "requestFullType": "gnoi.certificate.GenerateCSRRequest",
+              "requestStreaming": false,
+              "responseType": "GenerateCSRResponse",
+              "responseLongType": "GenerateCSRResponse",
+              "responseFullType": "gnoi.certificate.GenerateCSRResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "LoadCertificate",
+              "description": "Loads a certificate signed by a Certificate Authority (CA).",
+              "requestType": "LoadCertificateRequest",
+              "requestLongType": "LoadCertificateRequest",
+              "requestFullType": "gnoi.certificate.LoadCertificateRequest",
+              "requestStreaming": false,
+              "responseType": "LoadCertificateResponse",
+              "responseLongType": "LoadCertificateResponse",
+              "responseFullType": "gnoi.certificate.LoadCertificateResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "LoadCertificateAuthorityBundle",
+              "description": "Loads a bundle of CA certificates.",
+              "requestType": "LoadCertificateAuthorityBundleRequest",
+              "requestLongType": "LoadCertificateAuthorityBundleRequest",
+              "requestFullType": "gnoi.certificate.LoadCertificateAuthorityBundleRequest",
+              "requestStreaming": false,
+              "responseType": "LoadCertificateAuthorityBundleResponse",
+              "responseLongType": "LoadCertificateAuthorityBundleResponse",
+              "responseFullType": "gnoi.certificate.LoadCertificateAuthorityBundleResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "GetCertificates",
+              "description": "An RPC to get the certificates on the target.",
+              "requestType": "GetCertificatesRequest",
+              "requestLongType": "GetCertificatesRequest",
+              "requestFullType": "gnoi.certificate.GetCertificatesRequest",
+              "requestStreaming": false,
+              "responseType": "GetCertificatesResponse",
+              "responseLongType": "GetCertificatesResponse",
+              "responseFullType": "gnoi.certificate.GetCertificatesResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "RevokeCertificates",
+              "description": "An RPC to revoke specific certificates.\nIf a certificate is not present on the target, the request should silently\nsucceed. Revoking a certificate should render the existing certificate\nunusable by any endpoints.",
+              "requestType": "RevokeCertificatesRequest",
+              "requestLongType": "RevokeCertificatesRequest",
+              "requestFullType": "gnoi.certificate.RevokeCertificatesRequest",
+              "requestStreaming": false,
+              "responseType": "RevokeCertificatesResponse",
+              "responseLongType": "RevokeCertificatesResponse",
+              "responseFullType": "gnoi.certificate.RevokeCertificatesResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "CanGenerateCSR",
+              "description": "An RPC to ask a target if it can generate a Certificate.",
+              "requestType": "CanGenerateCSRRequest",
+              "requestLongType": "CanGenerateCSRRequest",
+              "requestFullType": "gnoi.certificate.CanGenerateCSRRequest",
+              "requestStreaming": false,
+              "responseType": "CanGenerateCSRResponse",
+              "responseLongType": "CanGenerateCSRResponse",
+              "responseFullType": "gnoi.certificate.CanGenerateCSRResponse",
+              "responseStreaming": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

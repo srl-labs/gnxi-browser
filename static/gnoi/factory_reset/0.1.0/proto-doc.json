@@ -1,0 +1,349 @@
+{
+  "files": [
+    {
+      "name": "factory_reset.proto",
+      "description": "This file defines a gNOI API used for factory reseting a Target.",
+      "package": "gnoi.factory_reset",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "ResetError",
+          "longName": "ResetError",
+          "fullName": "gnoi.factory_reset.ResetError",
+          "description": "Message also used in gRPC status.details field.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "factory_os_unsupported",
+              "description": "Factory OS reset is not supported.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "zero_fill_unsupported",
+              "description": "Zero fill is not supported.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "other",
+              "description": "Unspecified error, must provide detail message.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "detail",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ResetSuccess",
+          "longName": "ResetSuccess",
+          "fullName": "gnoi.factory_reset.ResetSuccess",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "StartRequest",
+          "longName": "StartRequest",
+          "fullName": "gnoi.factory_reset.StartRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "factory_os",
+              "description": "Instructs the Target to rollback the OS to the same version as it shipped\nfrom factory.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "zero_fill",
+              "description": "Instructs the Target to zero fill persistent storage state data.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "StartResponse",
+          "longName": "StartResponse",
+          "fullName": "gnoi.factory_reset.StartResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "reset_success",
+              "description": "Reset will be executed.",
+              "label": "",
+              "type": "ResetSuccess",
+              "longType": "ResetSuccess",
+              "fullType": "gnoi.factory_reset.ResetSuccess",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "reset_error",
+              "description": "Reset will not be executed.",
+              "label": "",
+              "type": "ResetError",
+              "longType": "ResetError",
+              "fullType": "gnoi.factory_reset.ResetError",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "FactoryReset",
+          "longName": "FactoryReset",
+          "fullName": "gnoi.factory_reset.FactoryReset",
+          "description": "The FactoryReset service exported by Targets.",
+          "methods": [
+            {
+              "name": "Start",
+              "description": "The Start RPC allows the Client to instruct the Target to immediately\nclean all existing state and boot the Target in the same condition as it is\nshipped from factory. State includes storage, configuration, logs,\ncertificates and licenses.\n\nOptionally allows rolling back the OS to the same version shipped from\nfactory.\n\nOptionally allows for the Target to zero-fill permanent storage where state\ndata is stored.\n\nIf any of the optional flags is set but not supported, a gRPC Status with\ncode INVALID_ARGUMENT must be returned with the details value set to a\nproperly populated ResetError message.",
+              "requestType": "StartRequest",
+              "requestLongType": "StartRequest",
+              "requestFullType": "gnoi.factory_reset.StartRequest",
+              "requestStreaming": false,
+              "responseType": "StartResponse",
+              "responseLongType": "StartResponse",
+              "responseFullType": "gnoi.factory_reset.StartResponse",
+              "responseStreaming": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

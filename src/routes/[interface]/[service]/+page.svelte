@@ -1,0 +1,305 @@
+<script>
+  import jQuery from "jquery";
+  import { onMount } from 'svelte';
+  import interfaces from '$lib/interfaces.json'
+
+  /** @type {import('./$types').PageData} */
+  export let data;
+  const p = data.interface;
+  const s = data.service;
+  const v = data.version;
+
+  const ov = Object.keys(interfaces[p].services[s].versions);
+  const vd = interfaces[p].services[s].versions[v];
+  const pd = data.protoDoc;
+  const files = pd.files;
+
+  onMount(() => {
+    // JQUERY CASE INSENSITIVE CONTAINS
+		jQuery.expr[":"].contains = function(a, i, m) {
+      return jQuery(a).text().toUpperCase()
+        .indexOf(m[3].toUpperCase()) >= 0;
+    };
+	});
+
+  // HASCOMPONENT LOOP
+  const iconLoop = function(component, color, text, kind) {
+    return component.map(v => ({...v, iconColor: color, iconText: text, subSection: kind}))
+  }
+
+  // CONVERT TO UPPERCASE
+  const toUpper = function(arg) {
+    return arg.toUpperCase();
+  }
+
+  // MENU TOGGLE
+  const toggleMenu = function() {
+    const menu = document.getElementsByClassName("menu")[0];
+    const menuIcon = document.getElementById("navMenuIcon");
+    const mcn = menu.className;
+    const fadeIn = "animate__fadeInLeft";
+    const fadeOut = "animate__fadeOutLeft";
+    if(mcn.includes(fadeIn)) {
+      menu.classList.remove(fadeIn);
+      menu.classList.add(fadeOut);
+      menuIcon.innerHTML= '<i class="fas fa-bars"></i>';
+    } else {
+      menu.classList.remove(fadeOut);
+      menu.classList.add(fadeIn);
+      menuIcon.innerHTML= '<i class="fas fa-times"></i>';
+    }
+  }
+
+  // CLEAR SEARCH
+  const clearSearch = function() {
+    document.getElementById("search").value = "";
+    searchSideMenu();
+  }
+
+  // SEARCH SIDE MENU
+  const searchSideMenu = function() {
+    const searchField = document.getElementById("search");
+    const menuItem = document.querySelectorAll("list-item");
+    var matches = jQuery(".menu-list").find("li:contains(" + searchField.value + ")");
+    jQuery("li", ".menu-list").not(matches).slideUp();
+    matches.slideDown();
+  }
+
+  files.forEach(entry => {
+    entry.all = [];
+    if(entry.hasServices) {
+      entry.all.push(iconLoop(entry.services, "is-link", "S", "services"));
+      delete entry.services;
+    }
+    if(entry.hasMessages) {
+      entry.all.push(iconLoop(entry.messages, "has-background-grey-lighter", "M", "messages"));
+      delete entry.messages;
+    }
+    if(entry.hasEnums) {
+      entry.all.push(iconLoop(entry.enums, "is-dark", "E", "enums"));
+      delete entry.enums;
+    }
+    if(entry.hasExtensions) {
+      entry.all.push(iconLoop(entry.extensions, "", "X", "extensions"));
+      delete entry.extensions;
+    }
+  })
+</script>
+
+<svelte:head>
+  <title>{interfaces[p].name} - {interfaces[p].services[s].name} Service v{v}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</svelte:head>
+
+<div class="overall">
+  <nav class="navbar is-fixed-top has-header-img">
+    <div class="navbar-brand">
+      <!-- svelte-ignore a11y-missing-attribute -->
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <a class="navbar-item has-text-white" id="navMenuIcon" on:click={toggleMenu}><i class="fas fa-times"></i></a>
+      <a class="navbar-item" href="../"><img src="/images/nwhite.png" width="65" alt="Logo"/></a>
+      <p class="navbar-item has-text-warning">{interfaces[p].services[s].name} Service</p>
+      <div class="navbar-item dropdown is-hoverable">
+        <div class="dropdown-trigger">
+          {#if ov.length > 1}
+            <!-- svelte-ignore a11y-missing-attribute -->
+            <a class="has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">v{v}</a>
+          {:else}
+            <p class="has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">v{v}</p>
+          {/if}
+        </div>
+        {#if ov.length > 0}
+          <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+              {#each ov as item}
+                {#if item !== v} <a data-sveltekit-reload class="navbar-item" href="{s}?version={item}">v{item}</a> {/if}
+              {/each}
+            </div>
+          </div>
+        {/if}
+      </div>
+      <div class="navbar-item">
+        <a class="has-text-white" href="{vd.source}">Source</a>
+      </div>
+      <div class="navbar-item">
+        <a class="has-text-white" href="{vd.documentation}">Documentation</a>
+      </div>
+    </div>
+  </nav>
+  
+  <aside class="menu box p-5 is-sticky-left animate__animated animate__fadeInLeft" on:animationend={clearSearch}>
+    <p class="menu-label">Table of Contents</p>
+    <div class="control">
+      <input class="input" type="text" placeholder="Search" id="search" on:keyup={searchSideMenu}>
+    </div>
+    <div class="menu-container mt-3 pt-2">
+      <ul class="menu-list">
+        {#each files as file}
+          {#each file.all as hasComponents}
+            {@const sectionName = hasComponents[0].subSection}
+            <li>
+              <a href="#{sectionName}" class="component-section has-text-weight-bold" on:click={toggleMenu}>{toUpper(sectionName)}</a>
+              <ul>
+                {#each hasComponents as item}
+                  <li>
+                    <a class="list-item" href="#{item.fullName}" on:click={toggleMenu}>
+                      <div class="level is-mobile">
+                        <div class="level-left">
+                          <div class="level-item"><span class="button is-small {item.iconColor} badge">{item.iconText}</span></div>
+                          <div class="level-item">{item.longName}</div>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                {/each}
+              </ul>
+            </li>
+          {/each}
+        {/each}
+      </ul>
+    </div>
+  </aside>
+  
+  <div class="main-page">
+    {#each files as file}
+      {#each file.all as hasComponents}
+        {@const sectionName = hasComponents[0].subSection}
+        <div class="hero">
+          <div class="hero-body">
+            <div class="container content">
+              <a id="{sectionName}" href="#{sectionName}" class="title is-6 scroll-mt">{toUpper(sectionName)}</a><hr/>
+              {#each hasComponents as item}
+                <p class="title is-6"><a class="service-item scroll-mt" id="{item.fullName}" href="#{item.fullName}">{item.longName}</a></p>
+                {#if item.description} <p>{item.description}</p> {/if}
+                <div class="table-container">
+                  <table class="table is-fullwidth"> 
+                    <thead class="has-background-light has-text-weight-bold">
+                      <tr>
+                        {#if item.methods}
+                          <td>Method Name</td>
+                          <td>Request Type</td>
+                          <td>Response Type</td>
+                          <td>Description</td>
+                        {:else if item.fields}
+                          <td>Field</td>
+                          <td>Type</td>
+                          <td>Label</td>
+                          <td>Description</td>
+                        {:else if item.values}
+                          <td>Name</td>
+                          <td>Number</td>
+                          <td>Description</td>
+                        {:else}
+                          <td>Extension</td>
+                          <td>Type</td>
+                          <td>Base</td>
+                          <td>Number</td>
+                          <td>Description</td>
+                        {/if}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {#if item.methods}
+                        {#each item.methods as z}
+                          <tr>
+                            <td>{z.name}</td>
+                            <td><a href="#{z.requestFullType}">{z.requestLongType}</a>{#if z.requestStreaming} stream {/if}</td>
+                            <td><a href="#{z.esponseFullType}">{z.responseLongType}</a>{#if z.responseStreaming} stream {/if}</td>
+                            <td><p>{z.description}</p></td>
+                          </tr>
+                        {/each}
+                      {:else if item.fields}
+                        {#each item.fields as z}
+                          <tr>
+                            <td>{z.name}</td>
+                            <td><a href="#{z.fullType}">{z.longType}</a></td>
+                            <td>{z.label}</td>
+                            <td>
+                              <p>
+                                {#if item.options && item.options == "deprecated"} <strong>Deprecated.</strong> {/if} 
+                                {z.description} {#if z.defaultValue} Default: {z.defaultValue} {/if}
+                              </p>
+                            </td>
+                          </tr>
+                        {/each}
+                      {:else if item.values}
+                        {#each item.values as z}
+                          <tr>
+                            <td>{z.name}</td>
+                            <td>{z.number}</td>
+                            <td>{z.description}</td>
+                          </tr>
+                        {/each}
+                      {:else}
+                        <tr>
+                          <td>{item.name}</td>
+                          <td><a href="#{item.fullType}">{item.longType}</a></td>
+                          <td><a href="#{item.containingFullType}">{item.containingLongType}</a></td>
+                          <td>{item.number}</td>
+                          <td>
+                            <p>{item.description} {#if item.defaultValue} Default: {item.defaultValue} {/if}</p>
+                          </td>
+                        </tr>
+                      {/if}
+                    </tbody>
+                  </table>
+                </div>
+              {/each}
+            </div>
+          </div>
+        </div>
+      {/each}
+    {/each}
+    <div class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <p class="title is-6"><a class="has-text-black" id="scalar-value-types" href="#scalar-value-types">SCALAR VALUE TYPES</a></p>
+          <div class="table-container">
+            <table class="table is-fullwidth">
+              <thead class="has-background-light has-text-weight-bold">
+                <tr>
+                  <td>Proto Type</td>
+                  <td>Notes</td>
+                  <td>C++</td>
+                  <td>Java</td>
+                  <td>Python</td>
+                  <td>Go</td>
+                  <td>C#</td>
+                  <td>PHP</td>
+                  <td>Ruby</td>
+                </tr>
+              </thead>
+              <tbody>
+                {#each pd.scalarValueTypes as svt}
+                  <tr id="{svt.protoType}">
+                    <td>{svt.protoType}</td>
+                    <td>{svt.notes}</td>
+                    <td>{svt.cppType}</td>
+                    <td>{svt.javaType}</td>
+                    <td>{svt.pythonType}</td>
+                    <td>{svt.goType}</td>
+                    <td>{svt.cSharp}</td>
+                    <td>{svt.phpType}</td>
+                    <td>{svt.rubyType}</td>
+                  </tr>
+                {/each}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero is-small is-light">
+      <div class="hero-body">
+        <div class="container has-text-centered is-fluid">
+          <p>Created by
+            <a class="has-text-link" href="https://www.linkedin.com/in/siva19susi" target="_blank">Siva Sivakumar</a> /
+            <a class="has-text-link" href="https://www.linkedin.com/in/rdodin" target="_blank">Roman Dodin</a> /
+            <a class="has-text-link" href="https://github.com/srl-labs" target="_blank"><i class="fab fa-github"></i>
+              srl-labs</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

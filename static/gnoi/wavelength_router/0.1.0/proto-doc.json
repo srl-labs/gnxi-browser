@@ -1,0 +1,688 @@
+{
+  "files": [
+    {
+      "name": "wavelength_router.proto",
+      "description": "",
+      "package": "gnoi.optical",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [
+        {
+          "name": "Type",
+          "longName": "AdjustPSDError.Type",
+          "fullName": "gnoi.optical.AdjustPSDError.Type",
+          "description": "",
+          "values": [
+            {
+              "name": "UNSPECIFIED",
+              "number": "0",
+              "description": "An unspecified error. Must use the detail value to describe the issue."
+            },
+            {
+              "name": "PORT_BUSY",
+              "number": "1",
+              "description": "An adjustment was requested for a port that is busy (e.g., requesting\ninput adjustment for a port that is currently running an output\nadjustment)"
+            },
+            {
+              "name": "HARDWARE_FAILURE",
+              "number": "2",
+              "description": "The hardware has failed and cannot complete an adjustment."
+            }
+          ]
+        },
+        {
+          "name": "State",
+          "longName": "AdjustPSDProgress.State",
+          "fullName": "gnoi.optical.AdjustPSDProgress.State",
+          "description": "",
+          "values": [
+            {
+              "name": "UNKNOWN",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "RUNNING",
+              "number": "1",
+              "description": "The PSD adjustment is running."
+            },
+            {
+              "name": "COMPLETE",
+              "number": "2",
+              "description": "The PSD adjustment completed successfully."
+            }
+          ]
+        },
+        {
+          "name": "SignalDirection",
+          "longName": "AdjustPSDRequest.SignalDirection",
+          "fullName": "gnoi.optical.AdjustPSDRequest.SignalDirection",
+          "description": "",
+          "values": [
+            {
+              "name": "DIRECTION_UNKNOWN",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "DIRECTION_INPUT",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "DIRECTION_OUTPUT",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Type",
+          "longName": "AdjustSpectrumError.Type",
+          "fullName": "gnoi.optical.AdjustSpectrumError.Type",
+          "description": "",
+          "values": [
+            {
+              "name": "UNSPECIFIED",
+              "number": "0",
+              "description": "An unspecified error. Must use the detail value to describe the issue."
+            },
+            {
+              "name": "PORT_BUSY",
+              "number": "1",
+              "description": "An adjustment was requested for a port that is busy (e.g., requesting\ninput adjustment for a port that is currently running an output\nadjustment)"
+            },
+            {
+              "name": "HARDWARE_FAILURE",
+              "number": "2",
+              "description": "The hardware has failed and cannot complete an adjustment."
+            }
+          ]
+        },
+        {
+          "name": "State",
+          "longName": "AdjustSpectrumProgress.State",
+          "fullName": "gnoi.optical.AdjustSpectrumProgress.State",
+          "description": "",
+          "values": [
+            {
+              "name": "UNKNOWN",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "RUNNING",
+              "number": "1",
+              "description": "The spectrum adjustment is running."
+            },
+            {
+              "name": "COMPLETE",
+              "number": "2",
+              "description": "The spectrum adjustment completed successfully."
+            }
+          ]
+        },
+        {
+          "name": "SignalDirection",
+          "longName": "AdjustSpectrumRequest.SignalDirection",
+          "fullName": "gnoi.optical.AdjustSpectrumRequest.SignalDirection",
+          "description": "",
+          "values": [
+            {
+              "name": "DIRECTION_UNKNOWN",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "DIRECTION_INPUT",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "DIRECTION_OUTPUT",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "AdjustPSDError",
+          "longName": "AdjustPSDError",
+          "fullName": "gnoi.optical.AdjustPSDError",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "type",
+              "description": "",
+              "label": "",
+              "type": "Type",
+              "longType": "AdjustPSDError.Type",
+              "fullType": "gnoi.optical.AdjustPSDError.Type",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "detail",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ],
+          "options": {
+            "deprecated": true
+          }
+        },
+        {
+          "name": "AdjustPSDProgress",
+          "longName": "AdjustPSDProgress",
+          "fullName": "gnoi.optical.AdjustPSDProgress",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "state",
+              "description": "The state of the OTDR trace requested. Note that this does not include\nerror states as these should be returned as a gRPC error.",
+              "label": "",
+              "type": "State",
+              "longType": "AdjustPSDProgress.State",
+              "fullType": "gnoi.optical.AdjustPSDProgress.State",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ],
+          "options": {
+            "deprecated": true
+          }
+        },
+        {
+          "name": "AdjustPSDRequest",
+          "longName": "AdjustPSDRequest",
+          "fullName": "gnoi.optical.AdjustPSDRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "component",
+              "description": "Absolute path to the /components/component list member in the OpenConfig\nmodel corresponding to the port to perform the adjustment for.\n(e.g., /components/component[name=amp-1-1])",
+              "label": "",
+              "type": "Path",
+              "longType": "gnoi.types.Path",
+              "fullType": "gnoi.types.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "direction",
+              "description": "Describes the signal direction that should be adjusted relative to the\ndevice. For example, \"input\" would be the signal entering into the device\nfrom the far end device.",
+              "label": "",
+              "type": "SignalDirection",
+              "longType": "AdjustPSDRequest.SignalDirection",
+              "fullType": "gnoi.optical.AdjustPSDRequest.SignalDirection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ],
+          "options": {
+            "deprecated": true
+          }
+        },
+        {
+          "name": "AdjustPSDResponse",
+          "longName": "AdjustPSDResponse",
+          "fullName": "gnoi.optical.AdjustPSDResponse",
+          "description": "AdjustPSDResponse describes the possible response messages that will be\nstreamed after the RPC is initiated. While the OTDR is running,\n\"progress\" messages should be sent at a regular interval. When the\nadjustment is completed, an \"error\" message should be streamed if an\nerror is encountered or the RPC should be terminated on success.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "progress",
+              "description": "",
+              "label": "",
+              "type": "AdjustPSDProgress",
+              "longType": "AdjustPSDProgress",
+              "fullType": "gnoi.optical.AdjustPSDProgress",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "error",
+              "description": "",
+              "label": "",
+              "type": "AdjustPSDError",
+              "longType": "AdjustPSDError",
+              "fullType": "gnoi.optical.AdjustPSDError",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            }
+          ],
+          "options": {
+            "deprecated": true
+          }
+        },
+        {
+          "name": "AdjustSpectrumError",
+          "longName": "AdjustSpectrumError",
+          "fullName": "gnoi.optical.AdjustSpectrumError",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "type",
+              "description": "",
+              "label": "",
+              "type": "Type",
+              "longType": "AdjustSpectrumError.Type",
+              "fullType": "gnoi.optical.AdjustSpectrumError.Type",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "detail",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AdjustSpectrumProgress",
+          "longName": "AdjustSpectrumProgress",
+          "fullName": "gnoi.optical.AdjustSpectrumProgress",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "state",
+              "description": "The state of the OTDR trace requested. Note that this does not include\nerror states as these should be returned as a gRPC error.",
+              "label": "",
+              "type": "State",
+              "longType": "AdjustSpectrumProgress.State",
+              "fullType": "gnoi.optical.AdjustSpectrumProgress.State",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AdjustSpectrumRequest",
+          "longName": "AdjustSpectrumRequest",
+          "fullName": "gnoi.optical.AdjustSpectrumRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "component",
+              "description": "Absolute path to the /components/component list member in the OpenConfig\nmodel corresponding to the port to perform the adjustment for.\n(e.g., /components/component[name=wavelength-router-1-1])",
+              "label": "",
+              "type": "Path",
+              "longType": "gnoi.types.Path",
+              "fullType": "gnoi.types.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "direction",
+              "description": "Describes the signal direction that should be adjusted relative to the\ndevice. For example, \"input\" would be the signal entering into the device\nfrom the far end device.",
+              "label": "",
+              "type": "SignalDirection",
+              "longType": "AdjustSpectrumRequest.SignalDirection",
+              "fullType": "gnoi.optical.AdjustSpectrumRequest.SignalDirection",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AdjustSpectrumResponse",
+          "longName": "AdjustSpectrumResponse",
+          "fullName": "gnoi.optical.AdjustSpectrumResponse",
+          "description": "AdjustSpectrumResponse describes the possible response messages that will be\nstreamed after the RPC is initiated. While the OTDR is running,\n\"progress\" messages should be sent at a regular interval. When the\nadjustment is completed, an \"error\" message should be streamed if an\nerror is encountered or the RPC should be terminated on success.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "progress",
+              "description": "",
+              "label": "",
+              "type": "AdjustSpectrumProgress",
+              "longType": "AdjustSpectrumProgress",
+              "fullType": "gnoi.optical.AdjustSpectrumProgress",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "error",
+              "description": "",
+              "label": "",
+              "type": "AdjustSpectrumError",
+              "longType": "AdjustSpectrumError",
+              "fullType": "gnoi.optical.AdjustSpectrumError",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CancelAdjustPSDResponse",
+          "longName": "CancelAdjustPSDResponse",
+          "fullName": "gnoi.optical.CancelAdjustPSDResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [],
+          "options": {
+            "deprecated": true
+          }
+        },
+        {
+          "name": "CancelAdjustSpectrumResponse",
+          "longName": "CancelAdjustSpectrumResponse",
+          "fullName": "gnoi.optical.CancelAdjustSpectrumResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        }
+      ],
+      "services": [
+        {
+          "name": "WavelengthRouter",
+          "longName": "WavelengthRouter",
+          "fullName": "gnoi.optical.WavelengthRouter",
+          "description": "",
+          "methods": [
+            {
+              "name": "AdjustPSD",
+              "description": "AdjustPSD performs a power spectral density (PSD) adjustment on an optical\nDWDM line system port.\n\nThis RPC's initial message triggers adjustments. The target should validate\nthe request, and immediately begin the adjustment as long as another\nadjustment is not already running. As this RPC may take multiple minutes,\nthe state should be regularly streamed to the client. The operation should\nbe completed on the device regardless of the state of the RPC channel to\nthe initiating client. A client that becomes disconnected during an\noperation can reconnect, requesting the same operation, and receive status\nupdates this way. There is no means by which an adjustment that has been\ntriggered by a client can be cancelled unless the CancelAdjustPSD RPC is\nused.\nDEPRECATED, use AdjustSpectrum.",
+              "requestType": "AdjustPSDRequest",
+              "requestLongType": "AdjustPSDRequest",
+              "requestFullType": "gnoi.optical.AdjustPSDRequest",
+              "requestStreaming": false,
+              "responseType": "AdjustPSDResponse",
+              "responseLongType": "AdjustPSDResponse",
+              "responseFullType": "gnoi.optical.AdjustPSDResponse",
+              "responseStreaming": true,
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "CancelAdjustPSD",
+              "description": "CancelAdjustPSD cancels an in-progress AdjustPSD request. If an\nadjustment is not being performed for the provided request, then the RPC\nshould return successfully.\nDEPRECATED, use CancelAdjustSpectrum.",
+              "requestType": "AdjustPSDRequest",
+              "requestLongType": "AdjustPSDRequest",
+              "requestFullType": "gnoi.optical.AdjustPSDRequest",
+              "requestStreaming": false,
+              "responseType": "CancelAdjustPSDResponse",
+              "responseLongType": "CancelAdjustPSDResponse",
+              "responseFullType": "gnoi.optical.CancelAdjustPSDResponse",
+              "responseStreaming": false,
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "AdjustSpectrum",
+              "description": "AdjustSpectrum performs a spectrum power adjustment on an optical\nDWDM line system port.\n\nThis RPC's initial message triggers adjustments. The target should validate\nthe request, and immediately begin the adjustment as long as another\nadjustment is not already running. As this RPC may take multiple minutes,\nthe state should be regularly streamed to the client. The operation should\nbe completed on the device regardless of the state of the RPC channel to\nthe initiating client. A client that becomes disconnected during an\noperation can reconnect, requesting the same operation, and receive status\nupdates this way. There is no means by which an adjustment that has been\ntriggered by a client can be cancelled unless the CancelAdjustSpectrum\nRPC is used.",
+              "requestType": "AdjustSpectrumRequest",
+              "requestLongType": "AdjustSpectrumRequest",
+              "requestFullType": "gnoi.optical.AdjustSpectrumRequest",
+              "requestStreaming": false,
+              "responseType": "AdjustSpectrumResponse",
+              "responseLongType": "AdjustSpectrumResponse",
+              "responseFullType": "gnoi.optical.AdjustSpectrumResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "CancelAdjustSpectrum",
+              "description": "CancelAdjustSpectrum cancels an in-progress AdjustSpectrum request. If an\nadjustment is not being performed for the provided request, then the RPC\nshould return successfully.",
+              "requestType": "AdjustSpectrumRequest",
+              "requestLongType": "AdjustSpectrumRequest",
+              "requestFullType": "gnoi.optical.AdjustSpectrumRequest",
+              "requestStreaming": false,
+              "responseType": "CancelAdjustSpectrumResponse",
+              "responseLongType": "CancelAdjustSpectrumResponse",
+              "responseFullType": "gnoi.optical.CancelAdjustSpectrumResponse",
+              "responseStreaming": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

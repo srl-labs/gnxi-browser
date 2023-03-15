@@ -1,0 +1,412 @@
+{
+  "files": [
+    {
+      "name": "authorization.proto",
+      "description": "Authorization for gnXi operations.\n\nCopyright 2022 Google LLC\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    https://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\nDefine a list of policies, where the most specific policy is applied\non the device authorizing the action.\n\nUsers may be referenced by user name, or as a group with a group name.\nGroups are defined and managed in the authorization policy itself.\n\nPaths may be referenced in whole or in complete parts, ie:\n  /interfaces/interface[name=Ethernet1/2/3]/state/counters\n  /interfaces/interface[name=*]/state/oper-status\n  /network-instances/network-instance/tables/table[proto=BGP][family=*]\n\nPaths are gnmi.Path protobufs.\n\nThe most specific match is returned for a request, this means the longest\npath and the most specific user match (user preferred over group).\n\nAdditionally, the policy maintains a timestamp of creation\nand version number from the underlying version control system.\nThe version/timestamp are available to requestors to verify which version\nof policy is being applied at the time of the request.",
+      "package": "gnsi.pathz",
+      "hasEnums": true,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [
+        {
+          "name": "Action",
+          "longName": "Action",
+          "fullName": "gnsi.pathz.Action",
+          "description": "Action is the defined action for an AuthorizationPolicy.",
+          "values": [
+            {
+              "name": "ACTION_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "ACTION_DENY",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "ACTION_PERMIT",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Mode",
+          "longName": "Mode",
+          "fullName": "gnsi.pathz.Mode",
+          "description": "Mode is:\n  READ: Ability to read/subscribe to data from the model.\n  WRITE: Ability to mutate/write updates to data in the model.",
+          "values": [
+            {
+              "name": "MODE_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "MODE_READ",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "MODE_WRITE",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "AuthorizationPolicy",
+          "longName": "AuthorizationPolicy",
+          "fullName": "gnsi.pathz.AuthorizationPolicy",
+          "description": "AuthorizationPolicy includes rules and user/group information.\nThe service which updates the policies will provide both a\n  created_on - int64 - seconds since Jan 01 1970 00:00:00\n  version - string - unique among the implementation's policies deployed.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "rules",
+              "description": "",
+              "label": "repeated",
+              "type": "AuthorizationRule",
+              "longType": "AuthorizationRule",
+              "fullType": "gnsi.pathz.AuthorizationRule",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "groups",
+              "description": "Groups of usernames collected for simplicity of policy expression.",
+              "label": "repeated",
+              "type": "Group",
+              "longType": "Group",
+              "fullType": "gnsi.pathz.Group",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AuthorizationRule",
+          "longName": "AuthorizationRule",
+          "fullName": "gnsi.pathz.AuthorizationRule",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "Policy Identifier, a unique string per policy/rule, eg: uuid.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "user",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "principal",
+              "defaultValue": ""
+            },
+            {
+              "name": "group",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "principal",
+              "defaultValue": ""
+            },
+            {
+              "name": "path",
+              "description": "Path is the request path, longest prefix (by path elements from left\nto right).",
+              "label": "",
+              "type": "Path",
+              "longType": "gnmi.Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "action",
+              "description": "Permit or deny the user/group access to the path specified.",
+              "label": "",
+              "type": "Action",
+              "longType": "Action",
+              "fullType": "gnsi.pathz.Action",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "mode",
+              "description": "Permit Read or Write access to the path specified.",
+              "label": "",
+              "type": "Mode",
+              "longType": "Mode",
+              "fullType": "gnsi.pathz.Mode",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Group",
+          "longName": "Group",
+          "fullName": "gnsi.pathz.Group",
+          "description": "Group is a group of users, groups are a construct of the policy configuration\nas a method to collect many users with the same authorizations together.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "users",
+              "description": "",
+              "label": "repeated",
+              "type": "User",
+              "longType": "User",
+              "fullType": "gnsi.pathz.User",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "User",
+          "longName": "User",
+          "fullName": "gnsi.pathz.User",
+          "description": "User is a singular username used only in the matching criteria.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": []
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

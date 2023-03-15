@@ -1,0 +1,1581 @@
+{
+  "files": [
+    {
+      "name": "system.proto",
+      "description": "",
+      "package": "gnoi.system",
+      "hasEnums": true,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [
+        {
+          "name": "Signal",
+          "longName": "KillProcessRequest.Signal",
+          "fullName": "gnoi.system.KillProcessRequest.Signal",
+          "description": "Termination signal sent to the process.",
+          "values": [
+            {
+              "name": "SIGNAL_UNSPECIFIED",
+              "number": "0",
+              "description": "Invalid default."
+            },
+            {
+              "name": "SIGNAL_TERM",
+              "number": "1",
+              "description": "Terminate the process gracefully."
+            },
+            {
+              "name": "SIGNAL_KILL",
+              "number": "2",
+              "description": "Terminate the process immediately."
+            },
+            {
+              "name": "SIGNAL_HUP",
+              "number": "3",
+              "description": "Reload the process configuration."
+            },
+            {
+              "name": "SIGNAL_ABRT",
+              "number": "4",
+              "description": "Terminate the process immediately and dump a core file."
+            }
+          ]
+        },
+        {
+          "name": "RebootMethod",
+          "longName": "RebootMethod",
+          "fullName": "gnoi.system.RebootMethod",
+          "description": "A RebootMethod determines what should be done with a target when a Reboot is\nrequested.  Only the COLD method is required to be supported by all\ntargets.  Methods the target does not support should result in failure.\n\nIt is vendor defined if a WARM reboot is the same as an NSF reboot.",
+          "values": [
+            {
+              "name": "UNKNOWN",
+              "number": "0",
+              "description": "Invalid default method."
+            },
+            {
+              "name": "COLD",
+              "number": "1",
+              "description": "Shutdown and restart OS and all hardware."
+            },
+            {
+              "name": "POWERDOWN",
+              "number": "2",
+              "description": "Halt and power down, if possible."
+            },
+            {
+              "name": "HALT",
+              "number": "3",
+              "description": "Halt, if possible."
+            },
+            {
+              "name": "WARM",
+              "number": "4",
+              "description": "Reload configuration but not underlying hardware."
+            },
+            {
+              "name": "NSF",
+              "number": "5",
+              "description": "Non-stop-forwarding reboot, if possible."
+            },
+            {
+              "name": "POWERUP",
+              "number": "7",
+              "description": "Apply power, no-op if power is already on."
+            }
+          ]
+        },
+        {
+          "name": "L4Protocol",
+          "longName": "TracerouteRequest.L4Protocol",
+          "fullName": "gnoi.system.TracerouteRequest.L4Protocol",
+          "description": "",
+          "values": [
+            {
+              "name": "ICMP",
+              "number": "0",
+              "description": "Use ICMP ECHO for probes."
+            },
+            {
+              "name": "TCP",
+              "number": "1",
+              "description": "Use TCP SYN for probes."
+            },
+            {
+              "name": "UDP",
+              "number": "2",
+              "description": "Use UDP for probes."
+            }
+          ]
+        },
+        {
+          "name": "State",
+          "longName": "TracerouteResponse.State",
+          "fullName": "gnoi.system.TracerouteResponse.State",
+          "description": "State is the resulting state of a single traceoroute packet.",
+          "values": [
+            {
+              "name": "DEFAULT",
+              "number": "0",
+              "description": "Normal hop response."
+            },
+            {
+              "name": "NONE",
+              "number": "1",
+              "description": "No response."
+            },
+            {
+              "name": "UNKNOWN",
+              "number": "2",
+              "description": "Unknown response state."
+            },
+            {
+              "name": "ICMP",
+              "number": "3",
+              "description": "See icmp_code field."
+            },
+            {
+              "name": "HOST_UNREACHABLE",
+              "number": "4",
+              "description": "Host unreachable."
+            },
+            {
+              "name": "NETWORK_UNREACHABLE",
+              "number": "5",
+              "description": "Network unreachable."
+            },
+            {
+              "name": "PROTOCOL_UNREACHABLE",
+              "number": "6",
+              "description": "Protocol unreachable."
+            },
+            {
+              "name": "SOURCE_ROUTE_FAILED",
+              "number": "7",
+              "description": "Source route failed."
+            },
+            {
+              "name": "FRAGMENTATION_NEEDED",
+              "number": "8",
+              "description": "Fragmentation needed."
+            },
+            {
+              "name": "PROHIBITED",
+              "number": "9",
+              "description": "Communication administratively prohibited."
+            },
+            {
+              "name": "PRECEDENCE_VIOLATION",
+              "number": "10",
+              "description": "Host precedence violation."
+            },
+            {
+              "name": "PRECEDENCE_CUTOFF",
+              "number": "11",
+              "description": "Precedence cutoff in  effect."
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "CancelRebootRequest",
+          "longName": "CancelRebootRequest",
+          "fullName": "gnoi.system.CancelRebootRequest",
+          "description": "A CancelRebootRequest requests the cancelation of any outstanding reboot\nrequest.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "message",
+              "description": "informational reason for the cancel",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "subcomponents",
+              "description": "optional sub-components.",
+              "label": "repeated",
+              "type": "Path",
+              "longType": "gnoi.types.Path",
+              "fullType": "gnoi.types.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CancelRebootResponse",
+          "longName": "CancelRebootResponse",
+          "fullName": "gnoi.system.CancelRebootResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "KillProcessRequest",
+          "longName": "KillProcessRequest",
+          "fullName": "gnoi.system.KillProcessRequest",
+          "description": "KillProcessRequest describes the process kill operation. Either a pid or\nprocess name must be specified, and a termination signal must be specified.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "pid",
+              "description": "Process ID of the process to be killed.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "name",
+              "description": "Name of the process to be killed.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "signal",
+              "description": "",
+              "label": "",
+              "type": "Signal",
+              "longType": "KillProcessRequest.Signal",
+              "fullType": "gnoi.system.KillProcessRequest.Signal",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "restart",
+              "description": "Whether the process should be restarted after termination.\nThis value is ignored when the termination signal is SIGHUP.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "KillProcessResponse",
+          "longName": "KillProcessResponse",
+          "fullName": "gnoi.system.KillProcessResponse",
+          "description": "KillProcessResponse describes the result of the process kill operation.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "Package",
+          "longName": "Package",
+          "fullName": "gnoi.system.Package",
+          "description": "Package defines a single package file to be placed on the target.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "filename",
+              "description": "Destination path and filename of the package.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "version",
+              "description": "Version of the package. (vendor internal name)",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "activate",
+              "description": "Indicates that the package should be made active after receipt on\nthe device. For system image packages, the new image is expected to\nbe active after a reboot.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "remote_download",
+              "description": "Details for the device to download the package from a remote location.",
+              "label": "",
+              "type": "RemoteDownload",
+              "longType": "gnoi.common.RemoteDownload",
+              "fullType": "gnoi.common.RemoteDownload",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PingRequest",
+          "longName": "PingRequest",
+          "fullName": "gnoi.system.PingRequest",
+          "description": "A PingRequest describes the ping operation to perform.  Only the destination\nfields is required.  Any field not specified is set to a reasonable server\nspecified value.  Not all fields are supported by all vendors.\n\nA count of 0 defaults to a vendor specified value, typically 5.  A count of\n-1 means continue until the RPC times out or is canceled.\n\nIf the interval is -1 then a flood ping is issued.\n\nIf the size is 0, the vendor default size will be used (typically 56 bytes).",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "destination",
+              "description": "Destination address to ping. required.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "source",
+              "description": "Source address to ping from.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "count",
+              "description": "Number of packets.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "interval",
+              "description": "Nanoseconds between requests.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "wait",
+              "description": "Nanoseconds to wait for a response.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "size",
+              "description": "Size of request packet. (excluding ICMP header)",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "do_not_fragment",
+              "description": "Set the do not fragment bit. (IPv4 destinations)",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "do_not_resolve",
+              "description": "Do not try resolve the address returned.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "l3protocol",
+              "description": "Layer3 protocol requested for the ping.",
+              "label": "",
+              "type": "L3Protocol",
+              "longType": "gnoi.types.L3Protocol",
+              "fullType": "gnoi.types.L3Protocol",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PingResponse",
+          "longName": "PingResponse",
+          "fullName": "gnoi.system.PingResponse",
+          "description": "A PingResponse represents either the reponse to a single ping packet\n(the bytes field is non-zero) or the summary statistics (sent is non-zero).\n\nFor a single ping packet, time is the round trip time, in nanoseconds.  For\nsummary statistics, it is the time spent by the ping operation.  The time is\nnot always present in summary statistics.  The std_dev is not always present\nin summary statistics.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "source",
+              "description": "Source of received bytes.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "time",
+              "description": "",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sent",
+              "description": "Total packets sent.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "received",
+              "description": "Total packets received.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "min_time",
+              "description": "Minimum round trip time in nanoseconds.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "avg_time",
+              "description": "Average round trip time in nanoseconds.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "max_time",
+              "description": "Maximum round trip time in nanoseconds.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "std_dev",
+              "description": "Standard deviation in round trip time.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "bytes",
+              "description": "Bytes received.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sequence",
+              "description": "Sequence number of received packet.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ttl",
+              "description": "Remaining time to live value.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RebootRequest",
+          "longName": "RebootRequest",
+          "fullName": "gnoi.system.RebootRequest",
+          "description": "A RebootRequest requests the specified target be rebooted using the specified\nmethod after the specified delay.  Only the DEFAULT method with a delay of 0\nis guaranteed to be accepted for all target types.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "method",
+              "description": "",
+              "label": "",
+              "type": "RebootMethod",
+              "longType": "RebootMethod",
+              "fullType": "gnoi.system.RebootMethod",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "delay",
+              "description": "Delay in nanoseconds before issuing reboot.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "message",
+              "description": "Informational reason for the reboot.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "subcomponents",
+              "description": "Optional sub-components to reboot.",
+              "label": "repeated",
+              "type": "Path",
+              "longType": "gnoi.types.Path",
+              "fullType": "gnoi.types.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "force",
+              "description": "Force reboot if sanity checks fail. (ex. uncommited configuration)",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RebootResponse",
+          "longName": "RebootResponse",
+          "fullName": "gnoi.system.RebootResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "RebootStatusRequest",
+          "longName": "RebootStatusRequest",
+          "fullName": "gnoi.system.RebootStatusRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "subcomponents",
+              "description": "optional sub-component.",
+              "label": "repeated",
+              "type": "Path",
+              "longType": "gnoi.types.Path",
+              "fullType": "gnoi.types.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RebootStatusResponse",
+          "longName": "RebootStatusResponse",
+          "fullName": "gnoi.system.RebootStatusResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "active",
+              "description": "If reboot is active.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "wait",
+              "description": "Time left until reboot.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "when",
+              "description": "Time to reboot in nanoseconds since the epoch.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "reason",
+              "description": "Reason for reboot.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "count",
+              "description": "Number of reboots since active.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SetPackageRequest",
+          "longName": "SetPackageRequest",
+          "fullName": "gnoi.system.SetPackageRequest",
+          "description": "SetPackageRequest will place the package onto the target and optionally mark\nit as the next bootable image. The initial message must be a package\nmessage containing the filename and information about the file. Following the\ninitial message the contents are then streamed in maximum 64k chunks. The\nfinal message must be a hash message contains the hash of the file contents.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "package",
+              "description": "",
+              "label": "",
+              "type": "Package",
+              "longType": "Package",
+              "fullType": "gnoi.system.Package",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "contents",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "hash",
+              "description": "Verification hash of data.",
+              "label": "",
+              "type": "HashType",
+              "longType": "gnoi.types.HashType",
+              "fullType": "gnoi.types.HashType",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SetPackageResponse",
+          "longName": "SetPackageResponse",
+          "fullName": "gnoi.system.SetPackageResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "SwitchControlProcessorRequest",
+          "longName": "SwitchControlProcessorRequest",
+          "fullName": "gnoi.system.SwitchControlProcessorRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "control_processor",
+              "description": "",
+              "label": "",
+              "type": "Path",
+              "longType": "gnoi.types.Path",
+              "fullType": "gnoi.types.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SwitchControlProcessorResponse",
+          "longName": "SwitchControlProcessorResponse",
+          "fullName": "gnoi.system.SwitchControlProcessorResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "control_processor",
+              "description": "",
+              "label": "",
+              "type": "Path",
+              "longType": "gnoi.types.Path",
+              "fullType": "gnoi.types.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "version",
+              "description": "Current software version.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "uptime",
+              "description": "Uptime in nanoseconds since epoch.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TimeRequest",
+          "longName": "TimeRequest",
+          "fullName": "gnoi.system.TimeRequest",
+          "description": "A TimeRequest requests the current time accodring to the target.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "TimeResponse",
+          "longName": "TimeResponse",
+          "fullName": "gnoi.system.TimeResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "time",
+              "description": "Current time in nanoseconds since epoch.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TracerouteRequest",
+          "longName": "TracerouteRequest",
+          "fullName": "gnoi.system.TracerouteRequest",
+          "description": "A TracerouteRequest describes the traceroute operation to perform.  Only the\ndestination field is required.  Any field not specified is set to a\nreasonable server specified value.  Not all fields are supported by all\nvendors.\n\nIf the hop_count is -1 the traceroute will continue forever.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "source",
+              "description": "Source address to ping from.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "destination",
+              "description": "Destination address to ping.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "initial_ttl",
+              "description": "Initial TTL. (default=1)",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "max_ttl",
+              "description": "Maximum number of hops. (default=30)",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "wait",
+              "description": "Nanoseconds to wait for a response.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "do_not_fragment",
+              "description": "Set the do not fragment bit. (IPv4 destinations)",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "do_not_resolve",
+              "description": "Do not try resolve the address returned.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "l3protocol",
+              "description": "Layer-3 protocol requested for the ping.",
+              "label": "",
+              "type": "L3Protocol",
+              "longType": "gnoi.types.L3Protocol",
+              "fullType": "gnoi.types.L3Protocol",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "l4protocol",
+              "description": "",
+              "label": "",
+              "type": "L4Protocol",
+              "longType": "TracerouteRequest.L4Protocol",
+              "fullType": "gnoi.system.TracerouteRequest.L4Protocol",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "do_not_lookup_asn",
+              "description": "Do not try to lookup ASN",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TracerouteResponse",
+          "longName": "TracerouteResponse",
+          "fullName": "gnoi.system.TracerouteResponse",
+          "description": "A TraceRouteResponse contains the result of a single traceoute packet.\n\nThere may be an optional initial response that provides information about the\ntraceroute request itself and contains at least one of the fields in the the\ninitial block of fields and none of the fields following that block.  All\nsubsequent responses should not contain any of these fields.\n\nTypically multiple responses are received for each hop, as the packets are\nreceived.\n\nThe mpls field maps names to values.  Example names include \"Label\", \"CoS\",\n\"TTL\", \"S\", and \"MRU\".\n[Perhaps we should list the canonical names that must be used when\napplicable].",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "destination_name",
+              "description": "The following fields are only filled in for the first message.\nIf any of these fields are specified, all fields following this\nblock are left unspecified.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "destination_address",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "hops",
+              "description": "",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "packet_size",
+              "description": "",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "hop",
+              "description": "The following fields provide the disposition of a single traceroute\npacket.\n\nHop number. required.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "address",
+              "description": "Address of responding hop. required.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "name",
+              "description": "Name of responding hop.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "rtt",
+              "description": "Round trip time in nanoseconds.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "state",
+              "description": "State of this hop.",
+              "label": "",
+              "type": "State",
+              "longType": "TracerouteResponse.State",
+              "fullType": "gnoi.system.TracerouteResponse.State",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "icmp_code",
+              "description": "Code terminating hop.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "mpls",
+              "description": "MPLS key/value pairs.",
+              "label": "repeated",
+              "type": "MplsEntry",
+              "longType": "TracerouteResponse.MplsEntry",
+              "fullType": "gnoi.system.TracerouteResponse.MplsEntry",
+              "ismap": true,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "as_path",
+              "description": "AS path.",
+              "label": "repeated",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MplsEntry",
+          "longName": "TracerouteResponse.MplsEntry",
+          "fullName": "gnoi.system.TracerouteResponse.MplsEntry",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "System",
+          "longName": "System",
+          "fullName": "gnoi.system.System",
+          "description": "The gNOI service is a collection of operational RPC's that allow for the\nmanagement of a target outside of the configuration and telemetry pipeline.",
+          "methods": [
+            {
+              "name": "Ping",
+              "description": "Ping executes the ping command on the target and streams back\nthe results.  Some targets may not stream any results until all\nresults are in.  The stream should provide single ping packet responses\nand must provide summary statistics.",
+              "requestType": "PingRequest",
+              "requestLongType": "PingRequest",
+              "requestFullType": "gnoi.system.PingRequest",
+              "requestStreaming": false,
+              "responseType": "PingResponse",
+              "responseLongType": "PingResponse",
+              "responseFullType": "gnoi.system.PingResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "Traceroute",
+              "description": "Traceroute executes the traceroute command on the target and streams back\nthe results.  Some targets may not stream any results until all\nresults are in.  If a hop count is not explicitly provided,\n30 is used.",
+              "requestType": "TracerouteRequest",
+              "requestLongType": "TracerouteRequest",
+              "requestFullType": "gnoi.system.TracerouteRequest",
+              "requestStreaming": false,
+              "responseType": "TracerouteResponse",
+              "responseLongType": "TracerouteResponse",
+              "responseFullType": "gnoi.system.TracerouteResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "Time",
+              "description": "Time returns the current time on the target.  Time is typically used to\ntest if a target is actually responding.",
+              "requestType": "TimeRequest",
+              "requestLongType": "TimeRequest",
+              "requestFullType": "gnoi.system.TimeRequest",
+              "requestStreaming": false,
+              "responseType": "TimeResponse",
+              "responseLongType": "TimeResponse",
+              "responseFullType": "gnoi.system.TimeResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "SetPackage",
+              "description": "SetPackage places a software package (possibly including bootable images)\non the target. The file is sent in sequential messages, each message\nup to 64KB of data. A final message must be sent that includes the hash\nof the data sent. An error is returned if the location does not exist or\nthere is an error writing the data. If no checksum is received, the target\nmust assume the operation is incomplete and remove the partially\ntransmitted file. The target should initially write the file to a temporary\nlocation so a failure does not destroy the original file.",
+              "requestType": "SetPackageRequest",
+              "requestLongType": "SetPackageRequest",
+              "requestFullType": "gnoi.system.SetPackageRequest",
+              "requestStreaming": true,
+              "responseType": "SetPackageResponse",
+              "responseLongType": "SetPackageResponse",
+              "responseFullType": "gnoi.system.SetPackageResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "SwitchControlProcessor",
+              "description": "SwitchControlProcessor will switch from the current route processor to the\nprovided route processor. If the current route processor is the same as the\none provided it is a NOOP. If the target does not exist an error is\nreturned.",
+              "requestType": "SwitchControlProcessorRequest",
+              "requestLongType": "SwitchControlProcessorRequest",
+              "requestFullType": "gnoi.system.SwitchControlProcessorRequest",
+              "requestStreaming": false,
+              "responseType": "SwitchControlProcessorResponse",
+              "responseLongType": "SwitchControlProcessorResponse",
+              "responseFullType": "gnoi.system.SwitchControlProcessorResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "Reboot",
+              "description": "Reboot causes the target to reboot, possibly at some point in the future.\nIf the method of reboot is not supported then the Reboot RPC will fail.\nIf the reboot is immediate the command will block until the subcomponents\nhave restarted.\nIf a reboot on the active control processor is pending the service must\nreject all other reboot requests.\nIf a reboot request for active control processor is initiated with other\npending reboot requests it must be rejected.",
+              "requestType": "RebootRequest",
+              "requestLongType": "RebootRequest",
+              "requestFullType": "gnoi.system.RebootRequest",
+              "requestStreaming": false,
+              "responseType": "RebootResponse",
+              "responseLongType": "RebootResponse",
+              "responseFullType": "gnoi.system.RebootResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "RebootStatus",
+              "description": "RebootStatus returns the status of reboot for the target.",
+              "requestType": "RebootStatusRequest",
+              "requestLongType": "RebootStatusRequest",
+              "requestFullType": "gnoi.system.RebootStatusRequest",
+              "requestStreaming": false,
+              "responseType": "RebootStatusResponse",
+              "responseLongType": "RebootStatusResponse",
+              "responseFullType": "gnoi.system.RebootStatusResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "CancelReboot",
+              "description": "CancelReboot cancels any pending reboot request.",
+              "requestType": "CancelRebootRequest",
+              "requestLongType": "CancelRebootRequest",
+              "requestFullType": "gnoi.system.CancelRebootRequest",
+              "requestStreaming": false,
+              "responseType": "CancelRebootResponse",
+              "responseLongType": "CancelRebootResponse",
+              "responseFullType": "gnoi.system.CancelRebootResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "KillProcess",
+              "description": "KillProcess kills an OS process and optionally restarts it.",
+              "requestType": "KillProcessRequest",
+              "requestLongType": "KillProcessRequest",
+              "requestFullType": "gnoi.system.KillProcessRequest",
+              "requestStreaming": false,
+              "responseType": "KillProcessResponse",
+              "responseLongType": "KillProcessResponse",
+              "responseFullType": "gnoi.system.KillProcessResponse",
+              "responseStreaming": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

@@ -1,0 +1,624 @@
+{
+  "files": [
+    {
+      "name": "file.proto",
+      "description": "",
+      "package": "gnoi.file",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "GetRequest",
+          "longName": "GetRequest",
+          "fullName": "gnoi.file.GetRequest",
+          "description": "A GetRequest specifies the remote_file to be streamed back\nto the caller. The remote_file must be an absolute path to an\nexisting file.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "remote_file",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetResponse",
+          "longName": "GetResponse",
+          "fullName": "gnoi.file.GetResponse",
+          "description": "A GetResponse either contains the next set of bytes read from the\nfile or, as the last message, the hash of the data.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "contents",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "hash",
+              "description": "hash of the file.",
+              "label": "",
+              "type": "HashType",
+              "longType": "gnoi.types.HashType",
+              "fullType": "gnoi.types.HashType",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PutRequest",
+          "longName": "PutRequest",
+          "fullName": "gnoi.file.PutRequest",
+          "description": "A PutRequest is used to send data to be written on a file on the target.\n\nThe initial message contains an Open message. The Open message contains\ninformation name of the file and the file's permisssions.\n\nThe remote_file must be an absolute path. If remote_file already exists on\nthe target, it is overwritten, otherwise it is created. If the path to\nremote_file doesn't exist it will be created.\n\nThe contents to be written are streamed through multiple messages using the\ncontents field. Each message may contain up to 64KB of data.\n\nThe final message of the RPC contains the hash of the file contents.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "open",
+              "description": "",
+              "label": "",
+              "type": "Details",
+              "longType": "PutRequest.Details",
+              "fullType": "gnoi.file.PutRequest.Details",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "contents",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "hash",
+              "description": "hash of the file.",
+              "label": "",
+              "type": "HashType",
+              "longType": "gnoi.types.HashType",
+              "fullType": "gnoi.types.HashType",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Details",
+          "longName": "PutRequest.Details",
+          "fullName": "gnoi.file.PutRequest.Details",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "remote_file",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "permissions",
+              "description": "Permissions are represented as the octal format of standard UNIX\nfile permissions.\nex. 775: user read/write/execute, group read/write/execute,\nglobal read/execute.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PutResponse",
+          "longName": "PutResponse",
+          "fullName": "gnoi.file.PutResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "RemoveRequest",
+          "longName": "RemoveRequest",
+          "fullName": "gnoi.file.RemoveRequest",
+          "description": "A RemoveRequest specifies a file to be removed from the target.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "remote_file",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RemoveResponse",
+          "longName": "RemoveResponse",
+          "fullName": "gnoi.file.RemoveResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "StatInfo",
+          "longName": "StatInfo",
+          "fullName": "gnoi.file.StatInfo",
+          "description": "StatInfo provides a file system information about a particular path.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "path",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "last_modified",
+              "description": "Nanoseconds since epoch.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "permissions",
+              "description": "Permissions are represented as the octal format of standard UNIX\nfile permissions.\nex. 775: user read/write/execute, group read/write/execute,\nglobal read/execute.\nThe value returned in this field should be the octal number. No base\nconversion should be required to read the value. For example, 0755\nshould result in the permissions field holding the value 755, 4644\nresults in the permissions field being 4644, and so on.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "size",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "umask",
+              "description": "Default file creation mask. Represented as the octal format of\nstandard UNIX mask.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "StatRequest",
+          "longName": "StatRequest",
+          "fullName": "gnoi.file.StatRequest",
+          "description": "StatRequest will list files at the provided path.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "path",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "StatResponse",
+          "longName": "StatResponse",
+          "fullName": "gnoi.file.StatResponse",
+          "description": "StatResponse contains list of stat info of the provided path.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "stats",
+              "description": "",
+              "label": "repeated",
+              "type": "StatInfo",
+              "longType": "StatInfo",
+              "fullType": "gnoi.file.StatInfo",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TransferToRemoteRequest",
+          "longName": "TransferToRemoteRequest",
+          "fullName": "gnoi.file.TransferToRemoteRequest",
+          "description": "A TransferToRemoteRequest specifies the local path to transfer to and the\ndetails on where to transfer the data from. The local_path must be an\nabsolute path to the file.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "local_path",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "remote_download",
+              "description": "Details to download the remote_file being requested to a remote location.",
+              "label": "",
+              "type": "RemoteDownload",
+              "longType": "gnoi.common.RemoteDownload",
+              "fullType": "gnoi.common.RemoteDownload",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TransferToRemoteResponse",
+          "longName": "TransferToRemoteResponse",
+          "fullName": "gnoi.file.TransferToRemoteResponse",
+          "description": "A TransferToRemoteResponse contains the hash of the data transferred.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "hash",
+              "description": "hash of the file.",
+              "label": "",
+              "type": "HashType",
+              "longType": "gnoi.types.HashType",
+              "fullType": "gnoi.types.HashType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "File",
+          "longName": "File",
+          "fullName": "gnoi.file.File",
+          "description": "",
+          "methods": [
+            {
+              "name": "Get",
+              "description": "Get reads and streams the contents of a file from the target.\nThe file is streamed by sequential messages, each containing up to\n64KB of data. A final message is sent prior to closing the stream\nthat contains the hash of the data sent. An error is returned\nif the file does not exist or there was an error reading the file.",
+              "requestType": "GetRequest",
+              "requestLongType": "GetRequest",
+              "requestFullType": "gnoi.file.GetRequest",
+              "requestStreaming": false,
+              "responseType": "GetResponse",
+              "responseLongType": "GetResponse",
+              "responseFullType": "gnoi.file.GetResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "TransferToRemote",
+              "description": "TransferToRemote transfers the contents of a file from the target to a\nspecified remote location. The response contains the hash of the data\ntransferred. An error is returned if the file does not exist, the file\ntransfer fails, or if there was an error reading the file. This is a\nblocking call until the file transfer is complete.",
+              "requestType": "TransferToRemoteRequest",
+              "requestLongType": "TransferToRemoteRequest",
+              "requestFullType": "gnoi.file.TransferToRemoteRequest",
+              "requestStreaming": false,
+              "responseType": "TransferToRemoteResponse",
+              "responseLongType": "TransferToRemoteResponse",
+              "responseFullType": "gnoi.file.TransferToRemoteResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "Put",
+              "description": "Put streams data into a file on the target. The file is sent in\nsequential messages, each message containing up to 64KB of data. A final\nmessage must be sent that includes the hash of the data sent. An\nerror is returned if the location does not exist or there is an error\nwriting the data. If no checksum is received, the target must assume the\noperation is incomplete and remove the partially transmitted file. The\ntarget should initially write the file to a temporary location so a failure\ndoes not destroy the original file.",
+              "requestType": "PutRequest",
+              "requestLongType": "PutRequest",
+              "requestFullType": "gnoi.file.PutRequest",
+              "requestStreaming": true,
+              "responseType": "PutResponse",
+              "responseLongType": "PutResponse",
+              "responseFullType": "gnoi.file.PutResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "Stat",
+              "description": "Stat returns metadata about a file on the target. An error is returned\nif the file does not exist of there is an error in accessing the metadata.",
+              "requestType": "StatRequest",
+              "requestLongType": "StatRequest",
+              "requestFullType": "gnoi.file.StatRequest",
+              "requestStreaming": false,
+              "responseType": "StatResponse",
+              "responseLongType": "StatResponse",
+              "responseFullType": "gnoi.file.StatResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "Remove",
+              "description": "Remove removes the specified file from the target. An error is\nreturned if the file does not exist, is a directory, or the remove\noperation encounters an error (e.g., permission denied).",
+              "requestType": "RemoveRequest",
+              "requestLongType": "RemoveRequest",
+              "requestFullType": "gnoi.file.RemoveRequest",
+              "requestStreaming": false,
+              "responseType": "RemoveResponse",
+              "responseLongType": "RemoveResponse",
+              "responseFullType": "gnoi.file.RemoveResponse",
+              "responseStreaming": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

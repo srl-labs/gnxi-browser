@@ -1,0 +1,80 @@
+/* default */
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&display=swap");
+
+*, input[type=text] {
+  font-family: 'Nunito', sans-serif;
+}
+
+.has-header-img {
+  background: url(../images/curls.jpg)center center;
+  background-size: cover;
+}
+
+.main-page {
+  margin-top: 52px;
+}
+
+.scroll-mt {
+  scroll-margin-top: 80px;
+}
+
+.dropdown-content {
+  width: fit-content;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.menu .level-item, .service-item {
+  font-family: "Fira Code", monospace;
+}
+
+.menu .level-item, .component-section {
+  font-size: 13px;
+}
+
+.badge {
+  width: 30px;
+}
+
+.is-sticky-left {
+  left: 0;
+  z-index: 5;
+  float: left;
+  position: fixed;
+  width: fit-content;
+}
+
+.menu-container {
+  max-height: calc(100vh - 180px);
+  overflow: auto;
+}
+
+.table {
+  font-size: 14px;
+}
+
+td a {
+  color: #124191;
+  font-family: "Fira Code", monospace;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+ background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+ background: #bec4c4;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

@@ -1,0 +1,656 @@
+{
+  "files": [
+    {
+      "name": "mpls.proto",
+      "description": "",
+      "package": "gnoi.mpls",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [
+        {
+          "name": "Mode",
+          "longName": "ClearLSPRequest.Mode",
+          "fullName": "gnoi.mpls.ClearLSPRequest.Mode",
+          "description": "",
+          "values": [
+            {
+              "name": "DEFAULT",
+              "number": "0",
+              "description": "Same as NONAGGRESSIVE."
+            },
+            {
+              "name": "NONAGGRESSIVE",
+              "number": "0",
+              "description": "Reoptimize the LSP using the current bandwidth."
+            },
+            {
+              "name": "AGGRESSIVE",
+              "number": "1",
+              "description": "Reoptimize the LSP using the current bandwidth. Only use IGP metric in\ncalcuation."
+            },
+            {
+              "name": "RESET",
+              "number": "2",
+              "description": "Reset and restart all LSPs that originated from this routing device."
+            },
+            {
+              "name": "AUTOBW_AGGRESSIVE",
+              "number": "3",
+              "description": "Apply the highest bandwidth collected on a tunnel without waiting for\nthe current application period to end. Only use IGP metric in\ncalcuation."
+            },
+            {
+              "name": "AUTOBW_NONAGGRESSIVE",
+              "number": "4",
+              "description": "Apply the highest bandwidth collected on a tunnel without waiting for\nthe current application period to end."
+            }
+          ]
+        },
+        {
+          "name": "ReplyMode",
+          "longName": "MPLSPingRequest.ReplyMode",
+          "fullName": "gnoi.mpls.MPLSPingRequest.ReplyMode",
+          "description": "",
+          "values": [
+            {
+              "name": "IPV4",
+              "number": "0",
+              "description": "Reply via an IPv4 packet to this system."
+            },
+            {
+              "name": "ROUTER_ALERT",
+              "number": "1",
+              "description": "Reply with a labeled packet with the router alert bit set."
+            }
+          ]
+        },
+        {
+          "name": "EchoResponseCode",
+          "longName": "MPLSPingResponse.EchoResponseCode",
+          "fullName": "gnoi.mpls.MPLSPingResponse.EchoResponseCode",
+          "description": "",
+          "values": [
+            {
+              "name": "SUCCESS",
+              "number": "0",
+              "description": "A successful echo response was received."
+            },
+            {
+              "name": "NOT_SENT",
+              "number": "1",
+              "description": "The MPLS ping packet was not sent, for an unknown reason."
+            },
+            {
+              "name": "TIMEOUT",
+              "number": "2",
+              "description": "The local system timed out waiting for an LSP ping response.\n\nTODO(robjs): Add additional error codes."
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "ClearLSPCountersRequest",
+          "longName": "ClearLSPCountersRequest",
+          "fullName": "gnoi.mpls.ClearLSPCountersRequest",
+          "description": "Request to clear a single tunnel counters on a target device.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "Name of the tunnel to clear.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ClearLSPCountersResponse",
+          "longName": "ClearLSPCountersResponse",
+          "fullName": "gnoi.mpls.ClearLSPCountersResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "ClearLSPRequest",
+          "longName": "ClearLSPRequest",
+          "fullName": "gnoi.mpls.ClearLSPRequest",
+          "description": "Request to clear a single tunnel on a target device.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "Name of the tunnel to clear.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "mode",
+              "description": "Tunnel clearing mode.",
+              "label": "",
+              "type": "Mode",
+              "longType": "ClearLSPRequest.Mode",
+              "fullType": "gnoi.mpls.ClearLSPRequest.Mode",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ClearLSPResponse",
+          "longName": "ClearLSPResponse",
+          "fullName": "gnoi.mpls.ClearLSPResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "MPLSPingPWEDestination",
+          "longName": "MPLSPingPWEDestination",
+          "fullName": "gnoi.mpls.MPLSPingPWEDestination",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "eler",
+              "description": "The address of the egress LER that the MPLS ping should be sent on when\ndestined to a PWE service.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "vcid",
+              "description": "The virtual circuit ID for the PWE via which the ping should be sent.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MPLSPingRSVPTEDestination",
+          "longName": "MPLSPingRSVPTEDestination",
+          "fullName": "gnoi.mpls.MPLSPingRSVPTEDestination",
+          "description": "MPLSPingRSVPTEDestination specifies the destination for an MPLS Ping in\nterms of an absolute specification of an RSVP-TE LSP. It can be used to\nidentify an individual RSVP-TE session via which a ping should be sent.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "src",
+              "description": "The IPv4 or IPv6 address used by the system initiating (acting as the\nhead-end) of the RSVP-TE LSP.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "dst",
+              "description": "The IPv4 or IPv6 address used by the system terminating (acting as the\ntail-end) of the RSVP-TE LSP.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extended_tunnel_id",
+              "description": "The extended tunnel ID of the RSVP-TE LSP, expressed as an unsigned, 32b\ninteger.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MPLSPingRequest",
+          "longName": "MPLSPingRequest",
+          "fullName": "gnoi.mpls.MPLSPingRequest",
+          "description": "MPLSPingRequest specifies the parameters that should be used as input from\nthe client, to a system that is initiating an RFC4379 MPLS ping request.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "ldp_fec",
+              "description": "The LDP forwarding equivalence class that the ping should be sent to\nexpressed as an IPv4 or IPv6 prefix.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "destination",
+              "defaultValue": ""
+            },
+            {
+              "name": "fec129_pwe",
+              "description": "The FEC129 PWE to which the LSP ping should be sent.",
+              "label": "",
+              "type": "MPLSPingPWEDestination",
+              "longType": "MPLSPingPWEDestination",
+              "fullType": "gnoi.mpls.MPLSPingPWEDestination",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "destination",
+              "defaultValue": ""
+            },
+            {
+              "name": "rsvpte_lsp_name",
+              "description": "The name of an RSVP-TE LSP via which the ping should be sent. The system\nshould locally resolve the name to a particular RSVP-TE session.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "destination",
+              "defaultValue": ""
+            },
+            {
+              "name": "rsvpte_lsp",
+              "description": "An exact specification of an RSVP-TE LSP to which the system should send\nan MPLS ping message.\n\nTODO(robjs): L3VPN, BGP-LU destination types. See RFC4379.",
+              "label": "",
+              "type": "MPLSPingRSVPTEDestination",
+              "longType": "MPLSPingRSVPTEDestination",
+              "fullType": "gnoi.mpls.MPLSPingRSVPTEDestination",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "destination",
+              "defaultValue": ""
+            },
+            {
+              "name": "reply_mode",
+              "description": "How the target LER should respond to the LSP ping.",
+              "label": "",
+              "type": "ReplyMode",
+              "longType": "MPLSPingRequest.ReplyMode",
+              "fullType": "gnoi.mpls.MPLSPingRequest.ReplyMode",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "count",
+              "description": "The number of MPLS echo request packets to send.\n\ndefault=3",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "size",
+              "description": "The size (in bytes) of each MPLS echo request packet.\n\ndefault=64",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "source_address",
+              "description": "The source IPv4 address that should be used in the request packet.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "mpls_ttl",
+              "description": "The MPLS TTL that should be set in the packets sent.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "traffic_class",
+              "description": "The value of the traffic class (TC, formerly known as EXP) bits that\nshould be set in the MPLS ping packets.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MPLSPingResponse",
+          "longName": "MPLSPingResponse",
+          "fullName": "gnoi.mpls.MPLSPingResponse",
+          "description": "MPLSPingResponse (MPLSPong?) is sent from the target to the client based on\neach MPLS Echo Response packet it receives associated with an input MPLSPing\nRPC.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "seq",
+              "description": "The sequence number of the MPLS Echo Reply.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "response",
+              "description": "The response that was received from the egress LER.",
+              "label": "",
+              "type": "EchoResponseCode",
+              "longType": "MPLSPingResponse.EchoResponseCode",
+              "fullType": "gnoi.mpls.MPLSPingResponse.EchoResponseCode",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "response_time",
+              "description": "The time (in nanoseconds) between transmission of the Echo Response,\nand the echo reply.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "MPLS",
+          "longName": "MPLS",
+          "fullName": "gnoi.mpls.MPLS",
+          "description": "",
+          "methods": [
+            {
+              "name": "ClearLSP",
+              "description": "ClearLSP clears a single tunnel (requests for it's route to be\nrecalculated).",
+              "requestType": "ClearLSPRequest",
+              "requestLongType": "ClearLSPRequest",
+              "requestFullType": "gnoi.mpls.ClearLSPRequest",
+              "requestStreaming": false,
+              "responseType": "ClearLSPResponse",
+              "responseLongType": "ClearLSPResponse",
+              "responseFullType": "gnoi.mpls.ClearLSPResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "ClearLSPCounters",
+              "description": "ClearLSPCounters will clear the MPLS counters for the provided LSP.",
+              "requestType": "ClearLSPCountersRequest",
+              "requestLongType": "ClearLSPCountersRequest",
+              "requestFullType": "gnoi.mpls.ClearLSPCountersRequest",
+              "requestStreaming": false,
+              "responseType": "ClearLSPCountersResponse",
+              "responseLongType": "ClearLSPCountersResponse",
+              "responseFullType": "gnoi.mpls.ClearLSPCountersResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "MPLSPing",
+              "description": "An MPLS ping, specified as per RFC4379.",
+              "requestType": "MPLSPingRequest",
+              "requestLongType": "MPLSPingRequest",
+              "requestFullType": "gnoi.mpls.MPLSPingRequest",
+              "requestStreaming": false,
+              "responseType": "MPLSPingResponse",
+              "responseLongType": "MPLSPingResponse",
+              "responseFullType": "gnoi.mpls.MPLSPingResponse",
+              "responseStreaming": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}
