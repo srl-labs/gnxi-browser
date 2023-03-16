@@ -18,7 +18,7 @@
 <section class="hero is-fullheight has-header-img">
   <div class="hero-body">
     <div class="container has-text-centered">
-      <p class="title"><img src="/images/nwhite.png" width="100" alt="Logo"/></p>
+      <p class="mb-4"><img src="/images/nwhite.png" width="100" alt="Logo"/></p>
       <h3 class="title is-3 has-text-weight-light has-text-warning" id="title">gNXI Protobuf Documentation</h3>
       <div class="buttons is-centered">
         {#each productKeys as p}
@@ -49,9 +49,9 @@
   <div class="hero-foot">
     <div class="container has-text-centered pb-3">
       <p class="has-text-light">Created by
-        <a class="has-text-link" href="https://www.linkedin.com/in/siva19susi" target="_blank">Siva Sivakumar</a> /
-        <a class="has-text-link" href="https://www.linkedin.com/in/rdodin" target="_blank">Roman Dodin</a> /
-        <a class="has-text-link" href="https://github.com/srl-labs" target="_blank"><i class="fab fa-github"></i> srl-labs</a>
+        <a class="has-text-primary" href="https://www.linkedin.com/in/siva19susi" target="_blank">Siva Sivakumar</a> /
+        <a class="has-text-primary" href="https://www.linkedin.com/in/rdodin" target="_blank">Roman Dodin</a> /
+        <a class="has-text-primary" href="https://github.com/srl-labs" target="_blank"><i class="bx bx-fw bxl-github"></i>srl-labs</a>
       </p>
     </div>
   </div>

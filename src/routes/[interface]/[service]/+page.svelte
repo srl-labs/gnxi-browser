@@ -42,11 +42,11 @@
     if(mcn.includes(fadeIn)) {
       menu.classList.remove(fadeIn);
       menu.classList.add(fadeOut);
-      menuIcon.innerHTML= '<i class="fas fa-bars"></i>';
+      menuIcon.innerHTML= '<i class="bx bx-menu"></i>';
     } else {
       menu.classList.remove(fadeOut);
       menu.classList.add(fadeIn);
-      menuIcon.innerHTML= '<i class="fas fa-times"></i>';
+      menuIcon.innerHTML= '<i class="bx bx-x"></i>';
     }
   }
 
@@ -96,7 +96,7 @@
     <div class="navbar-brand">
       <!-- svelte-ignore a11y-missing-attribute -->
       <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <a class="navbar-item has-text-white" id="navMenuIcon" on:click={toggleMenu}><i class="fas fa-times"></i></a>
+      <a class="navbar-item has-text-white" id="navMenuIcon" on:click={toggleMenu}><i class="bx bx-x"></i></a>
       <a class="navbar-item" href="../"><img src="/images/nwhite.png" width="65" alt="Logo"/></a>
       <p class="navbar-item has-text-warning">{interfaces[p].services[s].name} Service</p>
       <div class="navbar-item dropdown is-hoverable">
@@ -295,8 +295,7 @@
           <p>Created by
             <a class="has-text-link" href="https://www.linkedin.com/in/siva19susi" target="_blank">Siva Sivakumar</a> /
             <a class="has-text-link" href="https://www.linkedin.com/in/rdodin" target="_blank">Roman Dodin</a> /
-            <a class="has-text-link" href="https://github.com/srl-labs" target="_blank"><i class="fab fa-github"></i>
-              srl-labs</a>
+            <a class="has-text-link" href="https://github.com/srl-labs" target="_blank"><i class="bx bx-fw bxl-github"></i>srl-labs</a>
           </p>
         </div>
       </div>
