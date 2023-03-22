@@ -52,7 +52,7 @@
           }
         }
       },
-      "factory": {
+      "factory_reset": {
         "name": "Factory Reset",
         "versions": {
           "0.1.0": {
