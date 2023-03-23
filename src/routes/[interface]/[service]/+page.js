@@ -28,7 +28,7 @@ export async function load({ url, fetch, params }) {
       }
 
       try {
-        let response = await fetch(`${pathUrl}/${p}/${s}/${v}/proto-doc.json`);
+        let response = await fetch(`${pathUrl}/interfaces/${p}/${s}/${v}/proto-doc.json`);
         return {
           interface: p, service: s, version: v,
           protoDoc: await response.json()
