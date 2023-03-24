@@ -272,7 +272,7 @@
                                     {#if z.label != ""} <small class="has-text-grey-light has-text-fira-code">({z.label})</small> {/if}
                                   </td>
                                 {/if}
-                                <td><a class="has-text-link has-text-fira-code" href="#{z.fullType}">{z.longType}</a></td>
+                                <td><a class="has-text-link has-text-fira-code" href="#{z.longType}">{z.longType}</a></td>
                                 <td>
                                   <p>
                                     {#if item.options && item.options == "deprecated"} <strong>Deprecated.</strong> {/if} 
@@ -320,8 +320,8 @@
                       <tbody>
                         <tr>
                           <td class="has-text-fira-code">{item.name}</td>
-                          <td><a class="has-text-link has-text-fira-code" href="#{item.fullType}">{item.longType}</a></td>
-                          <td><a class="has-text-link has-text-fira-code" href="#{item.containingFullType}">{item.containingLongType}</a></td>
+                          <td><a class="has-text-link has-text-fira-code" href="#{item.longType}">{item.longType}</a></td>
+                          <td><a class="has-text-link has-text-fira-code" href="#{item.containinglongType}">{item.containingLongType}</a></td>
                           <td class="has-text-fira-code">{item.number}</td>
                           <td>
                             <p>{@html item.description.replaceAll("\n", "<br>")} {#if item.defaultValue} Default: {item.defaultValue} {/if}</p>
