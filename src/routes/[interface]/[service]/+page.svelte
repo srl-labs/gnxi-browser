@@ -14,6 +14,30 @@
   const pd = data.protoDoc;
   const files = pd.files;
 
+  const iconLoop = function(component, color, text, kind) {
+    return component.map(v => ({...v, iconColor: color, iconText: text, subSection: kind}))
+  }
+
+  files.forEach(entry => {
+    entry.all = [];
+    if(entry.hasServices) {
+      entry.all.push(iconLoop(entry.services, "is-link", "S", "services"));
+      delete entry.services;
+    }
+    if(entry.hasMessages) {
+      entry.all.push(iconLoop(entry.messages, "has-background-grey-lighter", "M", "messages"));
+      delete entry.messages;
+    }
+    if(entry.hasEnums) {
+      entry.all.push(iconLoop(entry.enums, "is-dark", "E", "enums"));
+      delete entry.enums;
+    }
+    if(entry.hasExtensions) {
+      entry.all.push(iconLoop(entry.extensions, "", "X", "extensions"));
+      delete entry.extensions;
+    }
+  })
+
   onMount(() => {
     // JQUERY CASE INSENSITIVE CONTAINS
 		jQuery.expr[":"].contains = function(a, i, m) {
@@ -22,9 +46,22 @@
     };
 	});
 
-  // HASCOMPONENT LOOP
-  const iconLoop = function(component, color, text, kind) {
-    return component.map(v => ({...v, iconColor: color, iconText: text, subSection: kind}))
+  // FIELD REQUIRED?
+  const needField = function(dict, kind) {
+    let checkList = [];
+    dict.map(function (el) { if(el[kind] != "") checkList.push(true) })
+    if(checkList.length > 0) return true;
+    else return false;
+  }
+
+  // GROUP BY KEY ON A LIST OF OBJECT
+  const groupByKey = function(list, key) {
+    const groupBy = (list, key) => list.reduce((hash, obj) => ({...hash, [obj[key]]:( hash[obj[key]] || [] ).concat(obj)}), {});
+    let tmp = groupBy(list, key);
+    return {
+      keys: Object.keys(tmp),
+      values: tmp
+    };
   }
 
   // CONVERT TO UPPERCASE
@@ -64,26 +101,6 @@
     jQuery("li", ".menu-list").not(matches).slideUp();
     matches.slideDown();
   }
-
-  files.forEach(entry => {
-    entry.all = [];
-    if(entry.hasServices) {
-      entry.all.push(iconLoop(entry.services, "is-link", "S", "services"));
-      delete entry.services;
-    }
-    if(entry.hasMessages) {
-      entry.all.push(iconLoop(entry.messages, "has-background-grey-lighter", "M", "messages"));
-      delete entry.messages;
-    }
-    if(entry.hasEnums) {
-      entry.all.push(iconLoop(entry.enums, "is-dark", "E", "enums"));
-      delete entry.enums;
-    }
-    if(entry.hasExtensions) {
-      entry.all.push(iconLoop(entry.extensions, "", "X", "extensions"));
-      delete entry.extensions;
-    }
-  })
 </script>
 
 <svelte:head>
@@ -172,76 +189,113 @@
                 <p class="title is-6"><a class="service-item scroll-mt" id="{item.fullName}" href="#{item.fullName}">{item.longName}</a></p>
                 {#if item.description} <p>{item.description}</p> {/if}
                 <div class="table-container">
-                  <table class="table is-fullwidth"> 
-                    <thead class="has-background-light has-text-weight-bold">
-                      <tr>
-                        {#if item.methods}
-                          <td>Method Name</td>
-                          <td>Request Type</td>
-                          <td>Response Type</td>
-                          <td>Description</td>
-                        {:else if item.fields}
-                          <td>Field</td>
-                          <td>Type</td>
-                          <td>Label</td>
-                          <td>Description</td>
-                        {:else if item.values}
-                          <td>Name</td>
-                          <td>Number</td>
-                          <td>Description</td>
-                        {:else}
+                  <table class="table is-fullwidth">
+                    {#if sectionName == "services"}
+                      {#if item.methods.length > 0}
+                        <thead class="has-background-light has-text-weight-bold">
+                          <tr>
+                            <td>Method Name</td>
+                            <td>Request Type</td>
+                            <td>Response Type</td>
+                            <td>Description</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {#each item.methods as z}
+                            <tr>
+                              <td>{z.name}</td>
+                              <td><a href="#{z.requestFullType}">{z.requestLongType}</a> {#if z.requestStreaming} <span class="has-text-grey-light"> stream</span> {/if}</td>
+                              <td><a href="#{z.esponseFullType}">{z.responseLongType}</a> {#if z.requestStreaming} <span class="has-text-grey-light"> stream</span> {/if}</td>
+                              <td><p>{@html z.description.replaceAll("\n", "<br>")}</p></td>
+                            </tr>
+                          {/each}
+                        </tbody>
+                      {:else}
+                        <p>Empty service</p>
+                      {/if}
+                    {:else if sectionName == "messages"}
+                      {#if item.fields.length > 0}
+                        {@const groups = groupByKey(item.fields, "oneofdecl")}
+                        <thead class="has-background-light has-text-weight-bold">
+                          <tr>
+                            <td>Field</td>
+                            <td>Type</td>
+                            <td>Label</td>
+                            <td>Description</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {#each groups.keys as gk}
+                            {#if gk != ""}
+                              <tr>
+                                <td colspan="4">{gk} <small class="has-text-grey-light">(one of)</small></td>
+                              </tr>
+                            {/if}
+                            {#each groups.values[gk] as z}
+                              <tr>
+                                {#if gk != ""} 
+                                  <td class="indent-4">{z.name}</td>
+                                {:else}
+                                  <td>{z.name}</td>
+                                {/if}
+                                <td><a href="#{z.fullType}">{z.longType}</a></td>
+                                <td>{z.label}</td> 
+                                <td>
+                                  <p>
+                                    {#if item.options && item.options == "deprecated"} <strong>Deprecated.</strong> {/if} 
+                                    {@html z.description.replaceAll("\n", "<br>")} {#if z.defaultValue} Default: {z.defaultValue} {/if}
+                                  </p>
+                                </td>
+                              </tr>
+                            {/each}
+                          {/each}
+                        </tbody>
+                      {:else}
+                        <p>Empty message</p>
+                      {/if}
+                    {:else if sectionName == "enums"}
+                      {#if item.values.length > 0}
+                        <thead class="has-background-light has-text-weight-bold">
+                          <tr>
+                            <td>Name</td>
+                            <td>Number</td>
+                            <td>Description</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {#each item.values as z}
+                            <tr>
+                              <td>{z.name}</td>
+                              <td>{z.number}</td>
+                              <td>{@html z.description.replaceAll("\n", "<br>")}</td>
+                            </tr>
+                          {/each}
+                        </tbody>
+                      {:else}
+                        <p>Empty enum</p>
+                      {/if}
+                    {:else if sectionName == "extensions"}
+                      <thead class="has-background-light has-text-weight-bold">
+                        <tr>
                           <td>Extension</td>
                           <td>Type</td>
                           <td>Base</td>
                           <td>Number</td>
                           <td>Description</td>
-                        {/if}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {#if item.methods}
-                        {#each item.methods as z}
-                          <tr>
-                            <td>{z.name}</td>
-                            <td><a href="#{z.requestFullType}">{z.requestLongType}</a>{#if z.requestStreaming} stream {/if}</td>
-                            <td><a href="#{z.esponseFullType}">{z.responseLongType}</a>{#if z.responseStreaming} stream {/if}</td>
-                            <td><p>{z.description}</p></td>
-                          </tr>
-                        {/each}
-                      {:else if item.fields}
-                        {#each item.fields as z}
-                          <tr>
-                            <td>{z.name}</td>
-                            <td><a href="#{z.fullType}">{z.longType}</a></td>
-                            <td>{z.label}</td>
-                            <td>
-                              <p>
-                                {#if item.options && item.options == "deprecated"} <strong>Deprecated.</strong> {/if} 
-                                {z.description} {#if z.defaultValue} Default: {z.defaultValue} {/if}
-                              </p>
-                            </td>
-                          </tr>
-                        {/each}
-                      {:else if item.values}
-                        {#each item.values as z}
-                          <tr>
-                            <td>{z.name}</td>
-                            <td>{z.number}</td>
-                            <td>{z.description}</td>
-                          </tr>
-                        {/each}
-                      {:else}
+                        </tr>
+                      </thead>
+                      <tbody>
                         <tr>
                           <td>{item.name}</td>
                           <td><a href="#{item.fullType}">{item.longType}</a></td>
                           <td><a href="#{item.containingFullType}">{item.containingLongType}</a></td>
                           <td>{item.number}</td>
                           <td>
-                            <p>{item.description} {#if item.defaultValue} Default: {item.defaultValue} {/if}</p>
+                            <p>{@html item.description.replaceAll("\n", "<br>")} {#if item.defaultValue} Default: {item.defaultValue} {/if}</p>
                           </td>
                         </tr>
-                      {/if}
-                    </tbody>
+                      </tbody>
+                    {/if}
                   </table>
                 </div>
               {/each}
@@ -278,7 +332,7 @@
                     <td>{svt.javaType}</td>
                     <td>{svt.pythonType}</td>
                     <td>{svt.goType}</td>
-                    <td>{svt.cSharp}</td>
+                    <td>{svt.csType}</td>
                     <td>{svt.phpType}</td>
                     <td>{svt.rubyType}</td>
                   </tr>

@@ -59,6 +59,10 @@ td a {
   font-family: "Fira Code", monospace;
 }
 
+.indent-4 {
+  text-indent: 2em;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 5px;
