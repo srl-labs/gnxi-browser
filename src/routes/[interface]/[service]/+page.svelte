@@ -187,7 +187,7 @@
               <a id="{sectionName}" href="#{sectionName}" class="title is-6 scroll-mt">{toUpper(sectionName)}</a><hr/>
               {#each hasComponents as item}
                 <p class="title is-6"><a class="service-item scroll-mt" id="{item.fullName}" href="#{item.fullName}">{item.longName}</a></p>
-                {#if item.description} <p>{item.description}</p> {/if}
+                {#if item.description} <p>{@html item.description.replaceAll("\n", "<br>")}</p> {/if}
                 <div class="table-container">
                   <table class="table is-fullwidth">
                     {#if sectionName == "services"}
