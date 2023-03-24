@@ -118,7 +118,10 @@
       {#if Object.keys(interfaces[p].services).length > 1}
         <div class="navbar-item dropdown is-hoverable">
           <div class="dropdown-trigger">
-            <p class="has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">{interfaces[p].name}</p>
+            <!-- svelte-ignore a11y-missing-attribute -->
+            <a class="has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">
+              {interfaces[p].name} <i class='bx bx-chevron-down'></i>
+            </a>
           </div>
           <div class="dropdown-menu" id="dropdown-menu" role="menu">
             <div class="dropdown-content">
@@ -141,7 +144,9 @@
         <div class="dropdown-trigger">
           {#if ov.length > 1}
             <!-- svelte-ignore a11y-missing-attribute -->
-            <a class="has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">v{v}</a>
+            <a class="has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">
+              v{v} <i class='bx bx-chevron-down'></i>
+            </a>
           {:else}
             <p class="has-text-white">v{v}</p>
           {/if}

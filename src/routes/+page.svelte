@@ -27,7 +27,7 @@
             <div class="dropdown is-hoverable">
               <div class="dropdown-trigger">
                 <button class="button is-light is-outlined" aria-haspopup="true" aria-controls="dropdown-menu">
-                  <span>{interfaces[p].name}</span>
+                  {interfaces[p].name} <i class='bx bx-chevron-down'></i>
                 </button>
               </div>
               <div class="dropdown-menu" id="dropdown-menu" role="menu">

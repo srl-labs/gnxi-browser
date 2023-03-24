@@ -2,12 +2,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code&display=swap");
 
+@font-face {
+  font-style: normal;
+  font-weight: normal;
+  font-family: "Nokia Pure Headline Light";
+  src: url("NokiaPureHeadline_Lt.ttf");
+}
+
+@font-face {
+  font-style: normal;
+  font-weight: normal;
+  font-family: "Nokia Pure Text";
+  src: url("NokiaPureText_Rg.ttf");
+}
+
 *, input[type=text] {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nokia Pure Text", sans-serif;
 }
 
 .has-text-fira-code {
   font-family: "Fira Code", monospace;
+}
+
+#title {
+  font-family: "Nokia Pure Headline Light", sans-serif;
+}
+
+table {
+  font-size: 14px;
 }
 
 .has-header-img {
@@ -52,10 +74,6 @@
 .menu-container {
   max-height: calc(100vh - 180px);
   overflow: auto;
-}
-
-.table {
-  font-size: 14px;
 }
 
 .indent-4 {
