@@ -226,11 +226,11 @@
                             <tr>
                               <td class="has-text-fira-code">{z.name}</td>
                               <td>
-                                <a class="has-text-link has-text-fira-code" href="#{z.requestFullType}">{z.requestLongType}</a> 
+                                <a class="has-text-link has-text-fira-code" href="#{z.requestLongType}">{z.requestLongType}</a> 
                                 {#if z.requestStreaming} <span class="has-text-grey-light"> stream</span> {/if}
                               </td>
                               <td>
-                                <a class="has-text-link has-text-fira-code" href="#{z.esponseFullType}">{z.responseLongType}</a> 
+                                <a class="has-text-link has-text-fira-code" href="#{z.requestLongType}">{z.responseLongType}</a> 
                                 {#if z.requestStreaming} <span class="has-text-grey-light"> stream</span> {/if}
                               </td>
                               <td><p>{@html z.description.replaceAll("\n", "<br>")}</p></td>
