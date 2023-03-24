@@ -115,23 +115,27 @@
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <a class="navbar-item has-text-white" id="navMenuIcon" on:click={toggleMenu}><i class="bx bx-x"></i></a>
       <a class="navbar-item" href="../"><img src="/images/nwhite.png" width="65" alt="Logo"/></a>
-      <div class="navbar-item dropdown is-hoverable">
-        <div class="dropdown-trigger">
-          <p class="has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">{interfaces[p].name}</p>
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-          <div class="dropdown-content">
-            {#each Object.keys(interfaces[p].services) as serviceKey}
-              {@const serviceName = interfaces[p].services[serviceKey].name}
-              {#if serviceKey == s} 
-                <a data-sveltekit-reload href="{serviceKey}" class="dropdown-item is-active">{serviceName}</a>
-              {:else} 
-                <a data-sveltekit-reload href="{serviceKey}" class="dropdown-item">{serviceName}</a> 
-              {/if}
-            {/each}
+      {#if Object.keys(interfaces[p].services).length > 1}
+        <div class="navbar-item dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <p class="has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">{interfaces[p].name}</p>
+          </div>
+          <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+              {#each Object.keys(interfaces[p].services) as serviceKey}
+                {@const serviceName = interfaces[p].services[serviceKey].name}
+                {#if serviceKey == s} 
+                  <a data-sveltekit-reload href="{serviceKey}" class="dropdown-item is-active">{serviceName}</a>
+                {:else} 
+                  <a data-sveltekit-reload href="{serviceKey}" class="dropdown-item">{serviceName}</a> 
+                {/if}
+              {/each}
+            </div>
           </div>
         </div>
-      </div>
+      {:else}
+        <p class="navbar-item has-text-white">{interfaces[p].services[s].name}</p>
+      {/if}
       <p class="navbar-item has-text-warning">{interfaces[p].services[s].name} Service</p>
       <div class="navbar-item dropdown is-hoverable">
         <div class="dropdown-trigger">
@@ -139,7 +143,7 @@
             <!-- svelte-ignore a11y-missing-attribute -->
             <a class="has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">v{v}</a>
           {:else}
-            <p class="has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">v{v}</p>
+            <p class="has-text-white">v{v}</p>
           {/if}
         </div>
         {#if ov.length > 0}
