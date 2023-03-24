@@ -115,6 +115,23 @@
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <a class="navbar-item has-text-white" id="navMenuIcon" on:click={toggleMenu}><i class="bx bx-x"></i></a>
       <a class="navbar-item" href="../"><img src="/images/nwhite.png" width="65" alt="Logo"/></a>
+      <div class="navbar-item dropdown is-hoverable">
+        <div class="dropdown-trigger">
+          <p class="has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">{interfaces[p].name}</p>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+          <div class="dropdown-content">
+            {#each Object.keys(interfaces[p].services) as serviceKey}
+              {@const serviceName = interfaces[p].services[serviceKey].name}
+              {#if serviceKey == s} 
+                <a data-sveltekit-reload href="{serviceKey}" class="dropdown-item is-active">{serviceName}</a>
+              {:else} 
+                <a data-sveltekit-reload href="{serviceKey}" class="dropdown-item">{serviceName}</a> 
+              {/if}
+            {/each}
+          </div>
+        </div>
+      </div>
       <p class="navbar-item has-text-warning">{interfaces[p].services[s].name} Service</p>
       <div class="navbar-item dropdown is-hoverable">
         <div class="dropdown-trigger">
@@ -159,7 +176,7 @@
               <ul>
                 {#each hasComponents as item}
                   <li>
-                    <a class="list-item" href="#{item.fullName}" on:click={toggleMenu}>
+                    <a class="list-item" href="#{item.longName}" on:click={toggleMenu}>
                       <div class="level is-mobile">
                         <div class="level-left">
                           <div class="level-item"><span class="button is-small {item.iconColor} badge">{item.iconText}</span></div>
@@ -186,7 +203,7 @@
             <div class="container content">
               <a id="{sectionName}" href="#{sectionName}" class="title is-6 scroll-mt">{toUpper(sectionName)}</a><hr/>
               {#each hasComponents as item}
-                <p class="title is-6"><a class="service-item scroll-mt" id="{item.fullName}" href="#{item.fullName}">{item.longName}</a></p>
+                <p class="title is-6"><a class="service-item scroll-mt" id="{item.longName}" href="#{item.longName}">{item.longName}</a></p>
                 {#if item.description} <p>{@html item.description.replaceAll("\n", "<br>")}</p> {/if}
                 <div class="table-container">
                   <table class="table is-fullwidth">
@@ -203,15 +220,21 @@
                         <tbody>
                           {#each item.methods as z}
                             <tr>
-                              <td>{z.name}</td>
-                              <td><a href="#{z.requestFullType}">{z.requestLongType}</a> {#if z.requestStreaming} <span class="has-text-grey-light"> stream</span> {/if}</td>
-                              <td><a href="#{z.esponseFullType}">{z.responseLongType}</a> {#if z.requestStreaming} <span class="has-text-grey-light"> stream</span> {/if}</td>
+                              <td class="has-text-fira-code">{z.name}</td>
+                              <td>
+                                <a class="has-text-link has-text-fira-code" href="#{z.requestFullType}">{z.requestLongType}</a> 
+                                {#if z.requestStreaming} <span class="has-text-grey-light"> stream</span> {/if}
+                              </td>
+                              <td>
+                                <a class="has-text-link has-text-fira-code" href="#{z.esponseFullType}">{z.responseLongType}</a> 
+                                {#if z.requestStreaming} <span class="has-text-grey-light"> stream</span> {/if}
+                              </td>
                               <td><p>{@html z.description.replaceAll("\n", "<br>")}</p></td>
                             </tr>
                           {/each}
                         </tbody>
                       {:else}
-                        <p>Empty service</p>
+                        <p class="is-italic">Empty service</p>
                       {/if}
                     {:else if sectionName == "messages"}
                       {#if item.fields.length > 0}
@@ -220,7 +243,6 @@
                           <tr>
                             <td>Field</td>
                             <td>Type</td>
-                            <td>Label</td>
                             <td>Description</td>
                           </tr>
                         </thead>
@@ -228,18 +250,25 @@
                           {#each groups.keys as gk}
                             {#if gk != ""}
                               <tr>
-                                <td colspan="4">{gk} <small class="has-text-grey-light">(one of)</small></td>
+                                <td class="has-text-fira-code" colspan="3">
+                                  {gk} <small class="has-text-grey-light has-text-fira-code">(one of)</small>
+                                </td>
                               </tr>
                             {/if}
                             {#each groups.values[gk] as z}
                               <tr>
                                 {#if gk != ""} 
-                                  <td class="indent-4">{z.name}</td>
+                                  <td class="indent-4 has-text-fira-code">
+                                    {z.name} {#if z.label != ""} 
+                                    <span class="has-text-grey-light has-text-fira-code">({z.label})</span> {/if}
+                                  </td>
                                 {:else}
-                                  <td>{z.name}</td>
+                                  <td class="has-text-fira-code">
+                                    {z.name} 
+                                    {#if z.label != ""} <small class="has-text-grey-light has-text-fira-code">({z.label})</small> {/if}
+                                  </td>
                                 {/if}
-                                <td><a href="#{z.fullType}">{z.longType}</a></td>
-                                <td>{z.label}</td> 
+                                <td><a class="has-text-link has-text-fira-code" href="#{z.fullType}">{z.longType}</a></td>
                                 <td>
                                   <p>
                                     {#if item.options && item.options == "deprecated"} <strong>Deprecated.</strong> {/if} 
@@ -251,7 +280,7 @@
                           {/each}
                         </tbody>
                       {:else}
-                        <p>Empty message</p>
+                        <p class="is-italic">Empty message</p>
                       {/if}
                     {:else if sectionName == "enums"}
                       {#if item.values.length > 0}
@@ -265,14 +294,14 @@
                         <tbody>
                           {#each item.values as z}
                             <tr>
-                              <td>{z.name}</td>
-                              <td>{z.number}</td>
+                              <td class="has-text-fira-code">{z.name}</td>
+                              <td class="has-text-fira-code">{z.number}</td>
                               <td>{@html z.description.replaceAll("\n", "<br>")}</td>
                             </tr>
                           {/each}
                         </tbody>
                       {:else}
-                        <p>Empty enum</p>
+                        <p class="is-italic">Empty enum</p>
                       {/if}
                     {:else if sectionName == "extensions"}
                       <thead class="has-background-light has-text-weight-bold">
@@ -286,10 +315,10 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <td>{item.name}</td>
-                          <td><a href="#{item.fullType}">{item.longType}</a></td>
-                          <td><a href="#{item.containingFullType}">{item.containingLongType}</a></td>
-                          <td>{item.number}</td>
+                          <td class="has-text-fira-code">{item.name}</td>
+                          <td><a class="has-text-link has-text-fira-code" href="#{item.fullType}">{item.longType}</a></td>
+                          <td><a class="has-text-link has-text-fira-code" href="#{item.containingFullType}">{item.containingLongType}</a></td>
+                          <td class="has-text-fira-code">{item.number}</td>
                           <td>
                             <p>{@html item.description.replaceAll("\n", "<br>")} {#if item.defaultValue} Default: {item.defaultValue} {/if}</p>
                           </td>

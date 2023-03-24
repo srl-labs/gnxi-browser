@@ -6,6 +6,10 @@
   font-family: 'Nunito', sans-serif;
 }
 
+.has-text-fira-code {
+  font-family: "Fira Code", monospace;
+}
+
 .has-header-img {
   background: url(../images/curls.jpg)center center;
   background-size: cover;
@@ -52,11 +56,6 @@
 
 .table {
   font-size: 14px;
-}
-
-td a {
-  color: #124191;
-  font-family: "Fira Code", monospace;
 }
 
 .indent-4 {
