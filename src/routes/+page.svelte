@@ -1,48 +1,76 @@
 <script>
-  import interfaces from '$lib/interfaces.json'
+  import yaml from 'js-yaml'
+  import ifcLoad from '$lib/interfaces.yaml?raw'
+  
+  const interfaces = yaml.load(ifcLoad);
   const productKeys = Object.keys(interfaces);
 
-  const extract = function(component, action) {
-    if(action == "getKeys") {
-      return Object.keys(component);
-    } else if(action == "getFirstKey") {
-      return Object.keys(component)[0];
+  let panelList = [];
+  let currentPanel = "";
+  const fillPanelList = (e) => {
+    panelList = [];
+    if(currentPanel != "") {
+      currentPanel = e.target.innerHTML;
+    } else {
+      currentPanel = "gNOI";
     }
+    const key = currentPanel.toLowerCase();
+    Object.keys(interfaces[key].services).forEach((el) => {
+      panelList.push({
+        name: interfaces[key].services[el].name,
+        desc: interfaces[key].services[el].description,
+        href: `${key}/${el}`
+      });
+    })
   }
+  fillPanelList();
 </script>
 
 <svelte:head>
   <title>gNXI Protobuf Documentation</title>
 </svelte:head>
 
+<style>
+  .panel-container {
+    height: 400px; 
+    overflow: auto;
+  }
+</style>
+
 <section class="hero is-fullheight has-header-img">
   <div class="hero-body">
-    <div class="container has-text-centered">
-      <p class="mb-4"><img src="/images/nwhite.png" width="100" alt="Logo"/></p>
-      <h3 class="title is-3 has-text-weight-light has-text-warning" id="title">gNXI Protobuf Documentation</h3>
-      <div class="buttons is-centered">
-        {#each productKeys as p}
-          {@const ifcServices = interfaces[p].services}
-          {#if extract(ifcServices, "getKeys").length > 1}
-            <div class="dropdown is-hoverable">
-              <div class="dropdown-trigger">
-                <button class="button is-light is-outlined" aria-haspopup="true" aria-controls="dropdown-menu">
-                  {interfaces[p].name} <i class='bx bx-chevron-down'></i>
-                </button>
-              </div>
-              <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                <div class="dropdown-content has-text-left">
-                  {#each extract(ifcServices, "getKeys") as serviceKey}
-                    <a href="{p}/{serviceKey}/" class="dropdown-item">{ifcServices[serviceKey].name}</a>
-                  {/each}
-                </div>
-              </div>
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column">
+          <p class="mb-4"><img src="/images/nwhite.png" width="100" alt="Logo"/></p>
+          <h3 class="title is-3 has-text-warning" id="title">gNXI Protobuf Documentation</h3>
+        </div>
+        <div class="column">
+          <div class="box has-perfect-white">
+            <div class="tabs is-medium is-centered is-toggle">
+              <ul>
+                {#each productKeys as p}
+                  {@const ifcName = interfaces[p].name}
+                  <li class:is-active="{currentPanel === ifcName}">
+                    <!-- svelte-ignore a11y-missing-attribute -->
+                    <!-- svelte-ignore a11y-click-events-have-key-events -->
+                    <a on:click={fillPanelList}>{ifcName}</a>
+                  </li>
+                {/each}
+              </ul>
             </div>
-          {:else}
-            {@const serviceKey = extract(ifcServices, "getFirstKey")}
-            <a href="{p}/{serviceKey}/" class="button is-light is-outlined">{ifcServices[serviceKey].name}</a>
-          {/if}
-        {/each}
+            <div class="panel-container">
+              {#each panelList as item}
+                <div class="panel-block">
+                  <div class="media-content">
+                    <a href="{item.href}">{item.name}</a>
+                    <div class="content"><p>{item.desc}</p></div>
+                  </div>
+                </div>
+              {/each}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

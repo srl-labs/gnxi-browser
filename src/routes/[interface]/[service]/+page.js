@@ -1,5 +1,8 @@
 import { error } from '@sveltejs/kit'
-import interfaces from '$lib/interfaces.json'
+import yaml from 'js-yaml'
+import ifcLoad from '$lib/interfaces.yaml?raw'
+  
+const interfaces = yaml.load(ifcLoad);
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ url, fetch, params }) {

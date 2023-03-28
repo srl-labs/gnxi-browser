@@ -1,5 +1,5 @@
 /* default */
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code&display=swap");
 
 @font-face {
@@ -17,7 +17,7 @@
 }
 
 *, input[type=text] {
-  font-family: "Nokia Pure Text", sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 .has-text-fira-code {
@@ -25,16 +25,21 @@
 }
 
 #title {
-  font-family: "Nokia Pure Headline Light", sans-serif;
-}
-
-table {
-  font-size: 14px;
+  font-weight: 200;
+  font-family: "Nunito", sans-serif;
 }
 
 .has-header-img {
-  background: url(../images/curls.jpg)center center;
+  background: url(../images/mountains.jpg)center center;
   background-size: cover;
+}
+
+.has-perfect-white {
+  background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
+}
+
+.menu-list li a:hover, .panel-block:hover {
+  background-color: hsl(0, 0%, 98%)
 }
 
 .main-page {
@@ -45,18 +50,12 @@ table {
   scroll-margin-top: 80px;
 }
 
-.dropdown-content {
-  width: fit-content;
-  max-height: 200px;
-  overflow: auto;
-}
-
 .menu .level-item, .service-item {
   font-family: "Fira Code", monospace;
 }
 
 .menu .level-item, .component-section {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .badge {
@@ -68,7 +67,7 @@ table {
   z-index: 5;
   float: left;
   position: fixed;
-  width: fit-content;
+  min-width: 400px;
 }
 
 .menu-container {
@@ -81,21 +80,40 @@ table {
 }
 
 /* width */
-::-webkit-scrollbar {
+.panel-container::-webkit-scrollbar {
   width: 5px;
 }
 
 /* Track */
-::-webkit-scrollbar-track {
- background: #f1f1f1;
+.panel-container::-webkit-scrollbar-track {
+background: #f1f1f1;
 }
 
 /* Handle */
-::-webkit-scrollbar-thumb {
- background: #bec4c4;
+.panel-container::-webkit-scrollbar-thumb {
+background: #bec4c4;
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+.panel-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.menu-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.menu-container::-webkit-scrollbar-track {
+background: #f1f1f1;
+}
+
+/* Handle */
+.menu-container::-webkit-scrollbar-thumb {
+background: #bec4c4;
+}
+
+/* Handle on hover */
+.menu-container::-webkit-scrollbar-thumb:hover {
   background: #555;
 }

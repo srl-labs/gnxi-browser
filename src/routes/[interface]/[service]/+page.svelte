@@ -1,7 +1,10 @@
 <script>
-  import jQuery from "jquery";
-  import { onMount } from 'svelte';
-  import interfaces from '$lib/interfaces.json'
+  import yaml from 'js-yaml'
+  import jQuery from "jquery"
+  import { onMount } from 'svelte'
+  import ifcLoad from '$lib/interfaces.yaml?raw'
+  
+  const interfaces = yaml.load(ifcLoad);
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -104,17 +107,39 @@
 </script>
 
 <svelte:head>
-  <title>{interfaces[p].name} - {interfaces[p].services[s].name} Service v{v}</title>
+  <title>{interfaces[p].name} - {interfaces[p].services[s].name} Service {v}</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </svelte:head>
 
 <div class="overall">
-  <nav class="navbar is-fixed-top has-header-img">
+  <nav class="navbar is-fixed-top is-dark">
     <div class="navbar-brand">
       <!-- svelte-ignore a11y-missing-attribute -->
       <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <a class="navbar-item has-text-white" id="navMenuIcon" on:click={toggleMenu}><i class="bx bx-x"></i></a>
+      <a class="navbar-item" id="navMenuIcon" on:click={toggleMenu}><i class="bx bx-x"></i></a>
       <a class="navbar-item" href="../"><img src="/images/nwhite.png" width="65" alt="Logo"/></a>
+      <p class="navbar-item has-text-warning">{interfaces[p].services[s].name} Service</p>
+      <div class="navbar-item dropdown is-hoverable">
+        <div class="dropdown-trigger">
+          {#if ov.length > 1}
+            <!-- svelte-ignore a11y-missing-attribute -->
+            <a aria-haspopup="true" aria-controls="dropdown-menu">
+              v{v} <i class='bx bx-chevron-down'></i>
+            </a>
+          {:else}
+            <p>{v}</p>
+          {/if}
+        </div>
+        {#if ov.length > 1}
+          <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+              {#each ov as item}
+                {#if item !== v} <a data-sveltekit-reload class="navbar-item" href="{s}?version={item}">{item}</a> {/if}
+              {/each}
+            </div>
+          </div>
+        {/if}
+      </div>
       {#if Object.keys(interfaces[p].services).length > 1}
         <div class="navbar-item dropdown is-hoverable">
           <div class="dropdown-trigger">
@@ -136,42 +161,15 @@
             </div>
           </div>
         </div>
-      {:else}
-        <p class="navbar-item has-text-white">{interfaces[p].services[s].name}</p>
       {/if}
-      <p class="navbar-item has-text-warning">{interfaces[p].services[s].name} Service</p>
-      <div class="navbar-item dropdown is-hoverable">
-        <div class="dropdown-trigger">
-          {#if ov.length > 1}
-            <!-- svelte-ignore a11y-missing-attribute -->
-            <a class="has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">
-              v{v} <i class='bx bx-chevron-down'></i>
-            </a>
-          {:else}
-            <p class="has-text-white">v{v}</p>
-          {/if}
-        </div>
-        {#if ov.length > 0}
-          <div class="dropdown-menu" id="dropdown-menu" role="menu">
-            <div class="dropdown-content">
-              {#each ov as item}
-                {#if item !== v} <a data-sveltekit-reload class="navbar-item" href="{s}?version={item}">v{item}</a> {/if}
-              {/each}
-            </div>
-          </div>
-        {/if}
-      </div>
-      <div class="navbar-item">
-        <a class="has-text-white" href="{vd.source}">Source</a>
-      </div>
-      <div class="navbar-item">
-        <a class="has-text-white" href="{vd.documentation}">Documentation</a>
-      </div>
     </div>
   </nav>
   
-  <aside class="menu box p-5 is-sticky-left animate__animated animate__fadeInLeft" on:animationend={clearSearch}>
-    <p class="menu-label">Table of Contents</p>
+  <aside id="serviceMenu" class="menu box p-5 is-sticky-left has-perfect-white animate__animated animate__fadeInLeft" on:animationend={clearSearch}>
+    <div class="menu-label has-text-right">
+      <a href="{vd.source}">Source</a>&nbsp; | &nbsp;<a href="{vd.documentation}">Documentation</a>
+    </div>
+    <p class="menu-label has-text-dark">Table of Content</p>
     <div class="control">
       <input class="input" type="text" placeholder="Search" id="search" on:keyup={searchSideMenu}>
     </div>

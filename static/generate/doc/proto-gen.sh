@@ -8,8 +8,8 @@ genProtoDoc() {
   pseudomuto/protoc-gen-doc \
   bash -c "protoc -I /protos --doc_out=/out /protos/$2.proto --doc_opt=json,proto-doc.json"
 
-  mkdir -p ../$1/$2/$3
-  mv doc/proto-doc.json ../$1/$2/$3/proto-doc.json
+  mkdir -p ../$1/$2/v$3
+  mv doc/proto-doc.json ../$1/$2/v$3/proto-doc.json
 }
 
 if [ $# != 2 ]; then
