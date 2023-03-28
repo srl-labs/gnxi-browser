@@ -61,12 +61,12 @@
             </div>
             <div class="panel-container">
               {#each panelList as item}
-                <div class="panel-block">
+                <a class="panel-block" href="{item.href}">
                   <div class="media-content">
-                    <a href="{item.href}">{item.name}</a>
+                    <p class="has-text-link">{item.name}</p>
                     <div class="content"><p>{item.desc}</p></div>
                   </div>
-                </div>
+                </a>
               {/each}
             </div>
           </div>

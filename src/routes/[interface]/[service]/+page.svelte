@@ -17,7 +17,7 @@
   const pd = data.protoDoc;
   const files = pd.files;
 
-  const iconLoop = function(component, color, text, kind) {
+  const iconLoop = (component, color, text, kind) => {
     return component.map(v => ({...v, iconColor: color, iconText: text, subSection: kind}))
   }
 
@@ -50,7 +50,7 @@
 	});
 
   // FIELD REQUIRED?
-  const needField = function(dict, kind) {
+  const needField = (dict, kind) => {
     let checkList = [];
     dict.map(function (el) { if(el[kind] != "") checkList.push(true) })
     if(checkList.length > 0) return true;
@@ -58,7 +58,7 @@
   }
 
   // GROUP BY KEY ON A LIST OF OBJECT
-  const groupByKey = function(list, key) {
+  const groupByKey = (list, key) => {
     const groupBy = (list, key) => list.reduce((hash, obj) => ({...hash, [obj[key]]:( hash[obj[key]] || [] ).concat(obj)}), {});
     let tmp = groupBy(list, key);
     return {
@@ -68,36 +68,49 @@
   }
 
   // CONVERT TO UPPERCASE
-  const toUpper = function(arg) {
+  const toUpper = (arg) => {
     return arg.toUpperCase();
   }
 
   // MENU TOGGLE
-  const toggleMenu = function() {
+  const toggleMenu = (e) => {
     const menu = document.getElementsByClassName("menu")[0];
     const menuIcon = document.getElementById("navMenuIcon");
     const mcn = menu.className;
+    const hidden = "is-hidden";
     const fadeIn = "animate__fadeInLeft";
     const fadeOut = "animate__fadeOutLeft";
-    if(mcn.includes(fadeIn)) {
-      menu.classList.remove(fadeIn);
-      menu.classList.add(fadeOut);
-      menuIcon.innerHTML= '<i class="bx bx-menu"></i>';
+    if(e.currentTarget.className == "main-page") {
+      if(mcn.includes(fadeIn)) {
+        menu.classList.remove(fadeIn);
+        menu.classList.add(fadeOut);
+        menuIcon.innerHTML= '<i class="bx bx-menu"></i>';
+      }
     } else {
-      menu.classList.remove(fadeOut);
-      menu.classList.add(fadeIn);
-      menuIcon.innerHTML= '<i class="bx bx-x"></i>';
+      if(mcn.includes(hidden)) {
+        menu.classList.remove(hidden);
+        menu.classList.add(fadeIn);
+        menuIcon.innerHTML= '<i class="bx bx-x"></i>';
+      } else if(mcn.includes(fadeIn)) {
+        menu.classList.remove(fadeIn);
+        menu.classList.add(fadeOut);
+        menuIcon.innerHTML= '<i class="bx bx-menu"></i>';
+      } else {
+        menu.classList.remove(fadeOut);
+        menu.classList.add(fadeIn);
+        menuIcon.innerHTML= '<i class="bx bx-x"></i>';
+      }
     }
   }
 
   // CLEAR SEARCH
-  const clearSearch = function() {
+  const clearSearch = () => {
     document.getElementById("search").value = "";
     searchSideMenu();
   }
 
   // SEARCH SIDE MENU
-  const searchSideMenu = function() {
+  const searchSideMenu = () => {
     const searchField = document.getElementById("search");
     const menuItem = document.querySelectorAll("list-item");
     var matches = jQuery(".menu-list").find("li:contains(" + searchField.value + ")");
@@ -116,7 +129,7 @@
     <div class="navbar-brand">
       <!-- svelte-ignore a11y-missing-attribute -->
       <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <a class="navbar-item" id="navMenuIcon" on:click={toggleMenu}><i class="bx bx-x"></i></a>
+      <a class="navbar-item" id="navMenuIcon" on:click={toggleMenu}><i class="bx bx-menu"></i></a>
       <a class="navbar-item" href="../"><img src="/images/nwhite.png" width="65" alt="Logo"/></a>
       <p class="navbar-item has-text-warning">{interfaces[p].services[s].name} Service</p>
       <div class="navbar-item dropdown is-hoverable">
@@ -165,7 +178,7 @@
     </div>
   </nav>
   
-  <aside id="serviceMenu" class="menu box p-5 is-sticky-left has-perfect-white animate__animated animate__fadeInLeft" on:animationend={clearSearch}>
+  <aside id="serviceMenu" class="menu box p-5 is-sticky-left has-perfect-white is-hidden animate__animated" on:animationend={clearSearch}>
     <div class="menu-label has-text-right">
       <a href="{vd.source}">Source</a>&nbsp; | &nbsp;<a href="{vd.documentation}">Documentation</a>
     </div>
@@ -201,7 +214,8 @@
     </div>
   </aside>
   
-  <div class="main-page">
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div class="main-page" on:click={toggleMenu}>
     {#each files as file}
       {#each file.all as hasComponents}
         {@const sectionName = hasComponents[0].subSection}
