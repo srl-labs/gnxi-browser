@@ -233,8 +233,7 @@
                         <thead class="has-background-light has-text-weight-bold">
                           <tr>
                             <td>Method Name</td>
-                            <td>Request Type</td>
-                            <td>Response Type</td>
+                            <td>Request / Response Type</td>
                             <td>Description</td>
                           </tr>
                         </thead>
@@ -244,9 +243,7 @@
                               <td class="has-text-fira-code">{z.name}</td>
                               <td>
                                 <a class="has-text-link has-text-fira-code" href="#{z.requestLongType}">{z.requestLongType}</a> 
-                                {#if z.requestStreaming} <span class="has-text-grey-light"> stream</span> {/if}
-                              </td>
-                              <td>
+                                {#if z.requestStreaming} <span class="has-text-grey-light"> stream</span> {/if} <br>
                                 <a class="has-text-link has-text-fira-code" href="#{z.requestLongType}">{z.responseLongType}</a> 
                                 {#if z.requestStreaming} <span class="has-text-grey-light"> stream</span> {/if}
                               </td>
