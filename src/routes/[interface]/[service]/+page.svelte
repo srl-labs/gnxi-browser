@@ -178,7 +178,7 @@
     </div>
   </nav>
   
-  <aside id="serviceMenu" class="menu box p-5 is-sticky-left has-perfect-white is-hidden animate__animated" on:animationend={clearSearch}>
+  <aside id="serviceMenu" class="menu box p-5 is-sticky-left has-perfect-white is-hidden animate__animated animate__fast" on:animationend={clearSearch}>
     <div class="menu-label has-text-right">
       <a href="{vd.source}">Source</a>&nbsp; | &nbsp;<a href="{vd.documentation}">Documentation</a>
     </div>
