@@ -125,22 +125,22 @@
 </svelte:head>
 
 <div class="overall">
-  <nav class="navbar is-fixed-top is-dark">
+  <nav class="navbar is-fixed-top has-header-img">
     <div class="navbar-brand">
       <!-- svelte-ignore a11y-missing-attribute -->
       <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <a class="navbar-item" id="navMenuIcon" on:click={toggleMenu}><i class="bx bx-menu"></i></a>
+      <a class="navbar-item has-text-white" id="navMenuIcon" on:click={toggleMenu}><i class="bx bx-menu"></i></a>
       <a class="navbar-item" href="../"><img src="/images/nwhite.png" width="65" alt="Logo"/></a>
       <p class="navbar-item has-text-warning">{interfaces[p].services[s].name} Service</p>
       <div class="navbar-item dropdown is-hoverable">
         <div class="dropdown-trigger">
           {#if ov.length > 1}
             <!-- svelte-ignore a11y-missing-attribute -->
-            <a aria-haspopup="true" aria-controls="dropdown-menu">
+            <a class="has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">
               v{v} <i class='bx bx-chevron-down'></i>
             </a>
           {:else}
-            <p>{v}</p>
+            <p class="has-text-white">{v}</p>
           {/if}
         </div>
         {#if ov.length > 1}
