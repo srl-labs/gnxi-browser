@@ -226,10 +226,10 @@
               {#each hasComponents as item}
                 <p class="title is-6"><a class="service-item scroll-mt" id="{item.longName}" href="#{item.longName}">{item.longName}</a></p>
                 {#if item.description} <p>{@html item.description.replaceAll("\n", "<br>")}</p> {/if}
-                <div class="table-container">
-                  <table class="table is-fullwidth">
-                    {#if sectionName == "services"}
-                      {#if item.methods.length > 0}
+                {#if sectionName == "services"}
+                  {#if item.methods.length > 0}
+                    <div class="table-container">
+                      <table class="table is-fullwidth">
                         <thead class="has-background-light has-text-weight-bold">
                           <tr>
                             <td>Method Name</td>
@@ -251,12 +251,16 @@
                             </tr>
                           {/each}
                         </tbody>
-                      {:else}
-                        <p class="is-italic">Empty service</p>
-                      {/if}
-                    {:else if sectionName == "messages"}
-                      {#if item.fields.length > 0}
-                        {@const groups = groupByKey(item.fields, "oneofdecl")}
+                      </table>
+                    </div>
+                  {:else}
+                    <p class="is-italic">Empty service</p>
+                  {/if}
+                {:else if sectionName == "messages"}
+                  {#if item.fields.length > 0}
+                    {@const groups = groupByKey(item.fields, "oneofdecl")}
+                    <div class="table-container">
+                      <table class="table is-fullwidth">
                         <thead class="has-background-light has-text-weight-bold">
                           <tr>
                             <td>Field</td>
@@ -297,11 +301,15 @@
                             {/each}
                           {/each}
                         </tbody>
-                      {:else}
-                        <p class="is-italic">Empty message</p>
-                      {/if}
-                    {:else if sectionName == "enums"}
-                      {#if item.values.length > 0}
+                      </table>
+                    </div>
+                  {:else}
+                    <p class="is-italic">Empty message</p>
+                  {/if}
+                {:else if sectionName == "enums"}
+                  {#if item.values.length > 0}
+                    <div class="table-container">
+                      <table class="table is-fullwidth">
                         <thead class="has-background-light has-text-weight-bold">
                           <tr>
                             <td>Name</td>
@@ -318,10 +326,14 @@
                             </tr>
                           {/each}
                         </tbody>
-                      {:else}
-                        <p class="is-italic">Empty enum</p>
-                      {/if}
-                    {:else if sectionName == "extensions"}
+                      </table>
+                    </div>
+                  {:else}
+                    <p class="is-italic">Empty enum</p>
+                  {/if}
+                {:else if sectionName == "extensions"}
+                  <div class="table-container">
+                    <table class="table is-fullwidth">
                       <thead class="has-background-light has-text-weight-bold">
                         <tr>
                           <td>Extension</td>
@@ -342,9 +354,9 @@
                           </td>
                         </tr>
                       </tbody>
-                    {/if}
-                  </table>
-                </div>
+                    </table>
+                  </div>
+                {/if}
               {/each}
             </div>
           </div>
