@@ -1,7 +1,7 @@
 {
   "files": [
     {
-      "name": "gnmi.proto",
+      "name": "github.com/openconfig/gnmi/proto/gnmi/gnmi.proto",
       "description": "Copyright 2016 Google Inc. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n   http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
       "package": "gnmi",
       "hasEnums": true,
@@ -1637,6 +1637,291 @@
           ]
         }
       ]
+    },
+    {
+      "name": "github.com/openconfig/gnmi/proto/gnmi_ext/gnmi_ext.proto",
+      "description": "Copyright 2018 Google Inc. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n   http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+      "package": "gnmi_ext",
+      "hasEnums": true,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [
+        {
+          "name": "ExtensionID",
+          "longName": "ExtensionID",
+          "fullName": "gnmi_ext.ExtensionID",
+          "description": "RegisteredExtension is an enumeration acting as a registry for extensions\ndefined by external sources.",
+          "values": [
+            {
+              "name": "EID_UNSET",
+              "number": "0",
+              "description": "New extensions are to be defined within this enumeration - their definition\nMUST link to a reference describing their implementation."
+            },
+            {
+              "name": "EID_EXPERIMENTAL",
+              "number": "999",
+              "description": "An experimental extension that may be used during prototyping of a new\nextension."
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "Extension",
+          "longName": "Extension",
+          "fullName": "gnmi_ext.Extension",
+          "description": "The Extension message contains a single gNMI extension.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "registered_ext",
+              "description": "A registered extension.",
+              "label": "",
+              "type": "RegisteredExtension",
+              "longType": "RegisteredExtension",
+              "fullType": "gnmi_ext.RegisteredExtension",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "ext",
+              "defaultValue": ""
+            },
+            {
+              "name": "master_arbitration",
+              "description": "Well known extensions.\n\nMaster arbitration extension.",
+              "label": "",
+              "type": "MasterArbitration",
+              "longType": "MasterArbitration",
+              "fullType": "gnmi_ext.MasterArbitration",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "ext",
+              "defaultValue": ""
+            },
+            {
+              "name": "history",
+              "description": "History extension.",
+              "label": "",
+              "type": "History",
+              "longType": "History",
+              "fullType": "gnmi_ext.History",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "ext",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "History",
+          "longName": "History",
+          "fullName": "gnmi_ext.History",
+          "description": "The History extension allows clients to request historical data. Its\nspec can be found at\nhttps://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-history.md",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "snapshot_time",
+              "description": "Nanoseconds since the epoch",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "range",
+              "description": "",
+              "label": "",
+              "type": "TimeRange",
+              "longType": "TimeRange",
+              "fullType": "gnmi_ext.TimeRange",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MasterArbitration",
+          "longName": "MasterArbitration",
+          "fullName": "gnmi_ext.MasterArbitration",
+          "description": "MasterArbitration is used to select the master among multiple gNMI clients\nwith the same Roles. The client with the largest election_id is honored as\nthe master.\nThe document about gNMI master arbitration can be found at\nhttps://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-master-arbitration.md",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "role",
+              "description": "",
+              "label": "",
+              "type": "Role",
+              "longType": "Role",
+              "fullType": "gnmi_ext.Role",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "election_id",
+              "description": "",
+              "label": "",
+              "type": "Uint128",
+              "longType": "Uint128",
+              "fullType": "gnmi_ext.Uint128",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RegisteredExtension",
+          "longName": "RegisteredExtension",
+          "fullName": "gnmi_ext.RegisteredExtension",
+          "description": "The RegisteredExtension message defines an extension which is defined outside\nof this file.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "The unique ID assigned to this extension.",
+              "label": "",
+              "type": "ExtensionID",
+              "longType": "ExtensionID",
+              "fullType": "gnmi_ext.ExtensionID",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "msg",
+              "description": "The binary-marshalled protobuf extension payload.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Role",
+          "longName": "Role",
+          "fullName": "gnmi_ext.Role",
+          "description": "There can be one master for each role. The role is identified by its id.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "More fields can be added if needed, for example, to specify what paths the\nrole can read/write.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TimeRange",
+          "longName": "TimeRange",
+          "fullName": "gnmi_ext.TimeRange",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "start",
+              "description": "Nanoseconds since the epoch",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "end",
+              "description": "Nanoseconds since the epoch",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Uint128",
+          "longName": "Uint128",
+          "fullName": "gnmi_ext.Uint128",
+          "description": "Representation of unsigned 128-bit integer.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "high",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "low",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": []
     }
   ],
   "scalarValueTypes": [
