@@ -111,11 +111,11 @@ gnoi:
           documentation: https://path/to/documentation
     packet_link_qualification:
       name: Packet Link Qualification
-      description: Interface gNOI
+      description: The link qualification service is provides a way to certify link quality on two devices.
       versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
+        v1.1.0:
+          source: https://github.com/openconfig/gnoi/blob/3e721f3c7dd3053c093ff5d7dd2338aa23790edf/packet_link_qualification/packet_link_qualification.proto
+          documentation: https://github.com/openconfig/gnoi/blob/3e721f3c7dd3053c093ff5d7dd2338aa23790edf/packet_link_qualification/index.md
     wavelength_router:
       name: Wavelength Router
       description: Interface gNOI

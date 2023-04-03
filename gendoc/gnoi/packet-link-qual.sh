@@ -22,6 +22,10 @@ function gen-gnoi-packet-link-qual {
         ${IMAGE_NAME}:${IMAGE_TAG}"
 
     ${DOCKER_CMD} ash -c "${PROTOC_GENDOC_CMD} \
-        github.com/openconfig/gnoi/packet_link_qualification/packet_link_qualification.proto"
+        github.com/openconfig/gnoi/packet_link_qualification/packet_link_qualification.proto \
+        google/protobuf/duration.proto \
+        google/protobuf/timestamp.proto \
+        google/rpc/status.proto \
+        types/types.proto"
     echo "finished Doc compilation for packet_link_qualification.proto"
 }
