@@ -1,0 +1,162 @@
+// Accounting for gNxI operations.
+//
+// Copyright 2022 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// A protocol buffer definition used for logging events reported to a
+// gNMI server. This file assumes the following nomenclature:
+//
+//   gNMI Accounting Server -> System
+//   gNxI accounting Server <-- messages -- System
+//
+// System is a router, switch, PC, ... which accepts a connection from a
+// gNMI accounting server to collect and record accounting Records.
+//
+// A gNMI accounting Server is a server which receives records from systems and
+// logs them in the format specified using messages defined in this file.
+//
+// The current version covers event recording of shell/vendor-CLI and gRPC
+// based connections.
+
+syntax = "proto3";
+
+package gnsi.accounting;
+
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+
+import "import/types.proto";
+
+option go_package = "github.com/openconfig/gnsi/accounting";
+option (gnoi.types.gnoi_version) = "0.2.0";
+
+// Session identifier that identifies the context in which service
+// was executed.
+message SessionInfo {
+  // address of the system sending the event, in most cases this address
+  // is the Loopback or Loopback equivalent on system which is sending
+  // the messages to the collector.
+  string system_address = 1;
+
+  // rest of the information for 5 tuple of the connection
+  uint32 layer4_proto = 2;
+  uint32 local_port = 3;
+  string remote_address = 4;
+  uint32 remote_port = 5;
+
+  // For multiplexing multiple channels over single 5 tuple
+  // - multiple CLI connections over single SSH
+  string channel_id = 6;
+}
+
+// Details of authentication - for gRPC or shell/vendor-CLI.
+message AuthDetail {
+  // Identity string is used to identify the user that executed the
+  // command. For instance, it could be spiffe-id in the case of gRPC or
+  // unix-style user-name in the case of shell/vendor-CLI.
+  string identity = 1;
+
+  // Privilege level configured on the system.
+  uint32 privilege_level = 2;
+
+  // authentication status
+  enum AuthenStatus {
+    AUTHEN_STATUS_UNSPECIFIED = 0;
+    AUTHEN_STATUS_PERMIT = 1;
+    AUTHEN_STATUS_DENY = 2;
+  }
+  AuthenStatus status = 3;
+
+  // In case of STATUS_DENY, cause for the deny
+  string deny_cause = 4;
+}
+
+// Command details for shell/vendor-CLI
+message CommandService {
+  enum CmdServiceType {
+    CMD_SERVICE_TYPE_UNSPECIFIED = 0;
+    CMD_SERVICE_TYPE_SHELL = 1;
+    CMD_SERVICE_TYPE_CLI = 2;
+  }
+  CmdServiceType service_type = 1;
+
+  // The command that was executed.
+  string cmd = 2;
+
+  // Arguments to a command above.
+  repeated string cmd_args = 3;
+}
+
+// Command details for openconfig gNxI commands.
+message GrpcService {
+  enum GrpcServiceType {
+    GRPC_SERVICE_TYPE_UNSPECIFIED = 0;
+    GRPC_SERVICE_TYPE_GNMI = 1;
+    GRPC_SERVICE_TYPE_GNOI = 2;
+    GRPC_SERVICE_TYPE_GNSI = 3;
+    // GRIBI records could be very verbose.
+    // By default, the logging authorization
+    // should keep GRIBI logging off.
+    GRPC_SERVICE_TYPE_GRIBI = 4;
+  }
+  GrpcServiceType service_type = 1;
+
+  // rpc_name is the rpc to which the request was sent, examples:
+  //   gnmi.Set()
+  //   gnoi.os.Install()
+  //   gnsi.cert.Rotate()
+  string rpc_name = 2;
+
+  // A string of bytes that are gRPC encoded. Best to decode using PROTO_ANY.
+  repeated google.protobuf.Any payloads = 3;
+
+  // config_metadata can be used to track all set requests that were to be
+  // applied atomically.
+  string config_metadata = 4;
+}
+
+// An accounting record message is generated everytime the user types a
+// shell/vendorCLI command or sends a gNxI setRequest.
+message Record {
+  // Session information
+  SessionInfo session_info = 1;
+
+  // The time when the system recorded this event. Recorded as nanoseconds
+  // since epoch.
+  google.protobuf.Timestamp timestamp = 2;
+
+  // Service request details of the accounting record.
+  oneof service_request {
+    CommandService cmd_service = 3;
+    GrpcService grpc_service = 4;
+  }
+
+  // Service processing status at the time of event reporting.
+  enum ServiceStatus {
+    SERVICE_STATUS_UNSPECIFIED = 0;
+    SERVICE_STATUS_SUCCESS = 1;
+    SERVICE_STATUS_FAILURE = 2;
+  }
+  ServiceStatus status = 5;
+
+  // In case of STATUS_FAILURE, cause for the failure
+  string failure_cause = 6;
+
+  // Authentication related details
+  AuthDetail authen = 7;
+
+  // Optional repeated task_id that represent tasks that were used to
+  // accomplish the request on the system.
+  repeated string task_ids = 32;
+}
