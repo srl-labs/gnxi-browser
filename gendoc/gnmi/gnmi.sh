@@ -2,7 +2,7 @@ GNMI_DIR=~/openconfig/gnmi
 
 # gnmi_git_refs is a map of git references to gnmi versions
 declare -A gnmi_git_refs
-# gnmi_git_refs["v0.9.1"]="some commit hash"
+gnmi_git_refs["v0.7.0"]="00369d9"
 
 # genereate gNMI proto docs
 function gen-gnmi {

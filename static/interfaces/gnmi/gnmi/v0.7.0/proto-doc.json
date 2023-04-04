@@ -1,0 +1,2169 @@
+{
+  "files": [
+    {
+      "name": "github.com/openconfig/gnmi/proto/gnmi/gnmi.proto",
+      "description": "Copyright 2016 Google Inc. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n   http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+      "package": "gnmi",
+      "hasEnums": true,
+      "hasExtensions": true,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [
+        {
+          "name": "Encoding",
+          "longName": "Encoding",
+          "fullName": "gnmi.Encoding",
+          "description": "Encoding defines the value encoding formats that are supported by the gNMI\nprotocol. These encodings are used by both the client (when sending Set\nmessages to modify the state of the target) and the target when serializing\ndata to be returned to the client (in both Subscribe and Get RPCs).\nReference: gNMI Specification Section 2.3",
+          "values": [
+            {
+              "name": "JSON",
+              "number": "0",
+              "description": "JSON encoded text."
+            },
+            {
+              "name": "BYTES",
+              "number": "1",
+              "description": "Arbitrarily encoded bytes."
+            },
+            {
+              "name": "PROTO",
+              "number": "2",
+              "description": "Encoded according to out-of-band agreed Protobuf."
+            },
+            {
+              "name": "ASCII",
+              "number": "3",
+              "description": "ASCII text of an out-of-band agreed format."
+            },
+            {
+              "name": "JSON_IETF",
+              "number": "4",
+              "description": "JSON encoded text as per RFC7951."
+            }
+          ]
+        },
+        {
+          "name": "DataType",
+          "longName": "GetRequest.DataType",
+          "fullName": "gnmi.GetRequest.DataType",
+          "description": "Type of elements within the data tree.",
+          "values": [
+            {
+              "name": "ALL",
+              "number": "0",
+              "description": "All data elements."
+            },
+            {
+              "name": "CONFIG",
+              "number": "1",
+              "description": "Config (rw) only elements."
+            },
+            {
+              "name": "STATE",
+              "number": "2",
+              "description": "State (ro) only elements."
+            },
+            {
+              "name": "OPERATIONAL",
+              "number": "3",
+              "description": "Data elements marked in the schema as operational. This refers to data\nelements whose value relates to the state of processes or interactions\nrunning on the device."
+            }
+          ]
+        },
+        {
+          "name": "Mode",
+          "longName": "SubscriptionList.Mode",
+          "fullName": "gnmi.SubscriptionList.Mode",
+          "description": "Mode of the subscription.",
+          "values": [
+            {
+              "name": "STREAM",
+              "number": "0",
+              "description": "Values streamed by the target (Sec. 3.5.1.5.2)."
+            },
+            {
+              "name": "ONCE",
+              "number": "1",
+              "description": "Values sent once-off by the target (Sec. 3.5.1.5.1)."
+            },
+            {
+              "name": "POLL",
+              "number": "2",
+              "description": "Values sent in response to a poll request (Sec. 3.5.1.5.3)."
+            }
+          ]
+        },
+        {
+          "name": "SubscriptionMode",
+          "longName": "SubscriptionMode",
+          "fullName": "gnmi.SubscriptionMode",
+          "description": "SubscriptionMode is the mode of the subscription, specifying how the\ntarget must return values in a subscription.\nReference: gNMI Specification Section 3.5.1.3",
+          "values": [
+            {
+              "name": "TARGET_DEFINED",
+              "number": "0",
+              "description": "The target selects the relevant mode for each element."
+            },
+            {
+              "name": "ON_CHANGE",
+              "number": "1",
+              "description": "The target sends an update on element value change."
+            },
+            {
+              "name": "SAMPLE",
+              "number": "2",
+              "description": "The target samples values according to the interval."
+            }
+          ]
+        },
+        {
+          "name": "Operation",
+          "longName": "UpdateResult.Operation",
+          "fullName": "gnmi.UpdateResult.Operation",
+          "description": "The operation that was associated with the Path specified.",
+          "values": [
+            {
+              "name": "INVALID",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "DELETE",
+              "number": "1",
+              "description": "The result relates to a delete of Path."
+            },
+            {
+              "name": "REPLACE",
+              "number": "2",
+              "description": "The result relates to a replace of Path."
+            },
+            {
+              "name": "UPDATE",
+              "number": "3",
+              "description": "The result relates to an update of Path."
+            }
+          ]
+        }
+      ],
+      "extensions": [
+        {
+          "name": "gnmi_service",
+          "longName": "FileOptions.gnmi_service",
+          "fullName": "gnmi.FileOptions.gnmi_service",
+          "description": "The gNMI service semantic version.",
+          "label": "",
+          "type": "string",
+          "longType": "string",
+          "fullType": "string",
+          "number": 1001,
+          "defaultValue": "",
+          "containingType": "FileOptions",
+          "containingLongType": ".google.protobuf.FileOptions",
+          "containingFullType": "google.protobuf.FileOptions"
+        }
+      ],
+      "messages": [
+        {
+          "name": "Alias",
+          "longName": "Alias",
+          "fullName": "gnmi.Alias",
+          "description": "Alias specifies a data tree path, and an associated string which defines an\nalias which is to be used for this path in the context of the RPC. The alias\nis specified as a string which is prefixed with \"#\" to disambiguate it from\ndata tree element paths.\nReference: gNMI Specification Section 2.4.2",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "path",
+              "description": "The path to be aliased.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "alias",
+              "description": "The alias value, a string prefixed by \"#\".",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AliasList",
+          "longName": "AliasList",
+          "fullName": "gnmi.AliasList",
+          "description": "AliasList specifies a list of aliases. It is used in a SubscribeRequest for\na client to create a set of aliases that the target is to utilize.\nReference: gNMI Specification Section 3.5.1.6",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "alias",
+              "description": "The set of aliases to be created.",
+              "label": "repeated",
+              "type": "Alias",
+              "longType": "Alias",
+              "fullType": "gnmi.Alias",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CapabilityRequest",
+          "longName": "CapabilityRequest",
+          "fullName": "gnmi.CapabilityRequest",
+          "description": "CapabilityRequest is sent by the client in the Capabilities RPC to request\nthat the target reports its capabilities.\nReference: gNMI Specification Section 3.2.1",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "extension",
+              "description": "Extension messages associated with the CapabilityRequest. See the\ngNMI extension specification for further definition.",
+              "label": "repeated",
+              "type": "Extension",
+              "longType": "gnmi_ext.Extension",
+              "fullType": "gnmi_ext.Extension",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CapabilityResponse",
+          "longName": "CapabilityResponse",
+          "fullName": "gnmi.CapabilityResponse",
+          "description": "CapabilityResponse is used by the target to report its capabilities to the\nclient within the Capabilities RPC.\nReference: gNMI Specification Section 3.2.2",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "supported_models",
+              "description": "Supported schema models.",
+              "label": "repeated",
+              "type": "ModelData",
+              "longType": "ModelData",
+              "fullType": "gnmi.ModelData",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "supported_encodings",
+              "description": "Supported encodings.",
+              "label": "repeated",
+              "type": "Encoding",
+              "longType": "Encoding",
+              "fullType": "gnmi.Encoding",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "gNMI_version",
+              "description": "Supported gNMI version.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extension",
+              "description": "Extension messages associated with the CapabilityResponse. See the\ngNMI extension specification for further definition.",
+              "label": "repeated",
+              "type": "Extension",
+              "longType": "gnmi_ext.Extension",
+              "fullType": "gnmi_ext.Extension",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Decimal64",
+          "longName": "Decimal64",
+          "fullName": "gnmi.Decimal64",
+          "description": "Decimal64 is used to encode a fixed precision decimal number. The value\nis expressed as a set of digits with the precision specifying the\nnumber of digits following the decimal point in the digit set.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "digits",
+              "description": "Set of digits.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "precision",
+              "description": "Number of digits following the decimal point.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Error",
+          "longName": "Error",
+          "fullName": "gnmi.Error",
+          "description": "Error message previously utilised to return errors to the client. Deprecated\nin favour of using the google.golang.org/genproto/googleapis/rpc/status\nmessage in the RPC response.\nReference: gNMI Specification Section 2.5",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "code",
+              "description": "Canonical gRPC error code.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "message",
+              "description": "Human readable error.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "data",
+              "description": "Optional additional information.",
+              "label": "",
+              "type": "Any",
+              "longType": "google.protobuf.Any",
+              "fullType": "google.protobuf.Any",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ],
+          "options": {
+            "deprecated": true
+          }
+        },
+        {
+          "name": "GetRequest",
+          "longName": "GetRequest",
+          "fullName": "gnmi.GetRequest",
+          "description": "GetRequest is sent when a client initiates a Get RPC. It is used to specify\nthe set of data elements for which the target should return a snapshot of\ndata. The use_models field specifies the set of schema modules that are to\nbe used by the target - where use_models is not specified then the target\nmust use all schema models that it has.\nReference: gNMI Specification Section 3.3.1",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "prefix",
+              "description": "Prefix used for paths.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "path",
+              "description": "Paths requested by the client.",
+              "label": "repeated",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "type",
+              "description": "The type of data being requested.",
+              "label": "",
+              "type": "DataType",
+              "longType": "GetRequest.DataType",
+              "fullType": "gnmi.GetRequest.DataType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "encoding",
+              "description": "Encoding to be used.",
+              "label": "",
+              "type": "Encoding",
+              "longType": "Encoding",
+              "fullType": "gnmi.Encoding",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "use_models",
+              "description": "The schema models to be used.",
+              "label": "repeated",
+              "type": "ModelData",
+              "longType": "ModelData",
+              "fullType": "gnmi.ModelData",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extension",
+              "description": "Extension messages associated with the GetRequest. See the\ngNMI extension specification for further definition.",
+              "label": "repeated",
+              "type": "Extension",
+              "longType": "gnmi_ext.Extension",
+              "fullType": "gnmi_ext.Extension",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetResponse",
+          "longName": "GetResponse",
+          "fullName": "gnmi.GetResponse",
+          "description": "GetResponse is used by the target to respond to a GetRequest from a client.\nThe set of Notifications corresponds to the data values that are requested\nby the client in the GetRequest.\nReference: gNMI Specification Section 3.3.2",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "notification",
+              "description": "Data values.",
+              "label": "repeated",
+              "type": "Notification",
+              "longType": "Notification",
+              "fullType": "gnmi.Notification",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "error",
+              "description": "Errors that occurred in the Get.",
+              "label": "",
+              "type": "Error",
+              "longType": "Error",
+              "fullType": "gnmi.Error",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "extension",
+              "description": "Extension messages associated with the GetResponse. See the\ngNMI extension specification for further definition.",
+              "label": "repeated",
+              "type": "Extension",
+              "longType": "gnmi_ext.Extension",
+              "fullType": "gnmi_ext.Extension",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ModelData",
+          "longName": "ModelData",
+          "fullName": "gnmi.ModelData",
+          "description": "ModelData is used to describe a set of schema modules. It can be used in a\nCapabilityResponse where a target reports the set of modules that it\nsupports, and within the SubscribeRequest and GetRequest messages to specify\nthe set of models from which data tree elements should be reported.\nReference: gNMI Specification Section 3.2.3",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "Name of the model.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "organization",
+              "description": "Organization publishing the model.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "version",
+              "description": "Semantic version of the model.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Notification",
+          "longName": "Notification",
+          "fullName": "gnmi.Notification",
+          "description": "Notification is a re-usable message that is used to encode data from the\ntarget to the client. A Notification carries two types of changes to the data\ntree:\n - Deleted values (delete) - a set of paths that have been removed from the\n   data tree.\n - Updated values (update) - a set of path-value pairs indicating the path\n   whose value has changed in the data tree.\nReference: gNMI Specification Section 2.1",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "timestamp",
+              "description": "Timestamp in nanoseconds since Epoch.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "prefix",
+              "description": "Prefix used for paths in the message.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "alias",
+              "description": "An alias for the path specified in the prefix field.\nReference: gNMI Specification Section 2.4.2",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "update",
+              "description": "Data elements that have changed values.",
+              "label": "repeated",
+              "type": "Update",
+              "longType": "Update",
+              "fullType": "gnmi.Update",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "delete",
+              "description": "Data elements that have been deleted.",
+              "label": "repeated",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "atomic",
+              "description": "This notification contains a set of paths that are always updated together\nreferenced by a globally unique prefix.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Path",
+          "longName": "Path",
+          "fullName": "gnmi.Path",
+          "description": "Path encodes a data tree path as a series of repeated strings, with\neach element of the path representing a data tree node name and the\nassociated attributes.\nReference: gNMI Specification Section 2.2.2.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "element",
+              "description": "Elements of the path are no longer encoded as a string, but rather within\nthe elem field as a PathElem message.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "origin",
+              "description": "Label to disambiguate path.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "elem",
+              "description": "Elements of the path.",
+              "label": "repeated",
+              "type": "PathElem",
+              "longType": "PathElem",
+              "fullType": "gnmi.PathElem",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "target",
+              "description": "The name of the target",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PathElem",
+          "longName": "PathElem",
+          "fullName": "gnmi.PathElem",
+          "description": "PathElem encodes an element of a gNMI path, along with any attributes (keys)\nthat may be associated with it.\nReference: gNMI Specification Section 2.2.2.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "The name of the element in the path.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key",
+              "description": "Map of key (attribute) name to value.",
+              "label": "repeated",
+              "type": "KeyEntry",
+              "longType": "PathElem.KeyEntry",
+              "fullType": "gnmi.PathElem.KeyEntry",
+              "ismap": true,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "KeyEntry",
+          "longName": "PathElem.KeyEntry",
+          "fullName": "gnmi.PathElem.KeyEntry",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Poll",
+          "longName": "Poll",
+          "fullName": "gnmi.Poll",
+          "description": "Poll is sent within a SubscribeRequest to trigger the device to\nsend telemetry updates for the paths that are associated with the\nsubscription.\nReference: gNMI Specification Section Section 3.5.1.4",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "QOSMarking",
+          "longName": "QOSMarking",
+          "fullName": "gnmi.QOSMarking",
+          "description": "QOSMarking specifies the DSCP value to be set on transmitted telemetry\nupdates from the target.\nReference: gNMI Specification Section 3.5.1.2",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "marking",
+              "description": "",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ScalarArray",
+          "longName": "ScalarArray",
+          "fullName": "gnmi.ScalarArray",
+          "description": "ScalarArray is used to encode a mixed-type array of values.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "element",
+              "description": "The set of elements within the array. Each TypedValue message should\nspecify only elements that have a field identifier of 1-7 (i.e., the\nvalues are scalar values).",
+              "label": "repeated",
+              "type": "TypedValue",
+              "longType": "TypedValue",
+              "fullType": "gnmi.TypedValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SetRequest",
+          "longName": "SetRequest",
+          "fullName": "gnmi.SetRequest",
+          "description": "SetRequest is sent from a client to the target to update values in the data\ntree. Paths are either deleted by the client, or modified by means of being\nupdated, or replaced. Where a replace is used, unspecified values are\nconsidered to be replaced, whereas when update is used the changes are\nconsidered to be incremental. The set of changes that are specified within\na single SetRequest are considered to be a transaction.\nReference: gNMI Specification Section 3.4.1",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "prefix",
+              "description": "Prefix used for paths in the message.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "delete",
+              "description": "Paths to be deleted from the data tree.",
+              "label": "repeated",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "replace",
+              "description": "Updates specifying elements to be replaced.",
+              "label": "repeated",
+              "type": "Update",
+              "longType": "Update",
+              "fullType": "gnmi.Update",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "update",
+              "description": "Updates specifying elements to updated.",
+              "label": "repeated",
+              "type": "Update",
+              "longType": "Update",
+              "fullType": "gnmi.Update",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extension",
+              "description": "Extension messages associated with the SetRequest. See the\ngNMI extension specification for further definition.",
+              "label": "repeated",
+              "type": "Extension",
+              "longType": "gnmi_ext.Extension",
+              "fullType": "gnmi_ext.Extension",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SetResponse",
+          "longName": "SetResponse",
+          "fullName": "gnmi.SetResponse",
+          "description": "SetResponse is the response to a SetRequest, sent from the target to the\nclient. It reports the result of the modifications to the data tree that were\nspecified by the client. Errors for this RPC should be reported using the\nhttps://github.com/googleapis/googleapis/blob/master/google/rpc/status.proto\nmessage in the RPC return. The gnmi.Error message can be used to add additional\ndetails where required.\nReference: gNMI Specification Section 3.4.2",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "prefix",
+              "description": "Prefix used for paths.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "response",
+              "description": "A set of responses specifying the result of the operations specified in\nthe SetRequest.",
+              "label": "repeated",
+              "type": "UpdateResult",
+              "longType": "UpdateResult",
+              "fullType": "gnmi.UpdateResult",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "message",
+              "description": "The overall status of the transaction.",
+              "label": "",
+              "type": "Error",
+              "longType": "Error",
+              "fullType": "gnmi.Error",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "timestamp",
+              "description": "Timestamp of transaction (ns since epoch).",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extension",
+              "description": "Extension messages associated with the SetResponse. See the\ngNMI extension specification for further definition.",
+              "label": "repeated",
+              "type": "Extension",
+              "longType": "gnmi_ext.Extension",
+              "fullType": "gnmi_ext.Extension",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SubscribeRequest",
+          "longName": "SubscribeRequest",
+          "fullName": "gnmi.SubscribeRequest",
+          "description": "SubscribeRequest is the message sent by the client to the target when\ninitiating a subscription to a set of paths within the data tree. The\nrequest field must be populated and the initial message must specify a\nSubscriptionList to initiate a subscription. The message is subsequently\nused to define aliases or trigger polled data to be sent by the target.\nReference: gNMI Specification Section 3.5.1.1",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "subscribe",
+              "description": "Specify the paths within a subscription.",
+              "label": "",
+              "type": "SubscriptionList",
+              "longType": "SubscriptionList",
+              "fullType": "gnmi.SubscriptionList",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "poll",
+              "description": "Trigger a polled update.",
+              "label": "",
+              "type": "Poll",
+              "longType": "Poll",
+              "fullType": "gnmi.Poll",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "aliases",
+              "description": "Aliases to be created.",
+              "label": "",
+              "type": "AliasList",
+              "longType": "AliasList",
+              "fullType": "gnmi.AliasList",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "extension",
+              "description": "Extension messages associated with the SubscribeRequest. See the\ngNMI extension specification for further definition.",
+              "label": "repeated",
+              "type": "Extension",
+              "longType": "gnmi_ext.Extension",
+              "fullType": "gnmi_ext.Extension",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SubscribeResponse",
+          "longName": "SubscribeResponse",
+          "fullName": "gnmi.SubscribeResponse",
+          "description": "SubscribeResponse is the message used by the target within a Subscribe RPC.\nThe target includes a Notification message which is used to transmit values\nof the path(s) that are associated with the subscription. The same message\nis to indicate that the target has sent all data values once (is\nsynchronized).\nReference: gNMI Specification Section 3.5.1.4",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "update",
+              "description": "Changed or sampled value for a path.",
+              "label": "",
+              "type": "Notification",
+              "longType": "Notification",
+              "fullType": "gnmi.Notification",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "sync_response",
+              "description": "Indicate target has sent all values associated with the subscription\nat least once.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "error",
+              "description": "Deprecated in favour of google.golang.org/genproto/googleapis/rpc/status",
+              "label": "",
+              "type": "Error",
+              "longType": "Error",
+              "fullType": "gnmi.Error",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "extension",
+              "description": "Extension messages associated with the SubscribeResponse. See the\ngNMI extension specification for further definition.",
+              "label": "repeated",
+              "type": "Extension",
+              "longType": "gnmi_ext.Extension",
+              "fullType": "gnmi_ext.Extension",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Subscription",
+          "longName": "Subscription",
+          "fullName": "gnmi.Subscription",
+          "description": "Subscription is a single request within a SubscriptionList. The path\nspecified is interpreted (along with the prefix) as the elements of the data\ntree that the client is subscribing to. The mode determines how the target\nshould trigger updates to be sent.\nReference: gNMI Specification Section 3.5.1.3",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "path",
+              "description": "The data tree path.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "mode",
+              "description": "Subscription mode to be used.",
+              "label": "",
+              "type": "SubscriptionMode",
+              "longType": "SubscriptionMode",
+              "fullType": "gnmi.SubscriptionMode",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sample_interval",
+              "description": "ns between samples in SAMPLE mode.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "suppress_redundant",
+              "description": "Indicates whether values that have not changed should be sent in a SAMPLE\nsubscription.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "heartbeat_interval",
+              "description": "Specifies the maximum allowable silent period in nanoseconds when\nsuppress_redundant is in use. The target should send a value at least once\nin the period specified.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SubscriptionList",
+          "longName": "SubscriptionList",
+          "fullName": "gnmi.SubscriptionList",
+          "description": "SubscriptionList is used within a Subscribe message to specify the list of\npaths that the client wishes to subscribe to. The message consists of a\nlist of (possibly prefixed) paths, and options that relate to the\nsubscription.\nReference: gNMI Specification Section 3.5.1.2",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "prefix",
+              "description": "Prefix used for paths.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "subscription",
+              "description": "Set of subscriptions to create.",
+              "label": "repeated",
+              "type": "Subscription",
+              "longType": "Subscription",
+              "fullType": "gnmi.Subscription",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "use_aliases",
+              "description": "Whether target defined aliases are allowed within the subscription.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "qos",
+              "description": "DSCP marking to be used.",
+              "label": "",
+              "type": "QOSMarking",
+              "longType": "QOSMarking",
+              "fullType": "gnmi.QOSMarking",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "mode",
+              "description": "",
+              "label": "",
+              "type": "Mode",
+              "longType": "SubscriptionList.Mode",
+              "fullType": "gnmi.SubscriptionList.Mode",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "allow_aggregation",
+              "description": "Whether elements of the schema that are marked as eligible for aggregation\nshould be aggregated or not.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "use_models",
+              "description": "The set of schemas that define the elements of the data tree that should\nbe sent by the target.",
+              "label": "repeated",
+              "type": "ModelData",
+              "longType": "ModelData",
+              "fullType": "gnmi.ModelData",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "encoding",
+              "description": "The encoding that the target should use within the Notifications generated\ncorresponding to the SubscriptionList.",
+              "label": "",
+              "type": "Encoding",
+              "longType": "Encoding",
+              "fullType": "gnmi.Encoding",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "updates_only",
+              "description": "An optional field to specify that only updates to current state should be\nsent to a client. If set, the initial state is not sent to the client but\nrather only the sync message followed by any subsequent updates to the\ncurrent state. For ONCE and POLL modes, this causes the server to send only\nthe sync message (Sec. 3.5.2.3).",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TypedValue",
+          "longName": "TypedValue",
+          "fullName": "gnmi.TypedValue",
+          "description": "TypedValue is used to encode a value being sent between the client and\ntarget (originated by either entity).",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "string_val",
+              "description": "String value.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "int_val",
+              "description": "Integer value.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "uint_val",
+              "description": "Unsigned integer value.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "bool_val",
+              "description": "Bool value.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "bytes_val",
+              "description": "Arbitrary byte sequence value.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "float_val",
+              "description": "Floating point value.",
+              "label": "",
+              "type": "float",
+              "longType": "float",
+              "fullType": "float",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "decimal_val",
+              "description": "Decimal64 encoded value.",
+              "label": "",
+              "type": "Decimal64",
+              "longType": "Decimal64",
+              "fullType": "gnmi.Decimal64",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "leaflist_val",
+              "description": "Mixed type scalar array value.",
+              "label": "",
+              "type": "ScalarArray",
+              "longType": "ScalarArray",
+              "fullType": "gnmi.ScalarArray",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "any_val",
+              "description": "protobuf.Any encoded bytes.",
+              "label": "",
+              "type": "Any",
+              "longType": "google.protobuf.Any",
+              "fullType": "google.protobuf.Any",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "json_val",
+              "description": "JSON-encoded text.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "json_ietf_val",
+              "description": "JSON-encoded text per RFC7951.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "ascii_val",
+              "description": "Arbitrary ASCII text.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "proto_bytes",
+              "description": "Protobuf binary encoded bytes. The message type is not included.\nSee the specification at\ngithub.com/openconfig/reference/blob/master/rpc/gnmi/protobuf-vals.md\nfor a complete specification.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Update",
+          "longName": "Update",
+          "fullName": "gnmi.Update",
+          "description": "Update is a re-usable message that is used to store a particular Path,\nValue pair.\nReference: gNMI Specification Section 2.1",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "path",
+              "description": "The path (key) for the update.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "The value (value) for the update.",
+              "label": "",
+              "type": "Value",
+              "longType": "Value",
+              "fullType": "gnmi.Value",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "val",
+              "description": "The explicitly typed update value.",
+              "label": "",
+              "type": "TypedValue",
+              "longType": "TypedValue",
+              "fullType": "gnmi.TypedValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "duplicates",
+              "description": "Number of coalesced duplicates.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "UpdateResult",
+          "longName": "UpdateResult",
+          "fullName": "gnmi.UpdateResult",
+          "description": "UpdateResult is used within the SetResponse message to communicate the\nresult of an operation specified within a SetRequest message.\nReference: gNMI Specification Section 3.4.2",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "timestamp",
+              "description": "Deprecated timestamp for the UpdateResult, this field has been\nreplaced by the timestamp within the SetResponse message, since\nall mutations effected by a set should be applied as a single\ntransaction.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "path",
+              "description": "Path associated with the update.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "message",
+              "description": "Status of the update operation.",
+              "label": "",
+              "type": "Error",
+              "longType": "Error",
+              "fullType": "gnmi.Error",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "op",
+              "description": "Update operation type.",
+              "label": "",
+              "type": "Operation",
+              "longType": "UpdateResult.Operation",
+              "fullType": "gnmi.UpdateResult.Operation",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Value",
+          "longName": "Value",
+          "fullName": "gnmi.Value",
+          "description": "Value encodes a data tree node's value - along with the way in which\nthe value is encoded. This message is deprecated by gNMI 0.3.0.\nReference: gNMI Specification Section 2.2.3.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "value",
+              "description": "Value of the variable being transmitted.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "type",
+              "description": "Encoding used for the value field.",
+              "label": "",
+              "type": "Encoding",
+              "longType": "Encoding",
+              "fullType": "gnmi.Encoding",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ],
+          "options": {
+            "deprecated": true
+          }
+        }
+      ],
+      "services": [
+        {
+          "name": "gNMI",
+          "longName": "gNMI",
+          "fullName": "gnmi.gNMI",
+          "description": "",
+          "methods": [
+            {
+              "name": "Capabilities",
+              "description": "Capabilities allows the client to retrieve the set of capabilities that\nis supported by the target. This allows the target to validate the\nservice version that is implemented and retrieve the set of models that\nthe target supports. The models can then be specified in subsequent RPCs\nto restrict the set of data that is utilized.\nReference: gNMI Specification Section 3.2",
+              "requestType": "CapabilityRequest",
+              "requestLongType": "CapabilityRequest",
+              "requestFullType": "gnmi.CapabilityRequest",
+              "requestStreaming": false,
+              "responseType": "CapabilityResponse",
+              "responseLongType": "CapabilityResponse",
+              "responseFullType": "gnmi.CapabilityResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "Get",
+              "description": "Retrieve a snapshot of data from the target. A Get RPC requests that the\ntarget snapshots a subset of the data tree as specified by the paths\nincluded in the message and serializes this to be returned to the\nclient using the specified encoding.\nReference: gNMI Specification Section 3.3",
+              "requestType": "GetRequest",
+              "requestLongType": "GetRequest",
+              "requestFullType": "gnmi.GetRequest",
+              "requestStreaming": false,
+              "responseType": "GetResponse",
+              "responseLongType": "GetResponse",
+              "responseFullType": "gnmi.GetResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "Set",
+              "description": "Set allows the client to modify the state of data on the target. The\npaths to modified along with the new values that the client wishes\nto set the value to.\nReference: gNMI Specification Section 3.4",
+              "requestType": "SetRequest",
+              "requestLongType": "SetRequest",
+              "requestFullType": "gnmi.SetRequest",
+              "requestStreaming": false,
+              "responseType": "SetResponse",
+              "responseLongType": "SetResponse",
+              "responseFullType": "gnmi.SetResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "Subscribe",
+              "description": "Subscribe allows a client to request the target to send it values\nof particular paths within the data tree. These values may be streamed\nat a particular cadence (STREAM), sent one off on a long-lived channel\n(POLL), or sent as a one-off retrieval (ONCE).\nReference: gNMI Specification Section 3.5",
+              "requestType": "SubscribeRequest",
+              "requestLongType": "SubscribeRequest",
+              "requestFullType": "gnmi.SubscribeRequest",
+              "requestStreaming": true,
+              "responseType": "SubscribeResponse",
+              "responseLongType": "SubscribeResponse",
+              "responseFullType": "gnmi.SubscribeResponse",
+              "responseStreaming": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "github.com/openconfig/gnmi/proto/gnmi_ext/gnmi_ext.proto",
+      "description": "Copyright 2018 Google Inc. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n   http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+      "package": "gnmi_ext",
+      "hasEnums": true,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [
+        {
+          "name": "ExtensionID",
+          "longName": "ExtensionID",
+          "fullName": "gnmi_ext.ExtensionID",
+          "description": "RegisteredExtension is an enumeration acting as a registry for extensions\ndefined by external sources.",
+          "values": [
+            {
+              "name": "EID_UNSET",
+              "number": "0",
+              "description": "New extensions are to be defined within this enumeration - their definition\nMUST link to a reference describing their implementation."
+            },
+            {
+              "name": "EID_EXPERIMENTAL",
+              "number": "999",
+              "description": "An experimental extension that may be used during prototyping of a new\nextension."
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "Extension",
+          "longName": "Extension",
+          "fullName": "gnmi_ext.Extension",
+          "description": "The Extension message contains a single gNMI extension.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "registered_ext",
+              "description": "A registered extension.",
+              "label": "",
+              "type": "RegisteredExtension",
+              "longType": "RegisteredExtension",
+              "fullType": "gnmi_ext.RegisteredExtension",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "ext",
+              "defaultValue": ""
+            },
+            {
+              "name": "master_arbitration",
+              "description": "Well known extensions.\n\nMaster arbitration extension.",
+              "label": "",
+              "type": "MasterArbitration",
+              "longType": "MasterArbitration",
+              "fullType": "gnmi_ext.MasterArbitration",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "ext",
+              "defaultValue": ""
+            },
+            {
+              "name": "history",
+              "description": "History extension.",
+              "label": "",
+              "type": "History",
+              "longType": "History",
+              "fullType": "gnmi_ext.History",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "ext",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "History",
+          "longName": "History",
+          "fullName": "gnmi_ext.History",
+          "description": "The History extension allows clients to request historical data. Its\nspec can be found at\nhttps://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-history.md",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "snapshot_time",
+              "description": "Nanoseconds since the epoch",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "range",
+              "description": "",
+              "label": "",
+              "type": "TimeRange",
+              "longType": "TimeRange",
+              "fullType": "gnmi_ext.TimeRange",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MasterArbitration",
+          "longName": "MasterArbitration",
+          "fullName": "gnmi_ext.MasterArbitration",
+          "description": "MasterArbitration is used to select the master among multiple gNMI clients\nwith the same Roles. The client with the largest election_id is honored as\nthe master.\nThe document about gNMI master arbitration can be found at\nhttps://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-master-arbitration.md",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "role",
+              "description": "",
+              "label": "",
+              "type": "Role",
+              "longType": "Role",
+              "fullType": "gnmi_ext.Role",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "election_id",
+              "description": "",
+              "label": "",
+              "type": "Uint128",
+              "longType": "Uint128",
+              "fullType": "gnmi_ext.Uint128",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RegisteredExtension",
+          "longName": "RegisteredExtension",
+          "fullName": "gnmi_ext.RegisteredExtension",
+          "description": "The RegisteredExtension message defines an extension which is defined outside\nof this file.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "The unique ID assigned to this extension.",
+              "label": "",
+              "type": "ExtensionID",
+              "longType": "ExtensionID",
+              "fullType": "gnmi_ext.ExtensionID",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "msg",
+              "description": "The binary-marshalled protobuf extension payload.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Role",
+          "longName": "Role",
+          "fullName": "gnmi_ext.Role",
+          "description": "There can be one master for each role. The role is identified by its id.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "More fields can be added if needed, for example, to specify what paths the\nrole can read/write.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TimeRange",
+          "longName": "TimeRange",
+          "fullName": "gnmi_ext.TimeRange",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "start",
+              "description": "Nanoseconds since the epoch",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "end",
+              "description": "Nanoseconds since the epoch",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Uint128",
+          "longName": "Uint128",
+          "fullName": "gnmi_ext.Uint128",
+          "description": "Representation of unsigned 128-bit integer.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "high",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "low",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": []
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}
