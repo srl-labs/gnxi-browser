@@ -3,11 +3,14 @@ gnmi:
   services:
     gnmi:
       name: gNMI
-      description: Interface gNMI
+      description: A protocol for the modification and retrieval of configuration from a target device, as well as the control and generation of telemetry streams from a target device to a data collection system.
       versions:
-        v0.9.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
+        v0.9.1:
+          source: https://github.com/openconfig/gnmi/blob/v0.9.1/proto/gnmi/gnmi.proto
+          documentation: https://github.com/openconfig/reference/blob/5673235773d72bcbcf789584d69db98066c5303a/rpc/gnmi/gnmi-specification.md
+        v0.7.0:
+          source: https://github.com/openconfig/gnmi/blob/00369d9/proto/gnmi/gnmi.proto
+          documentation: https://github.com/openconfig/reference/blob/efea13f4cb839630a0d89bb1ad154dd9e7c828a9/rpc/gnmi/gnmi-specification.md
 gnoi:
   name: gNOI
   services:
@@ -111,11 +114,11 @@ gnoi:
           documentation: https://path/to/documentation
     packet_link_qualification:
       name: Packet Link Qualification
-      description: Interface gNOI
+      description: The link qualification service is provides a way to certify link quality on two devices.
       versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
+        v1.1.0:
+          source: https://github.com/openconfig/gnoi/blob/3e721f3c7dd3053c093ff5d7dd2338aa23790edf/packet_link_qualification/packet_link_qualification.proto
+          documentation: https://github.com/openconfig/gnoi/blob/3e721f3c7dd3053c093ff5d7dd2338aa23790edf/packet_link_qualification/index.md
     wavelength_router:
       name: Wavelength Router
       description: Interface gNOI
