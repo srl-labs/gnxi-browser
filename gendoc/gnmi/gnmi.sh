@@ -6,6 +6,12 @@ declare -A gnmi_git_refs
 
 # genereate gNMI proto docs
 function gen-gnmi {
+    if [ -z "$1" ]; then
+        echo "Usage: ./run.sh gen-gnmi <version>"
+        echo "  where version is like: v0.9.1"
+        exit 1
+    fi
+
     OUT_DIR=$(pwd)/static/interfaces/gnmi/gnmi/"$1"
     mkdir -p ${OUT_DIR}
 

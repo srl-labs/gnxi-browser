@@ -7,6 +7,12 @@ gnoi_plq_git_refs["v1.1.0"]="3e721f3"
 
 # genereate gNMI proto docs
 function gen-gnoi-packet-link-qual {
+    if [ -z "$1" ]; then
+        echo "Usage: ./run.sh gen-gnoi-packet-link-qual <version>"
+        echo "  where version is like: v1.1.0"
+        exit 1
+    fi
+
     OUT_DIR=$(pwd)/static/interfaces/gnoi/packet_link_qualification/"$1"
     mkdir -p ${OUT_DIR}
 
