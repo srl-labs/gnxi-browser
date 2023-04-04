@@ -1,4 +1,6 @@
 <script>
+	import { page } from '$app/stores';
+
 	import yaml from 'js-yaml';
 	import ifcLoad from '$lib/interfaces.yaml?raw';
 
@@ -28,6 +30,7 @@
 
 <svelte:head>
 	<title>gNXI Protobuf Documentation</title>
+	<link rel="canonical" href="https://gnxi.srlinux.dev{$page.url.pathname}" />
 </svelte:head>
 
 <section class="hero is-fullheight has-header-img">

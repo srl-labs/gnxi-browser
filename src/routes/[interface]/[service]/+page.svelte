@@ -1,4 +1,6 @@
 <script>
+	import { page } from '$app/stores';
+
 	import yaml from 'js-yaml';
 	import jQuery from 'jquery';
 	import { onMount } from 'svelte';
@@ -127,6 +129,7 @@
 		rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
 	/>
+	<link rel="canonical" href="https://gnxi.srlinux.dev{$page.url.pathname}" />
 </svelte:head>
 
 <div class="overall">
