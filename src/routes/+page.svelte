@@ -1,10 +1,11 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
+	import type { Interfaces } from '$lib/interfaces';
 
 	import yaml from 'js-yaml';
 	import ifcLoad from '$lib/interfaces.yaml?raw';
 
-	const interfaces = yaml.load(ifcLoad);
+	const interfaces = yaml.load(ifcLoad) as Interfaces;
 	const productKeys = Object.keys(interfaces);
 
 	let panelList = [];
