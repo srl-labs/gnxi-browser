@@ -127,8 +127,7 @@
 	<title>{interfaces[p].name} - {interfaces[p].services[s].name} Service {v}</title>
 	<link
 		rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-	/>
+		href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 	<link rel="canonical" href="https://gnxi.srlinux.dev{$page.url.pathname}" />
 </svelte:head>
 
@@ -138,8 +137,7 @@
 			<!-- svelte-ignore a11y-missing-attribute -->
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<a class="navbar-item has-text-white" id="navMenuIcon" on:click={toggleMenu}
-				><i class="bx bx-menu" /></a
-			>
+				><i class="bx bx-menu" /></a>
 			<a class="navbar-item" href="../"><img src="/images/nwhite.png" width="65" alt="Logo" /></a>
 			<p class="navbar-item has-text-warning">{interfaces[p].services[s].name} Service</p>
 			<div class="navbar-item dropdown is-hoverable">
@@ -179,8 +177,7 @@
 								{@const serviceName = interfaces[p].services[serviceKey].name}
 								{#if serviceKey == s}
 									<a data-sveltekit-reload href={serviceKey} class="dropdown-item is-active"
-										>{serviceName}</a
-									>
+										>{serviceName}</a>
 								{:else}
 									<a data-sveltekit-reload href={serviceKey} class="dropdown-item">{serviceName}</a>
 								{/if}
@@ -195,8 +192,7 @@
 	<aside
 		id="serviceMenu"
 		class="menu box p-5 is-sticky-left has-perfect-white is-hidden animate__animated animate__fast"
-		on:animationend={clearSearch}
-	>
+		on:animationend={clearSearch}>
 		<div class="menu-label has-text-right">
 			<a href={vd.source}>Source</a>&nbsp; | &nbsp;<a href={vd.documentation}>Documentation</a>
 		</div>
@@ -213,8 +209,7 @@
 							<a
 								href="#{sectionName}"
 								class="component-section has-text-weight-bold"
-								on:click={toggleMenu}>{toUpper(sectionName)}</a
-							>
+								on:click={toggleMenu}>{toUpper(sectionName)}</a>
 							<ul>
 								{#each hasComponents as item}
 									<li>
@@ -223,8 +218,7 @@
 												<div class="level-left">
 													<div class="level-item">
 														<span class="button is-small {item.iconColor} badge"
-															>{item.iconText}</span
-														>
+															>{item.iconText}</span>
 													</div>
 													<div class="level-item">{item.longName}</div>
 												</div>
@@ -249,14 +243,12 @@
 					<div class="hero-body">
 						<div class="container content">
 							<a id={sectionName} href="#{sectionName}" class="title is-6 scroll-mt"
-								>{toUpper(sectionName)}</a
-							>
+								>{toUpper(sectionName)}</a>
 							<hr />
 							{#each hasComponents as item}
 								<p class="title is-6">
 									<a class="service-item scroll-mt" id={item.longName} href="#{item.longName}"
-										>{item.longName}</a
-									>
+										>{item.longName}</a>
 								</p>
 								{#if item.description}
 									<p>{@html item.description.replaceAll('\n', '<br>')}</p>
@@ -279,15 +271,13 @@
 															<td>
 																<a
 																	class="has-text-link has-text-fira-code"
-																	href="#{z.requestLongType}">{z.requestLongType}</a
-																>
+																	href="#{z.requestLongType}">{z.requestLongType}</a>
 																{#if z.requestStreaming}
 																	<span class="has-text-grey-light"> stream</span>
 																{/if} <br />
 																<a
 																	class="has-text-link has-text-fira-code"
-																	href="#{z.requestLongType}">{z.responseLongType}</a
-																>
+																	href="#{z.requestLongType}">{z.responseLongType}</a>
 																{#if z.requestStreaming}
 																	<span class="has-text-grey-light"> stream</span>
 																{/if}
@@ -320,8 +310,7 @@
 																<td class="has-text-fira-code" colspan="3">
 																	{gk}
 																	<small class="has-text-grey-light has-text-fira-code"
-																		>(one of)</small
-																	>
+																		>(one of)</small>
 																</td>
 															</tr>
 														{/if}
@@ -332,8 +321,7 @@
 																		{z.name}
 																		{#if z.label != ''}
 																			<span class="has-text-grey-light has-text-fira-code"
-																				>({z.label})</span
-																			>
+																				>({z.label})</span>
 																		{/if}
 																	</td>
 																{:else}
@@ -341,16 +329,14 @@
 																		{z.name}
 																		{#if z.label != ''}
 																			<small class="has-text-grey-light has-text-fira-code"
-																				>({z.label})</small
-																			>
+																				>({z.label})</small>
 																		{/if}
 																	</td>
 																{/if}
 																<td
 																	><a class="has-text-link has-text-fira-code" href="#{z.longType}"
 																		>{z.longType}</a
-																	></td
-																>
+																	></td>
 																<td>
 																	<p>
 																		{#if item.options && item.options == 'deprecated'}
@@ -412,14 +398,12 @@
 													<td
 														><a class="has-text-link has-text-fira-code" href="#{item.longType}"
 															>{item.longType}</a
-														></td
-													>
+														></td>
 													<td
 														><a
 															class="has-text-link has-text-fira-code"
 															href="#{item.containinglongType}">{item.containingLongType}</a
-														></td
-													>
+														></td>
 													<td class="has-text-fira-code">{item.number}</td>
 													<td>
 														<p>
@@ -443,8 +427,7 @@
 				<div class="container">
 					<p class="title is-6">
 						<a class="has-text-black" id="scalar-value-types" href="#scalar-value-types"
-							>SCALAR VALUE TYPES</a
-						>
+							>SCALAR VALUE TYPES</a>
 					</p>
 					<div class="table-container">
 						<table class="table is-fullwidth">
@@ -487,16 +470,13 @@
 					<p>
 						Created by
 						<a class="has-text-link" href="https://www.linkedin.com/in/siva19susi" target="_blank"
-							>Siva Sivakumar</a
-						>
+							>Siva Sivakumar</a>
 						/
 						<a class="has-text-link" href="https://www.linkedin.com/in/rdodin" target="_blank"
-							>Roman Dodin</a
-						>
+							>Roman Dodin</a>
 						/
 						<a class="has-text-link" href="https://github.com/srl-labs" target="_blank"
-							><i class="bx bx-fw bxl-github" />srl-labs</a
-						>
+							><i class="bx bx-fw bxl-github" />srl-labs</a>
 					</p>
 				</div>
 			</div>

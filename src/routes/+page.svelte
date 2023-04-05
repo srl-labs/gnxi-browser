@@ -76,16 +76,13 @@
 			<p class="has-text-light">
 				Created by
 				<a class="has-text-primary" href="https://www.linkedin.com/in/siva19susi" target="_blank"
-					>Siva Sivakumar</a
-				>
+					>Siva Sivakumar</a>
 				/
 				<a class="has-text-primary" href="https://www.linkedin.com/in/rdodin" target="_blank"
-					>Roman Dodin</a
-				>
+					>Roman Dodin</a>
 				/
 				<a class="has-text-primary" href="https://github.com/srl-labs/gnxi-browser" target="_blank"
-					><i class="bx bx-fw bxl-github" />srl-labs</a
-				>
+					><i class="bx bx-fw bxl-github" />srl-labs</a>
 			</p>
 		</div>
 	</div>
