@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
 
 	import yaml from 'js-yaml';
@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 	import ifcLoad from '$lib/interfaces.yaml?raw';
 
-	const interfaces = yaml.load(ifcLoad);
+	const interfaces: any = yaml.load(ifcLoad);
 
 	/** @type {import('./$types').PageData} */
 	export let data;
