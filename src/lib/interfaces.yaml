@@ -14,104 +14,104 @@ gnmi:
 gnoi:
   name: gNOI
   services:
-    bgp:
-      name: BGP
-      description: Interface gNOI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    cert:
-      name: Cert
-      description: Interface gNOI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    common:
-      name: Common
-      description: Interface gNOI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    diag:
-      name: Diag
-      description: Interface gNOI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    file:
-      name: File
-      description: Interface gNOI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
+    # bgp:
+    #   name: BGP
+    #   description: Interface gNOI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
+    # cert:
+    #   name: Cert
+    #   description: Interface gNOI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
+    # common:
+    #   name: Common
+    #   description: Interface gNOI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
+    # diag:
+    #   name: Diag
+    #   description: Interface gNOI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
+    # file:
+    #   name: File
+    #   description: Interface gNOI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
     healthz:
       name: Healthz
-      description: Interface gNOI
+      description: Healthz provides a means by which a user may initiate checks of health or a system may report the results of a check that it has initiated of its own accord.
       versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    interface:
-      name: Interface
-      description: Interface gNOI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    layer2:
-      name: Layer2
-      description: Interface gNOI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    mpls:
-      name: MPLS
-      description: Interface gNOI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    os:
-      name: OS
-      description: Interface gNOI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    otdr:
-      name: OTDR
-      description: Interface gNOI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    system:
-      name: System
-      description: Interface gNOI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    types:
-      name: Types
-      description: Interface gNOI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    factory_reset:
-      name: Factory Reset
-      description: Interface gNOI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
+        v1.3.0:
+          source: https://github.com/openconfig/gnoi/blob/4f5cb0885a26a52f9c30acc236d307192c665bd8/healthz/healthz.proto
+          documentation: https://github.com/openconfig/gnoi/blob/4f5cb0885a26a52f9c30acc236d307192c665bd8/healthz/README.md
+    # interface:
+    #   name: Interface
+    #   description: Interface gNOI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
+    # layer2:
+    #   name: Layer2
+    #   description: Interface gNOI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
+    # mpls:
+    #   name: MPLS
+    #   description: Interface gNOI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
+    # os:
+    #   name: OS
+    #   description: Interface gNOI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
+    # otdr:
+    #   name: OTDR
+    #   description: Interface gNOI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
+    # system:
+    #   name: System
+    #   description: Interface gNOI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
+    # types:
+    #   name: Types
+    #   description: Interface gNOI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
+    # factory_reset:
+    #   name: Factory Reset
+    #   description: Interface gNOI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
     packet_link_qualification:
       name: Packet Link Qualification
       description: The link qualification service is provides a way to certify link quality on two devices.
@@ -119,55 +119,55 @@ gnoi:
         v1.1.0:
           source: https://github.com/openconfig/gnoi/blob/3e721f3c7dd3053c093ff5d7dd2338aa23790edf/packet_link_qualification/packet_link_qualification.proto
           documentation: https://github.com/openconfig/gnoi/blob/3e721f3c7dd3053c093ff5d7dd2338aa23790edf/packet_link_qualification/index.md
-    wavelength_router:
-      name: Wavelength Router
-      description: Interface gNOI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
+    # wavelength_router:
+    #   name: Wavelength Router
+    #   description: Interface gNOI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
 gnsi:
   name: gNSI
   services:
-    acct:
-      name: Acct
-      description: Interface gNSI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    authz:
-      name: Authz
-      description: Interface gNSI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    certz:
-      name: Certz
-      description: Interface gNSI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    credentialz:
-      name: Credentialz
-      description: Interface gNSI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    pathz:
-      name: Pathz
-      description: Interface gNSI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
-    authorization:
-      name: Authorization
-      description: Interface gNSI
-      versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
+    # acct:
+    #   name: Acct
+    #   description: Interface gNSI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
+    # authz:
+    #   name: Authz
+    #   description: Interface gNSI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
+    # certz:
+    #   name: Certz
+    #   description: Interface gNSI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
+    # credentialz:
+    #   name: Credentialz
+    #   description: Interface gNSI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
+    # pathz:
+    #   name: Pathz
+    #   description: Interface gNSI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation
+    # authorization:
+    #   name: Authorization
+    #   description: Interface gNSI
+    #   versions:
+    #     v0.1.0:
+    #       source: https://path/to/source
+    #       documentation: https://path/to/documentation

@@ -27,6 +27,7 @@ _get_git_ref() {
 
 source ./gendoc/gnmi/gnmi.sh
 source ./gendoc/gnoi/packet-link-qual.sh
+source ./gendoc/gnoi/healthz.sh
 
 function help {
   printf "%s <task> [args]\n\nTasks:\n" "${0}"
