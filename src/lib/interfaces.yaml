@@ -105,13 +105,13 @@ gnoi:
     #     v0.1.0:
     #       source: https://path/to/source
     #       documentation: https://path/to/documentation
-    # factory_reset:
-    #   name: Factory Reset
-    #   description: Interface gNOI
-    #   versions:
-    #     v0.1.0:
-    #       source: https://path/to/source
-    #       documentation: https://path/to/documentation
+    factory_reset:
+      name: Factory Reset
+      description: Factory Reset service enables gNOI users to perform an operation of resetting a network device to a state it had been when shipped from the factory.
+      versions:
+        v0.1.0:
+          source: https://github.com/openconfig/gnoi/blob/18d7d51539452c1417ef469877f0f3929f09223f/factory_reset/factory_reset.proto
+          documentation:
     packet_link_qualification:
       name: Packet Link Qualification
       description: The link qualification service is provides a way to certify link quality on two devices.
