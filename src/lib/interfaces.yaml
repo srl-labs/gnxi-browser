@@ -77,13 +77,16 @@ gnoi:
     #     v0.1.0:
     #       source: https://path/to/source
     #       documentation: https://path/to/documentation
-    # os:
-    #   name: OS
-    #   description: Interface gNOI
-    #   versions:
-    #     v0.1.0:
-    #       source: https://path/to/source
-    #       documentation: https://path/to/documentation
+    os:
+      name: OS
+      description: The OS service provides an interface for OS installation on a Target.
+      versions:
+        v0.1.4:
+          source: https://github.com/openconfig/gnoi/blob/3df08ff738428a3c29db9052011a9b94c0be232b/os/os.proto
+          documentation:
+        v0.1.1:
+          source: https://github.com/openconfig/gnoi/blob/c553e567c5f917bc349952ea47b2c4df854962c9/os/os.proto
+          documentation:
     # otdr:
     #   name: OTDR
     #   description: Interface gNOI

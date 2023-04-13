@@ -29,6 +29,7 @@ source ./gendoc/gnmi/gnmi.sh
 source ./gendoc/gnoi/packet-link-qual.sh
 source ./gendoc/gnoi/healthz.sh
 source ./gendoc/gnoi/factory-reset.sh
+source ./gendoc/gnoi/os.sh
 
 function help {
   printf "%s <task> [args]\n\nTasks:\n" "${0}"
