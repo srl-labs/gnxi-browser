@@ -66,6 +66,6 @@
     {/if}
   {/each}
   <div class="{custom.section.container}">
-    <Table entry={scalarValueTypes} sectionName="svt"/>
+    <Table entry={scalarValueTypes} sectionName="svt" imported={false}/>
   </div>
 </div>
