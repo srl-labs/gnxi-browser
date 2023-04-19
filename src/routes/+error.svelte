@@ -1,4 +1,6 @@
-<script lang="ts">
+<script>
+	import '../app.css';
+
 	import { page } from '$app/stores';
 </script>
 

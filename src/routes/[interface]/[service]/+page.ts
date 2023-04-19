@@ -1,8 +1,11 @@
-import { error } from '@sveltejs/kit'
-import yaml from 'js-yaml'
-import ifcLoad from '$lib/interfaces.yaml?raw'
+import { error } from '@sveltejs/kit';
 
-const interfaces: any = yaml.load(ifcLoad);
+import yaml from 'js-yaml';
+
+import type { Interfaces } from '$lib/interfaces';
+import ifcLoad from '$lib/interfaces.yaml?raw';
+
+const interfaces = yaml.load(ifcLoad) as Interfaces;
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ url, fetch, params }) {
