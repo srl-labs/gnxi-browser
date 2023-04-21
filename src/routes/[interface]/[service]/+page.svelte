@@ -35,5 +35,5 @@
   <Navbar service_key={s} service_name={interfaces[p].services[s].name} version={v} other_versions={ov}/>
   <Sidebar files={files} service_key={s} version={v} other_versions={ov} src_doc={vd}/>
   <TableLoader files={files} scalarValueTypes={pd.scalarValueTypes}/>
-  <Footer/>
+  <Footer home={false}/>
 </div>
