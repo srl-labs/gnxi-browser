@@ -4,7 +4,7 @@
 
 @layer components {
   .has-header-img {
-    background: url(/images/random.jpg)center center;
+    background: url(/images/u3.jpg)center center;
     background-size: cover;
   }
   

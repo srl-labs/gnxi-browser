@@ -13,7 +13,7 @@
     },
     navbar: {
       class: "fixed top-0 z-50 w-full font-nunito bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 select-none",
-      title: "self-center text-xl whitespace-nowrap text-black dark:text-white",
+      title: "self-center text-sm md:text-xl whitespace-nowrap text-black dark:text-white",
       item: "p-2 text-black dark:text-white hover:text-gray-600",
       item_static: "p-2 text-black dark:text-white",
       left: "flex mr-2",

@@ -19,9 +19,9 @@
 <br/>
 <p class="{custom.footer.stmt} {home ? 'text-gray-200' : 'text-gray-500 dark:text-gray-400'}">
   Created by
-  <a class="{custom.footer.link} {home ? 'text-blue-500' : custom.footer.link_text}" href="https://www.linkedin.com/in/siva19susi" target="_blank">Siva Sivakumar</a> /
-  <a class="{custom.footer.link} {home ? 'text-blue-500' : custom.footer.link_text}" href="https://www.linkedin.com/in/rdodin" target="_blank">Roman Dodin</a> /
-  <a class="{custom.footer.link} {home ? 'text-blue-500' : custom.footer.link_text}" href="https://github.com/srl-labs" target="_blank">
+  <a class="{custom.footer.link} {home ? 'text-blue-400' : custom.footer.link_text}" href="https://www.linkedin.com/in/siva19susi" target="_blank">Siva Sivakumar</a> /
+  <a class="{custom.footer.link} {home ? 'text-blue-400' : custom.footer.link_text}" href="https://www.linkedin.com/in/rdodin" target="_blank">Roman Dodin</a> /
+  <a class="{custom.footer.link} {home ? 'text-blue-400' : custom.footer.link_text}" href="https://github.com/srl-labs" target="_blank">
     <svg class="{custom.footer.svg.class} {home ? 'text-gray-300' : 'text-gray-500 dark:text-gray-400'} inline-flex" fill="currentColor" viewBox="{custom.footer.svg.view}" xmlns="http://www.w3.org/2000/svg">
       <path stroke-linecap="round" stroke-linejoin="round" d="{custom.footer.svg.path.github}"></path>
     </svg> srl-labs
