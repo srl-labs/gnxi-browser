@@ -2,7 +2,7 @@
 
 GNOI_DIR=~/openconfig/gnoi
 SERVICE_NAME=os
-GNOI_HEALTHZ_DIR=${GNOI_DIR}/${SERVICE_NAME}
+GNOI_SVC_DIR=${GNOI_DIR}/${SERVICE_NAME}
 INTERFACE_FQDN_URL="github.com/openconfig/gnoi/${SERVICE_NAME}"
 PROTO_FILE="${SERVICE_NAME}.proto"
 
@@ -22,15 +22,14 @@ function gen-gnoi-os {
     OUT_DIR=$(pwd)/static/interfaces/gnoi/${SERVICE_NAME}/"$1"
     mkdir -p ${OUT_DIR}
 
-    # git_ref=$(_get_git_ref gnoi_${SERVICE_NAME}_git_refs "$1")
     git_ref=$(_get_git_ref gnoi_os_git_refs "$1")
     echo "checking out to git ref: ${git_ref}"
-    cd ${GNOI_HEALTHZ_DIR} && git checkout main && git pull && git checkout ${git_ref}
+    cd ${GNOI_SVC_DIR} && git checkout main && git pull && git checkout ${git_ref}
 
     DOCKER_CMD="docker run \
         -v ${OUT_DIR}:/out \
         -v ${GNOI_DIR}/types:/in/types \
-        -v ${GNOI_HEALTHZ_DIR}:/in/${INTERFACE_FQDN_URL} \
+        -v ${GNOI_SVC_DIR}:/in/${INTERFACE_FQDN_URL} \
         ${IMAGE_NAME}:${IMAGE_TAG}"
 
     # note that factory_reset.proto imports types.proto as github.com/openconfig/gnoi/types/types.proto
