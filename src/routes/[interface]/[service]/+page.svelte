@@ -20,7 +20,6 @@
   const s = data.service;
   const v = data.version;
 
-  const ov = Object.keys(interfaces[p].services[s].versions);
   const vd = interfaces[p].services[s].versions[v];
   
   const pd = data.protoDoc;
@@ -32,8 +31,8 @@
 </svelte:head>
 
 <div class="dark:bg-gray-800 py-2">
-  <Navbar service_key={s} service_name={interfaces[p].services[s].name} version={v} other_versions={ov}/>
-  <Sidebar files={files} service_key={s} version={v} other_versions={ov} src_doc={vd}/>
+  <Navbar interfaces={interfaces} iKey={p} sKey={s} version={v}/>
+  <Sidebar files={files} src_doc={vd}/>
   <TableLoader files={files} scalarValueTypes={pd.scalarValueTypes}/>
   <Footer home={false}/>
 </div>

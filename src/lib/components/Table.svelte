@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let entry, sectionName: string, imported: boolean;
+  export let entry: any, sectionName: string, imported: boolean;
 
   // TAILWIND CLASS DEFINITION
   const custom = {
@@ -7,10 +7,10 @@
       section: "text-black dark:text-white hover:underline font-nunito uppercase",
       hr: "my-3 sm:mx-auto border-gray-200 dark:border-gray-700",
       link: "text-blue-600 dark:text-blue-500 hover:underline font-fira",
-      desc: "mt-1 text-sm font-normal text-gray-500 dark:text-gray-400 overflow-x-auto",
+      desc: "mt-1 font-normal text-gray-500 dark:text-gray-400",
       container: "overflow-x-auto max-w-full",
       table: "text-left text-gray-500 dark:text-gray-400 w-full font-nunito",
-      caption: "pt-7 pb-6 text-left text-lg font-nunito",
+      caption: "py-5 text-left font-nunito  overflow-x-auto",
       thead: "text-xs uppercase text-gray-700 dark:text-gray-400 bg-gray-50 dark:bg-gray-700",
       tr: "bg-white border-b dark:bg-gray-800 dark:border-gray-700",
       th_col: "px-6 py-3",
@@ -21,10 +21,10 @@
   }
 
   // FORMAT DESCRIPTION
-  const fdesc = (d) => d.replaceAll("\n", "<br>");
+  const fdesc = (d: string) => d.replaceAll("\n", "<br>");
 
   // RE-GROUP BY KEY ON A LIST OF OBJECTS
-  const groupByKey = (list, key) => {
+  const groupByKey = (list: any, key: string) => {
     let regrouped = list.reduce((hash, obj) => ({...hash, [obj[key]]:( hash[obj[key]] || [] ).concat(obj)}), {})
     return {
       keys: Object.keys(regrouped),

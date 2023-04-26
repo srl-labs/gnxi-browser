@@ -60,7 +60,7 @@
             {/each}
           </ul>
         </div>
-        <div class="h-[300px] max-w-[450px] p-4 overflow-y-auto shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]">
+        <div class="h-[300px] max-w-[450px] lg:w-[450px] p-4 overflow-y-auto shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]">
           <ul>
             {#each panelList as item}
               <li class="items-center p-4 rounded-lg text-gray-900 hover:bg-gray-100">

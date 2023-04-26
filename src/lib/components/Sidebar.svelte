@@ -1,9 +1,9 @@
 <script lang="ts">
-  export let files, service_key: string, version: string, other_versions: string[], src_doc;
+  export let files: any, src_doc;
   const custom = {
     sidebar: {
       label: "text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase tracking-widest min-w-[400px]",
-      class_outer: "text-sm font-nunito fixed pt-20 left-0 top-0 z-40 transition-transform -translate-x-full bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700",
+      class_outer: "text-sm font-nunito fixed pt-20 left-0 top-0 z-20 transition-transform -translate-x-full bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700",
       class_inner: "h-[calc(100vh_-_10rem)] px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800",
       section: "flex items-center p-2 rounded-lg text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700",
       search: "block w-full p-2 pl-10 text-sm rounded-lg text-gray-900 dark:text-white focus:ring-blue-500 dark:focus:ring-blue-500 border border-gray-300 focus:border-blue-500 dark:border-gray-600 dark:focus:border-blue-500 bg-gray-50 dark:bg-gray-700 dark:placeholder-gray-400",
@@ -36,7 +36,7 @@
 </script>
 
 <aside id="sidebar" class="{custom.sidebar.class_outer}">
-  <div class="p-1 bg-white dark:bg-gray-800">
+  <div class="bg-white dark:bg-gray-800">
     <div class="px-3 text-center">
       <a href="{src_doc.source}" class="{custom.sidebar.label}">Source</a> 
       <span class="text-black dark:text-white">/</span> 
@@ -53,21 +53,6 @@
   </div>
   <div class="{custom.sidebar.class_inner}">
     <ul class="space-y-2">
-      <li class="dropdown md:hidden">
-        <button type="button" class="{custom.sidebar.expand.header}">
-          <svg class="{custom.sidebar.svg.class}" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="{custom.sidebar.svg.view}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="{custom.sidebar.svg.path.expand}"></path>
-          </svg>
-          <span class="ml-3">{version}</span>
-        </button>
-        <ul class="hidden py-2 space-y-2 dropdown-menu">
-          {#each other_versions as ov}
-            <li>
-              {#if ov != version} <a data-sveltekit-reload href="{service_key}?version={ov}" class="{custom.sidebar.expand.content.entry}">{ov}</a> {/if}
-            </li>
-          {/each}
-        </ul>
-      </li>
       {#each files as entry, i}
         {@const packageName = entry.package}
         <li class="dropdown">

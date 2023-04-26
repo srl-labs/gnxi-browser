@@ -1,47 +1,11 @@
 <script lang="ts">
-  export let service_key: string, service_name: string, version: string, other_versions: string[];
-
-  // TAILWIND CLASS DEFINITION
-  const custom = {
-    theme: {
-      light: "theme-toggle-light-icon",
-      dark: "theme-toggle-dark-icon"
-    },
-    img: {
-      class: "h-7 mr-3",
-      src: "/images/navbar-logo.png"
-    },
-    navbar: {
-      class: "fixed top-0 z-50 w-full font-nunito bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 select-none",
-      title: "self-center text-sm md:text-xl whitespace-nowrap text-black dark:text-white",
-      item: "p-2 text-black dark:text-white hover:text-gray-600",
-      item_static: "p-2 text-black dark:text-white",
-      left: "flex mr-2",
-      right: "flex ml-2",
-      dropdown: {
-        menu: "absolute top-full right-0 w-30 z-10 py-2 mr-3 font-normal text-sm text-gray-700 dark:text-gray-400 bg-white dark:bg-gray-700 rounded-lg shadow",
-        item: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-      }
-    },
-    svg: {
-      class: "w-5 h-5",
-      view: "0 0 20 20",
-      fill: "currentColor",
-      path: {
-        close: "M6 18L18 6M6 6l12 12",
-        menu: "M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12",
-        dropdown: "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z",
-        light: "M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z",
-        dark: "M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-      }
-    }
-  }
+  export let interfaces: any, iKey: string, sKey: string, version: string;
 
   // TOGGLE BETWEEN LIGHT AND DARK MODE
   const toggleDarkMode = () => {
     document.documentElement.classList.toggle('dark');
-    document.getElementById(custom.theme.light).classList.toggle('hidden');
-    document.getElementById(custom.theme.dark).classList.toggle('hidden');
+    document.getElementById("toggle-light-icon").classList.toggle('hidden');
+    document.getElementById("toggle-dark-icon").classList.toggle('hidden');
   }
 
   const toggleSidebar = () => {
@@ -49,56 +13,72 @@
     document.getElementById("open-sidebar").classList.toggle("hidden");
     document.getElementById("close-sidebar").classList.toggle("hidden");
   }
+
+  const toggleNavInterfaces = () => {
+    document.getElementById("navInterfaces").classList.toggle("hidden");
+  }
 </script>
 
-<nav class="{custom.navbar.class}">
-  <div class="px-3 py-3 lg:px-5 lg:pl-3">
-    <div class="flex items-center justify-between">
-      <!-- navbar left item -->
-      <div class="flex">
-        <button class="{custom.navbar.left} {custom.navbar.item}" on:click={toggleSidebar}>
-          <svg id="open-sidebar" class="{custom.svg.class}" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="{custom.svg.view}" xmlns="http://www.w3.org/2000/svg">
-            <path d="{custom.svg.path.menu}"></path>
-          </svg>
-          <svg id="close-sidebar" class="{custom.svg.class} hidden" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="{custom.svg.view}" xmlns="http://www.w3.org/2000/svg">
-            <path d="{custom.svg.path.close}"></path>
-          </svg>
-        </button>
-        <div class="{custom.navbar.left}">
-          <a class="py-2" href="../"><img src="{custom.img.src}" class="{custom.img.class}" alt="Logo"/></a>
-          <span class="{custom.navbar.title}">{service_name} Service</span>
-        </div>
+<nav class="fixed top-0 z-30 px-3 py-4 w-screen select-none text-sm font-nunito bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+  <div class="flex justify-between">
+    <!-- navbar left item -->
+    <div class="flex items-center">
+      <button type="button" class="flex px-2 dark:text-gray-200" on:click={toggleSidebar}>
+        <svg id="open-sidebar" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"></path>
+        </svg>
+        <svg id="close-sidebar" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <div class="flex px-2">
+        <a class="w-5" href="../"><img src="/images/navbar-logo.png" alt="Logo"/></a>
       </div>
-      <!-- navbar right item -->
-      <div class="flex">
-        <div class="{custom.navbar.right} relative dropdown hidden md:block">
-          {#if other_versions.length > 1}
-            <button class="{custom.navbar.item} inline-flex">
-              {version} 
-              <svg class="{custom.svg.class} ml-1" fill="{custom.svg.fill}" viewBox="{custom.svg.view}" xmlns="http://www.w3.org/2000/svg">
-                <path d="{custom.svg.path.dropdown}"></path>
-              </svg>
-            </button>
-            <div class="{custom.navbar.dropdown.menu} hidden dropdown-menu">
-              <ul>
-                {#each other_versions as ov}
-                  {#if ov != version} <li><a data-sveltekit-reload href="{service_key}?version={ov}" class="{custom.navbar.dropdown.item}">{ov}</a></li> {/if}
-                {/each}
-              </ul>
-            </div>
-          {:else}
-            <p class="{custom.navbar.right} {custom.navbar.item_static}">{version}</p>
-          {/if}
-        </div>
-        <button on:click={toggleDarkMode} type="button" class="{custom.navbar.right} {custom.navbar.item}">
-          <svg id="{custom.theme.light}" class="{custom.svg.class} text-gray-800" fill="{custom.svg.fill}" viewBox="{custom.svg.view}" xmlns="http://www.w3.org/2000/svg">
-            <path d="{custom.svg.path.light}"></path>
-          </svg>
-          <svg id="{custom.theme.dark}" class="{custom.svg.class} hidden" fill="{custom.svg.fill}" viewBox="{custom.svg.view}" xmlns="http://www.w3.org/2000/svg">
-            <path d="{custom.svg.path.dark}"></path>
-          </svg>
-        </button>
+      <div class="flex px-2 text-xs md:text-sm dark:text-gray-200">
+        <span>{interfaces[iKey].services[sKey].name} Service {version}</span>
       </div>
+    </div>
+    <!-- navbar right item -->
+    <div class="flex items-center">
+      <button class="inline-flex px-2" on:click={toggleNavInterfaces}>
+        <svg class="w-5 h-5 dark:text-gray-200" fill="none" viewBox="0 0 25 25" stroke-width="1.5" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"/>
+        </svg>
+      </button>
+      <button class="flex px-2" type="button" on:click={toggleDarkMode}>
+        <svg id="toggle-light-icon" class="w-5 h-5" fill="currentColor" stroke-width="1.5" stroke="currentColor" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/>
+        </svg>
+        <svg id="toggle-dark-icon" class="w-5 h-5 text-gray-200 hidden" fill="currentColor" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
+        </svg>
+      </button>
     </div>
   </div>
 </nav>
+
+<div id="navInterfaces" class="fixed inset-0 z-50 font-nunito hidden">
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" on:click={toggleNavInterfaces}></div>
+  <div class="flex min-h-full items-center justify-center p-4">
+    <div class="relative overflow-hidden rounded-lg shadow-xl bg-white dark:bg-gray-800">
+      <h3 class="px-6 py-4 font-semibold leading-6 text-gray-900 dark:text-gray-200 bg-gray-100 dark:bg-gray-700">{interfaces[iKey].name}</h3>
+      <div class="px-6 pt-2 pb-4 text-sm max-w-[400px] lg:min-w-[350px] max-h-[500px] overflow-y-auto">
+        <ul class="py-2 space-y-2">
+          {#each Object.keys(interfaces[iKey].services) as svc}
+            <li>
+              <p class="p-2 dark:text-gray-200 { sKey === svc ? 'bg-gray-100 dark:bg-gray-900 rounded-lg' : ''}">{interfaces[iKey].services[svc].name} Service</p>
+              <ul class="py-2 space-y-2 border-l ml-3">
+                {#each Object.keys(interfaces[iKey].services[svc].versions) as vrn}
+                  <li class="ml-3">
+                    <a data-sveltekit-reload class="hover:underline { sKey === svc && version === vrn ? 'text-blue-600 dark:text-blue-500': 'text-blue-300 dark:text-blue-200 hover:text-blue-600 dark:hover:text-blue-500'}" href="{svc}?version={vrn}">{vrn}</a>
+                  </li>
+                {/each}
+              </ul>
+            </li>
+          {/each}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
