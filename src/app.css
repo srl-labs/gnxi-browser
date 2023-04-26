@@ -12,11 +12,15 @@
     background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
   }
 
-  .dropdown:hover .dropdown-menu {
-    display: block;
-  }
+  /* Scroll Light */
+  .scroll-light::-webkit-scrollbar { width: 5px; }
+  .scroll-light::-webkit-scrollbar-track { background: #f1f1f1; }
+  .scroll-light::-webkit-scrollbar-thumb { background: #bec4c4; }
+  .scroll-light::-webkit-scrollbar-thumb:hover { background: #555; }
 
-  .dropdown:hover > .dropdown-content {
-    display: block;
-  }
+  /* Scroll Dark */
+  .scroll-dark::-webkit-scrollbar { width: 5px; }
+  .scroll-dark::-webkit-scrollbar-track { background: rgb(55 65 81); }
+  .scroll-dark::-webkit-scrollbar-thumb { background: rgb(109, 109, 109); }
+  .scroll-dark::-webkit-scrollbar-thumb:hover { background: #555; }
 }

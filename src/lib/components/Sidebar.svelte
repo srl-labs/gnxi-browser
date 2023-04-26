@@ -4,7 +4,7 @@
     sidebar: {
       label: "text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase tracking-widest min-w-[400px]",
       class_outer: "text-sm font-nunito fixed pt-20 left-0 top-0 z-20 transition-transform -translate-x-full bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700",
-      class_inner: "h-[calc(100vh_-_10rem)] px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800",
+      class_inner: "h-[calc(100vh_-_10rem)] px-3 pb-4 overflow-y-auto scroll-light dark:scroll-dark bg-white dark:bg-gray-800",
       section: "flex items-center p-2 rounded-lg text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700",
       search: "block w-full p-2 pl-10 text-sm rounded-lg text-gray-900 dark:text-white focus:ring-blue-500 dark:focus:ring-blue-500 border border-gray-300 focus:border-blue-500 dark:border-gray-600 dark:focus:border-blue-500 bg-gray-50 dark:bg-gray-700 dark:placeholder-gray-400",
       expand: {
@@ -42,7 +42,7 @@
       <span class="text-black dark:text-white">/</span> 
       <a href="{src_doc.documentation}" class="{custom.sidebar.label}">Documentation</a>
     </div>
-    <div class="relative mx-2 my-2">
+    <div class="relative mx-3 my-2">
       <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
         <svg aria-hidden="true" class="{custom.sidebar.svg.class}" fill="none" stroke="currentColor" viewBox="{custom.sidebar.svg.view}" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{custom.sidebar.svg.path.search}"></path>

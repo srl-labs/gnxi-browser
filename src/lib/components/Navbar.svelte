@@ -63,7 +63,7 @@
   <div class="flex min-h-full items-center justify-center p-4">
     <div class="relative overflow-hidden rounded-lg shadow-xl bg-white dark:bg-gray-800">
       <h3 class="px-6 py-4 font-semibold leading-6 text-gray-900 dark:text-gray-200 bg-gray-100 dark:bg-gray-700">{interfaces[iKey].name}</h3>
-      <div class="px-6 pt-2 pb-4 text-sm max-w-[400px] lg:min-w-[350px] max-h-[500px] overflow-y-auto">
+      <div class="px-6 pt-2 pb-4 text-sm max-w-[400px] lg:min-w-[350px] max-h-[500px] overflow-y-auto scroll-light dark:scroll-dark">
         <ul class="py-2 space-y-2">
           {#each Object.keys(interfaces[iKey].services) as svc}
             <li>
