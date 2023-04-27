@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 
 import yaml from 'js-yaml';
 
@@ -33,15 +33,22 @@ export async function load({ url, fetch, params }) {
         }
       }
 
-      try {
-        let protoDocUrl = `${pathUrl}/interfaces/${p}/${s}/${v}/proto-doc.json`;
-        let response = await fetch(protoDocUrl);
+      let protoDoc = "";
+      let protoDocPath = `interfaces/${p}/${s}/${v}/proto-doc.json`;
+      const modules = import.meta.glob('$lib/interfaces/*/*/*/*', {as: "raw", eager: true})
+      for (const path in modules) {
+        if(path.includes(protoDocPath)) {
+          protoDoc = modules[path];
+        }
+      }
+
+      if(protoDoc != "") {
         return {
           interface: p, service: s, version: v,
-          protoDoc: await response.json()
-        };
-      } catch (e) {
-        throw error(404, "Error fetching proto definition: " + e);
+          protoDoc: JSON.parse(protoDoc)
+        }
+      } else {
+        throw error(404, "Error fetching proto definition");
       }
     }
     else throw error(404, "Unsupported Service");
