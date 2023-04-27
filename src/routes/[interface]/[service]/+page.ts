@@ -41,7 +41,7 @@ export async function load({ url, fetch, params }) {
           protoDoc: await response.json()
         };
       } catch (e) {
-        throw error(404, "Error fetching proto definition");
+        throw error(404, "Error fetching proto definition: " + e);
       }
     }
     else throw error(404, "Unsupported Service");
