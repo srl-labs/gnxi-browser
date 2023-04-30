@@ -9,8 +9,7 @@
   import type { Interfaces } from '$lib/interfaces';
   import ifcLoad from '$lib/interfaces.yaml?raw';
 
-  import Navbar from '$lib/components/Navbar.svelte';
-  import Sidebar from '$lib/components/Sidebar.svelte';
+  import Navigation from '$lib/components/Navigation.svelte';
   import TableLoader from '$lib/components/TableLoader.svelte';
   import Footer from '$lib/components/Footer.svelte';
   
@@ -31,8 +30,7 @@
 </svelte:head>
 
 <div class="dark:bg-gray-800 py-2">
-  <Navbar interfaces={interfaces} iKey={p} sKey={s} version={v}/>
-  <Sidebar files={files} src_doc={vd}/>
+  <Navigation interfaces={interfaces} iKey={p} sKey={s} version={v} files={files} srcDoc={vd}/>
   <TableLoader files={files} scalarValueTypes={pd.scalarValueTypes}/>
   <Footer home={false}/>
 </div>
