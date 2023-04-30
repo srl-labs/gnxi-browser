@@ -70,3 +70,44 @@
     {/each}
   </ul>
 </li>
+
+
+let sideLoop = [];
+files.forEach((entry, i: number) => {
+  let f = { package: entry.package, content: []}
+  
+  const getName = (l: string, f: string, i: number) => (i === 0 ? l: f);
+  const addContent = (arr, k: string, i: number) => {
+    let tmp = arr.map(i => ({kind: k, name: getName(i.longName, i.fullName, i)}));
+    f.content = [...f.content, ...tmp];
+  }
+
+  if(entry.hasServices) addContent(entry.services, "services", i);
+  if(entry.hasMessages) addContent(entry.messages, "messages", i);
+  if(entry.hasEnums) addContent(entry.enums, "enums", i);
+  if(entry.hasExtensions) addContent(entry.extensions, "extensions", i);
+
+  sideLoop.push(f);
+})
+
+const loopEntry = (l: string, f: string, i: number) => {
+  let loopName = i === 0 ? l: f;
+  return `<li><a id="${loopName}" href="#${loopName}" class="${custom.sidebar.expand.content.entry} search">${loopName}</a></li>`;
+}
+
+const searchSide = () => {
+  const isExists = (arr: string[], q: string) => arr.some(v => q.includes(v));
+  let rows = [...document.getElementsByClassName("search")].map(e => e.innerHTML);
+  console.log(isExists(rows, lookup))
+}
+
+
+
+
+let protoDocPath = `interfaces/${p}/${s}/${v}/proto-doc.json`;
+const modules = import.meta.glob('$lib/interfaces/*/*/*/*', {as: "raw", eager: true})
+for (const path in modules) {
+  if(path.includes(protoDocPath)) {
+    protoDoc = modules[path];
+  }
+}

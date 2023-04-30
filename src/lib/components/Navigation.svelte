@@ -134,7 +134,7 @@
       <span class="text-black dark:text-white">/</span> 
       <a href="{srcDoc.documentation}" class="text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase">Documentation</a>
     </div>
-    <div class="ml-4 mr-6 mt-2 mb-4">
+    <div class="ml-5 mr-6 mt-2 mb-4">
       <input type="text" id="search" placeholder="Search..." bind:value={lookup} on:keyup={searchSide} class="w-full px-3 py-2 text-sm rounded-lg text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:placeholder-gray-400">
     </div>
   </div>
