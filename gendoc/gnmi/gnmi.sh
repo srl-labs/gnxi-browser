@@ -26,6 +26,8 @@ function gen-gnmi {
 
     ${DOCKER_CMD} ash -c "${PROTOC_GENDOC_CMD} \
         github.com/openconfig/gnmi/proto/gnmi/gnmi.proto \
-        github.com/openconfig/gnmi/proto/gnmi_ext/gnmi_ext.proto"
+        github.com/openconfig/gnmi/proto/gnmi_ext/gnmi_ext.proto \
+        google/protobuf/any.proto \
+        google/protobuf/descriptor.proto"
     echo "finished Doc compilation for gnmi.proto"
 }

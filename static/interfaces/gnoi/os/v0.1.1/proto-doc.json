@@ -1,0 +1,1200 @@
+{
+  "files": [
+    {
+      "name": "github.com/openconfig/gnoi/os/os.proto",
+      "description": "This file defines a gNOI API used for OS installation.",
+      "package": "gnoi.os",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [
+        {
+          "name": "Type",
+          "longName": "ActivateError.Type",
+          "fullName": "gnoi.os.ActivateError.Type",
+          "description": "",
+          "values": [
+            {
+              "name": "UNSPECIFIED",
+              "number": "0",
+              "description": "An unspecified error. Must use the detail value to describe the issue."
+            },
+            {
+              "name": "NON_EXISTENT_VERSION",
+              "number": "1",
+              "description": "There is no OS package with the version requested for activation. This is\nalso used for an empty version string."
+            }
+          ]
+        },
+        {
+          "name": "Type",
+          "longName": "InstallError.Type",
+          "fullName": "gnoi.os.InstallError.Type",
+          "description": "",
+          "values": [
+            {
+              "name": "UNSPECIFIED",
+              "number": "0",
+              "description": "An unspecified error. Must use the detail value to describe the issue."
+            },
+            {
+              "name": "INCOMPATIBLE",
+              "number": "1",
+              "description": "The newly transferred package is not compatible with the Target platform.\nThe detail field MUST contain the detailed error message."
+            },
+            {
+              "name": "TOO_LARGE",
+              "number": "2",
+              "description": "The OS package being transferred is larger than the available size the\nTarget provisioned. This is unexpected since the Target MUST clear disk\nspace for the new OS packages. The available space and the OS package\nsize MUST be guaranteed by the platform maker, therefore the most likely\ncause of this error is that a wrong package is being transferred."
+            },
+            {
+              "name": "PARSE_FAIL",
+              "number": "3",
+              "description": "Used whenever the system is unable to parse the newly transferred\npackage, like reading the OS version or the integrity checksums."
+            },
+            {
+              "name": "INTEGRITY_FAIL",
+              "number": "4",
+              "description": "The transferred OS package fails integrity check."
+            },
+            {
+              "name": "INSTALL_RUN_PACKAGE",
+              "number": "5",
+              "description": "Attempting to force transfer an OS package with the same version as the\ncurrently running."
+            },
+            {
+              "name": "INSTALL_IN_PROGRESS",
+              "number": "6",
+              "description": "Another Install RPC to this Target is already in progress."
+            },
+            {
+              "name": "UNEXPECTED_SWITCHOVER",
+              "number": "7",
+              "description": "A switchover happened during the Install RPC."
+            },
+            {
+              "name": "SYNC_FAIL",
+              "number": "8",
+              "description": "Failed to sync the transferred OS package to the standby Supervisor. The\ndetail value MUST have more information."
+            }
+          ]
+        },
+        {
+          "name": "State",
+          "longName": "StandbyState.State",
+          "fullName": "gnoi.os.StandbyState.State",
+          "description": "",
+          "values": [
+            {
+              "name": "UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "UNSUPORTED",
+              "number": "1",
+              "description": "The Target does not support dual Supervisors."
+            },
+            {
+              "name": "NON_EXISTENT",
+              "number": "2",
+              "description": "Standby Supervisor is supported but does not exist."
+            },
+            {
+              "name": "UNAVAILABLE",
+              "number": "3",
+              "description": "Standby Supervisor is supported but is not available, eg.: rebooting."
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "ActivateError",
+          "longName": "ActivateError",
+          "fullName": "gnoi.os.ActivateError",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "type",
+              "description": "",
+              "label": "",
+              "type": "Type",
+              "longType": "ActivateError.Type",
+              "fullType": "gnoi.os.ActivateError.Type",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "detail",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ActivateOK",
+          "longName": "ActivateOK",
+          "fullName": "gnoi.os.ActivateOK",
+          "description": "If the Target is already running the requested version in ActivateRequest,\nthen it replies with ActivateOK. If the Target has the OS package version\nrequested in ActivateRequest then it replies with ActivateOK and proceeds to\nboot. In a Target with dual Supervisor, performing this RPC on the Active\nSupervisor triggers a switchover before booting the (old)Active Supervisor.\nThe Target should always perform a switchover with the least impact possible\nto forwarding.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "ActivateRequest",
+          "longName": "ActivateRequest",
+          "fullName": "gnoi.os.ActivateRequest",
+          "description": "The ActivateRequest is sent by the Client to the Target to initiate a change\nin the next bootable OS version that is to be used on the Target.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "version",
+              "description": "The version that is required to be activated and optionally immediattely\nbooted.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "standby_supervisor",
+              "description": "For dual Supervisors setting this flag instructs the Target to perform the\naction on the Standby Supervisor.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "no_reboot",
+              "description": "If set to 'False' the Target will initiate the reboot process immediatelly\nafter changing the next bootable OS version.\nIf set to 'True' a separate action to reboot the Target and start using\nthe activated OS version is required. This action CAN be executing\nthe gNOI.system.Reboot() RPC.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ActivateResponse",
+          "longName": "ActivateResponse",
+          "fullName": "gnoi.os.ActivateResponse",
+          "description": "The ActivateResponse is sent from the Target to the Client in response to the\nActivate RPC. It indicates the success of making the OS package version\nactive.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "activate_ok",
+              "description": "",
+              "label": "",
+              "type": "ActivateOK",
+              "longType": "ActivateOK",
+              "fullType": "gnoi.os.ActivateOK",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "activate_error",
+              "description": "",
+              "label": "",
+              "type": "ActivateError",
+              "longType": "ActivateError",
+              "fullType": "gnoi.os.ActivateError",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "InstallError",
+          "longName": "InstallError",
+          "fullName": "gnoi.os.InstallError",
+          "description": "The InstallError message MUST be sent by the Target to the Client whenever an\nissue occurs. The Target MUST immediately close the RPC without a gRPC error.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "type",
+              "description": "",
+              "label": "",
+              "type": "Type",
+              "longType": "InstallError.Type",
+              "fullType": "gnoi.os.InstallError.Type",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "detail",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "InstallRequest",
+          "longName": "InstallRequest",
+          "fullName": "gnoi.os.InstallRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "transfer_request",
+              "description": "",
+              "label": "",
+              "type": "TransferRequest",
+              "longType": "TransferRequest",
+              "fullType": "gnoi.os.TransferRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "transfer_content",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "transfer_end",
+              "description": "",
+              "label": "",
+              "type": "TransferEnd",
+              "longType": "TransferEnd",
+              "fullType": "gnoi.os.TransferEnd",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "InstallResponse",
+          "longName": "InstallResponse",
+          "fullName": "gnoi.os.InstallResponse",
+          "description": "The InstallResponse is used by the Target to inform the Client about the\nstate of the Install RPC. At any stage of the process the Target can reply\nwith an Error message which MUST terminate the stream.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "transfer_ready",
+              "description": "",
+              "label": "",
+              "type": "TransferReady",
+              "longType": "TransferReady",
+              "fullType": "gnoi.os.TransferReady",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "transfer_progress",
+              "description": "",
+              "label": "",
+              "type": "TransferProgress",
+              "longType": "TransferProgress",
+              "fullType": "gnoi.os.TransferProgress",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "sync_progress",
+              "description": "",
+              "label": "",
+              "type": "SyncProgress",
+              "longType": "SyncProgress",
+              "fullType": "gnoi.os.SyncProgress",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "validated",
+              "description": "",
+              "label": "",
+              "type": "Validated",
+              "longType": "Validated",
+              "fullType": "gnoi.os.Validated",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "install_error",
+              "description": "",
+              "label": "",
+              "type": "InstallError",
+              "longType": "InstallError",
+              "fullType": "gnoi.os.InstallError",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "StandbyResponse",
+          "longName": "StandbyResponse",
+          "fullName": "gnoi.os.StandbyResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "Standby Supervisor ID, usually the slot number.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "version",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "activation_fail_message",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "StandbyState",
+          "longName": "StandbyState",
+          "fullName": "gnoi.os.StandbyState",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "state",
+              "description": "",
+              "label": "",
+              "type": "State",
+              "longType": "StandbyState.State",
+              "fullType": "gnoi.os.StandbyState.State",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SyncProgress",
+          "longName": "SyncProgress",
+          "fullName": "gnoi.os.SyncProgress",
+          "description": "The SyncProgress message signals the Client about the progress of\ntransferring the OS package between Supervisors.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "percentage_transferred",
+              "description": "The percentage that has transferred between Supervisors.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TransferEnd",
+          "longName": "TransferEnd",
+          "fullName": "gnoi.os.TransferEnd",
+          "description": "The TransferEnd message is sent whenever the Client finishes transferring\nthe OS package to the Target. At this point the Target MUST perform a general\nhealth check to the OS package. If the Target fails to parse the OS package\nit MUST immediately reply with an InstallError-\u003etype-\u003ePARSE_FAIL. If the\nintegrity check of the OS package fails it MUST immediately reply with an\nInstallError-\u003etype-\u003eINTEGRITY_FAIL. If the identified OS version contained in\nthe package is not compatible with the Target either because of the platform\ntype or the running OS, it MUST immediately reply with an\nInstallError-\u003etype-\u003eINCOMPATIBLE. If the image is force transferred by\nomitting the InstallRequest-\u003eTransferRequest-\u003eversion value, and the OS\npackage is the same as the one running in the Target, the RPC MUST\nimmediately abort and reply with an InstallError-\u003etype-\u003eINSTALL_RUN_PACKAGE.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "TransferProgress",
+          "longName": "TransferProgress",
+          "fullName": "gnoi.os.TransferProgress",
+          "description": "The TransferProgress message is sent by the target asynchronously during a\nfile transfer. The device SHOULD not respond to each input block received\nfrom the client, but rather determine reasonable intervals at which to send\nthe message (e.g., 5MB).",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "bytes_received",
+              "description": "The number of bytes transferred.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TransferReady",
+          "longName": "TransferReady",
+          "fullName": "gnoi.os.TransferReady",
+          "description": "The TransferReady message tells the Client that the Target is ready to accept\nthe transfer of the OS package. At this stage the Target MUST have cleared\nenough space to accept the incoming OS package.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "TransferRequest",
+          "longName": "TransferRequest",
+          "fullName": "gnoi.os.TransferRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "version",
+              "description": "The version string is a vendor defined string that identifies the OS\nversion. It is provided by the vendor and embedded in the OS package. This\nvalue states the desired OS package version to transfer to the Target. If\nthe Target already has the OS package version it will reply with\nInstallResponse-\u003eValidated. In the case that the target is a\nsingle Supervisor device, or the partner Supervisor does not have the OS\nimage specified, it will respond with InstallResponse-\u003eTransferReady. In\nthis case, the client MUST subsequently transfer the image. In the case\nthat the image is available on the peer Supervisor of a dual Supervisor\nsystem, it will respond with InstallResponse-\u003eSyncProgress. In this,\nlatter, case - the client does not need to transfer the OS image. This\nvalue can also be set empty, in which case the OS package is forced\ntransferred to the Target. The Target MUST never validate that this value\nmatches the one in the InstallResponse-\u003eValidated message, that is the\nClient's responsibility.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "standby_supervisor",
+              "description": "For a Target with dual Supervisors setting this flag instructs the Target\nto perform the action on the Standby Supervisor.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Validated",
+          "longName": "Validated",
+          "fullName": "gnoi.os.Validated",
+          "description": "The Validated message asserts that the Target was able to parse the package\nand perform integrity checks to its contents.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "version",
+              "description": "The OS version string that identifies the OS version in the OS package.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "description",
+              "description": "Informational field that SHOULD be used for providing more details about\nthe OS package and its version. This MUST be strictly informational if\nused, and can contain information such as build date, target platform,\ndeveloper, etc.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "VerifyRequest",
+          "longName": "VerifyRequest",
+          "fullName": "gnoi.os.VerifyRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "VerifyResponse",
+          "longName": "VerifyResponse",
+          "fullName": "gnoi.os.VerifyResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "version",
+              "description": "The OS version currently running.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "activation_fail_message",
+              "description": "Informational message describing fail details of the last boot. This MUST\nbe set when a newly transferred OS fails to boot and the system falls back\nto the previously running OS version. It MUST be cleared whenever the\nsystems successfully boots the activated OS version.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "verify_standby",
+              "description": "",
+              "label": "",
+              "type": "VerifyStandby",
+              "longType": "VerifyStandby",
+              "fullType": "gnoi.os.VerifyStandby",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "VerifyStandby",
+          "longName": "VerifyStandby",
+          "fullName": "gnoi.os.VerifyStandby",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "standby_state",
+              "description": "",
+              "label": "",
+              "type": "StandbyState",
+              "longType": "StandbyState",
+              "fullType": "gnoi.os.StandbyState",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "state",
+              "defaultValue": ""
+            },
+            {
+              "name": "verify_response",
+              "description": "",
+              "label": "",
+              "type": "StandbyResponse",
+              "longType": "StandbyResponse",
+              "fullType": "gnoi.os.StandbyResponse",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "state",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "OS",
+          "longName": "OS",
+          "fullName": "gnoi.os.OS",
+          "description": "The OS service provides an interface for OS installation on a Target. The\nClient progresses through 3 RPCs:\n  1) Installation - provide the Target with the OS package.\n  2) Activation - activate an installed OS package.\n  3) Verification - verify that the Activation was successful.\n\nDual Supervisor Target is supported, where the above process is executed once\nfor each Supervisor.\n\nNote that certain platforms may have particular approaches to upgrade the\nfirmware of specific components, eg., power supply units, etc.. In addition,\nplatforms may have processes to apply patches to the running OS. Handling\nthese exceptions introduces extra complexities. For Targets that implement\nthis service, component firmware upgrade or OS patching MUST be embedded\nwithin an OS upgrade.",
+          "methods": [
+            {
+              "name": "Install",
+              "description": "Install transfers an OS package into the Target. No concurrent Install RPCs\nMUST be allowed to the same Target.\n\nThe OS package file format is platform dependent. The platform MUST\nvalidate that the OS package that is supplied is valid and bootable. This\nSHOULD include a hash check against a known good hash. It is recommended\nthat the hash is embedded in the OS package.\n\nThe Target manages its own persistent storage, and OS installation process.\nIt stores a set of distinct OS packages, and always proactively frees up\nspace for incoming new OS packages. It is guaranteed that the Target always\nhas enough space for a valid incoming OS package. The currently running OS\npackages MUST never be removed. The Client MUST expect that the last\nsuccessfully installed package is available.\n\nThe Install RPC allows the Client to specify the OS package version. If\nthe Target already has an OS package with the same version then there is no\nneed to transfer the OS package to the Target. If the Target does not have\nan OS package with the same version, then the OS package is copied.\n\nScenario 1 - When the Target already has the OS package:\n\n        Client :--------------|--------------\u003e Target\n             TransferRequest --\u003e\n                             \u003c-- [Validated|InstallError]\n\n\nScenario 2 - When the Target does not have the OS package:\n\n        Client :--------------|--------------\u003e Target\n             TransferRequest --\u003e\n                             \u003c-- [TransferReady|InstallError]\n           transfer_content  --\u003e\n                             ...\n                             \u003c-- [TransferProgress|InstallError]\n                             ...\n                 TransferEnd --\u003e\n                             \u003c-- [Validated|InstallError]\n\nOn a dual Supervisor Target, only the Active Supervisor runs this gNOI\nService. The Install RPC applies to the Active Supervisor unless\nInstallRequest-\u003eTransferRequest-\u003estandby_supervisor is set, in which case\nit applies to the Standby Supervisor. One Install RPC is required for each\nSupervisor. The Supervisor order of package installation MUST not be fixed.\n\nThe Target MUST always attempt to copy the OS package between Supervisors\nfirst before accepting the transfer from the Client. The syncing progress\nis reported to the client with InstallResponse-\u003eSyncProgress messages.\n\nIf a switchover is triggered during the Install RPC, the RPC MUST\nimmediately abort with Error-\u003etype-\u003eUNEXPECTED_SWITCHOVER.\n\nScenario 3 - When both Supervisors already have the OS package, regardless\n             of the value in Start.standby_supervisor:\n\n        Client :--------------|--------------\u003e Target\n             TransferRequest --\u003e\n                             \u003c-- [Validated|InstallError]\n\n\nScenario 4 - When one of the Supervisors already has the OS package but the\n             other Supervisor is the target of the Install:\n\n        Client :--------------|--------------\u003e Target\n             TransferRequest --\u003e\n                             \u003c-- [SyncProgress|InstallError]\n                             ...\n                             \u003c-- [Validated|InstallError]\n\n\nScenario 5 - When neither of the two Supervisors has the OS package:\n\n        Client :--------------|--------------\u003e Target\n             TransferRequest --\u003e\n                             \u003c-- [TransferReady|InstallError]\n           transfer_content  --\u003e\n                             ...\n                             \u003c-- [TransferProgress|InstallError]\n                             ...\n                 TransferEnd --\u003e\n                             \u003c-- [Validated|InstallError]",
+              "requestType": "InstallRequest",
+              "requestLongType": "InstallRequest",
+              "requestFullType": "gnoi.os.InstallRequest",
+              "requestStreaming": true,
+              "responseType": "InstallResponse",
+              "responseLongType": "InstallResponse",
+              "responseFullType": "gnoi.os.InstallResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "Activate",
+              "description": "Activate sets the requested OS version as the version which is used at the\nnext reboot, and reboots the Target if the 'no_reboot' flag is not set.\nWhen booting the requested OS version fails, the Target recovers by\nbooting the previously running OS package.",
+              "requestType": "ActivateRequest",
+              "requestLongType": "ActivateRequest",
+              "requestFullType": "gnoi.os.ActivateRequest",
+              "requestStreaming": false,
+              "responseType": "ActivateResponse",
+              "responseLongType": "ActivateResponse",
+              "responseFullType": "gnoi.os.ActivateResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "Verify",
+              "description": "Verify checks the running OS version. This RPC may be called multiple times\nwhile the Target boots, until successful.",
+              "requestType": "VerifyRequest",
+              "requestLongType": "VerifyRequest",
+              "requestFullType": "gnoi.os.VerifyRequest",
+              "requestStreaming": false,
+              "responseType": "VerifyResponse",
+              "responseLongType": "VerifyResponse",
+              "responseFullType": "gnoi.os.VerifyResponse",
+              "responseStreaming": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "types/types.proto",
+      "description": "",
+      "package": "gnoi.types",
+      "hasEnums": true,
+      "hasExtensions": true,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [
+        {
+          "name": "HashMethod",
+          "longName": "HashType.HashMethod",
+          "fullName": "gnoi.types.HashType.HashMethod",
+          "description": "",
+          "values": [
+            {
+              "name": "UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "SHA256",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "SHA512",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "MD5",
+              "number": "3",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "L3Protocol",
+          "longName": "L3Protocol",
+          "fullName": "gnoi.types.L3Protocol",
+          "description": "Generic Layer 3 Protocol enumeration.",
+          "values": [
+            {
+              "name": "UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "IPV4",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "IPV6",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "extensions": [
+        {
+          "name": "gnoi_version",
+          "longName": ".google.protobuf.FileOptions.gnoi_version",
+          "fullName": ".google.protobuf.FileOptions.gnoi_version",
+          "description": "The gNOI service semantic version.",
+          "label": "",
+          "type": "string",
+          "longType": "string",
+          "fullType": "string",
+          "number": 1002,
+          "defaultValue": "",
+          "containingType": "FileOptions",
+          "containingLongType": ".google.protobuf.FileOptions",
+          "containingFullType": "google.protobuf.FileOptions"
+        }
+      ],
+      "messages": [
+        {
+          "name": "Credentials",
+          "longName": "Credentials",
+          "fullName": "gnoi.types.Credentials",
+          "description": "Credentials defines credentials needed to perform authentication on a device.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "username",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "cleartext",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "password",
+              "defaultValue": ""
+            },
+            {
+              "name": "hashed",
+              "description": "",
+              "label": "",
+              "type": "HashType",
+              "longType": "HashType",
+              "fullType": "gnoi.types.HashType",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "password",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "HashType",
+          "longName": "HashType",
+          "fullName": "gnoi.types.HashType",
+          "description": "HashType defines the valid hash methods for data verification.  UNSPECIFIED\nshould be treated an error.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "method",
+              "description": "",
+              "label": "",
+              "type": "HashMethod",
+              "longType": "HashType.HashMethod",
+              "fullType": "gnoi.types.HashType.HashMethod",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "hash",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Path",
+          "longName": "Path",
+          "fullName": "gnoi.types.Path",
+          "description": "Path encodes a data tree path as a series of repeated strings, with\neach element of the path representing a data tree node name and the\nassociated attributes.\nReference: gNMI Specification Section 2.2.2.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "origin",
+              "description": "Label to disambiguate path.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "elem",
+              "description": "Elements of the path.",
+              "label": "repeated",
+              "type": "PathElem",
+              "longType": "PathElem",
+              "fullType": "gnoi.types.PathElem",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PathElem",
+          "longName": "PathElem",
+          "fullName": "gnoi.types.PathElem",
+          "description": "PathElem encodes an element of a gNMI path, along with any attributes (keys)\nthat may be associated with it.\nReference: gNMI Specification Section 2.2.2.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "The name of the element in the path.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key",
+              "description": "Map of key (attribute) name to value.",
+              "label": "repeated",
+              "type": "KeyEntry",
+              "longType": "PathElem.KeyEntry",
+              "fullType": "gnoi.types.PathElem.KeyEntry",
+              "ismap": true,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "KeyEntry",
+          "longName": "PathElem.KeyEntry",
+          "fullName": "gnoi.types.PathElem.KeyEntry",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": []
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

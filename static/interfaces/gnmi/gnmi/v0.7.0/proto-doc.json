@@ -1997,6 +1997,2317 @@
         }
       ],
       "services": []
+    },
+    {
+      "name": "google/protobuf/any.proto",
+      "description": "",
+      "package": "google.protobuf",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "Any",
+          "longName": "Any",
+          "fullName": "google.protobuf.Any",
+          "description": "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(\u0026foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\nExample 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\nExample 4: Pack and unpack a message in Go\n\n     foo := \u0026pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := \u0026pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": \u003cstring\u003e,\n      \"lastName\": \u003cstring\u003e\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "type_url",
+              "description": "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "Must be a valid serialized protocol buffer of the above specified type.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": []
+    },
+    {
+      "name": "google/protobuf/descriptor.proto",
+      "description": "",
+      "package": "google.protobuf",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [
+        {
+          "name": "Label",
+          "longName": "FieldDescriptorProto.Label",
+          "fullName": "google.protobuf.FieldDescriptorProto.Label",
+          "description": "",
+          "values": [
+            {
+              "name": "LABEL_OPTIONAL",
+              "number": "1",
+              "description": "0 is reserved for errors"
+            },
+            {
+              "name": "LABEL_REQUIRED",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "LABEL_REPEATED",
+              "number": "3",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Type",
+          "longName": "FieldDescriptorProto.Type",
+          "fullName": "google.protobuf.FieldDescriptorProto.Type",
+          "description": "",
+          "values": [
+            {
+              "name": "TYPE_DOUBLE",
+              "number": "1",
+              "description": "0 is reserved for errors.\nOrder is weird for historical reasons."
+            },
+            {
+              "name": "TYPE_FLOAT",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "TYPE_INT64",
+              "number": "3",
+              "description": "Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT64 if\nnegative values are likely."
+            },
+            {
+              "name": "TYPE_UINT64",
+              "number": "4",
+              "description": ""
+            },
+            {
+              "name": "TYPE_INT32",
+              "number": "5",
+              "description": "Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT32 if\nnegative values are likely."
+            },
+            {
+              "name": "TYPE_FIXED64",
+              "number": "6",
+              "description": ""
+            },
+            {
+              "name": "TYPE_FIXED32",
+              "number": "7",
+              "description": ""
+            },
+            {
+              "name": "TYPE_BOOL",
+              "number": "8",
+              "description": ""
+            },
+            {
+              "name": "TYPE_STRING",
+              "number": "9",
+              "description": ""
+            },
+            {
+              "name": "TYPE_GROUP",
+              "number": "10",
+              "description": "Tag-delimited aggregate.\nGroup type is deprecated and not supported in proto3. However, Proto3\nimplementations should still be able to parse the group wire format and\ntreat group fields as unknown fields."
+            },
+            {
+              "name": "TYPE_MESSAGE",
+              "number": "11",
+              "description": "Length-delimited aggregate."
+            },
+            {
+              "name": "TYPE_BYTES",
+              "number": "12",
+              "description": "New in version 2."
+            },
+            {
+              "name": "TYPE_UINT32",
+              "number": "13",
+              "description": ""
+            },
+            {
+              "name": "TYPE_ENUM",
+              "number": "14",
+              "description": ""
+            },
+            {
+              "name": "TYPE_SFIXED32",
+              "number": "15",
+              "description": ""
+            },
+            {
+              "name": "TYPE_SFIXED64",
+              "number": "16",
+              "description": ""
+            },
+            {
+              "name": "TYPE_SINT32",
+              "number": "17",
+              "description": "Uses ZigZag encoding."
+            },
+            {
+              "name": "TYPE_SINT64",
+              "number": "18",
+              "description": "Uses ZigZag encoding."
+            }
+          ]
+        },
+        {
+          "name": "CType",
+          "longName": "FieldOptions.CType",
+          "fullName": "google.protobuf.FieldOptions.CType",
+          "description": "",
+          "values": [
+            {
+              "name": "STRING",
+              "number": "0",
+              "description": "Default mode."
+            },
+            {
+              "name": "CORD",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "STRING_PIECE",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "JSType",
+          "longName": "FieldOptions.JSType",
+          "fullName": "google.protobuf.FieldOptions.JSType",
+          "description": "",
+          "values": [
+            {
+              "name": "JS_NORMAL",
+              "number": "0",
+              "description": "Use the default type."
+            },
+            {
+              "name": "JS_STRING",
+              "number": "1",
+              "description": "Use JavaScript strings."
+            },
+            {
+              "name": "JS_NUMBER",
+              "number": "2",
+              "description": "Use JavaScript numbers."
+            }
+          ]
+        },
+        {
+          "name": "OptionRetention",
+          "longName": "FieldOptions.OptionRetention",
+          "fullName": "google.protobuf.FieldOptions.OptionRetention",
+          "description": "If set to RETENTION_SOURCE, the option will be omitted from the binary.\nNote: as of January 2023, support for this is in progress and does not yet\nhave an effect (b/264593489).",
+          "values": [
+            {
+              "name": "RETENTION_UNKNOWN",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "RETENTION_RUNTIME",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "RETENTION_SOURCE",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "OptionTargetType",
+          "longName": "FieldOptions.OptionTargetType",
+          "fullName": "google.protobuf.FieldOptions.OptionTargetType",
+          "description": "This indicates the types of entities that the field may apply to when used\nas an option. If it is unset, then the field may be freely used as an\noption on any kind of entity. Note: as of January 2023, support for this is\nin progress and does not yet have an effect (b/264593489).",
+          "values": [
+            {
+              "name": "TARGET_TYPE_UNKNOWN",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_FILE",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_EXTENSION_RANGE",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_MESSAGE",
+              "number": "3",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_FIELD",
+              "number": "4",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_ONEOF",
+              "number": "5",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_ENUM",
+              "number": "6",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_ENUM_ENTRY",
+              "number": "7",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_SERVICE",
+              "number": "8",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_METHOD",
+              "number": "9",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "OptimizeMode",
+          "longName": "FileOptions.OptimizeMode",
+          "fullName": "google.protobuf.FileOptions.OptimizeMode",
+          "description": "Generated classes can be optimized for speed or code size.",
+          "values": [
+            {
+              "name": "SPEED",
+              "number": "1",
+              "description": "Generate complete code for parsing, serialization,"
+            },
+            {
+              "name": "CODE_SIZE",
+              "number": "2",
+              "description": "etc.\n\nUse ReflectionOps to implement these methods."
+            },
+            {
+              "name": "LITE_RUNTIME",
+              "number": "3",
+              "description": "Generate code using MessageLite and the lite runtime."
+            }
+          ]
+        },
+        {
+          "name": "Semantic",
+          "longName": "GeneratedCodeInfo.Annotation.Semantic",
+          "fullName": "google.protobuf.GeneratedCodeInfo.Annotation.Semantic",
+          "description": "Represents the identified object's effect on the element in the original\n.proto file.",
+          "values": [
+            {
+              "name": "NONE",
+              "number": "0",
+              "description": "There is no effect or the effect is indescribable."
+            },
+            {
+              "name": "SET",
+              "number": "1",
+              "description": "The element is set or otherwise mutated."
+            },
+            {
+              "name": "ALIAS",
+              "number": "2",
+              "description": "An alias to the element is returned."
+            }
+          ]
+        },
+        {
+          "name": "IdempotencyLevel",
+          "longName": "MethodOptions.IdempotencyLevel",
+          "fullName": "google.protobuf.MethodOptions.IdempotencyLevel",
+          "description": "Is this method side-effect-free (or safe in HTTP parlance), or idempotent,\nor neither? HTTP based RPC implementation may choose GET verb for safe\nmethods, and PUT verb for idempotent methods instead of the default POST.",
+          "values": [
+            {
+              "name": "IDEMPOTENCY_UNKNOWN",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "NO_SIDE_EFFECTS",
+              "number": "1",
+              "description": "implies idempotent"
+            },
+            {
+              "name": "IDEMPOTENT",
+              "number": "2",
+              "description": "idempotent, but may have side effects"
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "DescriptorProto",
+          "longName": "DescriptorProto",
+          "fullName": "google.protobuf.DescriptorProto",
+          "description": "Describes a message type.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "field",
+              "description": "",
+              "label": "repeated",
+              "type": "FieldDescriptorProto",
+              "longType": "FieldDescriptorProto",
+              "fullType": "google.protobuf.FieldDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extension",
+              "description": "",
+              "label": "repeated",
+              "type": "FieldDescriptorProto",
+              "longType": "FieldDescriptorProto",
+              "fullType": "google.protobuf.FieldDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "nested_type",
+              "description": "",
+              "label": "repeated",
+              "type": "DescriptorProto",
+              "longType": "DescriptorProto",
+              "fullType": "google.protobuf.DescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "enum_type",
+              "description": "",
+              "label": "repeated",
+              "type": "EnumDescriptorProto",
+              "longType": "EnumDescriptorProto",
+              "fullType": "google.protobuf.EnumDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extension_range",
+              "description": "",
+              "label": "repeated",
+              "type": "ExtensionRange",
+              "longType": "DescriptorProto.ExtensionRange",
+              "fullType": "google.protobuf.DescriptorProto.ExtensionRange",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "oneof_decl",
+              "description": "",
+              "label": "repeated",
+              "type": "OneofDescriptorProto",
+              "longType": "OneofDescriptorProto",
+              "fullType": "google.protobuf.OneofDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "MessageOptions",
+              "longType": "MessageOptions",
+              "fullType": "google.protobuf.MessageOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "reserved_range",
+              "description": "",
+              "label": "repeated",
+              "type": "ReservedRange",
+              "longType": "DescriptorProto.ReservedRange",
+              "fullType": "google.protobuf.DescriptorProto.ReservedRange",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "reserved_name",
+              "description": "Reserved field names, which may not be used by fields in the same message.\nA given name may only be reserved once.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ExtensionRange",
+          "longName": "DescriptorProto.ExtensionRange",
+          "fullName": "google.protobuf.DescriptorProto.ExtensionRange",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "start",
+              "description": "Inclusive.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "end",
+              "description": "Exclusive.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "ExtensionRangeOptions",
+              "longType": "ExtensionRangeOptions",
+              "fullType": "google.protobuf.ExtensionRangeOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ReservedRange",
+          "longName": "DescriptorProto.ReservedRange",
+          "fullName": "google.protobuf.DescriptorProto.ReservedRange",
+          "description": "Range of reserved tag numbers. Reserved tag numbers may not be used by\nfields or extension ranges in the same message. Reserved ranges may\nnot overlap.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "start",
+              "description": "Inclusive.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "end",
+              "description": "Exclusive.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EnumDescriptorProto",
+          "longName": "EnumDescriptorProto",
+          "fullName": "google.protobuf.EnumDescriptorProto",
+          "description": "Describes an enum type.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "",
+              "label": "repeated",
+              "type": "EnumValueDescriptorProto",
+              "longType": "EnumValueDescriptorProto",
+              "fullType": "google.protobuf.EnumValueDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "EnumOptions",
+              "longType": "EnumOptions",
+              "fullType": "google.protobuf.EnumOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "reserved_range",
+              "description": "Range of reserved numeric values. Reserved numeric values may not be used\nby enum values in the same enum declaration. Reserved ranges may not\noverlap.",
+              "label": "repeated",
+              "type": "EnumReservedRange",
+              "longType": "EnumDescriptorProto.EnumReservedRange",
+              "fullType": "google.protobuf.EnumDescriptorProto.EnumReservedRange",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "reserved_name",
+              "description": "Reserved enum value names, which may not be reused. A given name may only\nbe reserved once.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EnumReservedRange",
+          "longName": "EnumDescriptorProto.EnumReservedRange",
+          "fullName": "google.protobuf.EnumDescriptorProto.EnumReservedRange",
+          "description": "Range of reserved numeric values. Reserved values may not be used by\nentries in the same enum. Reserved ranges may not overlap.\n\nNote that this is distinct from DescriptorProto.ReservedRange in that it\nis inclusive such that it can appropriately represent the entire int32\ndomain.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "start",
+              "description": "Inclusive.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "end",
+              "description": "Inclusive.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EnumOptions",
+          "longName": "EnumOptions",
+          "fullName": "google.protobuf.EnumOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "allow_alias",
+              "description": "Set this option to true to allow mapping different tag names to the same\nvalue.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "deprecated",
+              "description": "Is this enum deprecated?\nDepending on the target platform, this can emit Deprecated annotations\nfor the enum, or it will be completely ignored; in the very least, this\nis a formalization for deprecating enums.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "deprecated_legacy_json_field_conflicts",
+              "description": "Enable the legacy handling of JSON field name conflicts.  This lowercases\nand strips underscored from the fields before comparison in proto3 only.\nThe new behavior takes `json_name` into account and applies to proto2 as\nwell.\nTODO(b/261750190) Remove this legacy behavior once downstream teams have\nhad time to migrate.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here. See above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EnumValueDescriptorProto",
+          "longName": "EnumValueDescriptorProto",
+          "fullName": "google.protobuf.EnumValueDescriptorProto",
+          "description": "Describes a value within an enum.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "number",
+              "description": "",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "EnumValueOptions",
+              "longType": "EnumValueOptions",
+              "fullType": "google.protobuf.EnumValueOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EnumValueOptions",
+          "longName": "EnumValueOptions",
+          "fullName": "google.protobuf.EnumValueOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "deprecated",
+              "description": "Is this enum value deprecated?\nDepending on the target platform, this can emit Deprecated annotations\nfor the enum value, or it will be completely ignored; in the very least,\nthis is a formalization for deprecating enum values.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here. See above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ExtensionRangeOptions",
+          "longName": "ExtensionRangeOptions",
+          "fullName": "google.protobuf.ExtensionRangeOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here. See above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FieldDescriptorProto",
+          "longName": "FieldDescriptorProto",
+          "fullName": "google.protobuf.FieldDescriptorProto",
+          "description": "Describes a field within a message.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "number",
+              "description": "",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "label",
+              "description": "",
+              "label": "optional",
+              "type": "Label",
+              "longType": "FieldDescriptorProto.Label",
+              "fullType": "google.protobuf.FieldDescriptorProto.Label",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "type",
+              "description": "If type_name is set, this need not be set.  If both this and type_name\nare set, this must be one of TYPE_ENUM, TYPE_MESSAGE or TYPE_GROUP.",
+              "label": "optional",
+              "type": "Type",
+              "longType": "FieldDescriptorProto.Type",
+              "fullType": "google.protobuf.FieldDescriptorProto.Type",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "type_name",
+              "description": "For message and enum types, this is the name of the type.  If the name\nstarts with a '.', it is fully-qualified.  Otherwise, C++-like scoping\nrules are used to find the type (i.e. first the nested types within this\nmessage are searched, then within the parent, on up to the root\nnamespace).",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extendee",
+              "description": "For extensions, this is the name of the type being extended.  It is\nresolved in the same manner as type_name.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "default_value",
+              "description": "For numeric types, contains the original text representation of the value.\nFor booleans, \"true\" or \"false\".\nFor strings, contains the default text contents (not escaped in any way).\nFor bytes, contains the C escaped value.  All bytes \u003e= 128 are escaped.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "oneof_index",
+              "description": "If set, gives the index of a oneof in the containing type's oneof_decl\nlist.  This field is a member of that oneof.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "json_name",
+              "description": "JSON name of this field. The value is set by protocol compiler. If the\nuser has set a \"json_name\" option on this field, that option's value\nwill be used. Otherwise, it's deduced from the field's name by converting\nit to camelCase.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "FieldOptions",
+              "longType": "FieldOptions",
+              "fullType": "google.protobuf.FieldOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "proto3_optional",
+              "description": "If true, this is a proto3 \"optional\". When a proto3 field is optional, it\ntracks presence regardless of field type.\n\nWhen proto3_optional is true, this field must be belong to a oneof to\nsignal to old proto3 clients that presence is tracked for this field. This\noneof is known as a \"synthetic\" oneof, and this field must be its sole\nmember (each proto3 optional field gets its own synthetic oneof). Synthetic\noneofs exist in the descriptor only, and do not generate any API. Synthetic\noneofs must be ordered after all \"real\" oneofs.\n\nFor message fields, proto3_optional doesn't create any semantic change,\nsince non-repeated message fields always track presence. However it still\nindicates the semantic detail of whether the user wrote \"optional\" or not.\nThis can be useful for round-tripping the .proto file. For consistency we\ngive message fields a synthetic oneof also, even though it is not required\nto track presence. This is especially important because the parser can't\ntell if a field is a message or an enum, so it must always create a\nsynthetic oneof.\n\nProto2 optional fields do not set this flag, because they already indicate\noptional with `LABEL_OPTIONAL`.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FieldOptions",
+          "longName": "FieldOptions",
+          "fullName": "google.protobuf.FieldOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "ctype",
+              "description": "The ctype option instructs the C++ code generator to use a different\nrepresentation of the field than it normally would.  See the specific\noptions below.  This option is not yet implemented in the open source\nrelease -- sorry, we'll try to include it in a future version!",
+              "label": "optional",
+              "type": "CType",
+              "longType": "FieldOptions.CType",
+              "fullType": "google.protobuf.FieldOptions.CType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "STRING"
+            },
+            {
+              "name": "packed",
+              "description": "The packed option can be enabled for repeated primitive fields to enable\na more efficient representation on the wire. Rather than repeatedly\nwriting the tag and type for each element, the entire array is encoded as\na single length-delimited blob. In proto3, only explicit setting it to\nfalse will avoid using packed encoding.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "jstype",
+              "description": "The jstype option determines the JavaScript type used for values of the\nfield.  The option is permitted only for 64 bit integral and fixed types\n(int64, uint64, sint64, fixed64, sfixed64).  A field with jstype JS_STRING\nis represented as JavaScript string, which avoids loss of precision that\ncan happen when a large value is converted to a floating point JavaScript.\nSpecifying JS_NUMBER for the jstype causes the generated JavaScript code to\nuse the JavaScript \"number\" type.  The behavior of the default option\nJS_NORMAL is implementation dependent.\n\nThis option is an enum to permit additional types to be added, e.g.\ngoog.math.Integer.",
+              "label": "optional",
+              "type": "JSType",
+              "longType": "FieldOptions.JSType",
+              "fullType": "google.protobuf.FieldOptions.JSType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "JS_NORMAL"
+            },
+            {
+              "name": "lazy",
+              "description": "Should this field be parsed lazily?  Lazy applies only to message-type\nfields.  It means that when the outer message is initially parsed, the\ninner message's contents will not be parsed but instead stored in encoded\nform.  The inner message will actually be parsed when it is first accessed.\n\nThis is only a hint.  Implementations are free to choose whether to use\neager or lazy parsing regardless of the value of this option.  However,\nsetting this option true suggests that the protocol author believes that\nusing lazy parsing on this field is worth the additional bookkeeping\noverhead typically needed to implement it.\n\nThis option does not affect the public interface of any generated code;\nall method signatures remain the same.  Furthermore, thread-safety of the\ninterface is not affected by this option; const methods remain safe to\ncall from multiple threads concurrently, while non-const methods continue\nto require exclusive access.\n\nNote that implementations may choose not to check required fields within\na lazy sub-message.  That is, calling IsInitialized() on the outer message\nmay return true even if the inner message has missing required fields.\nThis is necessary because otherwise the inner message would have to be\nparsed in order to perform the check, defeating the purpose of lazy\nparsing.  An implementation which chooses not to check required fields\nmust be consistent about it.  That is, for any particular sub-message, the\nimplementation must either *always* check its required fields, or *never*\ncheck its required fields, regardless of whether or not the message has\nbeen parsed.\n\nAs of May 2022, lazy verifies the contents of the byte stream during\nparsing.  An invalid byte stream will cause the overall parsing to fail.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "unverified_lazy",
+              "description": "unverified_lazy does no correctness checks on the byte stream. This should\nonly be used where lazy with verification is prohibitive for performance\nreasons.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "deprecated",
+              "description": "Is this field deprecated?\nDepending on the target platform, this can emit Deprecated annotations\nfor accessors, or it will be completely ignored; in the very least, this\nis a formalization for deprecating fields.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "weak",
+              "description": "For Google-internal migration only. Do not use.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "debug_redact",
+              "description": "Indicate that the field value should not be printed out when using debug\nformats, e.g. when the field contains sensitive credentials.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "retention",
+              "description": "",
+              "label": "optional",
+              "type": "OptionRetention",
+              "longType": "FieldOptions.OptionRetention",
+              "fullType": "google.protobuf.FieldOptions.OptionRetention",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "target",
+              "description": "",
+              "label": "optional",
+              "type": "OptionTargetType",
+              "longType": "FieldOptions.OptionTargetType",
+              "fullType": "google.protobuf.FieldOptions.OptionTargetType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here. See above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FileDescriptorProto",
+          "longName": "FileDescriptorProto",
+          "fullName": "google.protobuf.FileDescriptorProto",
+          "description": "Describes a complete .proto file.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "file name, relative to root of source tree",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "package",
+              "description": "e.g. \"foo\", \"foo.bar\", etc.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "dependency",
+              "description": "Names of files imported by this file.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "public_dependency",
+              "description": "Indexes of the public imported files in the dependency list above.",
+              "label": "repeated",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "weak_dependency",
+              "description": "Indexes of the weak imported files in the dependency list.\nFor Google-internal migration only. Do not use.",
+              "label": "repeated",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "message_type",
+              "description": "All top-level definitions in this file.",
+              "label": "repeated",
+              "type": "DescriptorProto",
+              "longType": "DescriptorProto",
+              "fullType": "google.protobuf.DescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "enum_type",
+              "description": "",
+              "label": "repeated",
+              "type": "EnumDescriptorProto",
+              "longType": "EnumDescriptorProto",
+              "fullType": "google.protobuf.EnumDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "service",
+              "description": "",
+              "label": "repeated",
+              "type": "ServiceDescriptorProto",
+              "longType": "ServiceDescriptorProto",
+              "fullType": "google.protobuf.ServiceDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extension",
+              "description": "",
+              "label": "repeated",
+              "type": "FieldDescriptorProto",
+              "longType": "FieldDescriptorProto",
+              "fullType": "google.protobuf.FieldDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "FileOptions",
+              "longType": "FileOptions",
+              "fullType": "google.protobuf.FileOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "source_code_info",
+              "description": "This field contains optional information about the original source code.\nYou may safely remove this entire field without harming runtime\nfunctionality of the descriptors -- the information is needed only by\ndevelopment tools.",
+              "label": "optional",
+              "type": "SourceCodeInfo",
+              "longType": "SourceCodeInfo",
+              "fullType": "google.protobuf.SourceCodeInfo",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "syntax",
+              "description": "The syntax of the proto file.\nThe supported values are \"proto2\", \"proto3\", and \"editions\".\n\nIf `edition` is present, this value must be \"editions\".",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "edition",
+              "description": "The edition of the proto file, which is an opaque string.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FileDescriptorSet",
+          "longName": "FileDescriptorSet",
+          "fullName": "google.protobuf.FileDescriptorSet",
+          "description": "The protocol compiler can output a FileDescriptorSet containing the .proto\nfiles it parses.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "file",
+              "description": "",
+              "label": "repeated",
+              "type": "FileDescriptorProto",
+              "longType": "FileDescriptorProto",
+              "fullType": "google.protobuf.FileDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FileOptions",
+          "longName": "FileOptions",
+          "fullName": "google.protobuf.FileOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "java_package",
+              "description": "Sets the Java package where classes generated from this .proto will be\nplaced.  By default, the proto package is used, but this is often\ninappropriate because proto packages do not normally start with backwards\ndomain names.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "java_outer_classname",
+              "description": "Controls the name of the wrapper Java class generated for the .proto file.\nThat class will always contain the .proto file's getDescriptor() method as\nwell as any top-level extensions defined in the .proto file.\nIf java_multiple_files is disabled, then all the other classes from the\n.proto file will be nested inside the single wrapper outer class.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "java_multiple_files",
+              "description": "If enabled, then the Java code generator will generate a separate .java\nfile for each top-level message, enum, and service defined in the .proto\nfile.  Thus, these types will *not* be nested inside the wrapper class\nnamed by java_outer_classname.  However, the wrapper class will still be\ngenerated to contain the file's getDescriptor() method as well as any\ntop-level extensions defined in the file.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "java_generate_equals_and_hash",
+              "description": "This option does nothing.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "java_string_check_utf8",
+              "description": "If set true, then the Java2 code generator will generate code that\nthrows an exception whenever an attempt is made to assign a non-UTF-8\nbyte sequence to a string field.\nMessage reflection will do the same.\nHowever, an extension field still accepts non-UTF-8 byte sequences.\nThis option has no effect on when used with the lite runtime.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "optimize_for",
+              "description": "",
+              "label": "optional",
+              "type": "OptimizeMode",
+              "longType": "FileOptions.OptimizeMode",
+              "fullType": "google.protobuf.FileOptions.OptimizeMode",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "SPEED"
+            },
+            {
+              "name": "go_package",
+              "description": "Sets the Go package where structs generated from this .proto will be\nplaced. If omitted, the Go package will be derived from the following:\n  - The basename of the package import path, if provided.\n  - Otherwise, the package statement in the .proto file, if present.\n  - Otherwise, the basename of the .proto file, without extension.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "cc_generic_services",
+              "description": "Should generic services be generated in each language?  \"Generic\" services\nare not specific to any particular RPC system.  They are generated by the\nmain code generators in each language (without additional plugins).\nGeneric services were the only kind of service generation supported by\nearly versions of google.protobuf.\n\nGeneric services are now considered deprecated in favor of using plugins\nthat generate code specific to your particular RPC system.  Therefore,\nthese default to false.  Old code which depends on generic services should\nexplicitly set them to true.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "java_generic_services",
+              "description": "",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "py_generic_services",
+              "description": "",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "php_generic_services",
+              "description": "",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "deprecated",
+              "description": "Is this file deprecated?\nDepending on the target platform, this can emit Deprecated annotations\nfor everything in the file, or it will be completely ignored; in the very\nleast, this is a formalization for deprecating files.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "cc_enable_arenas",
+              "description": "Enables the use of arenas for the proto messages in this file. This applies\nonly to generated classes for C++.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "true"
+            },
+            {
+              "name": "objc_class_prefix",
+              "description": "Sets the objective c class prefix which is prepended to all objective c\ngenerated classes from this .proto. There is no default.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "csharp_namespace",
+              "description": "Namespace for generated classes; defaults to the package.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "swift_prefix",
+              "description": "By default Swift generators will take the proto package and CamelCase it\nreplacing '.' with underscore and use that to prefix the types/symbols\ndefined. When this options is provided, they will use this value instead\nto prefix the types/symbols defined.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "php_class_prefix",
+              "description": "Sets the php class prefix which is prepended to all php generated classes\nfrom this .proto. Default is empty.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "php_namespace",
+              "description": "Use this option to change the namespace of php generated classes. Default\nis empty. When this option is empty, the package name will be used for\ndetermining the namespace.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "php_metadata_namespace",
+              "description": "Use this option to change the namespace of php generated metadata classes.\nDefault is empty. When this option is empty, the proto file name will be\nused for determining the namespace.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ruby_package",
+              "description": "Use this option to change the package of ruby generated classes. Default\nis empty. When this option is not set, the package name will be used for\ndetermining the ruby package.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here.\nSee the documentation for the \"Options\" section above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GeneratedCodeInfo",
+          "longName": "GeneratedCodeInfo",
+          "fullName": "google.protobuf.GeneratedCodeInfo",
+          "description": "Describes the relationship between generated code and its original source\nfile. A GeneratedCodeInfo message is associated with only one generated\nsource file, but may contain references to different source .proto files.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "annotation",
+              "description": "An Annotation connects some span of text in generated code to an element\nof its generating .proto file.",
+              "label": "repeated",
+              "type": "Annotation",
+              "longType": "GeneratedCodeInfo.Annotation",
+              "fullType": "google.protobuf.GeneratedCodeInfo.Annotation",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Annotation",
+          "longName": "GeneratedCodeInfo.Annotation",
+          "fullName": "google.protobuf.GeneratedCodeInfo.Annotation",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "path",
+              "description": "Identifies the element in the original source .proto file. This field\nis formatted the same as SourceCodeInfo.Location.path.",
+              "label": "repeated",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "source_file",
+              "description": "Identifies the filesystem path to the original source .proto.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "begin",
+              "description": "Identifies the starting offset in bytes in the generated code\nthat relates to the identified object.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "end",
+              "description": "Identifies the ending offset in bytes in the generated code that\nrelates to the identified object. The end offset should be one past\nthe last relevant byte (so the length of the text = end - begin).",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "semantic",
+              "description": "",
+              "label": "optional",
+              "type": "Semantic",
+              "longType": "GeneratedCodeInfo.Annotation.Semantic",
+              "fullType": "google.protobuf.GeneratedCodeInfo.Annotation.Semantic",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MessageOptions",
+          "longName": "MessageOptions",
+          "fullName": "google.protobuf.MessageOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "message_set_wire_format",
+              "description": "Set true to use the old proto1 MessageSet wire format for extensions.\nThis is provided for backwards-compatibility with the MessageSet wire\nformat.  You should not use this for any other reason:  It's less\nefficient, has fewer features, and is more complicated.\n\nThe message must be defined exactly as follows:\n  message Foo {\n    option message_set_wire_format = true;\n    extensions 4 to max;\n  }\nNote that the message cannot have any defined fields; MessageSets only\nhave extensions.\n\nAll extensions of your type must be singular messages; e.g. they cannot\nbe int32s, enums, or repeated messages.\n\nBecause this is an option, the above two restrictions are not enforced by\nthe protocol compiler.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "no_standard_descriptor_accessor",
+              "description": "Disables the generation of the standard \"descriptor()\" accessor, which can\nconflict with a field of the same name.  This is meant to make migration\nfrom proto1 easier; new code should avoid fields named \"descriptor\".",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "deprecated",
+              "description": "Is this message deprecated?\nDepending on the target platform, this can emit Deprecated annotations\nfor the message, or it will be completely ignored; in the very least,\nthis is a formalization for deprecating messages.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "map_entry",
+              "description": "NOTE: Do not set the option in .proto files. Always use the maps syntax\ninstead. The option should only be implicitly set by the proto compiler\nparser.\n\nWhether the message is an automatically generated map entry type for the\nmaps field.\n\nFor maps fields:\n    map\u003cKeyType, ValueType\u003e map_field = 1;\nThe parsed descriptor looks like:\n    message MapFieldEntry {\n        option map_entry = true;\n        optional KeyType key = 1;\n        optional ValueType value = 2;\n    }\n    repeated MapFieldEntry map_field = 1;\n\nImplementations may choose not to generate the map_entry=true message, but\nuse a native map in the target language to hold the keys and values.\nThe reflection APIs in such implementations still need to work as\nif the field is a repeated message field.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "deprecated_legacy_json_field_conflicts",
+              "description": "Enable the legacy handling of JSON field name conflicts.  This lowercases\nand strips underscored from the fields before comparison in proto3 only.\nThe new behavior takes `json_name` into account and applies to proto2 as\nwell.\n\nThis should only be used as a temporary measure against broken builds due\nto the change in behavior for JSON field name conflicts.\n\nTODO(b/261750190) This is legacy behavior we plan to remove once downstream\nteams have had time to migrate.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here. See above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MethodDescriptorProto",
+          "longName": "MethodDescriptorProto",
+          "fullName": "google.protobuf.MethodDescriptorProto",
+          "description": "Describes a method of a service.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "input_type",
+              "description": "Input and output type names.  These are resolved in the same way as\nFieldDescriptorProto.type_name, but must refer to a message type.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "output_type",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "MethodOptions",
+              "longType": "MethodOptions",
+              "fullType": "google.protobuf.MethodOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "client_streaming",
+              "description": "Identifies if client streams multiple client messages",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "server_streaming",
+              "description": "Identifies if server streams multiple server messages",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            }
+          ]
+        },
+        {
+          "name": "MethodOptions",
+          "longName": "MethodOptions",
+          "fullName": "google.protobuf.MethodOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "deprecated",
+              "description": "Is this method deprecated?\nDepending on the target platform, this can emit Deprecated annotations\nfor the method, or it will be completely ignored; in the very least,\nthis is a formalization for deprecating methods.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "idempotency_level",
+              "description": "",
+              "label": "optional",
+              "type": "IdempotencyLevel",
+              "longType": "MethodOptions.IdempotencyLevel",
+              "fullType": "google.protobuf.MethodOptions.IdempotencyLevel",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "IDEMPOTENCY_UNKNOWN"
+            },
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here. See above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "OneofDescriptorProto",
+          "longName": "OneofDescriptorProto",
+          "fullName": "google.protobuf.OneofDescriptorProto",
+          "description": "Describes a oneof.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "OneofOptions",
+              "longType": "OneofOptions",
+              "fullType": "google.protobuf.OneofOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "OneofOptions",
+          "longName": "OneofOptions",
+          "fullName": "google.protobuf.OneofOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here. See above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ServiceDescriptorProto",
+          "longName": "ServiceDescriptorProto",
+          "fullName": "google.protobuf.ServiceDescriptorProto",
+          "description": "Describes a service.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "method",
+              "description": "",
+              "label": "repeated",
+              "type": "MethodDescriptorProto",
+              "longType": "MethodDescriptorProto",
+              "fullType": "google.protobuf.MethodDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "ServiceOptions",
+              "longType": "ServiceOptions",
+              "fullType": "google.protobuf.ServiceOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ServiceOptions",
+          "longName": "ServiceOptions",
+          "fullName": "google.protobuf.ServiceOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "deprecated",
+              "description": "Is this service deprecated?\nDepending on the target platform, this can emit Deprecated annotations\nfor the service, or it will be completely ignored; in the very least,\nthis is a formalization for deprecating services.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here. See above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SourceCodeInfo",
+          "longName": "SourceCodeInfo",
+          "fullName": "google.protobuf.SourceCodeInfo",
+          "description": "Encapsulates information about the original source file from which a\nFileDescriptorProto was generated.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "location",
+              "description": "A Location identifies a piece of source code in a .proto file which\ncorresponds to a particular definition.  This information is intended\nto be useful to IDEs, code indexers, documentation generators, and similar\ntools.\n\nFor example, say we have a file like:\n  message Foo {\n    optional string foo = 1;\n  }\nLet's look at just the field definition:\n  optional string foo = 1;\n  ^       ^^     ^^  ^  ^^^\n  a       bc     de  f  ghi\nWe have the following locations:\n  span   path               represents\n  [a,i)  [ 4, 0, 2, 0 ]     The whole field definition.\n  [a,b)  [ 4, 0, 2, 0, 4 ]  The label (optional).\n  [c,d)  [ 4, 0, 2, 0, 5 ]  The type (string).\n  [e,f)  [ 4, 0, 2, 0, 1 ]  The name (foo).\n  [g,h)  [ 4, 0, 2, 0, 3 ]  The number (1).\n\nNotes:\n- A location may refer to a repeated field itself (i.e. not to any\n  particular index within it).  This is used whenever a set of elements are\n  logically enclosed in a single code segment.  For example, an entire\n  extend block (possibly containing multiple extension definitions) will\n  have an outer location whose path refers to the \"extensions\" repeated\n  field without an index.\n- Multiple locations may have the same path.  This happens when a single\n  logical declaration is spread out across multiple places.  The most\n  obvious example is the \"extend\" block again -- there may be multiple\n  extend blocks in the same scope, each of which will have the same path.\n- A location's span is not always a subset of its parent's span.  For\n  example, the \"extendee\" of an extension declaration appears at the\n  beginning of the \"extend\" block and is shared by all extensions within\n  the block.\n- Just because a location's span is a subset of some other location's span\n  does not mean that it is a descendant.  For example, a \"group\" defines\n  both a type and a field in a single declaration.  Thus, the locations\n  corresponding to the type and field and their components will overlap.\n- Code which tries to interpret locations should probably be designed to\n  ignore those that it doesn't understand, as more types of locations could\n  be recorded in the future.",
+              "label": "repeated",
+              "type": "Location",
+              "longType": "SourceCodeInfo.Location",
+              "fullType": "google.protobuf.SourceCodeInfo.Location",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Location",
+          "longName": "SourceCodeInfo.Location",
+          "fullName": "google.protobuf.SourceCodeInfo.Location",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "path",
+              "description": "Identifies which part of the FileDescriptorProto was defined at this\nlocation.\n\nEach element is a field number or an index.  They form a path from\nthe root FileDescriptorProto to the place where the definition occurs.\nFor example, this path:\n  [ 4, 3, 2, 7, 1 ]\nrefers to:\n  file.message_type(3)  // 4, 3\n      .field(7)         // 2, 7\n      .name()           // 1\nThis is because FileDescriptorProto.message_type has field number 4:\n  repeated DescriptorProto message_type = 4;\nand DescriptorProto.field has field number 2:\n  repeated FieldDescriptorProto field = 2;\nand FieldDescriptorProto.name has field number 1:\n  optional string name = 1;\n\nThus, the above path gives the location of a field name.  If we removed\nthe last element:\n  [ 4, 3, 2, 7 ]\nthis path refers to the whole field declaration (from the beginning\nof the label to the terminating semicolon).",
+              "label": "repeated",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "span",
+              "description": "Always has exactly three or four elements: start line, start column,\nend line (optional, otherwise assumed same as start line), end column.\nThese are packed into a single field for efficiency.  Note that line\nand column numbers are zero-based -- typically you will want to add\n1 to each before displaying to a user.",
+              "label": "repeated",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "leading_comments",
+              "description": "If this SourceCodeInfo represents a complete declaration, these are any\ncomments appearing before and after the declaration which appear to be\nattached to the declaration.\n\nA series of line comments appearing on consecutive lines, with no other\ntokens appearing on those lines, will be treated as a single comment.\n\nleading_detached_comments will keep paragraphs of comments that appear\nbefore (but not connected to) the current element. Each paragraph,\nseparated by empty lines, will be one comment element in the repeated\nfield.\n\nOnly the comment content is provided; comment markers (e.g. //) are\nstripped out.  For block comments, leading whitespace and an asterisk\nwill be stripped from the beginning of each line other than the first.\nNewlines are included in the output.\n\nExamples:\n\n  optional int32 foo = 1;  // Comment attached to foo.\n  // Comment attached to bar.\n  optional int32 bar = 2;\n\n  optional string baz = 3;\n  // Comment attached to baz.\n  // Another line attached to baz.\n\n  // Comment attached to moo.\n  //\n  // Another line attached to moo.\n  optional double moo = 4;\n\n  // Detached comment for corge. This is not leading or trailing comments\n  // to moo or corge because there are blank lines separating it from\n  // both.\n\n  // Detached comment for corge paragraph 2.\n\n  optional string corge = 5;\n  /* Block comment attached\n   * to corge.  Leading asterisks\n   * will be removed. */\n  /* Block comment attached to\n   * grault. */\n  optional int32 grault = 6;\n\n  // ignored detached comments.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "trailing_comments",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "leading_detached_comments",
+              "description": "",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "UninterpretedOption",
+          "longName": "UninterpretedOption",
+          "fullName": "google.protobuf.UninterpretedOption",
+          "description": "A message representing a option the parser does not recognize. This only\nappears in options protos created by the compiler::Parser class.\nDescriptorPool resolves these when building Descriptor objects. Therefore,\noptions protos in descriptor objects (e.g. returned by Descriptor::options(),\nor produced by Descriptor::CopyTo()) will never have UninterpretedOptions\nin them.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "repeated",
+              "type": "NamePart",
+              "longType": "UninterpretedOption.NamePart",
+              "fullType": "google.protobuf.UninterpretedOption.NamePart",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "identifier_value",
+              "description": "The value of the uninterpreted option, in whatever type the tokenizer\nidentified it as during parsing. Exactly one of these should be set.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "positive_int_value",
+              "description": "",
+              "label": "optional",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "negative_int_value",
+              "description": "",
+              "label": "optional",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "double_value",
+              "description": "",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "string_value",
+              "description": "",
+              "label": "optional",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "aggregate_value",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "NamePart",
+          "longName": "UninterpretedOption.NamePart",
+          "fullName": "google.protobuf.UninterpretedOption.NamePart",
+          "description": "The name of the uninterpreted option.  Each string represents a segment in\na dot-separated name.  is_extension is true iff a segment represents an\nextension (denoted with parentheses in options specs in .proto files).\nE.g.,{ [\"foo\", false], [\"bar.baz\", true], [\"moo\", false] } represents\n\"foo.(bar.baz).moo\".",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name_part",
+              "description": "",
+              "label": "required",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "is_extension",
+              "description": "",
+              "label": "required",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": []
     }
   ],
   "scalarValueTypes": [
