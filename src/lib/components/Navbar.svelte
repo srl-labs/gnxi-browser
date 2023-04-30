@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { toggleSidebar } from './functions';
+
   export let interfaces: any, iKey: string, sKey: string, version: string;
   let darkMode = false;
 
@@ -14,12 +16,6 @@
       document.getElementById("toggle-dark-icon").classList.remove("hidden");
       document.getElementById("toggle-light-icon").classList.add("hidden");
     }
-  }
-
-  const toggleSidebar = () => {
-    document.getElementById("sidebar").classList.toggle("translate-x-0");
-    document.getElementById("open-sidebar").classList.toggle("hidden");
-    document.getElementById("close-sidebar").classList.toggle("hidden");
   }
 
   const toggleNavInterfaces = () => {
