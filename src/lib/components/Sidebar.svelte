@@ -34,7 +34,7 @@
   }
 </script>
 
-<aside id="sidebar" class="text-sm font-nunito fixed pt-20 left-0 top-0 z-20 transition-transform duration-700 -translate-x-full bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+<aside id="sidebar" class="text-sm font-nunito fixed pt-20 left-0 top-0 z-20 transition-transform -translate-x-full bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
   <div class="bg-white dark:bg-gray-800">
     <div class="px-3 text-center">
       <a href="{src_doc.source}" class="text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase">Source</a> 
