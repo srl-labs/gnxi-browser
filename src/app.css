@@ -4,12 +4,8 @@
 
 @layer components {
   .has-header-img {
-    background: url(/images/u3.jpg)center center;
+    background: url(/images/pattern.jpg)center center;
     background-size: cover;
-  }
-  
-  .has-perfect-white {
-    background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
   }
 
   /* Scroll Light */
