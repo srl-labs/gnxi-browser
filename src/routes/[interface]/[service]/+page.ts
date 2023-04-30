@@ -33,21 +33,13 @@ export async function load({ url, fetch, params }) {
         }
       }
 
-      let protoDoc = "";
-      let protoDocPath = `interfaces/${p}/${s}/${v}/proto-doc.json`;
-      const modules = import.meta.glob('$lib/interfaces/*/*/*/*', {as: "raw", eager: true})
-      for (const path in modules) {
-        if(path.includes(protoDocPath)) {
-          protoDoc = modules[path];
-        }
-      }
-
-      if(protoDoc != "") {
+      const protoDoc = import(`../../../lib/interfaces/${p}/${s}/${v}/proto-doc.json`);
+      try {
         return {
           interface: p, service: s, version: v,
-          protoDoc: JSON.parse(protoDoc)
+          protoDoc: await protoDoc
         }
-      } else {
+      } catch(e) {
         throw error(404, "Error fetching proto definition");
       }
     }
