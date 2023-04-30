@@ -1,11 +1,19 @@
 <script lang="ts">
   export let interfaces: any, iKey: string, sKey: string, version: string;
+  let darkMode = false;
 
   // TOGGLE BETWEEN LIGHT AND DARK MODE
   const toggleDarkMode = () => {
-    document.documentElement.classList.toggle("dark");
-    document.getElementById("toggle-dark-icon").classList.toggle("hidden");
-    document.getElementById("toggle-light-icon").classList.toggle("hidden");
+    darkMode = !darkMode;
+    if(darkMode) {
+      document.documentElement.classList.add("dark");
+      document.getElementById("toggle-dark-icon").classList.add("hidden");
+      document.getElementById("toggle-light-icon").classList.remove("hidden");
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.getElementById("toggle-dark-icon").classList.remove("hidden");
+      document.getElementById("toggle-light-icon").classList.add("hidden");
+    }
   }
 
   const toggleSidebar = () => {
