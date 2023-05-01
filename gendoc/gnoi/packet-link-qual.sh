@@ -13,7 +13,7 @@ function gen-gnoi-packet-link-qual {
         exit 1
     fi
 
-    OUT_DIR=$(pwd)/static/interfaces/gnoi/packet_link_qualification/"$1"
+    OUT_DIR=$(pwd)/src/lib/interfaces/gnoi/packet_link_qualification/"$1"
     mkdir -p ${OUT_DIR}
 
     git_ref=$(_get_git_ref gnoi_plq_git_refs "$1")
