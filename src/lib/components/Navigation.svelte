@@ -65,7 +65,7 @@
   <div class="flex justify-between">
     <!-- navbar left item -->
     <div class="flex items-center">
-      <button type="button" class="flex px-2 dark:text-gray-200" on:click={toggleSidebar}>
+      <button type="button" class="flex px-2 dark:text-gray-200 lg:hidden" on:click={toggleSidebar}>
         <svg id="open-sidebar" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
           <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"></path>
         </svg>
@@ -127,7 +127,7 @@
 </div>
 
 <!-- SIDEBAR -->
-<aside id="sidebar" class="text-sm font-nunito fixed pt-20 left-0 top-0 z-20 transition-transform -translate-x-full bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+<aside id="sidebar" class="text-sm font-nunito pt-[70px] fixed left-0 top-0 z-20 transition-transform -translate-x-full lg:-translate-x-0 lg:h-screen lg:sticky bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
   <div class="bg-white dark:bg-gray-800">
     <div class="px-3 text-center">
       <a href="{srcDoc.source}" class="text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase">Source</a> 

@@ -1,6 +1,7 @@
 <script lang="ts">
   export let files: any, scalarValueTypes: any;
   import Table from './Table.svelte';
+  import Footer from '$lib/components/Footer.svelte';
 
   const isImported = (i: number) => { 
     let validate = i === 0 ? false: true;
@@ -20,7 +21,7 @@
 
 <!-- svelte-ignore missing-declaration -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="mt-16 main-content" on:click={closeSidebar}>
+<div class="pt-[50px] main-content lg:overflow-x-auto" on:click={closeSidebar}>
   {#each files as entry, i}
     {@const packageName = entry.name.split("/").pop().split(".")[0]}
     <div class="container mx-auto mt-6 px-6 text-center">
@@ -72,4 +73,6 @@
   <div class="container mx-auto p-6">
     <Table entry={scalarValueTypes} sectionName="svt" imported={false}/>
   </div>
+  
+  <Footer home={false}/>
 </div>
