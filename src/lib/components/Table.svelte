@@ -4,18 +4,17 @@
   // TAILWIND CLASS DEFINITION
   const custom = {
     table: {
-      section: "text-black dark:text-white hover:underline font-nunito uppercase",
-      hr: "my-3 sm:mx-auto border-gray-200 dark:border-gray-700",
-      link: "text-blue-600 dark:text-blue-500 hover:underline font-fira",
-      desc: "mt-1 font-normal text-gray-500 dark:text-gray-400",
+      caption_cont: "py-5 text-left font-nunito  overflow-x-auto",
+      caption: "text-blue-600 dark:text-blue-500 hover:underline font-fira text-sm",
+      desc: "mt-1 font-normal text-gray-500 dark:text-gray-400 text-xs lg:text-sm",
       container: "overflow-x-auto max-w-full",
       table: "text-left text-gray-500 dark:text-gray-400 w-full font-nunito",
-      caption: "py-5 text-left font-nunito  overflow-x-auto",
       thead: "text-xs uppercase text-gray-700 dark:text-gray-400 bg-gray-50 dark:bg-gray-700",
+      link: "text-blue-600 dark:text-blue-500 hover:underline font-fira text-xs",
       tr: "bg-white border-b dark:bg-gray-800 dark:border-gray-700",
       th_col: "px-6 py-3",
-      th_row: "px-6 py-4 text-xs text-gray-900 dark:text-white font-fira",
-      td: "px-6 py-4 text-xs",
+      th_row: "px-6 py-4 text-gray-900 dark:text-white font-fira text-xs",
+      td: "px-6 py-4 text-xs lg:text-sm",
       small: "text-gray-400"
     }
   }
@@ -35,8 +34,8 @@
 
 {#if sectionName != "svt"}
   {#each entry as item}
-    <div class="{custom.table.caption}">
-      <a class="{custom.table.link}" id="{imported ? item.fullName : item.longName}" href="#{imported ? item.fullName : item.longName}">{imported ? item.fullName : item.longName}</a>
+    <div class="{custom.table.caption_cont}">
+      <a class="{custom.table.caption}" id="{imported ? item.fullName : item.longName}" href="#{imported ? item.fullName : item.longName}">{imported ? item.fullName : item.longName}</a>
       {#if item.description}
         <p class="{custom.table.desc}">{@html fdesc(item.description)}</p>
       {/if}

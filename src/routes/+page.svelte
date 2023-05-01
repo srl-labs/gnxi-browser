@@ -42,10 +42,15 @@
 
 <div class="flex flex-col items-center min-h-screen pt-5 has-header-img font-nunito">
   <div class="flex-grow-1 flex-shrink-0 m-auto px-10">
-    <div class="md:grid md:grid-cols-2 md:gap-10 md:items-center">
+    <div class="md:grid md:grid-cols-2 md:gap-20 md:items-center">
       <div class="py-5">
         <p class="mb-4"><img src="/images/nwhite.png" width="100" alt="Logo"/></p>
         <h3 class="text-3xl text-yellow-200 font-light mt-6">gNXI Protobuf Documentation</h3>
+        <p class="mt-4 text-white text-sm max-w-[450px]">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        </p>
       </div>
       <div class="bg-white rounded">
         <div class="bg-gray-50 p-4 rounded-t">

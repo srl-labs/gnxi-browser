@@ -79,11 +79,14 @@ gnoi:
           documentation: https://path/to/documentation
     os:
       name: OS
-      description: Interface gNOI
+      description: The OS service provides an interface for OS installation on a Target.
       versions:
-        v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
+        v0.1.4:
+          source: https://github.com/openconfig/gnoi/blob/3df08ff738428a3c29db9052011a9b94c0be232b/os/os.proto
+          documentation:
+        v0.1.1:
+          source: https://github.com/openconfig/gnoi/blob/c553e567c5f917bc349952ea47b2c4df854962c9/os/os.proto
+          documentation:
     otdr:
       name: OTDR
       description: Interface gNOI
@@ -107,11 +110,11 @@ gnoi:
           documentation: https://path/to/documentation
     factory_reset:
       name: Factory Reset
-      description: Interface gNOI
+      description: Factory Reset service enables gNOI users to perform an operation of resetting a network device to a state it had been when shipped from the factory.
       versions:
         v0.1.0:
-          source: https://path/to/source
-          documentation: https://path/to/documentation
+          source: https://github.com/openconfig/gnoi/blob/18d7d51539452c1417ef469877f0f3929f09223f/factory_reset/factory_reset.proto
+          documentation:
     packet_link_qualification:
       name: Packet Link Qualification
       description: The link qualification service is provides a way to certify link quality on two devices.
