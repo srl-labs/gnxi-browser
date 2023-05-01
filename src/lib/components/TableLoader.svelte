@@ -6,11 +6,23 @@
     let validate = i === 0 ? false: true;
     return validate;
   }
+
+	function closeSidebar(event: MouseEvent & { currentTarget: EventTarget & HTMLDivElement; }) {
+		if(event.currentTarget.classList.contains("main-content")) {
+      if(document.getElementById("open-sidebar")?.classList.contains("hidden")) {
+        document.getElementById("sidebar")?.classList.toggle("-translate-x-full");
+        document.getElementById("open-sidebar")?.classList.toggle("hidden");
+        document.getElementById("close-sidebar")?.classList.toggle("hidden");
+      }
+    }
+	}
 </script>
 
-<div class="mt-16">
+<!-- svelte-ignore missing-declaration -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class="mt-16 main-content" on:click={closeSidebar}>
   {#each files as entry, i}
-    {@const packageName = entry.package}
+    {@const packageName = entry.name.split("/").pop().split(".")[0]}
     <div class="container mx-auto mt-6 px-6 text-center">
       <div class="bg-gray-100 dark:bg-gray-900 py-3">
         <a class="text-black dark:text-white hover:underline font-nunito" id="{packageName}" href="#{packageName}">{packageName}</a>

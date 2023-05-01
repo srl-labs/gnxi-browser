@@ -141,13 +141,13 @@
   <div id="sideList" class="px-3 pb-4 min-w-[300px] h-[calc(100vh_-_10rem)] overflow-y-auto scroll-light dark:scroll-dark bg-white dark:bg-gray-800">
     <ul class="space-y-2">
       {#each files as entry, i}
-        {@const packageName = entry.package}
+        {@const packageName = entry.name.split("/").pop().split(".")[0]}
         <li>
-          <a class="{custom.sidebar.expand.package}" href="#{packageName}">{packageName}</a>
+          <a class="{custom.sidebar.expand.package}" href="#{packageName}" on:click={toggleSidebar}>{packageName}</a>
           <ul class="py-2 space-y-2 ml-2">
             {#if entry.hasServices}
               <li>
-                <a href="#{packageName + ".services"}">
+                <a href="#{packageName + ".services"}" on:click={toggleSidebar}>
                   <button type="button" class="{custom.sidebar.expand.header}">
                     <span class="{custom.sidebar.expand.icon} text-white bg-blue-600">S</span>
                     <span class="ml-3 uppercase">Services</span>
@@ -163,7 +163,7 @@
             {/if}
             {#if entry.hasMessages}
               <li>
-                <a href="#{packageName + ".messages"}">
+                <a href="#{packageName + ".messages"}" on:click={toggleSidebar}>
                   <button type="button" class="{custom.sidebar.expand.header}">
                     <span class="{custom.sidebar.expand.icon} text-white bg-gray-400">M</span>
                     <span class="ml-3 uppercase">Messages</span>
@@ -179,7 +179,7 @@
             {/if}
             {#if entry.hasEnums}
               <li>
-                <a href="#{packageName + ".enums"}">
+                <a href="#{packageName + ".enums"}" on:click={toggleSidebar}>
                   <button type="button" class="{custom.sidebar.expand.header}">
                     <span class="{custom.sidebar.expand.icon} text-white bg-slate-600">E</span>
                     <span class="ml-3 uppercase">Enums</span>
@@ -195,7 +195,7 @@
             {/if}
             {#if entry.hasExtensions}
               <li>
-                <a href="#{packageName + ".extensions"}">
+                <a href="#{packageName + ".extensions"}" on:click={toggleSidebar}>
                   <button type="button" class="{custom.sidebar.expand.header}">
                     <span class="{custom.sidebar.expand.icon} text-black bg-gray-200">X</span>
                     <span class="ml-3 uppercase">Extensions</span>
