@@ -1,8 +1,11 @@
-import { error } from '@sveltejs/kit'
-import yaml from 'js-yaml'
-import ifcLoad from '$lib/interfaces.yaml?raw'
+import { error, json } from '@sveltejs/kit';
 
-const interfaces: any = yaml.load(ifcLoad);
+import yaml from 'js-yaml';
+
+import type { Interfaces } from '$lib/interfaces';
+import ifcLoad from '$lib/interfaces.yaml?raw';
+
+const interfaces = yaml.load(ifcLoad) as Interfaces;
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ url, fetch, params }) {
@@ -21,22 +24,22 @@ export async function load({ url, fetch, params }) {
       }
       if (invalidKeys.length > 0) throw error(404, "Invalid URL Parameters");
 
-      let ov = interfaces[p].services[s].versions;
-      let v = Object.keys(ov)[0];
+      let ov = Object.keys(interfaces[p].services[s].versions);
+      let v = ov[0];
       if (url.searchParams.has("version")) {
-        v = url.searchParams.get("version").trim()
-        if (!Object.keys(ov).includes(v)) {
+        v = url.searchParams.get("version").trim();
+        if (!ov.includes(v)) {
           throw error(404, "Unsupported Version");
         }
       }
 
+      const protoDoc = import(`../../../lib/interfaces/${p}/${s}/${v}/proto-doc.json`);
       try {
-        let response = await fetch(`${pathUrl}/interfaces/${p}/${s}/${v}/proto-doc.json`);
         return {
           interface: p, service: s, version: v,
-          protoDoc: await response.json()
-        };
-      } catch (e) {
+          protoDoc: await protoDoc
+        }
+      } catch(e) {
         throw error(404, "Error fetching proto definition");
       }
     }
