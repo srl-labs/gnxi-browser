@@ -19,7 +19,7 @@ function gen-gnoi-os {
         exit 1
     fi
 
-    OUT_DIR=$(pwd)/static/interfaces/gnoi/${SERVICE_NAME}/"$1"
+    OUT_DIR=$(pwd)/src/lib/interfaces/gnoi/${SERVICE_NAME}/"$1"
     mkdir -p ${OUT_DIR}
 
     git_ref=$(_get_git_ref gnoi_os_git_refs "$1")

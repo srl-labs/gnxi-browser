@@ -15,7 +15,7 @@ function gen-gnoi-factory-reset {
         exit 1
     fi
 
-    OUT_DIR=$(pwd)/static/interfaces/gnoi/factory_reset/"$1"
+    OUT_DIR=$(pwd)/src/lib/interfaces/gnoi/factory_reset/"$1"
     mkdir -p ${OUT_DIR}
 
     git_ref=$(_get_git_ref gnoi_factoryreset_git_refs "$1")
