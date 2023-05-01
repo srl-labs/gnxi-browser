@@ -15,7 +15,7 @@ function gen-gnoi-healthz {
         exit 1
     fi
 
-    OUT_DIR=$(pwd)/static/interfaces/gnoi/healthz/"$1"
+    OUT_DIR=$(pwd)/src/lib/interfaces/gnoi/healthz/"$1"
     mkdir -p ${OUT_DIR}
 
     git_ref=$(_get_git_ref gnoi_healthz_git_refs "$1")

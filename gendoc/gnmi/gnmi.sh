@@ -12,7 +12,7 @@ function gen-gnmi {
         exit 1
     fi
 
-    OUT_DIR=$(pwd)/static/interfaces/gnmi/gnmi/"$1"
+    OUT_DIR=$(pwd)/src/lib/interfaces/gnmi/gnmi/"$1"
     mkdir -p ${OUT_DIR}
 
     git_ref=$(_get_git_ref gnmi_git_refs "$1")
