@@ -24,7 +24,7 @@
 
   // RE-GROUP BY KEY ON A LIST OF OBJECTS
   const groupByKey = (list: any, key: string) => {
-    let regrouped = list.reduce((hash, obj) => ({...hash, [obj[key]]:( hash[obj[key]] || [] ).concat(obj)}), {})
+    let regrouped = list.reduce((hash: { [x: string]: any; }, obj: { [x: string]: string | number; }) => ({...hash, [obj[key]]:( hash[obj[key]] || [] ).concat(obj)}), {})
     return {
       keys: Object.keys(regrouped),
       values: regrouped

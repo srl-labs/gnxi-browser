@@ -1,6 +1,7 @@
 <script lang="ts">
   import jQuery from "jquery";
 	import { onMount } from 'svelte';
+  import { browser } from '$app/environment';
 
   export let interfaces: any, iKey: string, sKey: string, version: string, files: any, srcDoc: {source: string, documentation: string};
 
@@ -8,24 +9,20 @@
   let lookup = "";
 
   onMount(() => {
-    jQuery.expr[':'].contains = function(a, i, m) {
+    jQuery.expr[':'].contains = function(a: any, i: any, m: string[]) {
       return jQuery(a).text().toUpperCase()
         .indexOf(m[3].toUpperCase()) >= 0;
     };
-  })
 
-  const toggleDarkMode = () => {
-    darkMode = !darkMode;
-    if(darkMode) {
-      document.documentElement.classList.add("dark");
-      document.getElementById("toggle-dark-icon")?.classList.add("hidden");
-      document.getElementById("toggle-light-icon")?.classList.remove("hidden");
-    } else {
-      document.documentElement.classList.remove("dark");
-      document.getElementById("toggle-dark-icon")?.classList.remove("hidden");
-      document.getElementById("toggle-light-icon")?.classList.add("hidden");
+    if(browser) {
+      if(localStorage.theme === "dark" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+        darkMode = true;
+      } else {
+        darkMode = false;
+      }
+      themeIconSwitch();
     }
-  }
+  })
 
   const toggleNavInterfaces = () => {
     document.getElementById("navInterfaces")?.classList.toggle("hidden");
@@ -43,6 +40,24 @@
     let matches = jQuery("#sideList").find("li:contains(" + lookup + ")");
     jQuery("li", "#sideList").not(matches).slideUp();
     matches.slideDown();
+  }
+
+  const themeIconSwitch = () => {
+    if(darkMode) {
+      document.documentElement.classList.add("dark");
+      document.getElementById("toggle-dark-icon")?.classList.add("hidden");
+      document.getElementById("toggle-light-icon")?.classList.remove("hidden");
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.getElementById("toggle-dark-icon")?.classList.remove("hidden");
+      document.getElementById("toggle-light-icon")?.classList.add("hidden");
+    }
+  }
+
+  const toggleDarkMode = () => {
+    darkMode = !darkMode;
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+    themeIconSwitch();
   }
 
   const custom = {
@@ -88,7 +103,7 @@
         </svg>
       </button>
       <button class="flex px-2" type="button" on:click={toggleDarkMode}>
-        <svg id="toggle-light-icon" class="w-5 h-5 text-gray-200 hidden" fill="currentColor" stroke-width="1.5" stroke="currentColor" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
+        <svg id="toggle-light-icon" class="w-5 h-5 dark:text-gray-200 hidden" fill="currentColor" stroke-width="1.5" stroke="currentColor" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/>
         </svg>
         <svg id="toggle-dark-icon" class="w-5 h-5 text-gray-800" fill="currentColor" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
