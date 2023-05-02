@@ -1,6 +1,7 @@
 <script lang="ts">
   import jQuery from "jquery";
 	import { onMount } from 'svelte';
+  import { browser } from '$app/environment';
 
   export let interfaces: any, iKey: string, sKey: string, version: string, files: any, srcDoc: {source: string, documentation: string};
 
@@ -8,24 +9,20 @@
   let lookup = "";
 
   onMount(() => {
-    jQuery.expr[':'].contains = function(a, i, m) {
+    jQuery.expr[':'].contains = function(a: any, i: any, m: string[]) {
       return jQuery(a).text().toUpperCase()
         .indexOf(m[3].toUpperCase()) >= 0;
     };
-  })
 
-  const toggleDarkMode = () => {
-    darkMode = !darkMode;
-    if(darkMode) {
-      document.documentElement.classList.add("dark");
-      document.getElementById("toggle-dark-icon")?.classList.add("hidden");
-      document.getElementById("toggle-light-icon")?.classList.remove("hidden");
-    } else {
-      document.documentElement.classList.remove("dark");
-      document.getElementById("toggle-dark-icon")?.classList.remove("hidden");
-      document.getElementById("toggle-light-icon")?.classList.add("hidden");
+    if(browser) {
+      if(localStorage.theme === "dark" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+        darkMode = true;
+      } else {
+        darkMode = false;
+      }
+      themeIconSwitch();
     }
-  }
+  })
 
   const toggleNavInterfaces = () => {
     document.getElementById("navInterfaces")?.classList.toggle("hidden");
@@ -43,6 +40,24 @@
     let matches = jQuery("#sideList").find("li:contains(" + lookup + ")");
     jQuery("li", "#sideList").not(matches).slideUp();
     matches.slideDown();
+  }
+
+  const themeIconSwitch = () => {
+    if(darkMode) {
+      document.documentElement.classList.add("dark");
+      document.getElementById("toggle-dark-icon")?.classList.add("hidden");
+      document.getElementById("toggle-light-icon")?.classList.remove("hidden");
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.getElementById("toggle-dark-icon")?.classList.remove("hidden");
+      document.getElementById("toggle-light-icon")?.classList.add("hidden");
+    }
+  }
+
+  const toggleDarkMode = () => {
+    darkMode = !darkMode;
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+    themeIconSwitch();
   }
 
   const custom = {
@@ -65,7 +80,7 @@
   <div class="flex justify-between">
     <!-- navbar left item -->
     <div class="flex items-center">
-      <button type="button" class="flex px-2 dark:text-gray-200" on:click={toggleSidebar}>
+      <button type="button" class="flex px-2 dark:text-gray-200 lg:hidden" on:click={toggleSidebar}>
         <svg id="open-sidebar" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
           <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"></path>
         </svg>
@@ -74,10 +89,10 @@
         </svg>
       </button>
       <div class="flex px-2">
-        <a class="w-5" href="../"><img src="/images/navbar-logo.png" alt="Logo"/></a>
+        <a class="w-6" href="../"><img src="/images/navbar-logo.png" alt="Logo"/></a>
       </div>
-      <div class="flex px-2 text-xs md:text-sm dark:text-gray-200">
-        <span>{interfaces[iKey].services[sKey].name} Service {version}</span>
+      <div class="flex px-2 text-sm dark:text-gray-200">
+        <span>{interfaces[iKey].services[sKey].name} {version}</span>
       </div>
     </div>
     <!-- navbar right item -->
@@ -88,7 +103,7 @@
         </svg>
       </button>
       <button class="flex px-2" type="button" on:click={toggleDarkMode}>
-        <svg id="toggle-light-icon" class="w-5 h-5 text-gray-200 hidden" fill="currentColor" stroke-width="1.5" stroke="currentColor" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
+        <svg id="toggle-light-icon" class="w-5 h-5 dark:text-gray-200 hidden" fill="currentColor" stroke-width="1.5" stroke="currentColor" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/>
         </svg>
         <svg id="toggle-dark-icon" class="w-5 h-5 text-gray-800" fill="currentColor" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
@@ -127,12 +142,14 @@
 </div>
 
 <!-- SIDEBAR -->
-<aside id="sidebar" class="text-sm font-nunito fixed pt-20 left-0 top-0 z-20 transition-transform -translate-x-full bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+<aside id="sidebar" class="text-sm font-nunito pt-[70px] fixed left-0 top-0 z-20 transition-transform -translate-x-full lg:-translate-x-0 lg:h-screen lg:sticky bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
   <div class="bg-white dark:bg-gray-800">
-    <div class="px-3 text-center">
-      <a href="{srcDoc.source}" class="text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase">Source</a> 
-      <span class="text-black dark:text-white">/</span> 
-      <a href="{srcDoc.documentation}" class="text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase">Documentation</a>
+    <div class="px-6 text-right">
+      <a href="{srcDoc.source}" class="text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase">Source</a>
+      {#if srcDoc.documentation != null }
+        <span class="text-black dark:text-gray-200">|</span> 
+        <a href="{srcDoc.documentation}" class="text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase">Documentation</a>
+      {/if}
     </div>
     <div class="ml-5 mr-6 mt-2 mb-4">
       <input type="text" id="search" placeholder="Search..." bind:value={lookup} on:keyup={searchSide} class="w-full px-3 py-2 text-sm rounded-lg text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:placeholder-gray-400">
@@ -141,13 +158,13 @@
   <div id="sideList" class="px-3 pb-4 min-w-[300px] h-[calc(100vh_-_10rem)] overflow-y-auto scroll-light dark:scroll-dark bg-white dark:bg-gray-800">
     <ul class="space-y-2">
       {#each files as entry, i}
-        {@const packageName = entry.package}
+        {@const packageName = entry.name.split("/").pop().split(".")[0]}
         <li>
-          <a class="{custom.sidebar.expand.package}" href="#{packageName}">{packageName}</a>
+          <a class="{custom.sidebar.expand.package}" href="#{packageName}" on:click={toggleSidebar}>{packageName}</a>
           <ul class="py-2 space-y-2 ml-2">
             {#if entry.hasServices}
               <li>
-                <a href="#{packageName + ".services"}">
+                <a href="#{packageName + ".services"}" on:click={toggleSidebar}>
                   <button type="button" class="{custom.sidebar.expand.header}">
                     <span class="{custom.sidebar.expand.icon} text-white bg-blue-600">S</span>
                     <span class="ml-3 uppercase">Services</span>
@@ -163,7 +180,7 @@
             {/if}
             {#if entry.hasMessages}
               <li>
-                <a href="#{packageName + ".messages"}">
+                <a href="#{packageName + ".messages"}" on:click={toggleSidebar}>
                   <button type="button" class="{custom.sidebar.expand.header}">
                     <span class="{custom.sidebar.expand.icon} text-white bg-gray-400">M</span>
                     <span class="ml-3 uppercase">Messages</span>
@@ -171,15 +188,15 @@
                 </a>
                 <ul class="{custom.sidebar.expand.content.border} border-gray-400">
                   {#each entry.messages as item}
-                    {@const loopName = i === 0 ? item.longName: item.fullName}
-                    <li><a href="#{loopName}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{loopName}</a></li>
+                    {@const hrefVal = i === 0 ? item.longName: item.fullName}
+                    <li><a href="#{hrefVal}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{item.longName}</a></li>
                   {/each}
                 </ul>
               </li>
             {/if}
             {#if entry.hasEnums}
               <li>
-                <a href="#{packageName + ".enums"}">
+                <a href="#{packageName + ".enums"}" on:click={toggleSidebar}>
                   <button type="button" class="{custom.sidebar.expand.header}">
                     <span class="{custom.sidebar.expand.icon} text-white bg-slate-600">E</span>
                     <span class="ml-3 uppercase">Enums</span>
@@ -187,15 +204,15 @@
                 </a>
                 <ul class="{custom.sidebar.expand.content.border} border-slate-600">
                   {#each entry.enums as item}
-                    {@const loopName = i === 0 ? item.longName: item.fullName}
-                    <li><a href="#{loopName}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{loopName}</a></li>
+                    {@const hrefVal = i === 0 ? item.longName: item.fullName}
+                    <li><a href="#{hrefVal}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{item.longName}</a></li>
                   {/each}
                 </ul>
               </li>
             {/if}
             {#if entry.hasExtensions}
               <li>
-                <a href="#{packageName + ".extensions"}">
+                <a href="#{packageName + ".extensions"}" on:click={toggleSidebar}>
                   <button type="button" class="{custom.sidebar.expand.header}">
                     <span class="{custom.sidebar.expand.icon} text-black bg-gray-200">X</span>
                     <span class="ml-3 uppercase">Extensions</span>
@@ -203,8 +220,8 @@
                 </a>
                 <ul class="{custom.sidebar.expand.content.border} border-gray-200">
                   {#each entry.extensions as item}
-                    {@const loopName = i === 0 ? item.longName: item.fullName}
-                    <li><a href="#{loopName}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{loopName}</a></li>
+                    {@const hrefVal = i === 0 ? item.longName: item.fullName}
+                    <li><a href="#{hrefVal}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{item.longName}</a></li>
                   {/each}
                 </ul>
               </li>
