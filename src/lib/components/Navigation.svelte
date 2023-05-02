@@ -91,8 +91,8 @@
       <div class="flex px-2">
         <a class="w-5" href="../"><img src="/images/navbar-logo.png" alt="Logo"/></a>
       </div>
-      <div class="flex px-2 text-xs md:text-sm dark:text-gray-200">
-        <span>{interfaces[iKey].services[sKey].name} Service {version}</span>
+      <div class="flex px-2 text-sm md:text-xl dark:text-gray-200">
+        <span>{interfaces[iKey].services[sKey].name} {version}</span>
       </div>
     </div>
     <!-- navbar right item -->
@@ -186,8 +186,8 @@
                 </a>
                 <ul class="{custom.sidebar.expand.content.border} border-gray-400">
                   {#each entry.messages as item}
-                    {@const loopName = i === 0 ? item.longName: item.fullName}
-                    <li><a href="#{loopName}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{loopName}</a></li>
+                    {@const hrefVal = i === 0 ? item.longName: item.fullName}
+                    <li><a href="#{hrefVal}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{item.longName}</a></li>
                   {/each}
                 </ul>
               </li>
@@ -202,8 +202,8 @@
                 </a>
                 <ul class="{custom.sidebar.expand.content.border} border-slate-600">
                   {#each entry.enums as item}
-                    {@const loopName = i === 0 ? item.longName: item.fullName}
-                    <li><a href="#{loopName}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{loopName}</a></li>
+                    {@const hrefVal = i === 0 ? item.longName: item.fullName}
+                    <li><a href="#{hrefVal}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{item.longName}</a></li>
                   {/each}
                 </ul>
               </li>
@@ -218,8 +218,8 @@
                 </a>
                 <ul class="{custom.sidebar.expand.content.border} border-gray-200">
                   {#each entry.extensions as item}
-                    {@const loopName = i === 0 ? item.longName: item.fullName}
-                    <li><a href="#{loopName}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{loopName}</a></li>
+                    {@const hrefVal = i === 0 ? item.longName: item.fullName}
+                    <li><a href="#{hrefVal}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{item.longName}</a></li>
                   {/each}
                 </ul>
               </li>

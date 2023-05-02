@@ -36,7 +36,7 @@
   {#each entry as item}
     <div class="scroll-mt-[50px]" id="{imported ? item.fullName : item.longName}"></div>
     <div class="{custom.table.caption_cont}">
-      <a class="{custom.table.caption}" href="#{imported ? item.fullName : item.longName}">{imported ? item.fullName : item.longName}</a>
+      <a class="{custom.table.caption}" href="#{imported ? item.fullName : item.longName}">{item.longName}</a>
       {#if item.description}
         <p class="{custom.table.desc}">{@html fdesc(item.description)}</p>
       {/if}
@@ -57,8 +57,8 @@
                 <tr class="{custom.table.tr}">
                   <th scope="row" class="{custom.table.th_row}">{z.name}</th>
                   <td class="{custom.table.td}">
-                    <a class="{custom.table.link}" href="#{imported ? z.requestFullType : z.requestLongType}">{imported ? z.requestFullType : z.requestLongType}</a> {#if z.requestStreaming} stream {/if} <br>
-                    <a class="{custom.table.link}" href="#{imported ? z.responseFullType : z.responseLongType}">{imported ? z.responseFullType : z.responseLongType}</a> {#if z.requestStreaming} stream {/if}
+                    <a class="{custom.table.link}" href="#{imported ? z.requestFullType : z.requestLongType}">{z.requestLongType}</a> {#if z.requestStreaming} stream {/if} <br>
+                    <a class="{custom.table.link}" href="#{imported ? z.responseFullType : z.responseLongType}">{z.responseLongType}</a> {#if z.requestStreaming} stream {/if}
                   </td>
                   <td class="{custom.table.td}">
                     <p>{@html fdesc(z.description)}</p>
@@ -98,7 +98,7 @@
                       </th>
                     {/if}
                     <td class="{custom.table.td}">
-                      <a class="{custom.table.link}" href="#{imported ? z.fullType : z.longType}">{imported ? z.fullType : z.longType}</a>
+                      <a class="{custom.table.link}" href="#{imported ? z.fullType : z.longType}">{z.longType}</a>
                     </td>
                     <td class="{custom.table.td}">
                       <p>
@@ -150,10 +150,10 @@
             <tr class="{custom.table.tr}">
               <th scope="row" class="{custom.table.th_row}">{item.name}</th>
               <td class="{custom.table.td} font-fira">
-                <a class="{custom.table.link}" href="#{imported ? item.fullType : item.longType}">{imported ? item.fullType : item.longType}</a>
+                <a class="{custom.table.link}" href="#{imported ? item.fullType : item.longType}">{item.longType}</a>
               </td>
               <td class="{custom.table.td} font-fira">
-                <a class="{custom.table.link}" href="#{imported ? item.containingFullType : item.containingLongType}">{imported ? item.containingFullType : item.containingLongType}</a>
+                <a class="{custom.table.link}" href="#{imported ? item.containingFullType : item.containingLongType}">{item.containingLongType}</a>
               </td>
               <td class="{custom.table.td} font-fira">{item.number}</td>
               <td class="{custom.table.td}">
