@@ -26,7 +26,7 @@
     {@const packageName = entry.name.split("/").pop().split(".")[0]}
     <div class="container mx-auto mt-6 px-6 text-center">
       <div class="bg-gray-100 dark:bg-gray-900 py-3">
-        <a class="text-black dark:text-white hover:underline font-nunito" id="{packageName}" href="#{packageName}">{packageName}</a>
+        <a class="text-black dark:text-white hover:underline font-nunito scroll-mt-[90px]" id="{packageName}" href="#{packageName}">{packageName}</a>
       </div>
     </div>
     {#if entry.hasServices}
@@ -34,7 +34,7 @@
       {@const hrefSection = packageName + "." + sectionName}
       <div class="container mx-auto p-6">
         <div class="my-1">
-          <a class="text-black dark:text-white hover:underline font-nunito uppercase" id="{hrefSection}" href="#{hrefSection}">{sectionName}</a>
+          <a class="text-black dark:text-white hover:underline font-nunito uppercase scroll-mt-[70px]" id="{hrefSection}" href="#{hrefSection}">{sectionName}</a>
         </div>
         <Table entry={entry.services} sectionName={sectionName} imported={isImported(i)}/>
       </div>
@@ -44,7 +44,7 @@
       {@const hrefSection = packageName + "." + sectionName}
       <div class="container mx-auto p-6">
         <div class="my-1">
-          <a class="text-black dark:text-white hover:underline font-nunito uppercase" id="{hrefSection}" href="#{hrefSection}">{sectionName}</a>
+          <a class="text-black dark:text-white hover:underline font-nunito uppercase scroll-mt-[70px]" id="{hrefSection}" href="#{hrefSection}">{sectionName}</a>
         </div>
         <Table entry={entry.messages} sectionName={sectionName} imported={isImported(i)}/>
       </div>
@@ -54,7 +54,7 @@
       {@const hrefSection = packageName + "." + sectionName}
       <div class="container mx-auto p-6">
         <div class="my-1">
-          <a class="text-black dark:text-white hover:underline font-nunito uppercase" id="{hrefSection}" href="#{hrefSection}">{sectionName}</a>
+          <a class="text-black dark:text-white hover:underline font-nunito uppercase scroll-mt-[70px]" id="{hrefSection}" href="#{hrefSection}">{sectionName}</a>
         </div>
         <Table entry={entry.enums} sectionName={sectionName} imported={isImported(i)}/>
       </div>
@@ -64,7 +64,7 @@
       {@const hrefSection = packageName + "." + sectionName}
       <div class="container mx-auto p-6">
         <div class="my-1">
-          <a class="text-black dark:text-white hover:underline font-nunito uppercase" id="{hrefSection}" href="#{hrefSection}">{sectionName}</a>
+          <a class="text-black dark:text-white hover:underline font-nunito uppercase scroll-mt-[70px]" id="{hrefSection}" href="#{hrefSection}">{sectionName}</a>
         </div>
         <Table entry={entry.extensions} sectionName={sectionName} imported={isImported(i)}/>
       </div>

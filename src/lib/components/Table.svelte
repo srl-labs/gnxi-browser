@@ -34,8 +34,9 @@
 
 {#if sectionName != "svt"}
   {#each entry as item}
+    <div class="scroll-mt-[50px]" id="{imported ? item.fullName : item.longName}"></div>
     <div class="{custom.table.caption_cont}">
-      <a class="{custom.table.caption}" id="{imported ? item.fullName : item.longName}" href="#{imported ? item.fullName : item.longName}">{imported ? item.fullName : item.longName}</a>
+      <a class="{custom.table.caption}" href="#{imported ? item.fullName : item.longName}">{imported ? item.fullName : item.longName}</a>
       {#if item.description}
         <p class="{custom.table.desc}">{@html fdesc(item.description)}</p>
       {/if}
@@ -165,8 +166,9 @@
     </div>
   {/each}
 {:else}
-  <div class="{custom.table.caption}">
-    <a class="{custom.table.link}" id="scalar-value-types" href="#scalar-value-types">Scalar Value Types</a>
+  <div class="scroll-mt-[50px]" id="scalar-value-types"></div>
+  <div class="{custom.table.caption_cont}">
+    <a class="{custom.table.caption}" href="#scalar-value-types">Scalar Value Types</a>
   </div>
   <div class="{custom.table.container}">
     <table class="{custom.table.table}">
