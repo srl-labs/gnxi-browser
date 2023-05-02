@@ -89,9 +89,9 @@
         </svg>
       </button>
       <div class="flex px-2">
-        <a class="w-5" href="../"><img src="/images/navbar-logo.png" alt="Logo"/></a>
+        <a class="w-6" href="../"><img src="/images/navbar-logo.png" alt="Logo"/></a>
       </div>
-      <div class="flex px-2 text-sm md:text-xl dark:text-gray-200">
+      <div class="flex px-2 text-sm dark:text-gray-200">
         <span>{interfaces[iKey].services[sKey].name} {version}</span>
       </div>
     </div>
@@ -144,10 +144,12 @@
 <!-- SIDEBAR -->
 <aside id="sidebar" class="text-sm font-nunito pt-[70px] fixed left-0 top-0 z-20 transition-transform -translate-x-full lg:-translate-x-0 lg:h-screen lg:sticky bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
   <div class="bg-white dark:bg-gray-800">
-    <div class="px-3 text-center">
-      <a href="{srcDoc.source}" class="text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase">Source</a> 
-      <span class="text-black dark:text-white">/</span> 
-      <a href="{srcDoc.documentation}" class="text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase">Documentation</a>
+    <div class="px-6 text-right">
+      <a href="{srcDoc.source}" class="text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase">Source</a>
+      {#if srcDoc.documentation != null }
+        <span class="text-black dark:text-gray-200">|</span> 
+        <a href="{srcDoc.documentation}" class="text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase">Documentation</a>
+      {/if}
     </div>
     <div class="ml-5 mr-6 mt-2 mb-4">
       <input type="text" id="search" placeholder="Search..." bind:value={lookup} on:keyup={searchSide} class="w-full px-3 py-2 text-sm rounded-lg text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:placeholder-gray-400">
