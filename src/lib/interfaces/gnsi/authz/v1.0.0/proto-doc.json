@@ -1,0 +1,540 @@
+{
+  "files": [
+    {
+      "name": "github.com/openconfig/gnsi/authz/authz.proto",
+      "description": "This file defines the gNSI API to be used for gRPC-level Authorization Policy\nmanagement.",
+      "package": "gnsi.authz.v1",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [
+        {
+          "name": "Action",
+          "longName": "ProbeResponse.Action",
+          "fullName": "gnsi.authz.v1.ProbeResponse.Action",
+          "description": "Action is the defined action for an gRPC-level Authorization Policy.",
+          "values": [
+            {
+              "name": "ACTION_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "ACTION_DENY",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "ACTION_PERMIT",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "FinalizeRequest",
+          "longName": "FinalizeRequest",
+          "fullName": "gnsi.authz.v1.FinalizeRequest",
+          "description": "A Finalize message is sent to the target to confirm the rotation of\nthe gRPC-level Authorization Policy and that it should not be rolled back\nwhen the RPC concludes.\nNote that the gRPC-level Authorization Policy change is considered rolled\nback by the target if the target returns an error as response to the Finalize\nmessage.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "GetRequest",
+          "longName": "GetRequest",
+          "fullName": "gnsi.authz.v1.GetRequest",
+          "description": "GetRequest used to request the gRPC-level Authorization Policy.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "GetResponse",
+          "longName": "GetResponse",
+          "fullName": "gnsi.authz.v1.GetResponse",
+          "description": "GetResponse returns the requested instance of the gRPC-level Authorization\nPolicy together with `version` and `created_on` information.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "version",
+              "description": "`version` contains versioning information that is controlled by\nthe policy manager and reported as-is by the telemetry reporting system\n(ie, transparent to the target policy management service). Policy managers\nshould choose version strings as discrete as possible to ease alert\ngeneration (eg, for policies sourced from a bundle, the timestamp of\nthe bundle should be used but not the time when the policy is pushed to\na particular switch). Also, such version string should be persisted by\nthe device onto non-volatile memory for preservation across system\nreboots.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "created_on",
+              "description": "`created_on` contains information when the policy was created.\nThis information is controlled by the policy manager and reported as-is\nby the telemetry reporting system (ie, transparent to the device policy\nmanagement service). Policy manager should use the timestamp of the moment\nwhen policy was created, not the time when the policy is pushed to\na particular switch).\nAlso, this timestamp should be persisted by the device onto non-volatile\nmemory for preservation across system reboots.\n`created_on` is a timestamp: the number of seconds since\nJanuary 1st, 1970 00:00:00 GMT a.k.a. unix epoch.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "policy",
+              "description": "The actual gRPC-level Authorization Policy.\nIt is provided as a JSON formatted string whose structure is defined by\ngRPC.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ProbeRequest",
+          "longName": "ProbeRequest",
+          "fullName": "gnsi.authz.v1.ProbeRequest",
+          "description": "ProbeRequest contains a single user name and the fully qualified name of the\ngRPC call being attempted.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "user",
+              "description": "The user name to be used to perform the evaluation.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "rpc",
+              "description": "The gRPC RPC name to be used to perform the evaluation.\nIt has to be a fully qualified name, like:\n   \"/gnsi.ssh.Ssh/MutateHostCredentials\"",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ProbeResponse",
+          "longName": "ProbeResponse",
+          "fullName": "gnsi.authz.v1.ProbeResponse",
+          "description": "ProbeResponse returns the ACK/NACK for a single user request\nas evaluated against the current policy, along with the version of the policy\nthat the gRPC call/user were evaluated against.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "action",
+              "description": "",
+              "label": "",
+              "type": "Action",
+              "longType": "ProbeResponse.Action",
+              "fullType": "gnsi.authz.v1.ProbeResponse.Action",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "version",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RotateAuthzRequest",
+          "longName": "RotateAuthzRequest",
+          "fullName": "gnsi.authz.v1.RotateAuthzRequest",
+          "description": "Request messages to rotate existing gRPC-level Authorization Policy on\nthe target.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "upload_request",
+              "description": "",
+              "label": "",
+              "type": "UploadRequest",
+              "longType": "UploadRequest",
+              "fullType": "gnsi.authz.v1.UploadRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "rotate_request",
+              "defaultValue": ""
+            },
+            {
+              "name": "finalize_rotation",
+              "description": "",
+              "label": "",
+              "type": "FinalizeRequest",
+              "longType": "FinalizeRequest",
+              "fullType": "gnsi.authz.v1.FinalizeRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "rotate_request",
+              "defaultValue": ""
+            },
+            {
+              "name": "force_overwrite",
+              "description": "If set to `true` the requested operation will succeed even if the specified\n`version` is already in use (is not unique).\nIf set to `false` the requested operation will fail and the streaming RPC\nwill be closed with the `ALREADY_EXISTS` gRPC error if the specified\nversion` is already in use (is not unique).\nIt is a no-op for the `finalize_rotation` request.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RotateAuthzResponse",
+          "longName": "RotateAuthzResponse",
+          "fullName": "gnsi.authz.v1.RotateAuthzResponse",
+          "description": "Response messages from the target.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "upload_response",
+              "description": "",
+              "label": "",
+              "type": "UploadResponse",
+              "longType": "UploadResponse",
+              "fullType": "gnsi.authz.v1.UploadResponse",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "rotate_response",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "UploadRequest",
+          "longName": "UploadRequest",
+          "fullName": "gnsi.authz.v1.UploadRequest",
+          "description": "UploadRequest instructs the target to store the given gRPC-level\nAuthorization Policy.\n\nIf there is another ongoing Rotate RPC the UploadRequest must fail.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "version",
+              "description": "`version` contains versioning information that is controlled by\nthe policy manager and reported as-is by the telemetry reporting system\n(ie, transparent to the target policy management service). Policy managers\nshould choose version strings as discrete as possible to ease alert\ngeneration (eg, for policies sourced from a bundle, the timestamp of\nthe bundle should be used but not the time when the policy is pushed to\na particular switch). Also, such version string should be persisted by\nthe device onto non-volatile memory for preservation across system\nreboots.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "created_on",
+              "description": "`created_on` contains information when the policy was created.\nThis information is controlled by the policy manager and reported as-is\nby the telemetry reporting system (ie, transparent to the device policy\nmanagement service). Policy manager should use the timestamp of the moment\nwhen policy was created, not the time when the policy is pushed to\na particular switch).\nAlso, this timestamp should be persisted by the device onto non-volatile\nmemory for preservation across system reboots.\n`created_on` is a timestamp: the number of seconds since\nJanuary 1st, 1970 00:00:00 GMT.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "policy",
+              "description": "The actual gRPC-level Authorization Policy.\nIt is provided as a JSON formatted string whose structure is defined by\ngRPC.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "UploadResponse",
+          "longName": "UploadResponse",
+          "fullName": "gnsi.authz.v1.UploadResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        }
+      ],
+      "services": [
+        {
+          "name": "Authz",
+          "longName": "Authz",
+          "fullName": "gnsi.authz.v1.Authz",
+          "description": "",
+          "methods": [
+            {
+              "name": "Rotate",
+              "description": "Rotate will replace an existing gRPC-level Authorization Policy on the\ntarget.\n\nIf the stream is broken or any of the steps fail the\ntarget must rollback to the original state, i.e. revert any changes to\nthe gRPC-level Authorization Policy made during this RPC.\n\nNote that only one such RPC can be in progress. An attempt to call this\nRPC while another is already in progress will be rejected with the\n`UNAVAILABLE` gRPC error.\n\nThe following describes the sequence of messages that must be exchanged\nin the Rotate() RPC.\n\nSequence of expected messages:\n  Step 1: Start the stream\n    Client ----\u003e Rotate() RPC stream begin ------\u003e Target\n\n  Step 2: Send gRPC-level Authorization Policy to Target.\n    Client --\u003e UploadRequest(authz_policy) ----\u003e Target\n    Client \u003c-- UploadResponse \u003c--- Target\n\n  Step 3 (optional): Test/Validation by the client.\n    During this step client attempts to call a RPC that is allowed\n    in the new policy and validates that the new policy \"works\".\n    Additionally the client should call a RPC that is not allowed and\n    the attempt must fail proving that the gRPC-level Authorization Policy\n    \"works\".\n    Once verified, the client then proceeds to finalize the rotation.\n    If the new verification did not succeed the client will cancel the\n    RPC thereby forcing the target to rollback of the new gRPC-level\n    Authorization Policy.\n\n  Step 4: Final commit.\n    Client ---\u003e FinalizeRequest ----\u003e Target",
+              "requestType": "RotateAuthzRequest",
+              "requestLongType": "RotateAuthzRequest",
+              "requestFullType": "gnsi.authz.v1.RotateAuthzRequest",
+              "requestStreaming": true,
+              "responseType": "RotateAuthzResponse",
+              "responseLongType": "RotateAuthzResponse",
+              "responseFullType": "gnsi.authz.v1.RotateAuthzResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "Probe",
+              "description": "Probe allows for evaluation of the gRPC-level Authorization Policy engine\nresponse to a gRPC call performed by a user.\nThe response is based on the instance of policy specified in the request\nand is evaluated without actually performing the gRPC call.",
+              "requestType": "ProbeRequest",
+              "requestLongType": "ProbeRequest",
+              "requestFullType": "gnsi.authz.v1.ProbeRequest",
+              "requestStreaming": false,
+              "responseType": "ProbeResponse",
+              "responseLongType": "ProbeResponse",
+              "responseFullType": "gnsi.authz.v1.ProbeResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "Get",
+              "description": "Get returns current instance of the gRPC-level Authorization Policy\ntogether with its version and created-on information.",
+              "requestType": "GetRequest",
+              "requestLongType": "GetRequest",
+              "requestFullType": "gnsi.authz.v1.GetRequest",
+              "requestStreaming": false,
+              "responseType": "GetResponse",
+              "responseLongType": "GetResponse",
+              "responseFullType": "gnsi.authz.v1.GetResponse",
+              "responseStreaming": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "github.com/openconfig/gnsi/version/version.proto",
+      "description": "",
+      "package": "gnsi",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": false,
+      "hasServices": false,
+      "enums": [],
+      "extensions": [],
+      "messages": [],
+      "services": []
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

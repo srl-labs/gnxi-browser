@@ -1,0 +1,1269 @@
+{
+  "files": [
+    {
+      "name": "github.com/openconfig/gnsi/certz/certz.proto",
+      "description": "This file defines the gNSI API to be used for certificate rotation.",
+      "package": "gnsi.certz.v1",
+      "hasEnums": true,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [
+        {
+          "name": "CSRSuite",
+          "longName": "CSRSuite",
+          "fullName": "gnsi.certz.v1.CSRSuite",
+          "description": "CSRSuite specifies the valid types of keys and digests that can be used\nto generate CSRs",
+          "values": [
+            {
+              "name": "CSRSUITE_CIPHER_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_RSA_2048_SIGNATURE_ALGORITHM_SHA_2_256",
+              "number": "1",
+              "description": "format:\n\u003ccertificate type\u003e_\u003ckey type\u003e_\u003csignature algorithm\u003e"
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_RSA_2048_SIGNATURE_ALGORITHM_SHA_2_384",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_RSA_2048_SIGNATURE_ALGORITHM_SHA_2_512",
+              "number": "3",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_RSA_3072_SIGNATURE_ALGORITHM_SHA_2_256",
+              "number": "4",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_RSA_3072_SIGNATURE_ALGORITHM_SHA_2_384",
+              "number": "5",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_RSA_3072_SIGNATURE_ALGORITHM_SHA_2_512",
+              "number": "6",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_RSA_4096_SIGNATURE_ALGORITHM_SHA_2_256",
+              "number": "7",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_RSA_4096_SIGNATURE_ALGORITHM_SHA_2_384",
+              "number": "8",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_RSA_4096_SIGNATURE_ALGORITHM_SHA_2_512",
+              "number": "9",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_ECDSA_PRIME256V1_SIGNATURE_ALGORITHM_SHA_2_256",
+              "number": "10",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_ECDSA_PRIME256V1_SIGNATURE_ALGORITHM_SHA_2_384",
+              "number": "11",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_ECDSA_PRIME256V1_SIGNATURE_ALGORITHM_SHA_2_512",
+              "number": "12",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_ECDSA_SECP384R1_SIGNATURE_ALGORITHM_SHA_2_256",
+              "number": "13",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_ECDSA_SECP384R1_SIGNATURE_ALGORITHM_SHA_2_384",
+              "number": "14",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_ECDSA_SECP384R1_SIGNATURE_ALGORITHM_SHA_2_512",
+              "number": "15",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_ECDSA_SECP521R1_SIGNATURE_ALGORITHM_SHA_2_256",
+              "number": "16",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_ECDSA_SECP521R1_SIGNATURE_ALGORITHM_SHA_2_384",
+              "number": "17",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_ECDSA_SECP521R1_SIGNATURE_ALGORITHM_SHA_2_512",
+              "number": "18",
+              "description": ""
+            },
+            {
+              "name": "CSRSUITE_X509_KEY_TYPE_EDDSA_ED25519",
+              "number": "19",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "CertificateEncoding",
+          "longName": "CertificateEncoding",
+          "fullName": "gnsi.certz.v1.CertificateEncoding",
+          "description": "",
+          "values": [
+            {
+              "name": "CERTIFICATE_ENCODING_UNSPECIFIED",
+              "number": "0",
+              "description": "1 - 500 for public use.\n501 onwards for private use."
+            },
+            {
+              "name": "CERTIFICATE_ENCODING_PEM",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "CERTIFICATE_ENCODING_DER",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "CERTIFICATE_ENCODING_CRT",
+              "number": "3",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "CertificateType",
+          "longName": "CertificateType",
+          "fullName": "gnsi.certz.v1.CertificateType",
+          "description": "Types of certificates.",
+          "values": [
+            {
+              "name": "CERTIFICATE_TYPE_UNSPECIFIED",
+              "number": "0",
+              "description": "1 - 500 for public use.\n501 onwards for private use."
+            },
+            {
+              "name": "CERTIFICATE_TYPE_X509",
+              "number": "1",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "AddProfileRequest",
+          "longName": "AddProfileRequest",
+          "fullName": "gnsi.certz.v1.AddProfileRequest",
+          "description": "A request to add a new SSL profile.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "ssl_profile_id",
+              "description": "The ID of the SSL profile to be created.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AddProfileResponse",
+          "longName": "AddProfileResponse",
+          "fullName": "gnsi.certz.v1.AddProfileResponse",
+          "description": "A response to a request to add a new SSL profile.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "CSRParams",
+          "longName": "CSRParams",
+          "fullName": "gnsi.certz.v1.CSRParams",
+          "description": "A set of parameters a Certificate Signing Request.\nUsed to specify what type of CSR the client expects from the target.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "csr_suite",
+              "description": "",
+              "label": "",
+              "type": "CSRSuite",
+              "longType": "CSRSuite",
+              "fullType": "gnsi.certz.v1.CSRSuite",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "common_name",
+              "description": "Required field for any type of certificate\n\ne.g \"device.corp.google.com\"",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "country",
+              "description": "Optional fields for any type of certificate\n\ne.g \"US\"",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "state",
+              "description": "e.g \"CA\"",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "city",
+              "description": "e.g \"Mountain View\"",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "organization",
+              "description": "e.g \"Google\"",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "organizational_unit",
+              "description": "e.g \"Security\"",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ip_address",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "email_id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "san",
+              "description": "Subject Alternative Name",
+              "label": "",
+              "type": "V3ExtensionSAN",
+              "longType": "V3ExtensionSAN",
+              "fullType": "gnsi.certz.v1.V3ExtensionSAN",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CanGenerateCSRRequest",
+          "longName": "CanGenerateCSRRequest",
+          "fullName": "gnsi.certz.v1.CanGenerateCSRRequest",
+          "description": "A request to ask the target if it can generate key pairs.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "params",
+              "description": "",
+              "label": "",
+              "type": "CSRParams",
+              "longType": "CSRParams",
+              "fullType": "gnsi.certz.v1.CSRParams",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CanGenerateCSRResponse",
+          "longName": "CanGenerateCSRResponse",
+          "fullName": "gnsi.certz.v1.CanGenerateCSRResponse",
+          "description": "Response from the target about whether it can generate a CSR with the given\nparameters.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "can_generate",
+              "description": "",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Certificate",
+          "longName": "Certificate",
+          "fullName": "gnsi.certz.v1.Certificate",
+          "description": "A certificate.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "type",
+              "description": "Type of certificate.",
+              "label": "",
+              "type": "CertificateType",
+              "longType": "CertificateType",
+              "fullType": "gnsi.certz.v1.CertificateType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "encoding",
+              "description": "Certificate encoding type.",
+              "label": "",
+              "type": "CertificateEncoding",
+              "longType": "CertificateEncoding",
+              "fullType": "gnsi.certz.v1.CertificateEncoding",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "certificate",
+              "description": "Actual certificate.\nThe exact encoding depends upon the type of certificate.\nfor X509, this should be a PEM encoded Certificate.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "private_key",
+              "description": "Optional.\nNot needed if the device knows the private key or does not have to know it.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CertificateChain",
+          "longName": "CertificateChain",
+          "fullName": "gnsi.certz.v1.CertificateChain",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "certificate",
+              "description": "",
+              "label": "",
+              "type": "Certificate",
+              "longType": "Certificate",
+              "fullType": "gnsi.certz.v1.Certificate",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "parent",
+              "description": "parent is the certificate which was used to sign the current certificate.\nIt is nil in the case of the root cert.",
+              "label": "",
+              "type": "CertificateChain",
+              "longType": "CertificateChain",
+              "fullType": "gnsi.certz.v1.CertificateChain",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CertificateRevocationList",
+          "longName": "CertificateRevocationList",
+          "fullName": "gnsi.certz.v1.CertificateRevocationList",
+          "description": "A certificate revocation list (CRL)",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "type",
+              "description": "Type of the CRL.",
+              "label": "",
+              "type": "CertificateType",
+              "longType": "CertificateType",
+              "fullType": "gnsi.certz.v1.CertificateType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "encoding",
+              "description": "CRL encoding type.",
+              "label": "",
+              "type": "CertificateEncoding",
+              "longType": "CertificateEncoding",
+              "fullType": "gnsi.certz.v1.CertificateEncoding",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "certificate_revocation_list",
+              "description": "Actual CRL.\nThe exact encoding depends upon the type of CRL.\nfor X509, this should be a PEM encoded CRL.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "id",
+              "description": "ID of this CRL, which is the CRL file hash.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CertificateRevocationListBundle",
+          "longName": "CertificateRevocationListBundle",
+          "fullName": "gnsi.certz.v1.CertificateRevocationListBundle",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "certificate_revocation_lists",
+              "description": "",
+              "label": "repeated",
+              "type": "CertificateRevocationList",
+              "longType": "CertificateRevocationList",
+              "fullType": "gnsi.certz.v1.CertificateRevocationList",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CertificateSigningRequest",
+          "longName": "CertificateSigningRequest",
+          "fullName": "gnsi.certz.v1.CertificateSigningRequest",
+          "description": "A certificate signing request (CSR)",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "type",
+              "description": "Type of the CSR.",
+              "label": "",
+              "type": "CertificateType",
+              "longType": "CertificateType",
+              "fullType": "gnsi.certz.v1.CertificateType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "encoding",
+              "description": "CSR encoding type.",
+              "label": "",
+              "type": "CertificateEncoding",
+              "longType": "CertificateEncoding",
+              "fullType": "gnsi.certz.v1.CertificateEncoding",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "certificate_signing_request",
+              "description": "Actual CSR.\nThe exact encoding depends upon the type of CSR.\nfor X509, this should be a PEM encoded CSR.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "DeleteProfileRequest",
+          "longName": "DeleteProfileRequest",
+          "fullName": "gnsi.certz.v1.DeleteProfileRequest",
+          "description": "A request to remove an existing SSL profile.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "ssl_profile_id",
+              "description": "The ID of the SSL profile to be removed.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "DeleteProfileResponse",
+          "longName": "DeleteProfileResponse",
+          "fullName": "gnsi.certz.v1.DeleteProfileResponse",
+          "description": "A response to a request to remove an existing SSL profile.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "Entity",
+          "longName": "Entity",
+          "fullName": "gnsi.certz.v1.Entity",
+          "description": "An entity.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "version",
+              "description": "`version` contains versioning information that is controlled by\nthe credential manager and reported as-is by the telemetry reporting system\n(ie, transparent to the device credential service).  Credential managers\nshould choose version strings as discrete as possible to ease alert\ngeneration (eg, for credentials sourced from a bundle, the timestamp of\nthe bundle should be used but not the time when the credential is pushed to\na particular switch).  Also, such version strings should be persisted by\nthe devices onto non-volatile memory for preservation across system\nreboots.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "created_on",
+              "description": "`created_on` contains information when the credentials were created.\nThis information is controlled by the credential manager and reported as-is\nby the telemetry reporting system (ie, transparent to the device credential\nservice).  Credential managers should use the timestamp of the moment when\ncredential was created, not the time when the credential is pushed to\na particular switch).\nAlso, this timestamp should be persisted by the devices onto non-volatile\nmemory for preservation across system reboots.\n`created_on` is a timestamp: the number of seconds since\nJanuary 1st, 1970 00:00:00 GMT.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "certificate_chain",
+              "description": "",
+              "label": "",
+              "type": "CertificateChain",
+              "longType": "CertificateChain",
+              "fullType": "gnsi.certz.v1.CertificateChain",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entity",
+              "defaultValue": ""
+            },
+            {
+              "name": "trust_bundle",
+              "description": "",
+              "label": "",
+              "type": "CertificateChain",
+              "longType": "CertificateChain",
+              "fullType": "gnsi.certz.v1.CertificateChain",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entity",
+              "defaultValue": ""
+            },
+            {
+              "name": "certificate_revocation_list_bundle",
+              "description": "",
+              "label": "",
+              "type": "CertificateRevocationListBundle",
+              "longType": "CertificateRevocationListBundle",
+              "fullType": "gnsi.certz.v1.CertificateRevocationListBundle",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entity",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FinalizeRequest",
+          "longName": "FinalizeRequest",
+          "fullName": "gnsi.certz.v1.FinalizeRequest",
+          "description": "A Finalize message is sent to the target to confirm the Rotation of\nthe certificate and that the certificate should not be rolled back when\nthe RPC concludes. The certificate must be rolled back if the target returns\nan error after receiving a Finalize message.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "GenerateCSRRequest",
+          "longName": "GenerateCSRRequest",
+          "fullName": "gnsi.certz.v1.GenerateCSRRequest",
+          "description": "A message sent by a client requesting the target to generate a CSR with\nthe specified parameters.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "params",
+              "description": "",
+              "label": "",
+              "type": "CSRParams",
+              "longType": "CSRParams",
+              "fullType": "gnsi.certz.v1.CSRParams",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GenerateCSRResponse",
+          "longName": "GenerateCSRResponse",
+          "fullName": "gnsi.certz.v1.GenerateCSRResponse",
+          "description": "A message sent by the target as response to the GenerateCSRRequest.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "certificate_signing_request",
+              "description": "",
+              "label": "",
+              "type": "CertificateSigningRequest",
+              "longType": "CertificateSigningRequest",
+              "fullType": "gnsi.certz.v1.CertificateSigningRequest",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetProfileListRequest",
+          "longName": "GetProfileListRequest",
+          "fullName": "gnsi.certz.v1.GetProfileListRequest",
+          "description": "A request for a list of all SSL profiles present on the target.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "GetProfileListResponse",
+          "longName": "GetProfileListResponse",
+          "fullName": "gnsi.certz.v1.GetProfileListResponse",
+          "description": "A response with the list of all SSL profiles present on the target.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "ssl_profile_ids",
+              "description": "A list of IDs of SSL profiles that exist on the target.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RotateCertificateRequest",
+          "longName": "RotateCertificateRequest",
+          "fullName": "gnsi.certz.v1.RotateCertificateRequest",
+          "description": "Request messages to rotate existing certificates on the target.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "force_overwrite",
+              "description": "If set to `true` the requested operation will succeed even if the\n`version` is already in use (is not unique).\nIf set to `false` the requested operation will fail and the streaming RPC\nwill be closed with the `AlreadyExists` error if the `version` is already\nin use (is not unique).\nIt is a no-op for the `finalize_rotation` request.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ssl_profile_id",
+              "description": "An identifier for the specific SSL profile (collection of\ncerts/bundles/CRLs) which is being rotated through this stream.\nLeaving this field blank means that this stream will rotate the SSL profile\nwhich is currently being used by the gNSI service.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "generate_csr",
+              "description": "",
+              "label": "",
+              "type": "GenerateCSRRequest",
+              "longType": "GenerateCSRRequest",
+              "fullType": "gnsi.certz.v1.GenerateCSRRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "rotate_request",
+              "defaultValue": ""
+            },
+            {
+              "name": "certificates",
+              "description": "",
+              "label": "",
+              "type": "UploadRequest",
+              "longType": "UploadRequest",
+              "fullType": "gnsi.certz.v1.UploadRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "rotate_request",
+              "defaultValue": ""
+            },
+            {
+              "name": "finalize_rotation",
+              "description": "",
+              "label": "",
+              "type": "FinalizeRequest",
+              "longType": "FinalizeRequest",
+              "fullType": "gnsi.certz.v1.FinalizeRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "rotate_request",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RotateCertificateResponse",
+          "longName": "RotateCertificateResponse",
+          "fullName": "gnsi.certz.v1.RotateCertificateResponse",
+          "description": "Response Messages from the target.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "generated_csr",
+              "description": "",
+              "label": "",
+              "type": "GenerateCSRResponse",
+              "longType": "GenerateCSRResponse",
+              "fullType": "gnsi.certz.v1.GenerateCSRResponse",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "rotate_response",
+              "defaultValue": ""
+            },
+            {
+              "name": "certificates",
+              "description": "",
+              "label": "",
+              "type": "UploadResponse",
+              "longType": "UploadResponse",
+              "fullType": "gnsi.certz.v1.UploadResponse",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "rotate_response",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "UploadRequest",
+          "longName": "UploadRequest",
+          "fullName": "gnsi.certz.v1.UploadRequest",
+          "description": "UploadRequest instructs the target to store the given entities (certificate,\nand/or trust bundle and certificate revocation list bundle).\n\nAs the target does not generate the CSR, the public/private key pair is\ngenerated externally and the target is provided with the private/public key\npair.\n\nThe trust bundle (a chain of Certificate Authority certificates) can be\nused to validate client's certificates.\nTo improve performance in the Target, certificates can be ordered.\nGroups of chained certificates should be last, where within, the root\ncertificate is the last one. E.g.:\nCertA, CertB, CertB-Root, CertC, CertC-Intermediate, CertC-Root",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "entities",
+              "description": "",
+              "label": "repeated",
+              "type": "Entity",
+              "longType": "Entity",
+              "fullType": "gnsi.certz.v1.Entity",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "UploadResponse",
+          "longName": "UploadResponse",
+          "fullName": "gnsi.certz.v1.UploadResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "V3ExtensionSAN",
+          "longName": "V3ExtensionSAN",
+          "fullName": "gnsi.certz.v1.V3ExtensionSAN",
+          "description": "A message type specifying the Subject Alternative Name for\nuse as an x509 certificate extension",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "dns",
+              "description": "DNS names for use in SAN",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "emails",
+              "description": "Email addresses for use in SAN",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ips",
+              "description": "IP addresses for use in SAN",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "uris",
+              "description": "protolint:disable:next REPEATED_FIELD_NAMES_PLURALIZED\n\nURIs for use in SAN",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "Certz",
+          "longName": "Certz",
+          "fullName": "gnsi.certz.v1.Certz",
+          "description": "",
+          "methods": [
+            {
+              "name": "Rotate",
+              "description": "Rotate will replace an existing device certificate and/or CA certificates\n(trust bundle) or/and a certificate revocation list bundle on the target.\nThe new device certificate can be created from a target-generated or\nclient-generated CSR. In the latter case the client has to provide\ncorresponding private key with the signed certificate.\nIf the stream is broken or any of the steps fail the target must rollback\nto the original state, i.e. revert any changes to the certificate,\nCA certificates and the Certificate Revocation List bundle.\n\nThe following describes a number of use cases each presenting the expected\nsequence of message exchange.\n\nCase 1: Client generates the CSR, gets it signed and then uploads it.\n\n  Step 1: Start the stream\n    Client \u003c---- Rotate() RPC stream begin ------\u003e Target\n\n  Step 2: CSR Generation and certificate signing\n    Client generates the CSR and gets the certificate signed by the CA.\n\n  Step 3: Send Certificate and optional content to the Target.\n    mandatory: signed certificate with private key\n    optional: trust bundle - Certificate Authority certificate chain\n    optional: certificate revocation list bundle\n    Client --\u003e UploadRequest(certificate, [trust_bundle],\n                             [certificate_revocation_list]) ----\u003e Target\n    Client \u003c-- UploadResponse \u003c--- Target\n\n  Step 4 (optional): Test/Validation by the client.\n    During this step client attempts to create a new connection to\n    the target using the new certificates and validates that\n    the certificates \"work\".\n    If the new connection cannot be completed the client will cancel the\n    RPC thereby forcing the target to rollback all the certificates.\n    If new certificate revocation list bundle has been uploaded in step 3,\n    during this step the client also attempts to establish a new connection\n    to the target using revoked certificate(s) - the attempt must fail\n    proving that the certificates have been revoked.\n    Once verified, the client then proceeds to finalize the rotation.\n\n  Step 5: Final commit.\n    Client ---\u003e FinalizeRequest ----\u003e Target\n\nCase 2: Target generates the CSR, client gets it signed and uploads it.\n\n  Step 1: Start the stream\n    Client \u003c---- Rotate() RPC stream begin ------\u003e Target\n\n  Step 2: CSR\n    Client -----\u003e GenerateCSRRequest----\u003e Target\n    Client \u003c----- GenerateCSRResponse \u003c--- Target\n\n  Step 3: Certificate Signing\n    Client gets the certificate signed by the CA.\n\n  Step 4: Send Certificate and optional content to the Target.\n    mandatory: signed certificate without private key\n    optional: trust bundle - Certificate Authority certificate chain\n    optional: certificate revocation list bundle\n    Client --\u003e UploadRequest(certificate, [trust_bundle],\n                             [certificate_revocation_list]) ----\u003e Target\n    Client \u003c-- UploadResponse \u003c--- Target\n\n  Step 5: Test/Validation by the client.\n    During this step client attempts to create a new connection to\n    the target using the new certificates and validates that\n    the certificates \"work\".\n    If the new connection cannot be completed the client will cancel the\n    RPC thereby forcing the target to rollback all the certificates.\n    If new certificate revocation list bundle has been uploaded in step 4,\n    during this step the client also attempts to establish a new connection\n    to the target using revoked certificate(s) - the attempt must fail\n    proving that the certificates have been revoked.\n    Once verified, the client then proceeds to finalize the rotation.\n\n  Step 6: Final commit.\n    Client ---\u003e FinalizeRequest ----\u003e Target\n\nCase 3: Client changes only trust bundle on the Target.\n\n  Step 1: Start the stream\n    Client \u003c---- Rotate() RPC stream begin ------\u003e Target\n\n  Step 2: Send CA Certificate Bundle to the Target.\n    mandatory: trust bundle - Certificate Authority chain\n    optional: certificate revocation list bundle\n    Client --\u003e UploadRequest(trust_bundle,\n                             [certificate_revocation_list]) ----\u003e Target\n    Client \u003c-- UploadResponse \u003c--- Target\n\n  Step 3 (optional): Test/Validation by the client.\n    During this step client attempts to create a new connection to\n    the target using a new certificate that can be validated using the new\n    trust bundle and validates that the CA certificates \"work\".\n    If the new connection cannot be completed the client will cancel the\n    RPC thereby forcing the target to rollback all the certificates.\n    If new certificate revocation list bundle has been uploaded in step 2,\n    during this step the client also attempts to establish a new connection\n    to the target using revoked certificate(s) - the attempt must fail\n    proving that the certificates have been revoked.\n    Once verified, the client then proceeds to finalize the rotation.\n\n  Step 4: Final commit.\n    Client ---\u003e FinalizeRequest ----\u003e Target\n\nCase 4: Client provides certificate revocation list bundle to the Target.\n\n  Step 1: Start the stream\n    Client \u003c---- Rotate() RPC stream begin ------\u003e Target\n\n  Step 2: Send certificate revocation list bundle to the target.\n    mandatory: certificate revocation list bundle\n    Client --\u003e UploadRequest(certificate_revocation_list) ----\u003e Target\n    Client \u003c-- UploadResponse \u003c--- Target\n\n  Step 3 (optional): Test/Validation by the client.\n    During this step the client attempts to establish a new connection\n    to the target using revoked certificate(s) - the attempt must fail\n    proving that the certificates have been revoked.\n    If the new connection can be completed the client will cancel the\n    RPC thereby forcing the target to rollback all the certificates.\n    Once verified, the client then proceeds to finalize the rotation.\n\n  Step 4: Final commit.\n    Client ---\u003e FinalizeRequest ----\u003e Target",
+              "requestType": "RotateCertificateRequest",
+              "requestLongType": "RotateCertificateRequest",
+              "requestFullType": "gnsi.certz.v1.RotateCertificateRequest",
+              "requestStreaming": true,
+              "responseType": "RotateCertificateResponse",
+              "responseLongType": "RotateCertificateResponse",
+              "responseFullType": "gnsi.certz.v1.RotateCertificateResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "AddProfile",
+              "description": "AddProfile is part of SSL profile management and allows for adding new\nSSL profile.\nWhen a SSL profile is added all its elements, i.e. certificate, CA trust\nbundle and a set of certificate revocation lists are created and they are\nempty, so before they can be used they have to be 'rotated' using\nthe `Rotate()` RPC.\nNote that an attempt to add an already existing profile will be rejected\nwith an error.",
+              "requestType": "AddProfileRequest",
+              "requestLongType": "AddProfileRequest",
+              "requestFullType": "gnsi.certz.v1.AddProfileRequest",
+              "requestStreaming": false,
+              "responseType": "AddProfileResponse",
+              "responseLongType": "AddProfileResponse",
+              "responseFullType": "gnsi.certz.v1.AddProfileResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "DeleteProfile",
+              "description": "DeleteProfile is part of SSL profile management and allows for removing\nan existing SSL profile.\nNote that an attempt to remove a not existing profile will result\nin an error.\nNot also that the profile used by the gNxI server cannot be deleted and an\nattempt to remove it will rejected with an error.",
+              "requestType": "DeleteProfileRequest",
+              "requestLongType": "DeleteProfileRequest",
+              "requestFullType": "gnsi.certz.v1.DeleteProfileRequest",
+              "requestStreaming": false,
+              "responseType": "DeleteProfileResponse",
+              "responseLongType": "DeleteProfileResponse",
+              "responseFullType": "gnsi.certz.v1.DeleteProfileResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "GetProfileList",
+              "description": "GetProfileList is part of SSL profile management and allows for\nretrieving a list of IDs of SSL profiles present on the target.",
+              "requestType": "GetProfileListRequest",
+              "requestLongType": "GetProfileListRequest",
+              "requestFullType": "gnsi.certz.v1.GetProfileListRequest",
+              "requestStreaming": false,
+              "responseType": "GetProfileListResponse",
+              "responseLongType": "GetProfileListResponse",
+              "responseFullType": "gnsi.certz.v1.GetProfileListResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "CanGenerateCSR",
+              "description": "An RPC to ask a target if it can generate a Certificate Signing Request.",
+              "requestType": "CanGenerateCSRRequest",
+              "requestLongType": "CanGenerateCSRRequest",
+              "requestFullType": "gnsi.certz.v1.CanGenerateCSRRequest",
+              "requestStreaming": false,
+              "responseType": "CanGenerateCSRResponse",
+              "responseLongType": "CanGenerateCSRResponse",
+              "responseFullType": "gnsi.certz.v1.CanGenerateCSRResponse",
+              "responseStreaming": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "github.com/openconfig/gnsi/version/version.proto",
+      "description": "",
+      "package": "gnsi",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": false,
+      "hasServices": false,
+      "enums": [],
+      "extensions": [],
+      "messages": [],
+      "services": []
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

@@ -1,0 +1,726 @@
+{
+  "files": [
+    {
+      "name": "github.com/openconfig/gnsi/accounting/acct.proto",
+      "description": "",
+      "package": "gnsi.accounting.v1",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [
+        {
+          "name": "AuthenStatus",
+          "longName": "AuthDetail.AuthenStatus",
+          "fullName": "gnsi.accounting.v1.AuthDetail.AuthenStatus",
+          "description": "authentication status",
+          "values": [
+            {
+              "name": "AUTHEN_STATUS_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "AUTHEN_STATUS_PERMIT",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "AUTHEN_STATUS_DENY",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "CmdServiceType",
+          "longName": "CommandService.CmdServiceType",
+          "fullName": "gnsi.accounting.v1.CommandService.CmdServiceType",
+          "description": "",
+          "values": [
+            {
+              "name": "CMD_SERVICE_TYPE_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "CMD_SERVICE_TYPE_SHELL",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "CMD_SERVICE_TYPE_CLI",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "GrpcServiceType",
+          "longName": "GrpcService.GrpcServiceType",
+          "fullName": "gnsi.accounting.v1.GrpcService.GrpcServiceType",
+          "description": "",
+          "values": [
+            {
+              "name": "GRPC_SERVICE_TYPE_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "GRPC_SERVICE_TYPE_GNMI",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "GRPC_SERVICE_TYPE_GNOI",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "GRPC_SERVICE_TYPE_GNSI",
+              "number": "3",
+              "description": ""
+            },
+            {
+              "name": "GRPC_SERVICE_TYPE_GRIBI",
+              "number": "4",
+              "description": "GRIBI records could be very verbose.\nBy default, the logging authorization\nshould keep GRIBI logging off."
+            }
+          ]
+        },
+        {
+          "name": "ServiceStatus",
+          "longName": "Record.ServiceStatus",
+          "fullName": "gnsi.accounting.v1.Record.ServiceStatus",
+          "description": "Service processing status at the time of event reporting.",
+          "values": [
+            {
+              "name": "SERVICE_STATUS_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "SERVICE_STATUS_SUCCESS",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "SERVICE_STATUS_FAILURE",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "AuthDetail",
+          "longName": "AuthDetail",
+          "fullName": "gnsi.accounting.v1.AuthDetail",
+          "description": "Details of authentication - for gRPC or shell/vendor-CLI.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "identity",
+              "description": "Identity string is used to identify the user that executed the\ncommand. For instance, it could be the spiffe-id in the case of\ngRPC or unix-style user-name in the case of shell/vendor-CLI.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "privilege_level",
+              "description": "Privilege level configured on the system.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "status",
+              "description": "",
+              "label": "",
+              "type": "AuthenStatus",
+              "longType": "AuthDetail.AuthenStatus",
+              "fullType": "gnsi.accounting.v1.AuthDetail.AuthenStatus",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "deny_cause",
+              "description": "In case of STATUS_DENY, cause for the deny",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CommandService",
+          "longName": "CommandService",
+          "fullName": "gnsi.accounting.v1.CommandService",
+          "description": "Command details for shell/vendor-CLI",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "service_type",
+              "description": "",
+              "label": "",
+              "type": "CmdServiceType",
+              "longType": "CommandService.CmdServiceType",
+              "fullType": "gnsi.accounting.v1.CommandService.CmdServiceType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "cmd",
+              "description": "The command that was executed.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "cmd_args",
+              "description": "Arguments to a command above.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GrpcService",
+          "longName": "GrpcService",
+          "fullName": "gnsi.accounting.v1.GrpcService",
+          "description": "Command details for openconfig gNxI commands.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "service_type",
+              "description": "",
+              "label": "",
+              "type": "GrpcServiceType",
+              "longType": "GrpcService.GrpcServiceType",
+              "fullType": "gnsi.accounting.v1.GrpcService.GrpcServiceType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "rpc_name",
+              "description": "rpc_name is the rpc to which the request was sent, examples:\n  gnmi.Set()\n  gnoi.os.Install()\n  gnsi.cert.Rotate()",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "payloads",
+              "description": "A string of bytes that are gRPC encoded. Best to decode using\nPROTO_ANY.",
+              "label": "repeated",
+              "type": "Any",
+              "longType": "google.protobuf.Any",
+              "fullType": "google.protobuf.Any",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "config_metadata",
+              "description": "config_metadata can be used to track all set requests that were to be\napplied atomically.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Record",
+          "longName": "Record",
+          "fullName": "gnsi.accounting.v1.Record",
+          "description": "An accounting record message is generated everytime the user types a\nshell/vendorCLI command or sends a gNxI setRequest.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "session_info",
+              "description": "Session information",
+              "label": "",
+              "type": "SessionInfo",
+              "longType": "SessionInfo",
+              "fullType": "gnsi.accounting.v1.SessionInfo",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "timestamp",
+              "description": "The time when the system recorded this event, represented as nanoseconds\nsince the unix epoch.",
+              "label": "",
+              "type": "Timestamp",
+              "longType": "google.protobuf.Timestamp",
+              "fullType": "google.protobuf.Timestamp",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "cmd_service",
+              "description": "",
+              "label": "",
+              "type": "CommandService",
+              "longType": "CommandService",
+              "fullType": "gnsi.accounting.v1.CommandService",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "service_request",
+              "defaultValue": ""
+            },
+            {
+              "name": "grpc_service",
+              "description": "",
+              "label": "",
+              "type": "GrpcService",
+              "longType": "GrpcService",
+              "fullType": "gnsi.accounting.v1.GrpcService",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "service_request",
+              "defaultValue": ""
+            },
+            {
+              "name": "status",
+              "description": "",
+              "label": "",
+              "type": "ServiceStatus",
+              "longType": "Record.ServiceStatus",
+              "fullType": "gnsi.accounting.v1.Record.ServiceStatus",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "failure_cause",
+              "description": "In case of STATUS_FAILURE, cause for the failure",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "authen",
+              "description": "Authentication related details",
+              "label": "",
+              "type": "AuthDetail",
+              "longType": "AuthDetail",
+              "fullType": "gnsi.accounting.v1.AuthDetail",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "task_ids",
+              "description": "Optional repeated task_id that represent tasks that were used to\naccomplish the request on the system.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RecordSync",
+          "longName": "RecordSync",
+          "fullName": "gnsi.accounting.v1.RecordSync",
+          "description": "RecordSync, requests a starting point for records to be sent to the caller.\nThe reciever then can signal back to the sender periodic sync messages to\nacknowledge received records.\nThe timestamp indicates the last processed Record at the caller.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "timestamp",
+              "description": "The time when the system recorded this event represented as nanoseconds\nsince the unix epoch.",
+              "label": "",
+              "type": "Timestamp",
+              "longType": "google.protobuf.Timestamp",
+              "fullType": "google.protobuf.Timestamp",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SessionInfo",
+          "longName": "SessionInfo",
+          "fullName": "gnsi.accounting.v1.SessionInfo",
+          "description": "SessionInfo is the session identifier that identifies the context\nin which service was executed.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "system_address",
+              "description": "system_address is the address of the System sending the event,\nin most cases this address is the Loopback or Loopback equivalent\non the System which is sending the messages to the remote collector.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "layer4_proto",
+              "description": "Information for 5 tuple for the connection",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "local_port",
+              "description": "",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "remote_address",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "remote_port",
+              "description": "",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "channel_id",
+              "description": "For multiplexing multiple channels over single 5 tuple\n- multiple CLI connections over single SSH\n- multiple channels in a gRPC conncetion",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "AccountingPull",
+          "longName": "AccountingPull",
+          "fullName": "gnsi.accounting.v1.AccountingPull",
+          "description": "The Accounting(Pull/Push) services describe the interfaces between a System\nand a remote collector that collect data about what changes were attempted or\ncompleted on that System through standard interfaces to the System.\n\nAccounting messages may be collected by connecting to the Accounting\nservice (AccountingPull) on a System from a remote collector, or by\nconfiguring a System to connect(AccountingPush) to the remote collector\ndirectly.\n\nRecord()s created on a System can be delivered to remote collectors,\nstored locally, or discarded locally. Configuration of this behavior\nis done with standard gNMI system configuration methods.",
+          "methods": [
+            {
+              "name": "RecordStream",
+              "description": "RecordStream is a stream of Record()s sent from the system to\na remote collection service, when the remote service connects\nto the Accounting service.\n\nA RecordRequest contains a timestamp indicating the last message\nreceived. The remote collector's expectation is that all messages\nafter the timestamp will be streamed.\n\nAt connection initiation the remote collector may send either the current\ntime or a zero time. A zero time indicates that all messages stored on the\nSystem should be sent to the collector. A current time indicates that only\nnew messages should be sent.\n\nThe remote collector must send a RecordRequest at least every 60\nseconds, in order to signal its status to the system. Failure to send a\nRecordRequest for more than 120 seconds will cause the connection to be\nreset.",
+              "requestType": "RecordSync",
+              "requestLongType": "RecordSync",
+              "requestFullType": "gnsi.accounting.v1.RecordSync",
+              "requestStreaming": true,
+              "responseType": "Record",
+              "responseLongType": "Record",
+              "responseFullType": "gnsi.accounting.v1.Record",
+              "responseStreaming": true
+            }
+          ]
+        },
+        {
+          "name": "AccountingPush",
+          "longName": "AccountingPush",
+          "fullName": "gnsi.accounting.v1.AccountingPush",
+          "description": "",
+          "methods": [
+            {
+              "name": "RecordStream",
+              "description": "RecordStream is a stream of Record()s sent from the System to\na remote collection service when the System is configured to\nconnect to that remote collection service.\n\nThe RecordsAck contains a timestamp indicating the last message\nreceived. The remote collector's expectation is that all messages\nafter the timestamp will be streamed.\n\nAt connection initiation the remote collector may send either\nthe current time or a zero time. A zero time indicates that all\nstored messages should be sent to the collector. A current time\nindicates that only new messages should be sent.\n\nThe remote collector must send a RecordsAck at least every 60\nseconds, in order to signal its status to the System. Failure\nto send a RecordsAck for more than 120 seconds will cause the\nconnection to be reset.",
+              "requestType": "Record",
+              "requestLongType": "Record",
+              "requestFullType": "gnsi.accounting.v1.Record",
+              "requestStreaming": true,
+              "responseType": "RecordSync",
+              "responseLongType": "RecordSync",
+              "responseFullType": "gnsi.accounting.v1.RecordSync",
+              "responseStreaming": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "github.com/openconfig/gnsi/version/version.proto",
+      "description": "",
+      "package": "gnsi",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": false,
+      "hasServices": false,
+      "enums": [],
+      "extensions": [],
+      "messages": [],
+      "services": []
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

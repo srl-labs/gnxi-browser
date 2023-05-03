@@ -1,0 +1,1572 @@
+{
+  "files": [
+    {
+      "name": "github.com/openconfig/gnsi/credentialz/credentialz.proto",
+      "description": "",
+      "package": "gnsi.credentialz.v1",
+      "hasEnums": true,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [
+        {
+          "name": "KeyGen",
+          "longName": "KeyGen",
+          "fullName": "gnsi.credentialz.v1.KeyGen",
+          "description": "KeyGen specifies the valid types of keys and their lengths that\ncan be used.",
+          "values": [
+            {
+              "name": "KEY_GEN_SSH_KEY_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "KEY_GEN_SSH_KEY_TYPE_RSA_2048",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "KEY_GEN_SSH_KEY_TYPE_ECDSA_P_256",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "KEY_GEN_SSH_KEY_TYPE_ECDSA_P_521",
+              "number": "3",
+              "description": ""
+            },
+            {
+              "name": "KEY_GEN_SSH_KEY_TYPE_EDDSA_ED25519",
+              "number": "4",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "KeyType",
+          "longName": "KeyType",
+          "fullName": "gnsi.credentialz.v1.KeyType",
+          "description": "Key encryption type.",
+          "values": [
+            {
+              "name": "KEY_TYPE_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "KEY_TYPE_ECDSA_P_256",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "KEY_TYPE_ECDSA_P_521",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "KEY_TYPE_ED25519",
+              "number": "3",
+              "description": ""
+            },
+            {
+              "name": "KEY_TYPE_RSA",
+              "number": "4",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "StandardOption",
+          "longName": "Option.StandardOption",
+          "fullName": "gnsi.credentialz.v1.Option.StandardOption",
+          "description": "An option that is specified for an authorized user, key entry, or\nauthorized principal tool.\nFor example, for OpenSSH, an entry can have an option\n`from=\"*.sales.example.net,!pc.sales.example.net\"`\nFor such option the `key.id` would be `FROM` (6) while the `value`\nwould be `*.sales.example.net,!pc.sales.example.net`.\n\nIf a specified option is unknown then the whole request should be rejected.",
+          "values": [
+            {
+              "name": "STANDARD_OPTION_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "STANDARD_OPTION_AGENT_FORWARDING",
+              "number": "1",
+              "description": "Enable authentication agent forwarding previously disabled by the\nrestrict option."
+            },
+            {
+              "name": "STANDARD_OPTION_CERT_ATHORITY",
+              "number": "2",
+              "description": "Certificates may encode access restrictions similar to these key options.\nIf both certificate restrictions and key options are present, the most\nrestrictive union of the two is applied."
+            },
+            {
+              "name": "STANDARD_OPTION_COMMAND",
+              "number": "3",
+              "description": "If a command is specified and a forced-command is embedded in a\n certificate used for authentication, then the certificate will be\n accepted only if the two commands are identical."
+            },
+            {
+              "name": "STANDARD_OPTION_ENVIRONMENT",
+              "number": "4",
+              "description": "Specifies that the string is to be added to the environment when logging\n in using this key.  Environment variables set this way override other\n default environment values.  Multiple options of this type are\n permitted. Environment processing is disabled by default and is\n controlled via the PermitUserEnvironment option."
+            },
+            {
+              "name": "STANDARD_OPTION_EXPIRY_TIME",
+              "number": "5",
+              "description": "Specifies a time after which the key will not be accepted.  The time may\n be specified as a YYYYMMDD date or a YYYYMMDDHHMM[SS] time in the system\n time-zone."
+            },
+            {
+              "name": "STANDARD_OPTION_FROM",
+              "number": "6",
+              "description": "The purpose of this option is to optionally increase security: public key\nauthentication by itself does not trust the network or name servers or\nanything (but the key); however, if somebody somehow steals the key, the\nkey permits an intruder to log in from anywhere in the world.  This\nadditional option makes using a stolen key more difficult (name servers\nand/or routers would have to be compromised in addition to just the key)."
+            },
+            {
+              "name": "STANDARD_OPTION_NO_AGENT_FORWARDING",
+              "number": "7",
+              "description": "Forbids authentication agent forwarding when this key is used for\n authentication."
+            },
+            {
+              "name": "STANDARD_OPTION_NO_PORT_FORWARDING",
+              "number": "8",
+              "description": "Forbids TCP forwarding when this key is used for authentication.  Any\n port forward requests by the client will return an error.  This might be\n used, e.g. in connection with the command option."
+            },
+            {
+              "name": "STANDARD_OPTION_NO_PTY",
+              "number": "9",
+              "description": "Prevents tty allocation (a request to allocate a pty will fail)."
+            },
+            {
+              "name": "STANDARD_OPTION_NO_USER_RC",
+              "number": "10",
+              "description": "Disables execution of ~/.ssh/rc."
+            },
+            {
+              "name": "STANDARD_OPTION_NO_X11_FORWARDING",
+              "number": "11",
+              "description": "Forbids X11 forwarding when this key is used for authentication.  Any\n X11 forward requests by the client will return an error."
+            },
+            {
+              "name": "STANDARD_OPTION_PERMITLISTEN",
+              "number": "12",
+              "description": "Limit remote port forwarding with the ssh(1) -R option such that it may\n only listen on the specified host (optional) and port.  IPv6 addresses\n can be specified by enclosing the address in square brackets.  Multiple\n permitlisten options may be applied separated by commas.  Hostnames may\n include wildcards as described in the PATTERNS section in ssh_config(5).\n A port specification of * matches any port. Note that the setting of\n GatewayPorts may further restrict listen addresses.  Note that ssh(1)\n will send a hostname of “localhost” if a listen host was not specified\n when the forwarding was requested, and that this name is treated\n differently to the explicit localhost addresses “127.0.0.1” and “::1”."
+            },
+            {
+              "name": "STANDARD_OPTION_PERMITOPEN",
+              "number": "13",
+              "description": "Limit local port forwarding with the ssh(1) -L option such that it may\n only connect to the specified host and port.  IPv6 addresses can be\n specified by enclosing the address in square brackets.  Multiple\n permitopen options may be applied separated by commas.  No pattern\n matching or name lookup is performed on the specified hostnames, they\n must be literal host names and/or addresses.  A port specification of *\n matches any port."
+            },
+            {
+              "name": "STANDARD_OPTION_PORT_FORWARDING",
+              "number": "14",
+              "description": "Enable port forwarding previously disabled by the restrict option."
+            },
+            {
+              "name": "STANDARD_OPTION_PRINCIPALS",
+              "number": "15",
+              "description": "On a cert-authority line, specifies allowed principals for certificate\n authentication as a comma-separated list.  At least one name from the\n list must appear in the certificate's list of principals for the\n certificate to be accepted. This option is ignored for keys that are not\n marked as trusted certificate signers using the cert-authority option."
+            },
+            {
+              "name": "STANDARD_OPTION_PTY",
+              "number": "16",
+              "description": "Permits tty allocation previously disabled by the restrict option."
+            },
+            {
+              "name": "STANDARD_OPTION_NO_TOUCH_REQUIRED",
+              "number": "17",
+              "description": "Do not require demonstration of user presence for signatures made using\n this key. This option only makes sense for the FIDO authenticator\n algorithms ecdsa-sk and ed25519-sk."
+            },
+            {
+              "name": "STANDARD_OPTION_VERIFY_REQUIRED",
+              "number": "18",
+              "description": "Require that signatures made using this key attest that they verified\n the user, e.g. via a PIN.  This option only makes sense for the FIDO\n authenticator algorithms ecdsa-sk and ed25519-sk."
+            },
+            {
+              "name": "STANDARD_OPTION_RESTRICT",
+              "number": "19",
+              "description": "Enable all restrictions, i.e. disable port, agent and X11 forwarding, as\n well as disabling PTY allocation and execution of ~/.ssh/rc.  If any\n future restriction capabilities are added to authorized_keys files they\n will be included in this set."
+            },
+            {
+              "name": "STANDARD_OPTION_TUNNEL",
+              "number": "20",
+              "description": "Force a tun(4) device on the server.  Without this option, the next\n available device will be used if the client requests a tunnel."
+            },
+            {
+              "name": "STANDARD_OPTION_USER_RC",
+              "number": "21",
+              "description": "Enables execution of ~/.ssh/rc previously disabled by the restrict\n option."
+            },
+            {
+              "name": "STANDARD_OPTION_X11_FORWARDING",
+              "number": "22",
+              "description": "Permits X11 forwarding previously disabled by the restrict option."
+            }
+          ]
+        },
+        {
+          "name": "HashType",
+          "longName": "PasswordRequest.CryptoHash.HashType",
+          "fullName": "gnsi.credentialz.v1.PasswordRequest.CryptoHash.HashType",
+          "description": "Hash type's",
+          "values": [
+            {
+              "name": "HASH_TYPE_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "HASH_TYPE_CRYPT_MD5",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "HASH_TYPE_CRYPT_SHA_2_512",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Tool",
+          "longName": "UserPolicy.AuthorizedPrincipalCheck.Tool",
+          "fullName": "gnsi.credentialz.v1.UserPolicy.AuthorizedPrincipalCheck.Tool",
+          "description": "",
+          "values": [
+            {
+              "name": "TOOL_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "TOOL_HIBA",
+              "number": "1",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "AccountCredentials",
+          "longName": "AccountCredentials",
+          "fullName": "gnsi.credentialz.v1.AccountCredentials",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "account",
+              "description": "The system role account name (e.g. root). This account must exist.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "authorized_keys",
+              "description": "`authorized_keys` specifies one or more SSH keys that is permitted for the\nsystem role.",
+              "label": "repeated",
+              "type": "AuthorizedKey",
+              "longType": "AccountCredentials.AuthorizedKey",
+              "fullType": "gnsi.credentialz.v1.AccountCredentials.AuthorizedKey",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "version",
+              "description": "`version` contains versioning information that is controlled by\nthe credential manager and reported as-is by the telemetry reporting system\n(ie, transparent to the device credential service).  Credential managers\nshould choose version strings as discrete as possible to ease alert\ngeneration (eg, for credentials sourced from a bundle, the timestamp of\nthe bundle should be used but not the time when the credential is pushed to\na particular switch).  Also, such version strings should be persisted by\nthe devices onto non-volatile memory for preservation across system\nreboots.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "created_on",
+              "description": "`created_on` contains information when the credentials were created.\nThis information is controlled by the credential manager and reported as-is\nby the telemetry reporting system (ie, transparent to the device credential\nservice).  Credential managers should use the timestamp of the moment when\ncredential was created, not the time when the credential is pushed to\na particular switch).\nAlso, this timestamp should be persisted by the devices onto non-volatile\nmemory for preservation across system reboots.\n`created_on` is a timestamp: the number of seconds since\nJanuary 1st, 1970 00:00:00 GMT.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AuthorizedKey",
+          "longName": "AccountCredentials.AuthorizedKey",
+          "fullName": "gnsi.credentialz.v1.AccountCredentials.AuthorizedKey",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "authorized_key",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "Options specified for this authorized key.",
+              "label": "repeated",
+              "type": "Option",
+              "longType": "Option",
+              "fullType": "gnsi.credentialz.v1.Option",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key_type",
+              "description": "Encryption mode for entry.",
+              "label": "",
+              "type": "KeyType",
+              "longType": "KeyType",
+              "fullType": "gnsi.credentialz.v1.KeyType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "description",
+              "description": "An optional description of the key.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AuthorizedKeysRequest",
+          "longName": "AuthorizedKeysRequest",
+          "fullName": "gnsi.credentialz.v1.AuthorizedKeysRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "credentials",
+              "description": "A list of credentials that are to be accepted on the SSH service on\nthe network element.\nMultiple credentials MAY be specified to allow for multiple\nsystem roles, or specific user restrictions to be described.",
+              "label": "repeated",
+              "type": "AccountCredentials",
+              "longType": "AccountCredentials",
+              "fullType": "gnsi.credentialz.v1.AccountCredentials",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AuthorizedKeysResponse",
+          "longName": "AuthorizedKeysResponse",
+          "fullName": "gnsi.credentialz.v1.AuthorizedKeysResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "AuthorizedUsersRequest",
+          "longName": "AuthorizedUsersRequest",
+          "fullName": "gnsi.credentialz.v1.AuthorizedUsersRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "policies",
+              "description": "A list of policies that are to be applied on the SSH service on\nthe network element.\nMultiple policies MAY be specified to allow for multiple\nsystem roles, or specific user restrictions to be described.",
+              "label": "repeated",
+              "type": "UserPolicy",
+              "longType": "UserPolicy",
+              "fullType": "gnsi.credentialz.v1.UserPolicy",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AuthorizedUsersResponse",
+          "longName": "AuthorizedUsersResponse",
+          "fullName": "gnsi.credentialz.v1.AuthorizedUsersResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "CaPublicKeyRequest",
+          "longName": "CaPublicKeyRequest",
+          "fullName": "gnsi.credentialz.v1.CaPublicKeyRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "ssh_ca_public_keys",
+              "description": "Certificate Authority public keys to be used to verify certificates\npresented by clients during connection establishment.\nOpenSSH-formatted.",
+              "label": "repeated",
+              "type": "PublicKey",
+              "longType": "PublicKey",
+              "fullType": "gnsi.credentialz.v1.PublicKey",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "version",
+              "description": "`version` contains versioning information that is controlled by\nthe credential manager and reported as-is by the telemetry reporting system\n(ie, transparent to the device credential service).  Credential managers\nshould choose version strings as discrete as possible to ease alert\ngeneration (eg, for credentials sourced from a bundle, the timestamp of\nthe bundle should be used but not the time when the credential is pushed to\na particular switch).  Also, such version strings should be persisted by\nthe devices onto non-volatile memory for preservation across system\nreboots.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "created_on",
+              "description": "`created_on` contains information when the credentials were created.\nThis information is controlled by the credential manager and reported as-is\nby the telemetry reporting system (ie, transparent to the device credential\nservice).  Credential managers should use the timestamp of the moment when\ncredential was created, not the time when the credential is pushed to\na particular switch).\nAlso, this timestamp should be persisted by the devices onto non-volatile\nmemory for preservation across system reboots.\n`created_on` is a timestamp: the number of seconds since\nJanuary 1st, 1970 00:00:00 GMT.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CaPublicKeyResponse",
+          "longName": "CaPublicKeyResponse",
+          "fullName": "gnsi.credentialz.v1.CaPublicKeyResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "CanGenerateKeyRequest",
+          "longName": "CanGenerateKeyRequest",
+          "fullName": "gnsi.credentialz.v1.CanGenerateKeyRequest",
+          "description": "A request to ask the target if it can generate key pairs",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key_params",
+              "description": "",
+              "label": "",
+              "type": "KeyGen",
+              "longType": "KeyGen",
+              "fullType": "gnsi.credentialz.v1.KeyGen",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CanGenerateKeyResponse",
+          "longName": "CanGenerateKeyResponse",
+          "fullName": "gnsi.credentialz.v1.CanGenerateKeyResponse",
+          "description": "Response from the target whether it can generate the key pairs\nfor the given key specification",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "can_generate",
+              "description": "",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FinalizeRequest",
+          "longName": "FinalizeRequest",
+          "fullName": "gnsi.credentialz.v1.FinalizeRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "GenerateKeysRequest",
+          "longName": "GenerateKeysRequest",
+          "fullName": "gnsi.credentialz.v1.GenerateKeysRequest",
+          "description": "A request to generate a public/private key pair based on a given key\nspecification and return the public key back which will be used to create\na host SSH certificate.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key_params",
+              "description": "",
+              "label": "",
+              "type": "KeyGen",
+              "longType": "KeyGen",
+              "fullType": "gnsi.credentialz.v1.KeyGen",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GenerateKeysResponse",
+          "longName": "GenerateKeysResponse",
+          "fullName": "gnsi.credentialz.v1.GenerateKeysResponse",
+          "description": "Response from the target which has the generated public key.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "public_key",
+              "description": "",
+              "label": "",
+              "type": "PublicKey",
+              "longType": "PublicKey",
+              "fullType": "gnsi.credentialz.v1.PublicKey",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Option",
+          "longName": "Option",
+          "fullName": "gnsi.credentialz.v1.Option",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "key",
+              "defaultValue": ""
+            },
+            {
+              "name": "id",
+              "description": "",
+              "label": "",
+              "type": "StandardOption",
+              "longType": "Option.StandardOption",
+              "fullType": "gnsi.credentialz.v1.Option.StandardOption",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "key",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PasswordRequest",
+          "longName": "PasswordRequest",
+          "fullName": "gnsi.credentialz.v1.PasswordRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "accounts",
+              "description": "",
+              "label": "repeated",
+              "type": "Account",
+              "longType": "PasswordRequest.Account",
+              "fullType": "gnsi.credentialz.v1.PasswordRequest.Account",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Account",
+          "longName": "PasswordRequest.Account",
+          "fullName": "gnsi.credentialz.v1.PasswordRequest.Account",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "account",
+              "description": "The system role account name (e.g. root). This account must exist.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "password",
+              "description": "",
+              "label": "",
+              "type": "Password",
+              "longType": "PasswordRequest.Password",
+              "fullType": "gnsi.credentialz.v1.PasswordRequest.Password",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "version",
+              "description": "`version` contains versioning information that is controlled by\nthe credential manager and reported as-is by the telemetry reporting\nsystem (ie, transparent to the device credential service).  Credential\nmanagers should choose version strings as discrete as possible to ease\nalert generation (eg, for credentials sourced from a bundle,\nthe timestamp of the bundle should be used but not the time when\nthe credential is pushed to a particular switch).  Also, such version\nstrings should be persisted by the devices onto non-volatile memory for\npreservation across system reboots.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "created_on",
+              "description": "`created_on` contains information when the credentials were created.\nThis information is controlled by the credential manager and reported\nas-is by the telemetry reporting system (ie, transparent to the device\ncredential service).  Credential managers should use the timestamp of\nthe moment when credential was created, not the time when the credential\nis pushed to a particular switch).\nAlso, this timestamp should be persisted by the devices onto non-volatile\nmemory for preservation across system reboots.\n`created_on` is a timestamp: the number of seconds since\nJanuary 1st, 1970 00:00:00 GMT.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CryptoHash",
+          "longName": "PasswordRequest.CryptoHash",
+          "fullName": "gnsi.credentialz.v1.PasswordRequest.CryptoHash",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "hash_type",
+              "description": "Specifies the hash type used and value",
+              "label": "",
+              "type": "HashType",
+              "longType": "PasswordRequest.CryptoHash.HashType",
+              "fullType": "gnsi.credentialz.v1.PasswordRequest.CryptoHash.HashType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "hash_value",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Password",
+          "longName": "PasswordRequest.Password",
+          "fullName": "gnsi.credentialz.v1.PasswordRequest.Password",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "plaintext",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "crypto_hash",
+              "description": "",
+              "label": "",
+              "type": "CryptoHash",
+              "longType": "PasswordRequest.CryptoHash",
+              "fullType": "gnsi.credentialz.v1.PasswordRequest.CryptoHash",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PasswordResponse",
+          "longName": "PasswordResponse",
+          "fullName": "gnsi.credentialz.v1.PasswordResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "PublicKey",
+          "longName": "PublicKey",
+          "fullName": "gnsi.credentialz.v1.PublicKey",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "public_key",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key_type",
+              "description": "Encryption mode for entry",
+              "label": "",
+              "type": "KeyType",
+              "longType": "KeyType",
+              "fullType": "gnsi.credentialz.v1.KeyType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "description",
+              "description": "An optional description of the key",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RotateAccountCredentialsRequest",
+          "longName": "RotateAccountCredentialsRequest",
+          "fullName": "gnsi.credentialz.v1.RotateAccountCredentialsRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "credential",
+              "description": "",
+              "label": "",
+              "type": "AuthorizedKeysRequest",
+              "longType": "AuthorizedKeysRequest",
+              "fullType": "gnsi.credentialz.v1.AuthorizedKeysRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "user",
+              "description": "",
+              "label": "",
+              "type": "AuthorizedUsersRequest",
+              "longType": "AuthorizedUsersRequest",
+              "fullType": "gnsi.credentialz.v1.AuthorizedUsersRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "password",
+              "description": "",
+              "label": "",
+              "type": "PasswordRequest",
+              "longType": "PasswordRequest",
+              "fullType": "gnsi.credentialz.v1.PasswordRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "finalize",
+              "description": "",
+              "label": "",
+              "type": "FinalizeRequest",
+              "longType": "FinalizeRequest",
+              "fullType": "gnsi.credentialz.v1.FinalizeRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RotateAccountCredentialsResponse",
+          "longName": "RotateAccountCredentialsResponse",
+          "fullName": "gnsi.credentialz.v1.RotateAccountCredentialsResponse",
+          "description": "RotateAccountCredentialsResponse is the response to\nthe RotateAccountCredentials RPC.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "credential",
+              "description": "",
+              "label": "",
+              "type": "AuthorizedKeysResponse",
+              "longType": "AuthorizedKeysResponse",
+              "fullType": "gnsi.credentialz.v1.AuthorizedKeysResponse",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "user",
+              "description": "",
+              "label": "",
+              "type": "AuthorizedUsersResponse",
+              "longType": "AuthorizedUsersResponse",
+              "fullType": "gnsi.credentialz.v1.AuthorizedUsersResponse",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "password",
+              "description": "",
+              "label": "",
+              "type": "PasswordResponse",
+              "longType": "PasswordResponse",
+              "fullType": "gnsi.credentialz.v1.PasswordResponse",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RotateHostCredentialsRequest",
+          "longName": "RotateHostCredentialsRequest",
+          "fullName": "gnsi.credentialz.v1.RotateHostCredentialsRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "ssh_ca_public_key",
+              "description": "",
+              "label": "",
+              "type": "CaPublicKeyRequest",
+              "longType": "CaPublicKeyRequest",
+              "fullType": "gnsi.credentialz.v1.CaPublicKeyRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "server_keys",
+              "description": "",
+              "label": "",
+              "type": "ServerKeysRequest",
+              "longType": "ServerKeysRequest",
+              "fullType": "gnsi.credentialz.v1.ServerKeysRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "finalize",
+              "description": "",
+              "label": "",
+              "type": "FinalizeRequest",
+              "longType": "FinalizeRequest",
+              "fullType": "gnsi.credentialz.v1.FinalizeRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "generate_key_request",
+              "description": "",
+              "label": "",
+              "type": "GenerateKeysRequest",
+              "longType": "GenerateKeysRequest",
+              "fullType": "gnsi.credentialz.v1.GenerateKeysRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RotateHostCredentialsResponse",
+          "longName": "RotateHostCredentialsResponse",
+          "fullName": "gnsi.credentialz.v1.RotateHostCredentialsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "ca_public_key",
+              "description": "",
+              "label": "",
+              "type": "CaPublicKeyResponse",
+              "longType": "CaPublicKeyResponse",
+              "fullType": "gnsi.credentialz.v1.CaPublicKeyResponse",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "server_keys",
+              "description": "",
+              "label": "",
+              "type": "ServerKeysResponse",
+              "longType": "ServerKeysResponse",
+              "fullType": "gnsi.credentialz.v1.ServerKeysResponse",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "generate_key_response",
+              "description": "",
+              "label": "",
+              "type": "GenerateKeysResponse",
+              "longType": "GenerateKeysResponse",
+              "fullType": "gnsi.credentialz.v1.GenerateKeysResponse",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ServerKeysRequest",
+          "longName": "ServerKeysRequest",
+          "fullName": "gnsi.credentialz.v1.ServerKeysRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "auth_artifacts",
+              "description": "",
+              "label": "repeated",
+              "type": "AuthenticationArtifacts",
+              "longType": "ServerKeysRequest.AuthenticationArtifacts",
+              "fullType": "gnsi.credentialz.v1.ServerKeysRequest.AuthenticationArtifacts",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "version",
+              "description": "`version` contains versioning information that is controlled by\nthe credential manager and reported as-is by the telemetry reporting system\n(ie, transparent to the device credential service).  Credential managers\nshould choose version strings as discrete as possible to ease alert\ngeneration (eg, for credentials sourced from a bundle, the timestamp of\nthe bundle should be used but not the time when the credential is pushed to\na particular switch).  Also, such version strings should be persisted by\nthe devices onto non-volatile memory for preservation across system\nreboots.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "created_on",
+              "description": "`created_on` contains information when the credentials were created.\nThis information is controlled by the credential manager and reported as-is\nby the telemetry reporting system (ie, transparent to the device credential\nservice).  Credential managers should use the timestamp of the moment when\ncredential was created, not the time when the credential is pushed to\na particular switch).\nAlso, this timestamp should be persisted by the devices onto non-volatile\nmemory for preservation across system reboots.\n`created_on` is a timestamp: the number of seconds since\nJanuary 1st, 1970 00:00:00 GMT.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AuthenticationArtifacts",
+          "longName": "ServerKeysRequest.AuthenticationArtifacts",
+          "fullName": "gnsi.credentialz.v1.ServerKeysRequest.AuthenticationArtifacts",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "private_key",
+              "description": "Private key to be used by the SSH server.\nOpenSSH-formatted.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "certificate",
+              "description": "SSH Certificate (server's public key signed by the Certificate Authority)\nto be used by the SSH server.\nOpenSSH-formatted.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ServerKeysResponse",
+          "longName": "ServerKeysResponse",
+          "fullName": "gnsi.credentialz.v1.ServerKeysResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "UserPolicy",
+          "longName": "UserPolicy",
+          "fullName": "gnsi.credentialz.v1.UserPolicy",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "account",
+              "description": "The system role account name (e.g. root). This account must exist.\n\nHow the system authorizes users, either by way of a hard-coded repeated\nSshAuthorizedUser (authorized_users) or through an AuthorizedUserTool enum.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "authorized_users",
+              "description": "Mapping of system user to authorized principals.",
+              "label": "",
+              "type": "SshAuthorizedUsers",
+              "longType": "UserPolicy.SshAuthorizedUsers",
+              "fullType": "gnsi.credentialz.v1.UserPolicy.SshAuthorizedUsers",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "user_authorization",
+              "defaultValue": ""
+            },
+            {
+              "name": "principal_check",
+              "description": "A tool and options for dynamic authorized principal checking.",
+              "label": "",
+              "type": "AuthorizedPrincipalCheck",
+              "longType": "UserPolicy.AuthorizedPrincipalCheck",
+              "fullType": "gnsi.credentialz.v1.UserPolicy.AuthorizedPrincipalCheck",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "user_authorization",
+              "defaultValue": ""
+            },
+            {
+              "name": "version",
+              "description": "`version` contains versioning information that is controlled by\nthe credential manager and reported as-is by the telemetry reporting system\n(ie, transparent to the device credential service).  Credential managers\nshould choose version strings as discrete as possible to ease alert\ngeneration (eg, for credentials sourced from a bundle, the timestamp of\nthe bundle should be used but not the time when the credential is pushed to\na particular switch).  Also, such version strings should be persisted by\nthe devices onto non-volatile memory for preservation across system\nreboots.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "created_on",
+              "description": "`created_on` contains information when the credentials were created.\nThis information is controlled by the credential manager and reported as-is\nby the telemetry reporting system (ie, transparent to the device credential\nservice).  Credential managers should use the timestamp of the moment when\ncredential was created, not the time when the credential is pushed to\na particular switch).\nAlso, this timestamp should be persisted by the devices onto non-volatile\nmemory for preservation across system reboots.\n`created_on` is a timestamp: the number of seconds since\nJanuary 1st, 1970 00:00:00 GMT.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AuthorizedPrincipalCheck",
+          "longName": "UserPolicy.AuthorizedPrincipalCheck",
+          "fullName": "gnsi.credentialz.v1.UserPolicy.AuthorizedPrincipalCheck",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "tool",
+              "description": "",
+              "label": "",
+              "type": "Tool",
+              "longType": "UserPolicy.AuthorizedPrincipalCheck.Tool",
+              "fullType": "gnsi.credentialz.v1.UserPolicy.AuthorizedPrincipalCheck.Tool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "Options specified for the AuthorizedPrincipalCheck",
+              "label": "repeated",
+              "type": "Option",
+              "longType": "Option",
+              "fullType": "gnsi.credentialz.v1.Option",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SshAuthorizedUser",
+          "longName": "UserPolicy.SshAuthorizedUser",
+          "fullName": "gnsi.credentialz.v1.UserPolicy.SshAuthorizedUser",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "authorized_user",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "Options specified for this authorized user.",
+              "label": "repeated",
+              "type": "Option",
+              "longType": "Option",
+              "fullType": "gnsi.credentialz.v1.Option",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SshAuthorizedUsers",
+          "longName": "UserPolicy.SshAuthorizedUsers",
+          "fullName": "gnsi.credentialz.v1.UserPolicy.SshAuthorizedUsers",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "authorized_users",
+              "description": "List of system users to authorized principal mapping for certificate\nauthentication.",
+              "label": "repeated",
+              "type": "SshAuthorizedUser",
+              "longType": "UserPolicy.SshAuthorizedUser",
+              "fullType": "gnsi.credentialz.v1.UserPolicy.SshAuthorizedUser",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "Credentialz",
+          "longName": "Credentialz",
+          "fullName": "gnsi.credentialz.v1.Credentialz",
+          "description": "",
+          "methods": [
+            {
+              "name": "RotateAccountCredentials",
+              "description": "RotateAccountCredentials allows to specify an authentication SSH service\npolicy to the network element. The policy, if valid, replaces the existing\npolicy.\n\nCanonical error codes are to be used as responses. See\nhttps://grpc.io/docs/guides/error/ for more details.\n\nAllows for setting the SSH authorized keys list for a system account\n(i.e. the set of SSH keys that are allows to login to the account).\nAlso allows to set the SSH authorized users list for a system account\n(i.e. the set of SSH certificate users accepted for login to the account).\nMoreover, it allows to change the system account's password.\n\nCase 1: Both the credentials and authorized usernames are set.\n\n  Step 1: Start the stream\n    Client \u003c---- RotateAccountCredentials() RPC stream begin ------\u003e Target\n\n  Step 2: Credentials are replaced\n    Client -----\u003e AuthorizedKeysRequest----\u003e Target\n    Client \u003c----- AuthorizedKeysResponse \u003c--- Target\n\n  Step 3: Authorized username lists are replaced\n    Client -----\u003e AuthorizedUsersRequest----\u003e Target\n    Client \u003c----- AuthorizedUsersResponse \u003c--- Target\n\n  Step 4 (optional): Test/Validation by the client.\n    During this step client attempts to create a new connection to\n    the target using the new certificates/keys and validates that\n    the certificates/keys \"work\".\n    Once verified, the client then proceeds to finalize the rotation.\n    If the new connection cannot be completed the client will cancel the\n    RPC thereby forcing the target to rollback all the certificates/keys.\n\n  Step 5: Final commit.\n    Client -----\u003e FinalizeRequest----\u003e Target\n\n\nCase 2: Only the credentials are updated.\n\n  Step 1: Start the stream\n    Client \u003c---- RotateAccountCredentials() RPC stream begin ------\u003e Target\n\n  Step 2: Credentials are replaced\n    Client -----\u003e AuthorizedKeysRequest----\u003e Target\n    Client \u003c----- AuthorizedKeysResponse \u003c--- Target\n\n  Step 3 (optional): Test/Validation by the client.\n    During this step client attempts to create a new connection to\n    the target using the new certificates/keys and validates that\n    the certificates/keys \"work\".\n    Once verified, the client then proceeds to finalize the rotation.\n    If the new connection cannot be completed the client will cancel the\n    RPC thereby forcing the target to rollback all the certificates/keys.\n\n  Step 4: Final commit.\n    Client -----\u003e FinalizeRequest----\u003e Target\n\n\nCase 3: Only authorized usernames are updated.\n\n  Step 1: Start the stream\n    Client \u003c---- RotateAccountCredentials() RPC stream begin ------\u003e Target\n\n  Step 2: New authorized username lists are replaced\n    Client -----\u003e AuthorizedUsersRequest----\u003e Target\n    Client \u003c----- AuthorizedUsersResponse \u003c--- Target\n\n  Step 3 (optional): Test/Validation by the client.\n    During this step client attempts to create a new connection to\n    the target using the new certificates/keys and validates that\n    the certificates/keys \"work\".\n    Once verified, the client then proceeds to finalize the rotation.\n    If the new connection cannot be completed the client will cancel the\n    RPC thereby forcing the target to rollback all the certificates/keys.\n\n  Step 4: Final commit.\n    Client -----\u003e FinalizeRequest----\u003e Target\n\n\nCase 4: Passwords are updated.\n\n  Step 1: Start the stream\n    Client \u003c---- RotateAccountCredentials() RPC stream begin ------\u003e Target\n\n  Step 2: Account passwords are replaced\n    Client -----\u003e PasswordRequest----\u003e Target\n    Client \u003c----- PasswordResponse \u003c--- Target\n\n  Step 3 (optional): Test/Validation by the client.\n    During this step client attempts to create a new connection to\n    the target using the new passwords and validates that they \"work\".\n    Once verified, the client then proceeds to finalize the rotation.\n    If the new connection cannot be completed the client will cancel the\n    RPC thereby forcing the target to rollback all the passwords.\n\n  Step 4: Final commit.\n    Client -----\u003e FinalizeRequest----\u003e Target",
+              "requestType": "RotateAccountCredentialsRequest",
+              "requestLongType": "RotateAccountCredentialsRequest",
+              "requestFullType": "gnsi.credentialz.v1.RotateAccountCredentialsRequest",
+              "requestStreaming": true,
+              "responseType": "RotateAccountCredentialsResponse",
+              "responseLongType": "RotateAccountCredentialsResponse",
+              "responseFullType": "gnsi.credentialz.v1.RotateAccountCredentialsResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "RotateHostCredentials",
+              "description": "RotateHostCredentials() allows for changing both the Certificate Authority\npublic key as well as the keys and the certificate used by the SSH server.\nThe CA public key key is used to verify certificates presented by\nthe client to the SSH server during connection establishment.\nThe server's public and private keys are required during regular operations\nof the SSH server.\nThe SSH server's certificate is used by the client to authenticate\nthe server during connection establishemnt process. This certificate might\nbe signed by the same Certificate Authority that has signed clients'\ncertificates.\n\nUse Case 1: Update the CA public key.\n\n  Step 1: Start the stream\n    Client \u003c---- RotateHostCredentials() RPC stream begin ------\u003e Target\n\n  Step 2: Replace the CA public key\n    Client -----\u003e CaPublicKeyRequest----\u003e Target\n    Client \u003c----- CaPublicKeyResponse \u003c--- Target\n\n  Step 3 (optional): Test/Validation by the client.\n    During this step client attempts to create a new connection to\n    the target using the new certificates/keys and validates that\n    the certificates/keys \"work\".\n    Once verfied, the client then proceeds to finalize the rotation.\n    If the new connection cannot be completed the client will cancel the\n    RPC thereby forcing the target to rollback all the certificates/keys.\n\n  Step 4: Final commit.\n    Client -----\u003e FinalizeRequest----\u003e Target\n\nUse Case 2: Update the server's keys.\n\n  Step 1: Start the stream\n    Client \u003c---- RotateHostCredentials() RPC stream begin ------\u003e Target\n\n  Step 2: Replace all server keys\n    Client -----\u003e ServerKeysRequest----\u003e Target\n    Client \u003c----- ServerKeysResponse \u003c--- Target\n\n  Step 3 (optional): Test/Validation by the client.\n    During this step client attempts to create a new connection to\n    the target using the new certificates/keys and validates that\n    the certificates/keys \"work\".\n    Once verfied, the client then proceeds to finalize the rotation.\n    If the new connection cannot be completed the client will cancel the\n    RPC thereby forcing the target to rollback all the certificates/keys.\n\n  Step 4: Final commit.\n    Client -----\u003e FinalizeRequest----\u003e Target",
+              "requestType": "RotateHostCredentialsRequest",
+              "requestLongType": "RotateHostCredentialsRequest",
+              "requestFullType": "gnsi.credentialz.v1.RotateHostCredentialsRequest",
+              "requestStreaming": true,
+              "responseType": "RotateHostCredentialsResponse",
+              "responseLongType": "RotateHostCredentialsResponse",
+              "responseFullType": "gnsi.credentialz.v1.RotateHostCredentialsResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "CanGenerateKey",
+              "description": "An RPC to ask a target if it can generate a Public/Private key pair",
+              "requestType": "CanGenerateKeyRequest",
+              "requestLongType": "CanGenerateKeyRequest",
+              "requestFullType": "gnsi.credentialz.v1.CanGenerateKeyRequest",
+              "requestStreaming": false,
+              "responseType": "CanGenerateKeyResponse",
+              "responseLongType": "CanGenerateKeyResponse",
+              "responseFullType": "gnsi.credentialz.v1.CanGenerateKeyResponse",
+              "responseStreaming": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "github.com/openconfig/gnsi/version/version.proto",
+      "description": "",
+      "package": "gnsi",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": false,
+      "hasServices": false,
+      "enums": [],
+      "extensions": [],
+      "messages": [],
+      "services": []
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

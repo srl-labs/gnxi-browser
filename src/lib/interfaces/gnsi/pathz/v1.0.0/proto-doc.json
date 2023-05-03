@@ -1,0 +1,967 @@
+{
+  "files": [
+    {
+      "name": "github.com/openconfig/gnsi/pathz/pathz.proto",
+      "description": "This file defines the gNSI API to be used for the OpenConfig Path-based\nAuthorization policy rotation.",
+      "package": "gnsi.pathz.v1",
+      "hasEnums": true,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [
+        {
+          "name": "PolicyInstance",
+          "longName": "PolicyInstance",
+          "fullName": "gnsi.pathz.v1.PolicyInstance",
+          "description": "",
+          "values": [
+            {
+              "name": "POLICY_INSTANCE_UNSPECIFIED",
+              "number": "0",
+              "description": "Invalid instance. Referring to this instance in any of the RPCs always\nresults in an error report."
+            },
+            {
+              "name": "POLICY_INSTANCE_ACTIVE",
+              "number": "1",
+              "description": "The policy that is currently used by the gNMI service to authorize access."
+            },
+            {
+              "name": "POLICY_INSTANCE_SANDBOX",
+              "number": "2",
+              "description": "The most recent policy that has been uploaded during the Rotation() RPC.\nIf there is no Rotate() RPC in progress, then referring to this instance\nof the OpenConfig gNMI Path-based Authorization Policy will result in\nan error."
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "FinalizeRequest",
+          "longName": "FinalizeRequest",
+          "fullName": "gnsi.pathz.v1.FinalizeRequest",
+          "description": "A Finalize message is sent to the target to confirm the rotation of\nthe OpenConfig gNMI Path-based Authorization Policy and that it should not be\nrolled back when the RPC concludes.\nNote that the OpenConfig gNMI Path-based Authorization Policy change is\nconsidered rolled back by the target if the target returns an error as\nresponse to the Finalize message.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "GetRequest",
+          "longName": "GetRequest",
+          "fullName": "gnsi.pathz.v1.GetRequest",
+          "description": "GetRequest specifies which instance of the OpenConfig gNMI Path-based\nAuthorization Policy is to be returned to the caller.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "policy_instance",
+              "description": "The instance of the OpenConfig gNMI Path-based Authorization Policy to be\nreturned to the caller.",
+              "label": "",
+              "type": "PolicyInstance",
+              "longType": "PolicyInstance",
+              "fullType": "gnsi.pathz.v1.PolicyInstance",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetResponse",
+          "longName": "GetResponse",
+          "fullName": "gnsi.pathz.v1.GetResponse",
+          "description": "GetResponse returns the requested instance of the OpenConfig gNMI Path-based\nAuthorization Policy together with `version` and `created_on` information.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "version",
+              "description": "`version` contains versioning information that is controlled by\nthe policy manager and reported as-is by the telemetry reporting system\n(ie, transparent to the target policy management service). Policy managers\nshould choose version strings as discrete as possible to ease alert\ngeneration (eg, for policies sourced from a bundle, the timestamp of\nthe bundle should be used but not the time when the policy is pushed to\na particular switch). Also, such version string should be persisted by\nthe device onto non-volatile memory for preservation across system\nreboots.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "created_on",
+              "description": "`created_on` contains information when the policy was created.\nThis information is controlled by the policy manager and reported as-is\nby the telemetry reporting system (ie, transparent to the device policy\nmanagement service). Policy manager should use the timestamp of the moment\nwhen policy was created, not the time when the policy is pushed to\na particular switch).\nAlso, this timestamp should be persisted by the device onto non-volatile\nmemory for preservation across system reboots.\n`created_on` is a timestamp: the number of seconds since\nJanuary 1st, 1970 00:00:00 GMT a.k.a. unix epoch.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "policy",
+              "description": "The actual OpenConfig gNMI Path-based Authorization Policy.",
+              "label": "",
+              "type": "AuthorizationPolicy",
+              "longType": "gnsi.pathz.AuthorizationPolicy",
+              "fullType": "gnsi.pathz.AuthorizationPolicy",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ProbeRequest",
+          "longName": "ProbeRequest",
+          "fullName": "gnsi.pathz.v1.ProbeRequest",
+          "description": "ProbeRequest contains a single user name and gNMI path being attempted.\nData returned to an RPC caller should adhere to the policy.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "user",
+              "description": "The user name to be used to perform the evaluation.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "path",
+              "description": "The gNMI path to be used to perform the evaluation.",
+              "label": "",
+              "type": "Path",
+              "longType": "gnmi.Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "mode",
+              "description": "The operation type (read or write) to be used to perform the evaluation.",
+              "label": "",
+              "type": "Mode",
+              "longType": "gnsi.pathz.Mode",
+              "fullType": "gnsi.pathz.Mode",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "policy_instance",
+              "description": "The instance of the OpenConfig gNMI Path-based Authorization Policy to be\nused to perform the evaluation.",
+              "label": "",
+              "type": "PolicyInstance",
+              "longType": "PolicyInstance",
+              "fullType": "gnsi.pathz.v1.PolicyInstance",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ProbeResponse",
+          "longName": "ProbeResponse",
+          "fullName": "gnsi.pathz.v1.ProbeResponse",
+          "description": "ProbeResponse returns the ACK/NACK for a single user request\nas evaluated against the current policy, along with the version of the policy\nthat the gNMI path/user were evaluated against.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "action",
+              "description": "",
+              "label": "",
+              "type": "Action",
+              "longType": "gnsi.pathz.Action",
+              "fullType": "gnsi.pathz.Action",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "version",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RotateRequest",
+          "longName": "RotateRequest",
+          "fullName": "gnsi.pathz.v1.RotateRequest",
+          "description": "Request messages to rotate existing OpenConfig gNMI Path-based Authorization\nPolicy on the target.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "upload_request",
+              "description": "",
+              "label": "",
+              "type": "UploadRequest",
+              "longType": "UploadRequest",
+              "fullType": "gnsi.pathz.v1.UploadRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "rotate_request",
+              "defaultValue": ""
+            },
+            {
+              "name": "finalize_rotation",
+              "description": "",
+              "label": "",
+              "type": "FinalizeRequest",
+              "longType": "FinalizeRequest",
+              "fullType": "gnsi.pathz.v1.FinalizeRequest",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "rotate_request",
+              "defaultValue": ""
+            },
+            {
+              "name": "force_overwrite",
+              "description": "If set to `true` the requested operation will succeed even if the\ncombination of `id` and `version` is already in use (is not unique).\nIf set to `false` the requested operation will fail and the streaming RPC\nwill be closed with the `ALREADY_EXISTS` gRPC error if the combination\nof `id` and `version` is already in use (is not unique).\nIt is a no-op for the `finalize_rotation` request.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RotateResponse",
+          "longName": "RotateResponse",
+          "fullName": "gnsi.pathz.v1.RotateResponse",
+          "description": "Response messages from the target.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "upload",
+              "description": "",
+              "label": "",
+              "type": "UploadResponse",
+              "longType": "UploadResponse",
+              "fullType": "gnsi.pathz.v1.UploadResponse",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "UploadRequest",
+          "longName": "UploadRequest",
+          "fullName": "gnsi.pathz.v1.UploadRequest",
+          "description": "UploadRequest instructs the target to store the given OpenConfig gNMI Path-\nbased Authorization Policy.\n\nIf there is another ongoing Rotate RPC the UploadRequest must fail.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "version",
+              "description": "`version` contains versioning information that is controlled by\nthe policy manager and reported as-is by the telemetry reporting system\n(ie, transparent to the target policy management service). Policy managers\nshould choose version strings as discrete as possible to ease alert\ngeneration (eg, for policies sourced from a bundle, the timestamp of\nthe bundle should be used but not the time when the policy is pushed to\na particular switch). Also, such version string should be persisted by\nthe device onto non-volatile memory for preservation across system\nreboots.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "created_on",
+              "description": "`created_on` contains information when the policy was created.\nThis information is controlled by the policy manager and reported as-is\nby the telemetry reporting system (ie, transparent to the device policy\nmanagement service). Policy manager should use the timestamp of the moment\nwhen policy was created, not the time when the policy is pushed to\na particular switch).\nAlso, this timestamp should be persisted by the device onto non-volatile\nmemory for preservation across system reboots.\n`created_on` is a timestamp: the number of seconds since\nJanuary 1st, 1970 00:00:00 GMT a.k.a. unix epoch.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "policy",
+              "description": "The actual OpenConfig gNMI Path-based Authorization Policy.",
+              "label": "",
+              "type": "AuthorizationPolicy",
+              "longType": "gnsi.pathz.AuthorizationPolicy",
+              "fullType": "gnsi.pathz.AuthorizationPolicy",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "UploadResponse",
+          "longName": "UploadResponse",
+          "fullName": "gnsi.pathz.v1.UploadResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        }
+      ],
+      "services": [
+        {
+          "name": "Pathz",
+          "longName": "Pathz",
+          "fullName": "gnsi.pathz.v1.Pathz",
+          "description": "",
+          "methods": [
+            {
+              "name": "Rotate",
+              "description": "Rotate will replace an existing OpenConfig gNMI Path-based Authorization\nPolicy on the target.\nIf the stream is broken or any of the steps fail the target must rollback\nto the original state, i.e. revert any changes to the OpenConfig gNMI\nPath-based Authorization Policy made during this RPC.\n\nNote that only one such RPC can be in progress. An attempt to call this\nRPC while another is already in progress will be rejected with the\n`UNAVAILABLE` gRPC error.\n\nThe following describes the sequence of messages that must be exchanged\nin the Rotate() RPC.\n\nSequence of expected messages:\n  Step 1: Start the stream\n    Client ----\u003e Rotate() RPC stream begin ------\u003e Target\n\n  Step 2: Send OpenConfig gNMI Path-based Authorization Policy to Target.\n    Client --\u003e UploadRequest(pathz_policy) ----\u003e Target\n    Client \u003c-- UploadResponse \u003c--- Target\n\n  Step 3 (optional): Test/Validation by the client.\n    During this step client calls (possibly multiple times)\n    the Probe(POLICY_INSTANCE_SANDBOX) RPC to check that a combination of\n    user ID, gNMI path and operation mode that is supposed to be allowed by\n    the new policy and validates that the response is ACTION_PERMIT.\n    Additionally the client should call the Probe(POLICY_INSTANCE_SANDBOX)\n    RPC with a combination of user ID, gNMI path and operation mode that is\n    not allowed in the new policy and the attempt must result in\n    the ACTION_DENY response proving that the new policy \"works\".\n    Once verified, the client then proceeds to finalize the rotation.\n    If the verification did not succeed the client will cancel the Rotate\n    RPC thereby forcing the target to perform a rollback of the new\n    OpenConfig gNMI Path-based Authorization Policy to the previous one.\n\n  Step 4: Final commit.\n    Client ---\u003e FinalizeRequest ----\u003e Target",
+              "requestType": "RotateRequest",
+              "requestLongType": "RotateRequest",
+              "requestFullType": "gnsi.pathz.v1.RotateRequest",
+              "requestStreaming": true,
+              "responseType": "RotateResponse",
+              "responseLongType": "RotateResponse",
+              "responseFullType": "gnsi.pathz.v1.RotateResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "Probe",
+              "description": "Probe allows for evaluation of the pathz policy engine response to a gNMI\noperation performed by a user on a single gNMI path.\nThe response is based on the instance of policy specified in the request\nand is evaluated without actually performing the gNMI operation.",
+              "requestType": "ProbeRequest",
+              "requestLongType": "ProbeRequest",
+              "requestFullType": "gnsi.pathz.v1.ProbeRequest",
+              "requestStreaming": false,
+              "responseType": "ProbeResponse",
+              "responseLongType": "ProbeResponse",
+              "responseFullType": "gnsi.pathz.v1.ProbeResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "Get",
+              "description": "Get returns specified instance of the OpenConfig gNMI Path-based\nAuthorization Policy together with its version and created-on information.",
+              "requestType": "GetRequest",
+              "requestLongType": "GetRequest",
+              "requestFullType": "gnsi.pathz.v1.GetRequest",
+              "requestStreaming": false,
+              "responseType": "GetResponse",
+              "responseLongType": "GetResponse",
+              "responseFullType": "gnsi.pathz.v1.GetResponse",
+              "responseStreaming": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "github.com/openconfig/gnsi/pathz/authorization.proto",
+      "description": "Authorization for gnXi operations.\n\nCopyright 2022 Google LLC\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    https://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\nDefine a list of policies, where the most specific policy is applied\non the device authorizing the action.\n\nUsers may be referenced by user name, or as a group with a group name.\nGroups are defined and managed in the authorization policy itself.\n\nPaths may be referenced in whole or in complete parts, ie:\n  /interfaces/interface[name=Ethernet1/2/3]/state/counters\n  /interfaces/interface[name=*]/state/oper-status\n  /network-instances/network-instance/tables/table[proto=BGP][family=*]\n\nPaths are gnmi.Path protobufs.\n\nThe most specific match is returned for a request, this means the longest\npath and the most specific user match (user preferred over group).\n\nAdditionally, the policy maintains a timestamp of creation\nand version number from the underlying version control system.\nThe version/timestamp are available to requestors to verify which version\nof policy is being applied at the time of the request.",
+      "package": "gnsi.pathz",
+      "hasEnums": true,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [
+        {
+          "name": "Action",
+          "longName": "Action",
+          "fullName": "gnsi.pathz.Action",
+          "description": "Action is the defined action for an AuthorizationPolicy.",
+          "values": [
+            {
+              "name": "ACTION_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "ACTION_DENY",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "ACTION_PERMIT",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Mode",
+          "longName": "Mode",
+          "fullName": "gnsi.pathz.Mode",
+          "description": "Mode is:\n  READ: Ability to read/subscribe to data from the model.\n  WRITE: Ability to mutate/write updates to data in the model.",
+          "values": [
+            {
+              "name": "MODE_UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "MODE_READ",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "MODE_WRITE",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "AuthorizationPolicy",
+          "longName": "AuthorizationPolicy",
+          "fullName": "gnsi.pathz.AuthorizationPolicy",
+          "description": "AuthorizationPolicy includes rules and user/group information.\nThe service which updates the policies will provide both a\n  created_on - int64 - seconds since Jan 01 1970 00:00:00\n  version - string - unique among the implementation's policies deployed.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "rules",
+              "description": "",
+              "label": "repeated",
+              "type": "AuthorizationRule",
+              "longType": "AuthorizationRule",
+              "fullType": "gnsi.pathz.AuthorizationRule",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "groups",
+              "description": "Groups of usernames collected for simplicity of policy expression.",
+              "label": "repeated",
+              "type": "Group",
+              "longType": "Group",
+              "fullType": "gnsi.pathz.Group",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AuthorizationRule",
+          "longName": "AuthorizationRule",
+          "fullName": "gnsi.pathz.AuthorizationRule",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "Policy Identifier, a unique string per policy/rule, eg: uuid.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "user",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "principal",
+              "defaultValue": ""
+            },
+            {
+              "name": "group",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "principal",
+              "defaultValue": ""
+            },
+            {
+              "name": "path",
+              "description": "Path is the request path, longest prefix (by path elements from left\nto right).",
+              "label": "",
+              "type": "Path",
+              "longType": "gnmi.Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "action",
+              "description": "Permit or deny the user/group access to the path specified.",
+              "label": "",
+              "type": "Action",
+              "longType": "Action",
+              "fullType": "gnsi.pathz.Action",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "mode",
+              "description": "Permit Read or Write access to the path specified.",
+              "label": "",
+              "type": "Mode",
+              "longType": "Mode",
+              "fullType": "gnsi.pathz.Mode",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Group",
+          "longName": "Group",
+          "fullName": "gnsi.pathz.Group",
+          "description": "Group is a group of users, groups are a construct of the policy configuration\nas a method to collect many users with the same authorizations together.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "users",
+              "description": "",
+              "label": "repeated",
+              "type": "User",
+              "longType": "User",
+              "fullType": "gnsi.pathz.User",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "User",
+          "longName": "User",
+          "fullName": "gnsi.pathz.User",
+          "description": "User is a singular username used only in the matching criteria.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": []
+    },
+    {
+      "name": "github.com/openconfig/gnmi/proto/gnmi/gnmi.proto",
+      "description": "This is an snippet of gnmi.proto that only defines the Path message, that is used by gnsi.pathz\nWe do not import the actual gnmi.proto as this would lead to a bloated html doc",
+      "package": "gnmi",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "Path",
+          "longName": "Path",
+          "fullName": "gnmi.Path",
+          "description": "Path encodes a data tree path as a series of repeated strings, with\neach element of the path representing a data tree node name and the\nassociated attributes.\nReference: gNMI Specification Section 2.2.2.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "element",
+              "description": "Elements of the path are no longer encoded as a string, but rather within\nthe elem field as a PathElem message.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "origin",
+              "description": "Label to disambiguate path.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "elem",
+              "description": "Elements of the path.",
+              "label": "repeated",
+              "type": "PathElem",
+              "longType": "PathElem",
+              "fullType": "gnmi.PathElem",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "target",
+              "description": "The name of the target",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PathElem",
+          "longName": "PathElem",
+          "fullName": "gnmi.PathElem",
+          "description": "PathElem encodes an element of a gNMI path, along with any attributes (keys)\nthat may be associated with it.\nReference: gNMI Specification Section 2.2.2.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "The name of the element in the path.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key",
+              "description": "Map of key (attribute) name to value.",
+              "label": "repeated",
+              "type": "KeyEntry",
+              "longType": "PathElem.KeyEntry",
+              "fullType": "gnmi.PathElem.KeyEntry",
+              "ismap": true,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "KeyEntry",
+          "longName": "PathElem.KeyEntry",
+          "fullName": "gnmi.PathElem.KeyEntry",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": []
+    },
+    {
+      "name": "github.com/openconfig/gnsi/version/version.proto",
+      "description": "",
+      "package": "gnsi",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": false,
+      "hasServices": false,
+      "enums": [],
+      "extensions": [],
+      "messages": [],
+      "services": []
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}
