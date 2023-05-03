@@ -98,3 +98,13 @@ gnsi:
         v1.0.0:
           source: https://github.com/openconfig/gnsi/blob/6acb1b496c2057d9c61d3f6d96e35e699edab7f4/pathz/pathz.proto
           documentation: https://github.com/openconfig/gnsi/blob/6acb1b496c2057d9c61d3f6d96e35e699edab7f4/pathz/index.md
+gribi:
+  name: gRIBI
+  services:
+    gribi:
+      name: gRIBI
+      description: gRIBI is a gRPC service which provides an external entity a mechanism through which to programmatically inject and remove entries from the system's RIB.
+      versions:
+        v1.0.0:
+          source: https://github.com/openconfig/gribi/blob/0f369fbcc905def3a2e744afb77b5ea4a336b0a2/v1/proto/service/gribi.proto
+          documentation: https://github.com/openconfig/gribi/blob/0f369fbcc905def3a2e744afb77b5ea4a336b0a2/doc/specification.md

@@ -37,6 +37,7 @@ source ./gendoc/gnsi/authz.sh
 source ./gendoc/gnsi/certz.sh
 source ./gendoc/gnsi/credentialz.sh
 source ./gendoc/gnsi/pathz.sh
+source ./gendoc/gribi/gribi.sh
 
 function help {
   printf "%s <task> [args]\n\nTasks:\n" "${0}"
