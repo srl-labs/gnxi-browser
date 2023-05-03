@@ -34,6 +34,11 @@
               "name": "SIGNAL_HUP",
               "number": "3",
               "description": "Reload the process configuration."
+            },
+            {
+              "name": "SIGNAL_ABRT",
+              "number": "4",
+              "description": "Terminate the process immediately and dump a core file."
             }
           ]
         },
