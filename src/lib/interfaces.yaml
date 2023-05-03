@@ -63,45 +63,38 @@ gnoi:
 gnsi:
   name: gNSI
   services:
-    # acct:
-    #   name: Acct
-    #   description: Interface gNSI
-    #   versions:
-    #     v0.1.0:
-    #       source: https://path/to/source
-    #       documentation: https://path/to/documentation
-    # authz:
-    #   name: Authz
-    #   description: Interface gNSI
-    #   versions:
-    #     v0.1.0:
-    #       source: https://path/to/source
-    #       documentation: https://path/to/documentation
-    # certz:
-    #   name: Certz
-    #   description: Interface gNSI
-    #   versions:
-    #     v0.1.0:
-    #       source: https://path/to/source
-    #       documentation: https://path/to/documentation
-    # credentialz:
-    #   name: Credentialz
-    #   description: Interface gNSI
-    #   versions:
-    #     v0.1.0:
-    #       source: https://path/to/source
-    #       documentation: https://path/to/documentation
-    # pathz:
-    #   name: Pathz
-    #   description: Interface gNSI
-    #   versions:
-    #     v0.1.0:
-    #       source: https://path/to/source
-    #       documentation: https://path/to/documentation
-    # authorization:
-    #   name: Authorization
-    #   description: Interface gNSI
-    #   versions:
-    #     v0.1.0:
-    #       source: https://path/to/source
-    #       documentation: https://path/to/documentation
+    accounting:
+      name: Accounting
+      description: The Accounting services describe the interfaces between a System and a remote collector that collects data about what changes were attempted or completed on that System through standard interfaces to the System.
+      versions:
+        v1.0.0:
+          source: https://github.com/openconfig/gnsi/blob/6acb1b496c2057d9c61d3f6d96e35e699edab7f4/accounting/acct.proto
+          documentation: https://github.com/openconfig/gnsi/blob/6acb1b496c2057d9c61d3f6d96e35e699edab7f4/accounting/README.md
+    authz:
+      name: Authz
+      description: An API that allows for configuration of the RPC service on a switch to control which user can and cannot access specific RPCs.
+      versions:
+        v1.0.0:
+          source: https://github.com/openconfig/gnsi/blob/6acb1b496c2057d9c61d3f6d96e35e699edab7f4/authz/authz.proto
+          documentation: https://github.com/openconfig/gnsi/blob/6acb1b496c2057d9c61d3f6d96e35e699edab7f4/authz/README.md
+    certz:
+      name: Certz
+      description: An API to be used for rotating and testing PKI primitives used on network systems.
+      versions:
+        v1.0.0:
+          source: https://github.com/openconfig/gnsi/blob/6acb1b496c2057d9c61d3f6d96e35e699edab7f4/certz/certz.proto
+          documentation: https://github.com/openconfig/gnsi/blob/6acb1b496c2057d9c61d3f6d96e35e699edab7f4/certz/README.md
+    credentialz:
+      name: Credentialz
+      description: The Credentials Management Service exported by targets.
+      versions:
+        v1.0.0:
+          source: https://github.com/openconfig/gnsi/blob/6acb1b496c2057d9c61d3f6d96e35e699edab7f4/credentialz/credentialz.proto
+          documentation: https://github.com/openconfig/gnsi/blob/6acb1b496c2057d9c61d3f6d96e35e699edab7f4/credentialz/README.md
+    pathz:
+      name: Pathz
+      description: Provides a clear method to define and implement policy authorizing user or group access to the management systems and interfaces of a network deployment.
+      versions:
+        v1.0.0:
+          source: https://github.com/openconfig/gnsi/blob/6acb1b496c2057d9c61d3f6d96e35e699edab7f4/pathz/pathz.proto
+          documentation: https://github.com/openconfig/gnsi/blob/6acb1b496c2057d9c61d3f6d96e35e699edab7f4/pathz/index.md
