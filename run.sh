@@ -31,6 +31,7 @@ source ./gendoc/gnoi/healthz.sh
 source ./gendoc/gnoi/factory-reset.sh
 source ./gendoc/gnoi/os.sh
 source ./gendoc/gnoi/file.sh
+source ./gendoc/gnoi/system.sh
 
 function help {
   printf "%s <task> [args]\n\nTasks:\n" "${0}"
