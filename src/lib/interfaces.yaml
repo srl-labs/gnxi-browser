@@ -42,13 +42,13 @@ gnoi:
     #     v0.1.0:
     #       source: https://path/to/source
     #       documentation: https://path/to/documentation
-    # file:
-    #   name: File
-    #   description: Interface gNOI
-    #   versions:
-    #     v0.1.0:
-    #       source: https://path/to/source
-    #       documentation: https://path/to/documentation
+    file:
+      name: File
+      description: File service enables file-based operations on a remote target.
+      versions:
+        v0.1.0:
+          source: https://github.com/openconfig/gnoi/blob/c553e567c5f917bc349952ea47b2c4df854962c9/file/file.proto
+          # documentation:
     healthz:
       name: Healthz
       description: Healthz provides a means by which a user may initiate checks of health or a system may report the results of a check that it has initiated of its own accord.

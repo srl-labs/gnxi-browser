@@ -1,7 +1,7 @@
 {
   "files": [
     {
-      "name": "file.proto",
+      "name": "github.com/openconfig/gnoi/file/file.proto",
       "description": "",
       "package": "gnoi.file",
       "hasEnums": false,
@@ -452,6 +452,388 @@
           ]
         }
       ]
+    },
+    {
+      "name": "common/common.proto",
+      "description": "",
+      "package": "gnoi.common",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [
+        {
+          "name": "Protocol",
+          "longName": "RemoteDownload.Protocol",
+          "fullName": "gnoi.common.RemoteDownload.Protocol",
+          "description": "",
+          "values": [
+            {
+              "name": "UNKNOWN",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "SFTP",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "HTTP",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "HTTPS",
+              "number": "3",
+              "description": ""
+            },
+            {
+              "name": "SCP",
+              "number": "4",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "RemoteDownload",
+          "longName": "RemoteDownload",
+          "fullName": "gnoi.common.RemoteDownload",
+          "description": "RemoteDownload defines the details for a device to initiate a file transfer\nfrom or to a remote location.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "path",
+              "description": "The path information containing where to download the data from or to.\nFor HTTP(S), this will be the URL (i.e. foo.com/file.tbz2).\nFor SFTP and SCP, this will be the address:/path/to/file\n(i.e. host.foo.com:/bar/baz).",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "protocol",
+              "description": "",
+              "label": "",
+              "type": "Protocol",
+              "longType": "RemoteDownload.Protocol",
+              "fullType": "gnoi.common.RemoteDownload.Protocol",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "credentials",
+              "description": "",
+              "label": "",
+              "type": "Credentials",
+              "longType": "gnoi.types.Credentials",
+              "fullType": "gnoi.types.Credentials",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "source_address",
+              "description": "Optional source address used to initiate connections from the device.\nIt can be either an IPv4 address or an IPv6 address, depending on the\nconnection's destination address.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": []
+    },
+    {
+      "name": "types/types.proto",
+      "description": "",
+      "package": "gnoi.types",
+      "hasEnums": true,
+      "hasExtensions": true,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [
+        {
+          "name": "HashMethod",
+          "longName": "HashType.HashMethod",
+          "fullName": "gnoi.types.HashType.HashMethod",
+          "description": "",
+          "values": [
+            {
+              "name": "UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "SHA256",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "SHA512",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "MD5",
+              "number": "3",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "L3Protocol",
+          "longName": "L3Protocol",
+          "fullName": "gnoi.types.L3Protocol",
+          "description": "Generic Layer 3 Protocol enumeration.",
+          "values": [
+            {
+              "name": "UNSPECIFIED",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "IPV4",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "IPV6",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "extensions": [
+        {
+          "name": "gnoi_version",
+          "longName": ".google.protobuf.FileOptions.gnoi_version",
+          "fullName": ".google.protobuf.FileOptions.gnoi_version",
+          "description": "The gNOI service semantic version.",
+          "label": "",
+          "type": "string",
+          "longType": "string",
+          "fullType": "string",
+          "number": 1002,
+          "defaultValue": "",
+          "containingType": "FileOptions",
+          "containingLongType": ".google.protobuf.FileOptions",
+          "containingFullType": "google.protobuf.FileOptions"
+        }
+      ],
+      "messages": [
+        {
+          "name": "Credentials",
+          "longName": "Credentials",
+          "fullName": "gnoi.types.Credentials",
+          "description": "Credentials defines credentials needed to perform authentication on a device.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "username",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "cleartext",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "password",
+              "defaultValue": ""
+            },
+            {
+              "name": "hashed",
+              "description": "",
+              "label": "",
+              "type": "HashType",
+              "longType": "HashType",
+              "fullType": "gnoi.types.HashType",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "password",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "HashType",
+          "longName": "HashType",
+          "fullName": "gnoi.types.HashType",
+          "description": "HashType defines the valid hash methods for data verification.  UNSPECIFIED\nshould be treated an error.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "method",
+              "description": "",
+              "label": "",
+              "type": "HashMethod",
+              "longType": "HashType.HashMethod",
+              "fullType": "gnoi.types.HashType.HashMethod",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "hash",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Path",
+          "longName": "Path",
+          "fullName": "gnoi.types.Path",
+          "description": "Path encodes a data tree path as a series of repeated strings, with\neach element of the path representing a data tree node name and the\nassociated attributes.\nReference: gNMI Specification Section 2.2.2.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "origin",
+              "description": "Label to disambiguate path.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "elem",
+              "description": "Elements of the path.",
+              "label": "repeated",
+              "type": "PathElem",
+              "longType": "PathElem",
+              "fullType": "gnoi.types.PathElem",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PathElem",
+          "longName": "PathElem",
+          "fullName": "gnoi.types.PathElem",
+          "description": "PathElem encodes an element of a gNMI path, along with any attributes (keys)\nthat may be associated with it.\nReference: gNMI Specification Section 2.2.2.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "The name of the element in the path.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key",
+              "description": "Map of key (attribute) name to value.",
+              "label": "repeated",
+              "type": "KeyEntry",
+              "longType": "PathElem.KeyEntry",
+              "fullType": "gnoi.types.PathElem.KeyEntry",
+              "ismap": true,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "KeyEntry",
+          "longName": "PathElem.KeyEntry",
+          "fullName": "gnoi.types.PathElem.KeyEntry",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": []
     }
   ],
   "scalarValueTypes": [
