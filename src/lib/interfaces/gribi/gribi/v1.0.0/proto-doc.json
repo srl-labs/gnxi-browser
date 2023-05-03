@@ -1,0 +1,2528 @@
+{
+  "files": [
+    {
+      "name": "github.com/openconfig/gribi/gribi.proto",
+      "description": "",
+      "package": "gribi",
+      "hasEnums": true,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [
+        {
+          "name": "Status",
+          "longName": "AFTEntry.Status",
+          "fullName": "gribi.AFTEntry.Status",
+          "description": "",
+          "values": [
+            {
+              "name": "UNAVAILABLE",
+              "number": "0",
+              "description": "The programming status is not available.\nWhen the session parameter is set to RIB ack only, the device might\nnot keep track of FIB programming status."
+            },
+            {
+              "name": "PROGRAMMED",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "NOT_PROGRAMMED",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Operation",
+          "longName": "AFTOperation.Operation",
+          "fullName": "gribi.AFTOperation.Operation",
+          "description": "The operation that this request is - either add, replace, or delete\nany entry from the specific AFT.",
+          "values": [
+            {
+              "name": "INVALID",
+              "number": "0",
+              "description": "INVALID indicates that the sender did not set the operation, and\nshould be considered an error."
+            },
+            {
+              "name": "ADD",
+              "number": "1",
+              "description": "ADD creates an entry within the table. If the entry already exists\nwithin the specified table, the ADD should be treated as replacing\nthe existing entry with the entry specified in the operation."
+            },
+            {
+              "name": "REPLACE",
+              "number": "2",
+              "description": "REPLACE replaces an existing entry within a table, it should fail if\nthe entry does not exist. A replace operation should contain all of\nthe relevant fields, such that existing entry is completely replaced\nwith the specified entry."
+            },
+            {
+              "name": "DELETE",
+              "number": "3",
+              "description": "DELETE removes an entry from the table. It should be idempotent as to\nthe table state. The idempotent behavior should also cover the response.\nFor example, if the entry does not exist, the device should return\nFIB_PROGRAMMED (in the session of ack_type=RIB_AND_FIB_ACK)."
+            }
+          ]
+        },
+        {
+          "name": "Status",
+          "longName": "AFTResult.Status",
+          "fullName": "gribi.AFTResult.Status",
+          "description": "Status of the operation. Since this is within a\nstream we do not use status.proto to respond since\nthis would fail the entire RPC connection, and hence\nhave in-band errors.",
+          "values": [
+            {
+              "name": "UNSET",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "OK",
+              "number": "1",
+              "description": "Deprecate the OK status for a modify operation since\nthere are likely to be more different cases that we\nwant to use here - e.g., RIB_PROGRAMMED and FIB_PROGRAMMED.",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "FAILED",
+              "number": "2",
+              "description": "FAILED is used to indicate that operation that was provided\ncannot be programmed, for example, due to invalid message\ncontents, or missing references."
+            },
+            {
+              "name": "RIB_PROGRAMMED",
+              "number": "3",
+              "description": "RIB programmed indicates that the received operation was\nsyntactically valid, and was programmed successfully into\nthe RIB."
+            },
+            {
+              "name": "FIB_PROGRAMMED",
+              "number": "4",
+              "description": "FIB_PROGRAMMED indicates that the received operation was\nsuccessfully programmed into the FIB. \"Programmed into the FIB\" is\ndefined as the forwarding entry being operational in the underlying\nforwarding resources across the system that it is relevant to (e.g.,\nall linecards that host a particular VRF etc). This notification may\nnot always be sent for a particular operation since:\n\n a) the entry may be duplicate for another gRIBI client.\n b) the entry may not be the preferred system route (e.g., there\n    may be a higher-preference RIB client that has a matching\n    entry, and hence the FIB is unchanged).\n\nIn cases where the FIB was meant to be programmed, but an error\ncode was received from the underlying hardware abstraction layer\nthe FIB_FAILED error code is returned."
+            },
+            {
+              "name": "FIB_FAILED",
+              "number": "5",
+              "description": "FIB_FAILED indicates that the received operation failed FIB\nprogramming. It is used when the operation has been accepted by\ngRIBI, but FIB programming failed."
+            }
+          ]
+        },
+        {
+          "name": "AFTType",
+          "longName": "AFTType",
+          "fullName": "gribi.AFTType",
+          "description": "AFT describes the set of AFTs that are supported in the\ngRIBI protocol.",
+          "values": [
+            {
+              "name": "INVALID",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "ALL",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "IPV4",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "IPV6",
+              "number": "3",
+              "description": ""
+            },
+            {
+              "name": "MPLS",
+              "number": "4",
+              "description": ""
+            },
+            {
+              "name": "NEXTHOP",
+              "number": "5",
+              "description": ""
+            },
+            {
+              "name": "NEXTHOP_GROUP",
+              "number": "6",
+              "description": ""
+            },
+            {
+              "name": "MAC",
+              "number": "7",
+              "description": ""
+            },
+            {
+              "name": "POLICY_FORWARDING",
+              "number": "8",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Result",
+          "longName": "FlushResponse.Result",
+          "fullName": "gribi.FlushResponse.Result",
+          "description": "",
+          "values": [
+            {
+              "name": "UNSET",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "OK",
+              "number": "1",
+              "description": "The device has removed all gRIBI objects in the specified network\ninstance."
+            },
+            {
+              "name": "NON_ZERO_REFERENCE_REMAIN",
+              "number": "2",
+              "description": "The specified network instance contains gRIBI NextHops or NextHopGroups\nthat are referenced by other network instances.\nThe device has removed all gRIBI objects except the non-zero referenced\nNextHops and NextHopGroups in the network instance."
+            }
+          ]
+        },
+        {
+          "name": "Reason",
+          "longName": "FlushResponseError.Reason",
+          "fullName": "gribi.FlushResponseError.Reason",
+          "description": "",
+          "values": [
+            {
+              "name": "UNKNOWN",
+              "number": "0",
+              "description": "An unknown failure occurred."
+            },
+            {
+              "name": "NO_SUCH_NETWORK_INSTANCE",
+              "number": "1",
+              "description": "The network instance specified was unknown."
+            },
+            {
+              "name": "NOT_PRIMARY",
+              "number": "2",
+              "description": "The election ID that was specified was not the current primary."
+            },
+            {
+              "name": "ELECTION_ID_IN_ALL_PRIMARY",
+              "number": "3",
+              "description": "An election ID was supplied when the server is operating in ALL_PRIMARY\nmode."
+            },
+            {
+              "name": "UNSPECIFIED_ELECTION_BEHAVIOR",
+              "number": "4",
+              "description": "The server is operating in SINGLE_PRIMARY mode and neither an election ID\nnor an override was specified."
+            },
+            {
+              "name": "INVALID_ELECTION_ID",
+              "number": "5",
+              "description": "The client supplied an election ID value that is invalid (i.e., 0)."
+            },
+            {
+              "name": "UNSPECIFIED_NETWORK_INSTANCE",
+              "number": "6",
+              "description": "The client did not specify a network instance to flush."
+            },
+            {
+              "name": "INVALID_NETWORK_INSTANCE",
+              "number": "7",
+              "description": "The client specified a network instance that was invalid."
+            }
+          ]
+        },
+        {
+          "name": "Reason",
+          "longName": "ModifyRPCErrorDetails.Reason",
+          "fullName": "gribi.ModifyRPCErrorDetails.Reason",
+          "description": "",
+          "values": [
+            {
+              "name": "UNKNOWN",
+              "number": "0",
+              "description": "Error with an unknown cause."
+            },
+            {
+              "name": "UNSUPPORTED_PARAMS",
+              "number": "1",
+              "description": "The network element cannot support the\naft_persistence or aft_result_status_type\nrequested in session parameters in ModifyRequest\nIf the client didn't send any session parameters, then\nthe network element doesn't support the default values."
+            },
+            {
+              "name": "MODIFY_NOT_ALLOWED",
+              "number": "2",
+              "description": "A session_parameters message in a ModifyRequest was received with\naft_persistence or aft_result_status_type more\nthan once; or was received after one or more AFTOperations\nwas issued."
+            },
+            {
+              "name": "PARAMS_DIFFER_FROM_OTHER_CLIENTS",
+              "number": "3",
+              "description": "The attribute values of atleast one session parameter\nreceived in the ModifyRequest differs from the values received\nfrom existing clients"
+            },
+            {
+              "name": "ELECTION_ID_IN_ALL_PRIMARY",
+              "number": "4",
+              "description": "election_id in a ModifyRequest is not supported in ALL_PRIMARY\nredundancy mode."
+            }
+          ]
+        },
+        {
+          "name": "AFTPersistence",
+          "longName": "SessionParameters.AFTPersistence",
+          "fullName": "gribi.SessionParameters.AFTPersistence",
+          "description": "The desired behavior when a client disconnects from\nthe network element.",
+          "values": [
+            {
+              "name": "DELETE",
+              "number": "0",
+              "description": "When a client disconnects, the network element deletes\nall AFT entries received from that client."
+            },
+            {
+              "name": "PRESERVE",
+              "number": "1",
+              "description": "When the primary client disconects, the network element\npreserves the gRIBI process' RIB, system RIB and system\nFIB.\nWhen a non primary client disconnects, there's no action\nrequired as all network element state is conveyed by the\nprimary client"
+            }
+          ]
+        },
+        {
+          "name": "AFTResultStatusType",
+          "longName": "SessionParameters.AFTResultStatusType",
+          "fullName": "gribi.SessionParameters.AFTResultStatusType",
+          "description": "The type of response that the client expects from the\nnetwork element in AFTResult.status",
+          "values": [
+            {
+              "name": "RIB_ACK",
+              "number": "0",
+              "description": "network element must respond with RIB_PROGRAMMED\non a successful update to the gRIBI process' RIB."
+            },
+            {
+              "name": "RIB_AND_FIB_ACK",
+              "number": "1",
+              "description": "network element must respond with RIB_PROGRAMMED\non a successful update to the gRIBI process' RIB.\nIf the AFT entry is also programmed in the network\nelement's FIB, a FIB_PROGRAMMED response must be sent\nA FIB_PROGRAMMED response is a combined\nacknowledgement that the AFT entry is programmed in\nthe gRIBI process' RIB and the FIB, so there's no need\nto send both RIB_PROGRAMMED and FIB_PROGRAMMED when\nthe AFT entry is programmed in the FIB."
+            }
+          ]
+        },
+        {
+          "name": "ClientRedundancy",
+          "longName": "SessionParameters.ClientRedundancy",
+          "fullName": "gribi.SessionParameters.ClientRedundancy",
+          "description": "The type of redundancy amongst the external entities",
+          "values": [
+            {
+              "name": "ALL_PRIMARY",
+              "number": "0",
+              "description": "Accept AFTOperations from all clients. The network element assumes\nthat all clients convey the same AFT state. The network element\nuses \"add on first ADD operation and delete on last DELETE operation\nsemantics, ie., it Adds an AFT entry to its gRIBI state when the\nnetwork element receives the first ADD AFTOperation from any client;\nand the AFT entry is deleted from the network element's gRIBI state\nwhen the network element has processed DELETE for the AFT entry\nfrom all clients that issued an ADD for that AFT entry.\nIn other words, the AFT entries are reference counted, where\nthe reference count is the number of clients that have issued\nADD AFTOperation for that AFT entry.\nREPLACE AFTOperations from all clients are processed for any\nAFT entries."
+            },
+            {
+              "name": "SINGLE_PRIMARY",
+              "number": "1",
+              "description": "Clients take part in an election process that leads to\na single client becoming the primary client. The\nprimary client has the highest election ID. The network element\naccepts AFTOperations from the primary client only."
+            }
+          ]
+        },
+        {
+          "name": "Status",
+          "longName": "SessionParametersResult.Status",
+          "fullName": "gribi.SessionParametersResult.Status",
+          "description": "",
+          "values": [
+            {
+              "name": "OK",
+              "number": "0",
+              "description": "No errors, network element supports requested\nparameters"
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "AFTEntry",
+          "longName": "AFTEntry",
+          "fullName": "gribi.AFTEntry",
+          "description": "An individual AFTEntry that is installed on the device.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "network_instance",
+              "description": "The network_instance for which the response is being returned.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ipv4",
+              "description": "Each openconfig.AFT.* message is a protobuf transformed\nmessage corresponding to the OpenConfig AFT for that\nschema. The auto-generated paths can be found in the definition\nof the AFTOperation.",
+              "label": "",
+              "type": "Ipv4EntryKey",
+              "longType": "gribi_aft.Afts.Ipv4EntryKey",
+              "fullType": "gribi_aft.Afts.Ipv4EntryKey",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entry",
+              "defaultValue": ""
+            },
+            {
+              "name": "ipv6",
+              "description": "",
+              "label": "",
+              "type": "Ipv6EntryKey",
+              "longType": "gribi_aft.Afts.Ipv6EntryKey",
+              "fullType": "gribi_aft.Afts.Ipv6EntryKey",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entry",
+              "defaultValue": ""
+            },
+            {
+              "name": "mpls",
+              "description": "",
+              "label": "",
+              "type": "LabelEntryKey",
+              "longType": "gribi_aft.Afts.LabelEntryKey",
+              "fullType": "gribi_aft.Afts.LabelEntryKey",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entry",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop_group",
+              "description": "",
+              "label": "",
+              "type": "NextHopGroupKey",
+              "longType": "gribi_aft.Afts.NextHopGroupKey",
+              "fullType": "gribi_aft.Afts.NextHopGroupKey",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entry",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop",
+              "description": "",
+              "label": "",
+              "type": "NextHopKey",
+              "longType": "gribi_aft.Afts.NextHopKey",
+              "fullType": "gribi_aft.Afts.NextHopKey",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entry",
+              "defaultValue": ""
+            },
+            {
+              "name": "mac_entry",
+              "description": "",
+              "label": "",
+              "type": "MacEntryKey",
+              "longType": "gribi_aft.Afts.MacEntryKey",
+              "fullType": "gribi_aft.Afts.MacEntryKey",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entry",
+              "defaultValue": ""
+            },
+            {
+              "name": "policy_forwarding_entry",
+              "description": "",
+              "label": "",
+              "type": "PolicyForwardingEntryKey",
+              "longType": "gribi_aft.Afts.PolicyForwardingEntryKey",
+              "fullType": "gribi_aft.Afts.PolicyForwardingEntryKey",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entry",
+              "defaultValue": ""
+            },
+            {
+              "name": "rib_status",
+              "description": "RIB programming status of the entry.",
+              "label": "",
+              "type": "Status",
+              "longType": "AFTEntry.Status",
+              "fullType": "gribi.AFTEntry.Status",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "fib_status",
+              "description": "FIB programming status of the entry.",
+              "label": "",
+              "type": "Status",
+              "longType": "AFTEntry.Status",
+              "fullType": "gribi.AFTEntry.Status",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AFTErrorDetails",
+          "longName": "AFTErrorDetails",
+          "fullName": "gribi.AFTErrorDetails",
+          "description": "Populated in 'error_details' in AFTResult for failed operations.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "error_message",
+              "description": "Human-readable error message in the case that status is FAILED\nor FIB_FAILED.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AFTOperation",
+          "longName": "AFTOperation",
+          "fullName": "gribi.AFTOperation",
+          "description": "A single request to add/modify/remove a single AFT entry",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "Associate an ID with this specific request since this allows the client\nto determine exactly which modifications have been completed in the\ncase that are multiple operations within the AFT.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "network_instance",
+              "description": "Network Instance (aka vrf aka routing-instance) to apply to. \nIf it is not specified, or is the empty string \"\",\nthen the request is considered invalid and the server should\nrespond with the INVALID_ARGUMENT error code in the status.proto\ncarried along with the RPC response.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "op",
+              "description": "",
+              "label": "",
+              "type": "Operation",
+              "longType": "AFTOperation.Operation",
+              "fullType": "gribi.AFTOperation.Operation",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ipv4",
+              "description": "Each openconfig.AFT.* message is a protobuf transformed\nmessage corresponding to the OpenConfig AFT for that\nschema.\nSchema for IPv4UnicastEntry is generated from\n/network-instances/network-instance/afts/ipv4-unicast/ipv4-entry",
+              "label": "",
+              "type": "Ipv4EntryKey",
+              "longType": "gribi_aft.Afts.Ipv4EntryKey",
+              "fullType": "gribi_aft.Afts.Ipv4EntryKey",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entry",
+              "defaultValue": ""
+            },
+            {
+              "name": "ipv6",
+              "description": "Schema for IPv6UnicastEntry is generated from\n/network-instances/network-instance/afts/ipv6-unicast/ipv6-entry",
+              "label": "",
+              "type": "Ipv6EntryKey",
+              "longType": "gribi_aft.Afts.Ipv6EntryKey",
+              "fullType": "gribi_aft.Afts.Ipv6EntryKey",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entry",
+              "defaultValue": ""
+            },
+            {
+              "name": "mpls",
+              "description": "Schema for MPLSLabelEntry is generated from\n/network-instances/network-instance/afts/mpls/label-entry",
+              "label": "",
+              "type": "LabelEntryKey",
+              "longType": "gribi_aft.Afts.LabelEntryKey",
+              "fullType": "gribi_aft.Afts.LabelEntryKey",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entry",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop_group",
+              "description": "Schema for NextHopGroup is generated from\n/network-instances/network-instance/afts/next-hop-groups/next-hop-group",
+              "label": "",
+              "type": "NextHopGroupKey",
+              "longType": "gribi_aft.Afts.NextHopGroupKey",
+              "fullType": "gribi_aft.Afts.NextHopGroupKey",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entry",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop",
+              "description": "Schema for NextHop is generated from\n/network-instances/network-instance/afts/next-hops/next-hop.",
+              "label": "",
+              "type": "NextHopKey",
+              "longType": "gribi_aft.Afts.NextHopKey",
+              "fullType": "gribi_aft.Afts.NextHopKey",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entry",
+              "defaultValue": ""
+            },
+            {
+              "name": "mac_entry",
+              "description": "Schema for MacEntry is generated from\n/network-instances/network-instance/afts/ethernet/mac-entry",
+              "label": "",
+              "type": "MacEntryKey",
+              "longType": "gribi_aft.Afts.MacEntryKey",
+              "fullType": "gribi_aft.Afts.MacEntryKey",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entry",
+              "defaultValue": ""
+            },
+            {
+              "name": "policy_forwarding_entry",
+              "description": "Schema for PolicyForwardingGroup is generated from\n/network-instances/network-instance/afts/policy-forwarding/\npolicy-forwarding-entry",
+              "label": "",
+              "type": "PolicyForwardingEntryKey",
+              "longType": "gribi_aft.Afts.PolicyForwardingEntryKey",
+              "fullType": "gribi_aft.Afts.PolicyForwardingEntryKey",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "entry",
+              "defaultValue": ""
+            },
+            {
+              "name": "election_id",
+              "description": "Election ID of the client.\nIn SINGLE_PRIMARY redundancy model, used by the server to determine\nwhether to process the AFTOperation.\nThe server processes the AFTOperation if\n1. the election_id in the AFTOperation is equal to the election_id last\n   advertised in a ModifyRequest by the client\n   AND\n2. the election_id in the AFTOperation is the highest election_id\n   amongst all the election IDs that the server knows about, ie.\n   the client is the primary client\nIf the election_id in the AFTOperation does not meet these criteria\nthe server discards the AFTOperation and returns FAILED in AFTResult",
+              "label": "",
+              "type": "Uint128",
+              "longType": "Uint128",
+              "fullType": "gribi.Uint128",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AFTResult",
+          "longName": "AFTResult",
+          "fullName": "gribi.AFTResult",
+          "description": "A response to add/modify/remove a single AFT entry",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "The ID corresponds to the operation ID that was\nspecified in the AFTOperation.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "status",
+              "description": "",
+              "label": "",
+              "type": "Status",
+              "longType": "AFTResult.Status",
+              "fullType": "gribi.AFTResult.Status",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "timestamp",
+              "description": "Timestamp corresponding to the success or failure case being reported.\nThe timestamp reflects the time at which the gRIBI daemon received and\nprocessed the acknowledgement that the entry was programmed. The typical\nuse for this timestamp is to provide tracking of programming SLIs at the\ndevice.\n\nThe timestamp is expressed as nanoseconds since the Unix Epoch in UTC.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "error_details",
+              "description": "Contains error details if status is FAILED or FIB_FAILED.",
+              "label": "",
+              "type": "AFTErrorDetails",
+              "longType": "AFTErrorDetails",
+              "fullType": "gribi.AFTErrorDetails",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Empty",
+          "longName": "Empty",
+          "fullName": "gribi.Empty",
+          "description": "Empty is a specific message that is used as a marker where\npresence of a non-nil value indicates a particular function.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "FlushRequest",
+          "longName": "FlushRequest",
+          "fullName": "gribi.FlushRequest",
+          "description": "FlushRequest is the request sent from the client to the server when a Flush\nRPC is called.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "id indicates that the Flush ID supplied should be compared to the\nexisting election ID on the server. The logic\nfor whether the Flush RPC is accepted is the same as that which is\nimplemented for Modify. In summary:\n\n  - if the election ID is equal to the previous highest known ID, the\n    Flush is accepted.\n  - if the election ID is greater than the previous highest known ID,\n    the Flush is accepted.\n  - if the election ID is less than the previous highest known ID, the\n    Flush is rejected and an error with reason NOT_PRIMARY is returned.\n    The canonical error code used should be FAILED_PRECONDITION.\n\nIf the server is currently operating in ALL_PRIMARY mode the server\nshould return an error specifying ELECTION_ID_IN_ALL_PRIMARY reason. The\nstatus (canonical error code) should be FAILED_PRECONDITION.",
+              "label": "",
+              "type": "Uint128",
+              "longType": "Uint128",
+              "fullType": "gribi.Uint128",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "election",
+              "defaultValue": ""
+            },
+            {
+              "name": "override",
+              "description": "override indicates that the client explicitly requests that the election\nID should not be compared, regardless of whether there are SINGLE_PRIMARY\nclients on the server.",
+              "label": "",
+              "type": "Empty",
+              "longType": "Empty",
+              "fullType": "gribi.Empty",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "election",
+              "defaultValue": ""
+            },
+            {
+              "name": "name",
+              "description": "The network instance from which the entries should be flushed.\nIf name is set to \"\", this is considered invalid, and an error specifying\nthe INVALID_ARGUMENT canonical error code, and the\nINVALID_NETWORK_INSTANCE reason should be specified. If the network\ninstance specified does not exist the INVALID_ARGUMENT canonical error\ncode, with the NO_SUCH_NETWORK_INSTANCE code should be specified.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "network_instance",
+              "defaultValue": ""
+            },
+            {
+              "name": "all",
+              "description": "all indicates that entries for all network instances should be\nflushed.",
+              "label": "",
+              "type": "Empty",
+              "longType": "Empty",
+              "fullType": "gribi.Empty",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "network_instance",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FlushResponse",
+          "longName": "FlushResponse",
+          "fullName": "gribi.FlushResponse",
+          "description": "FlushResponse is the response from the server to the client to the Flush RPC.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "timestamp",
+              "description": "The timestamp at which the Flush operation succeeded and was returned to\nthe client. It is specified in nanoseconds since the Unix epoch.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "result",
+              "description": "",
+              "label": "",
+              "type": "Result",
+              "longType": "FlushResponse.Result",
+              "fullType": "gribi.FlushResponse.Result",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FlushResponseError",
+          "longName": "FlushResponseError",
+          "fullName": "gribi.FlushResponseError",
+          "description": "FlushResponseError is used in the details of the gRPC status in the case that\nthe Flush RPC encounters an error.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "status",
+              "description": "",
+              "label": "",
+              "type": "Reason",
+              "longType": "FlushResponseError.Reason",
+              "fullType": "gribi.FlushResponseError.Reason",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetRequest",
+          "longName": "GetRequest",
+          "fullName": "gribi.GetRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "The network instance from which the entries should be retrieved.\nIf `network_instance` is nil (`name` and `all` not specified),\nor if `name` is specified and it is the empty string \"\",\nthen the request is considered invalid and the server should\nrespond with the INVALID_ARGUMENT error code in the status.proto\ncarried along with the RPC response.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "network_instance",
+              "defaultValue": ""
+            },
+            {
+              "name": "all",
+              "description": "all indicates that entries for all network instances for the\nshould be returned.",
+              "label": "",
+              "type": "Empty",
+              "longType": "Empty",
+              "fullType": "gribi.Empty",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "network_instance",
+              "defaultValue": ""
+            },
+            {
+              "name": "aft",
+              "description": "The AFT for which entries should be retrieved. If the AFT is\ninvalid, the server should respond with the INVALID_ARGUMENT\nerror code. If the AFT is unsupported, it should respond with\nUNIMPLEMENTED in the status.proto carried along with the RPC\nresponse.",
+              "label": "",
+              "type": "AFTType",
+              "longType": "AFTType",
+              "fullType": "gribi.AFTType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetResponse",
+          "longName": "GetResponse",
+          "fullName": "gribi.GetResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "entry",
+              "description": "A set of entries that are installed on the device.",
+              "label": "repeated",
+              "type": "AFTEntry",
+              "longType": "AFTEntry",
+              "fullType": "gribi.AFTEntry",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ModifyRPCErrorDetails",
+          "longName": "ModifyRPCErrorDetails",
+          "fullName": "gribi.ModifyRPCErrorDetails",
+          "description": "Populated in `details` in status.proto when an error that causes the network\nelement to close the stream.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "reason",
+              "description": "",
+              "label": "",
+              "type": "Reason",
+              "longType": "ModifyRPCErrorDetails.Reason",
+              "fullType": "gribi.ModifyRPCErrorDetails.Reason",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ModifyRequest",
+          "longName": "ModifyRequest",
+          "fullName": "gribi.ModifyRequest",
+          "description": "ModifyRequest is a message used by the client to manipulate the state of\nthe RIB on the target device.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "operation",
+              "description": "A group of requests to add/modify/remove a single AFT entry.\n\nA gRIBI server :\n * Should process AFTOperations per the received order.\n * Should not close the RPC session due to errors encountered in an\n   AFTOperation. Invalid AFTOperations should be responded to with\n   failures within the stream.\n * May finish pending AFTOperations if existing RPC session is\n   dropped/closed/cancelled.",
+              "label": "repeated",
+              "type": "AFTOperation",
+              "longType": "AFTOperation",
+              "fullType": "gribi.AFTOperation",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "params",
+              "description": "Meta information that the external entity sends to the network\nelement. If a non default set of parameters is required, then\n`params` MUST be sent by the external entity before\nit sends the network element any AFTOperations.\nIt's possible that the default set of parameters isn't supported\nby a network element. In such a case, if the client hasn't sent\nany session parameters, then the network element closes the Modify RPC\nstream when the first AFTOperation is received in a ModifyRequest and\nsets status.code\n(http://tinyurl.com/grpc-status-proto)\nto `UNIMPLEMENTED` and reason to `UNSUPPORTED_PARAMS`\nin ModifyRPCErrorDetails. ModifyRPCErrorDetails is filled in\nstatus.details.\n\n`params` MUST be sent only once during the lifetime of the session.\nAll clients programming a network element's RIB,\nMUST send the same values of all the attributes of `params`\n\nThe network element responds with session_params_result.status = OK in\nModifyResponse if it processed `params` without any error.\n\nThe network element does not respond with session_params_result if\nthere's an error while processing `params`, instead it disconnects\nthe session and sets the RPC error code based on status.proto\n(http://tinyurl.com/grpc-status-proto)\nstatus.code is set to\n - UNIMPLEMENTED when it encounters an unsupported `persistence`\n   or `ack_type` or `redundancy`\n - FAILED_PRECONDITION for the other cases\nstatus.details is filled with the ModifyRPCErrorDetails message with\nan appropriate `reason`.\n\nIf the client does not send session_parameters, then the network element\nassumes the following defaults:\n  - ALL_PRIMARY for client redundancy\n  - A client disconnect is treated as if the client issued DELETE\n    AFTOperation for all the AFT entries that client ADDed.\n  - Each AFTOperation is acknowledged with OK or FAILED in\n    in the AFTResult of the ModifyResponse.",
+              "label": "",
+              "type": "SessionParameters",
+              "longType": "SessionParameters",
+              "fullType": "gribi.SessionParameters",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "election_id",
+              "description": "election_id is used by the network element to\nselect a primary client when the client redundancy mode\nis SINGLE_PRIMARY.\n\nA client sends a ModifyRequest with only the election_id\nfield populated after it connects to the network element,\nand everytime its election_id is updated (usually as a\nresult of an election amongst clients). The network element\nresponds with a ModifyResponse that has only the election_id\nfield populated. The election_id in the ModifyResponse is the\nhighest election_id that the network element has learnt\nfrom any client.\n\nThe network element selects the client with the highest\nelection_id as the primary. If the election_id sent by the\nclient matches the previous highest value, the newer client is\nconsidered primary, in order to allow for a client to reconnect\nwithout an external election having taken place.\n\nUpon discovering a failover, the server:\n * SHOULD stop processing pending AFTOperations that were sent by\n   the previous primary.\n * MUST not send responses for AFTOperations of the previous primary\n   to the acquiring-primary.\n\nOnly AFT operations from the primary client are acted upon by\nthe network element. AFT operations from non-primary clients\nare not actioned, and a failure response is sent to the client.\n\nIf the client redundancy mode is ALL_PRIMARY, but a client\nsends election_id, the network element closes the Modify RPC\nstream, sets FAILED_PRECONDITION in\nstatus.proto's `code` and sets ModifyRPCErrorDetails.reason\nto ELECTION_ID_IN_ALL_PRIMARY.\n\nThe election_id MUST be non zero. When a network element receives\nan election_id of 0, it closes the stream with status.code\nset to INVALID_ARGUMENT.\nThe election_id can only be increased monotonically by a client \nduring a RPC session. This simplifies server implementation.",
+              "label": "",
+              "type": "Uint128",
+              "longType": "Uint128",
+              "fullType": "gribi.Uint128",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ModifyResponse",
+          "longName": "ModifyResponse",
+          "fullName": "gribi.ModifyResponse",
+          "description": "A set of AFT responses.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "result",
+              "description": "One or more responses to requests. Clients should expect that\nthe ModifyResponse *does not* correlate to the ModifyRequest’s\ncontents.",
+              "label": "repeated",
+              "type": "AFTResult",
+              "longType": "AFTResult",
+              "fullType": "gribi.AFTResult",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "session_params_result",
+              "description": "Response to the session_parameters in a ModifyRequest\nwhen there are no errors.\nIf there's an error then ModifyRPCErrorDetails is filled\nin status.proto's `details` attribute.",
+              "label": "",
+              "type": "SessionParametersResult",
+              "longType": "SessionParametersResult",
+              "fullType": "gribi.SessionParametersResult",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "election_id",
+              "description": "Response to a ModifyRequest that contains only the election_id field.\nThe network element sends a ModifyResponse with only the election_id\npopulated. The value populated is the highest election_id that the\nnetwork element has learnt from any client.",
+              "label": "",
+              "type": "Uint128",
+              "longType": "Uint128",
+              "fullType": "gribi.Uint128",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SessionParameters",
+          "longName": "SessionParameters",
+          "fullName": "gribi.SessionParameters",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "redundancy",
+              "description": "",
+              "label": "",
+              "type": "ClientRedundancy",
+              "longType": "SessionParameters.ClientRedundancy",
+              "fullType": "gribi.SessionParameters.ClientRedundancy",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "persistence",
+              "description": "",
+              "label": "",
+              "type": "AFTPersistence",
+              "longType": "SessionParameters.AFTPersistence",
+              "fullType": "gribi.SessionParameters.AFTPersistence",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ack_type",
+              "description": "",
+              "label": "",
+              "type": "AFTResultStatusType",
+              "longType": "SessionParameters.AFTResultStatusType",
+              "fullType": "gribi.SessionParameters.AFTResultStatusType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SessionParametersResult",
+          "longName": "SessionParametersResult",
+          "fullName": "gribi.SessionParametersResult",
+          "description": "Response when ModifyRequest.params is syntactically valid and all\nrequested parameters are supported by the network element.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "status",
+              "description": "",
+              "label": "",
+              "type": "Status",
+              "longType": "SessionParametersResult.Status",
+              "fullType": "gribi.SessionParametersResult.Status",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Uint128",
+          "longName": "Uint128",
+          "fullName": "gribi.Uint128",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "high",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "low",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "gRIBI",
+          "longName": "gRIBI",
+          "fullName": "gribi.gRIBI",
+          "description": "gRIBI is a gRPC service which provides an external entity a mechanism through\nwhich to programmatically inject and remove entries from the system's RIB.",
+          "methods": [
+            {
+              "name": "Modify",
+              "description": "Modify provides a bidirectional streaming RPC that can be used to issue\nmodifications to the AFT in the form of ModifyRequest(s).\nThe network element responds (asynchronously) with a ModifyResponse\nfor each ModifyRequest indicating what action was taken, once each\nOperation within the request has been completed.",
+              "requestType": "ModifyRequest",
+              "requestLongType": "ModifyRequest",
+              "requestFullType": "gribi.ModifyRequest",
+              "requestStreaming": true,
+              "responseType": "ModifyResponse",
+              "responseLongType": "ModifyResponse",
+              "responseFullType": "gribi.ModifyResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "Get",
+              "description": "Get provides a client a means to retrieve the contents of the installed\nAFTs from the gRIBI daemon. The client requests a Get, and the server\nresponds with the set of currently installed entries (that have been ACK'd\naccording to the underlying resource to be programmed to) via the\nGetResponse stream. Once all entries have been sent, the server closes the\nRPC.\n\nThe Get RPC is typically used to allow reconcilation between a client and\na server or for periodical consistency checking.",
+              "requestType": "GetRequest",
+              "requestLongType": "GetRequest",
+              "requestFullType": "gribi.GetRequest",
+              "requestStreaming": false,
+              "responseType": "GetResponse",
+              "responseLongType": "GetResponse",
+              "responseFullType": "gribi.GetResponse",
+              "responseStreaming": true
+            },
+            {
+              "name": "Flush",
+              "description": "Flush allows a client to remove all entries currently installed on the\nserver via gRIBI. The client requests a Flush, and the server removes all\nentries that match the context described by the FlushRequest.",
+              "requestType": "FlushRequest",
+              "requestLongType": "FlushRequest",
+              "requestFullType": "gribi.FlushRequest",
+              "requestStreaming": false,
+              "responseType": "FlushResponse",
+              "responseLongType": "FlushResponse",
+              "responseFullType": "gribi.FlushResponse",
+              "responseStreaming": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v1/proto/gribi_aft/gribi_aft.proto",
+      "description": "gribi_aft is generated by proto_generator as a protobuf\nrepresentation of a YANG schema.\n\nInput schema modules:\n - github.com/openconfig/gribi/v1/yang/gribi-aft.yang\nInclude paths:\n  - github.com/openconfig/gribi/v1/yang/...\n  - github.com/openconfig/gribi/v1/yang/deps/...",
+      "package": "gribi_aft",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "Afts",
+          "longName": "Afts",
+          "fullName": "gribi_aft.Afts",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "ipv4_entry",
+              "description": "",
+              "label": "repeated",
+              "type": "Ipv4EntryKey",
+              "longType": "Afts.Ipv4EntryKey",
+              "fullType": "gribi_aft.Afts.Ipv4EntryKey",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ipv6_entry",
+              "description": "",
+              "label": "repeated",
+              "type": "Ipv6EntryKey",
+              "longType": "Afts.Ipv6EntryKey",
+              "fullType": "gribi_aft.Afts.Ipv6EntryKey",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "label_entry",
+              "description": "",
+              "label": "repeated",
+              "type": "LabelEntryKey",
+              "longType": "Afts.LabelEntryKey",
+              "fullType": "gribi_aft.Afts.LabelEntryKey",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "mac_entry",
+              "description": "",
+              "label": "repeated",
+              "type": "MacEntryKey",
+              "longType": "Afts.MacEntryKey",
+              "fullType": "gribi_aft.Afts.MacEntryKey",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop",
+              "description": "",
+              "label": "repeated",
+              "type": "NextHopKey",
+              "longType": "Afts.NextHopKey",
+              "fullType": "gribi_aft.Afts.NextHopKey",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop_group",
+              "description": "",
+              "label": "repeated",
+              "type": "NextHopGroupKey",
+              "longType": "Afts.NextHopGroupKey",
+              "fullType": "gribi_aft.Afts.NextHopGroupKey",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "policy_forwarding_entry",
+              "description": "",
+              "label": "repeated",
+              "type": "PolicyForwardingEntryKey",
+              "longType": "Afts.PolicyForwardingEntryKey",
+              "fullType": "gribi_aft.Afts.PolicyForwardingEntryKey",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Ipv4Entry",
+          "longName": "Afts.Ipv4Entry",
+          "fullName": "gribi_aft.Afts.Ipv4Entry",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "decapsulate_header",
+              "description": "",
+              "label": "",
+              "type": "OpenconfigAftTypesEncapsulationHeaderType",
+              "longType": "enums.OpenconfigAftTypesEncapsulationHeaderType",
+              "fullType": "gribi_aft.enums.OpenconfigAftTypesEncapsulationHeaderType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "entry_metadata",
+              "description": "",
+              "label": "",
+              "type": "BytesValue",
+              "longType": "ywrapper.BytesValue",
+              "fullType": "ywrapper.BytesValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop_group",
+              "description": "",
+              "label": "",
+              "type": "UintValue",
+              "longType": "ywrapper.UintValue",
+              "fullType": "ywrapper.UintValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop_group_network_instance",
+              "description": "",
+              "label": "",
+              "type": "StringValue",
+              "longType": "ywrapper.StringValue",
+              "fullType": "ywrapper.StringValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Ipv4EntryKey",
+          "longName": "Afts.Ipv4EntryKey",
+          "fullName": "gribi_aft.Afts.Ipv4EntryKey",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "prefix",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ipv4_entry",
+              "description": "",
+              "label": "",
+              "type": "Ipv4Entry",
+              "longType": "Afts.Ipv4Entry",
+              "fullType": "gribi_aft.Afts.Ipv4Entry",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Ipv6Entry",
+          "longName": "Afts.Ipv6Entry",
+          "fullName": "gribi_aft.Afts.Ipv6Entry",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "decapsulate_header",
+              "description": "",
+              "label": "",
+              "type": "OpenconfigAftTypesEncapsulationHeaderType",
+              "longType": "enums.OpenconfigAftTypesEncapsulationHeaderType",
+              "fullType": "gribi_aft.enums.OpenconfigAftTypesEncapsulationHeaderType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "entry_metadata",
+              "description": "",
+              "label": "",
+              "type": "BytesValue",
+              "longType": "ywrapper.BytesValue",
+              "fullType": "ywrapper.BytesValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop_group",
+              "description": "",
+              "label": "",
+              "type": "UintValue",
+              "longType": "ywrapper.UintValue",
+              "fullType": "ywrapper.UintValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop_group_network_instance",
+              "description": "",
+              "label": "",
+              "type": "StringValue",
+              "longType": "ywrapper.StringValue",
+              "fullType": "ywrapper.StringValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Ipv6EntryKey",
+          "longName": "Afts.Ipv6EntryKey",
+          "fullName": "gribi_aft.Afts.Ipv6EntryKey",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "prefix",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ipv6_entry",
+              "description": "",
+              "label": "",
+              "type": "Ipv6Entry",
+              "longType": "Afts.Ipv6Entry",
+              "fullType": "gribi_aft.Afts.Ipv6Entry",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "LabelEntry",
+          "longName": "Afts.LabelEntry",
+          "fullName": "gribi_aft.Afts.LabelEntry",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "entry_metadata",
+              "description": "",
+              "label": "",
+              "type": "BytesValue",
+              "longType": "ywrapper.BytesValue",
+              "fullType": "ywrapper.BytesValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop_group",
+              "description": "",
+              "label": "",
+              "type": "UintValue",
+              "longType": "ywrapper.UintValue",
+              "fullType": "ywrapper.UintValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop_group_network_instance",
+              "description": "",
+              "label": "",
+              "type": "StringValue",
+              "longType": "ywrapper.StringValue",
+              "fullType": "ywrapper.StringValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "popped_mpls_label_stack",
+              "description": "",
+              "label": "repeated",
+              "type": "PoppedMplsLabelStackUnion",
+              "longType": "Afts.LabelEntry.PoppedMplsLabelStackUnion",
+              "fullType": "gribi_aft.Afts.LabelEntry.PoppedMplsLabelStackUnion",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PoppedMplsLabelStackUnion",
+          "longName": "Afts.LabelEntry.PoppedMplsLabelStackUnion",
+          "fullName": "gribi_aft.Afts.LabelEntry.PoppedMplsLabelStackUnion",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "popped_mpls_label_stack_openconfigmplstypesmplslabelenum",
+              "description": "",
+              "label": "",
+              "type": "OpenconfigMplsTypesMplsLabelEnum",
+              "longType": "enums.OpenconfigMplsTypesMplsLabelEnum",
+              "fullType": "gribi_aft.enums.OpenconfigMplsTypesMplsLabelEnum",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "popped_mpls_label_stack_uint64",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "LabelEntryKey",
+          "longName": "Afts.LabelEntryKey",
+          "fullName": "gribi_aft.Afts.LabelEntryKey",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "label_openconfigmplstypesmplslabelenum",
+              "description": "",
+              "label": "",
+              "type": "OpenconfigMplsTypesMplsLabelEnum",
+              "longType": "enums.OpenconfigMplsTypesMplsLabelEnum",
+              "fullType": "gribi_aft.enums.OpenconfigMplsTypesMplsLabelEnum",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "label",
+              "defaultValue": ""
+            },
+            {
+              "name": "label_uint64",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "label",
+              "defaultValue": ""
+            },
+            {
+              "name": "label_entry",
+              "description": "",
+              "label": "",
+              "type": "LabelEntry",
+              "longType": "Afts.LabelEntry",
+              "fullType": "gribi_aft.Afts.LabelEntry",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MacEntry",
+          "longName": "Afts.MacEntry",
+          "fullName": "gribi_aft.Afts.MacEntry",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "entry_metadata",
+              "description": "",
+              "label": "",
+              "type": "BytesValue",
+              "longType": "ywrapper.BytesValue",
+              "fullType": "ywrapper.BytesValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop_group",
+              "description": "",
+              "label": "",
+              "type": "UintValue",
+              "longType": "ywrapper.UintValue",
+              "fullType": "ywrapper.UintValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop_group_network_instance",
+              "description": "",
+              "label": "",
+              "type": "StringValue",
+              "longType": "ywrapper.StringValue",
+              "fullType": "ywrapper.StringValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MacEntryKey",
+          "longName": "Afts.MacEntryKey",
+          "fullName": "gribi_aft.Afts.MacEntryKey",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "mac_address",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "mac_entry",
+              "description": "",
+              "label": "",
+              "type": "MacEntry",
+              "longType": "Afts.MacEntry",
+              "fullType": "gribi_aft.Afts.MacEntry",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "NextHop",
+          "longName": "Afts.NextHop",
+          "fullName": "gribi_aft.Afts.NextHop",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "decapsulate_header",
+              "description": "",
+              "label": "",
+              "type": "OpenconfigAftTypesEncapsulationHeaderType",
+              "longType": "enums.OpenconfigAftTypesEncapsulationHeaderType",
+              "fullType": "gribi_aft.enums.OpenconfigAftTypesEncapsulationHeaderType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "encapsulate_header",
+              "description": "",
+              "label": "",
+              "type": "OpenconfigAftTypesEncapsulationHeaderType",
+              "longType": "enums.OpenconfigAftTypesEncapsulationHeaderType",
+              "fullType": "gribi_aft.enums.OpenconfigAftTypesEncapsulationHeaderType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "interface_ref",
+              "description": "",
+              "label": "",
+              "type": "InterfaceRef",
+              "longType": "Afts.NextHop.InterfaceRef",
+              "fullType": "gribi_aft.Afts.NextHop.InterfaceRef",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ip_address",
+              "description": "",
+              "label": "",
+              "type": "StringValue",
+              "longType": "ywrapper.StringValue",
+              "fullType": "ywrapper.StringValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ip_in_ip",
+              "description": "",
+              "label": "",
+              "type": "IpInIp",
+              "longType": "Afts.NextHop.IpInIp",
+              "fullType": "gribi_aft.Afts.NextHop.IpInIp",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "mac_address",
+              "description": "",
+              "label": "",
+              "type": "StringValue",
+              "longType": "ywrapper.StringValue",
+              "fullType": "ywrapper.StringValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "network_instance",
+              "description": "",
+              "label": "",
+              "type": "StringValue",
+              "longType": "ywrapper.StringValue",
+              "fullType": "ywrapper.StringValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pop_top_label",
+              "description": "",
+              "label": "",
+              "type": "BoolValue",
+              "longType": "ywrapper.BoolValue",
+              "fullType": "ywrapper.BoolValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pushed_mpls_label_stack",
+              "description": "",
+              "label": "repeated",
+              "type": "PushedMplsLabelStackUnion",
+              "longType": "Afts.NextHop.PushedMplsLabelStackUnion",
+              "fullType": "gribi_aft.Afts.NextHop.PushedMplsLabelStackUnion",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "tunnel_src_ip_address",
+              "description": "",
+              "label": "",
+              "type": "StringValue",
+              "longType": "ywrapper.StringValue",
+              "fullType": "ywrapper.StringValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "vni_label",
+              "description": "",
+              "label": "",
+              "type": "UintValue",
+              "longType": "ywrapper.UintValue",
+              "fullType": "ywrapper.UintValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "InterfaceRef",
+          "longName": "Afts.NextHop.InterfaceRef",
+          "fullName": "gribi_aft.Afts.NextHop.InterfaceRef",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "interface",
+              "description": "",
+              "label": "",
+              "type": "StringValue",
+              "longType": "ywrapper.StringValue",
+              "fullType": "ywrapper.StringValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "subinterface",
+              "description": "",
+              "label": "",
+              "type": "UintValue",
+              "longType": "ywrapper.UintValue",
+              "fullType": "ywrapper.UintValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "IpInIp",
+          "longName": "Afts.NextHop.IpInIp",
+          "fullName": "gribi_aft.Afts.NextHop.IpInIp",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "dst_ip",
+              "description": "",
+              "label": "",
+              "type": "StringValue",
+              "longType": "ywrapper.StringValue",
+              "fullType": "ywrapper.StringValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "src_ip",
+              "description": "",
+              "label": "",
+              "type": "StringValue",
+              "longType": "ywrapper.StringValue",
+              "fullType": "ywrapper.StringValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PushedMplsLabelStackUnion",
+          "longName": "Afts.NextHop.PushedMplsLabelStackUnion",
+          "fullName": "gribi_aft.Afts.NextHop.PushedMplsLabelStackUnion",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "pushed_mpls_label_stack_openconfigmplstypesmplslabelenum",
+              "description": "",
+              "label": "",
+              "type": "OpenconfigMplsTypesMplsLabelEnum",
+              "longType": "enums.OpenconfigMplsTypesMplsLabelEnum",
+              "fullType": "gribi_aft.enums.OpenconfigMplsTypesMplsLabelEnum",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pushed_mpls_label_stack_uint64",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "NextHopGroup",
+          "longName": "Afts.NextHopGroup",
+          "fullName": "gribi_aft.Afts.NextHopGroup",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "backup_next_hop_group",
+              "description": "",
+              "label": "",
+              "type": "UintValue",
+              "longType": "ywrapper.UintValue",
+              "fullType": "ywrapper.UintValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "color",
+              "description": "",
+              "label": "",
+              "type": "UintValue",
+              "longType": "ywrapper.UintValue",
+              "fullType": "ywrapper.UintValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop",
+              "description": "",
+              "label": "repeated",
+              "type": "NextHopKey",
+              "longType": "Afts.NextHopGroup.NextHopKey",
+              "fullType": "gribi_aft.Afts.NextHopGroup.NextHopKey",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "NextHop",
+          "longName": "Afts.NextHopGroup.NextHop",
+          "fullName": "gribi_aft.Afts.NextHopGroup.NextHop",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "weight",
+              "description": "",
+              "label": "",
+              "type": "UintValue",
+              "longType": "ywrapper.UintValue",
+              "fullType": "ywrapper.UintValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "NextHopKey",
+          "longName": "Afts.NextHopGroup.NextHopKey",
+          "fullName": "gribi_aft.Afts.NextHopGroup.NextHopKey",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "index",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop",
+              "description": "",
+              "label": "",
+              "type": "NextHop",
+              "longType": "Afts.NextHopGroup.NextHop",
+              "fullType": "gribi_aft.Afts.NextHopGroup.NextHop",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "NextHopGroupKey",
+          "longName": "Afts.NextHopGroupKey",
+          "fullName": "gribi_aft.Afts.NextHopGroupKey",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop_group",
+              "description": "",
+              "label": "",
+              "type": "NextHopGroup",
+              "longType": "Afts.NextHopGroup",
+              "fullType": "gribi_aft.Afts.NextHopGroup",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "NextHopKey",
+          "longName": "Afts.NextHopKey",
+          "fullName": "gribi_aft.Afts.NextHopKey",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "index",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop",
+              "description": "",
+              "label": "",
+              "type": "NextHop",
+              "longType": "Afts.NextHop",
+              "fullType": "gribi_aft.Afts.NextHop",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PolicyForwardingEntry",
+          "longName": "Afts.PolicyForwardingEntry",
+          "fullName": "gribi_aft.Afts.PolicyForwardingEntry",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "entry_metadata",
+              "description": "",
+              "label": "",
+              "type": "BytesValue",
+              "longType": "ywrapper.BytesValue",
+              "fullType": "ywrapper.BytesValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ip_dscp",
+              "description": "",
+              "label": "",
+              "type": "UintValue",
+              "longType": "ywrapper.UintValue",
+              "fullType": "ywrapper.UintValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ip_prefix",
+              "description": "",
+              "label": "",
+              "type": "StringValue",
+              "longType": "ywrapper.StringValue",
+              "fullType": "ywrapper.StringValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ip_protocol_openconfigpacketmatchtypesipprotocol",
+              "description": "",
+              "label": "",
+              "type": "OpenconfigPacketMatchTypesIPPROTOCOL",
+              "longType": "enums.OpenconfigPacketMatchTypesIPPROTOCOL",
+              "fullType": "gribi_aft.enums.OpenconfigPacketMatchTypesIPPROTOCOL",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "ip_protocol",
+              "defaultValue": ""
+            },
+            {
+              "name": "ip_protocol_uint64",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "ip_protocol",
+              "defaultValue": ""
+            },
+            {
+              "name": "l4_dst_port",
+              "description": "",
+              "label": "",
+              "type": "UintValue",
+              "longType": "ywrapper.UintValue",
+              "fullType": "ywrapper.UintValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "l4_src_port",
+              "description": "",
+              "label": "",
+              "type": "UintValue",
+              "longType": "ywrapper.UintValue",
+              "fullType": "ywrapper.UintValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "mac_address",
+              "description": "",
+              "label": "",
+              "type": "StringValue",
+              "longType": "ywrapper.StringValue",
+              "fullType": "ywrapper.StringValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "mpls_label_openconfigmplstypesmplslabelenum",
+              "description": "",
+              "label": "",
+              "type": "OpenconfigMplsTypesMplsLabelEnum",
+              "longType": "enums.OpenconfigMplsTypesMplsLabelEnum",
+              "fullType": "gribi_aft.enums.OpenconfigMplsTypesMplsLabelEnum",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "mpls_label",
+              "defaultValue": ""
+            },
+            {
+              "name": "mpls_label_uint64",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "mpls_label",
+              "defaultValue": ""
+            },
+            {
+              "name": "mpls_tc",
+              "description": "",
+              "label": "",
+              "type": "UintValue",
+              "longType": "ywrapper.UintValue",
+              "fullType": "ywrapper.UintValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop_group",
+              "description": "",
+              "label": "",
+              "type": "UintValue",
+              "longType": "ywrapper.UintValue",
+              "fullType": "ywrapper.UintValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_hop_group_network_instance",
+              "description": "",
+              "label": "",
+              "type": "StringValue",
+              "longType": "ywrapper.StringValue",
+              "fullType": "ywrapper.StringValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PolicyForwardingEntryKey",
+          "longName": "Afts.PolicyForwardingEntryKey",
+          "fullName": "gribi_aft.Afts.PolicyForwardingEntryKey",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "index",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "policy_forwarding_entry",
+              "description": "",
+              "label": "",
+              "type": "PolicyForwardingEntry",
+              "longType": "Afts.PolicyForwardingEntry",
+              "fullType": "gribi_aft.Afts.PolicyForwardingEntry",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Device",
+          "longName": "Device",
+          "fullName": "gribi_aft.Device",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "afts",
+              "description": "",
+              "label": "",
+              "type": "Afts",
+              "longType": "Afts",
+              "fullType": "gribi_aft.Afts",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": []
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}
