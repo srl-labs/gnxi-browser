@@ -44,7 +44,7 @@
 	<div class="flex-grow-1 flex-shrink-0 m-auto px-10">
 		<div class="md:grid md:grid-cols-2 md:gap-20 md:items-center">
 			<div class="py-5">
-				<p class="mb-4"><img src="/images/nwhite.png" width="100" alt="Logo" /></p>
+				<p class="mb-4"><img src="/images/nokia_w.svg" width="100" alt="Logo" /></p>
 				<h3 class="text-3xl text-yellow-200 font-light mt-6">gNxI Protobuf Documentation</h3>
 				<p class="mt-4 text-white text-m max-w-[450px]">
 					User interface for Openconfig's gRPC services <sup
