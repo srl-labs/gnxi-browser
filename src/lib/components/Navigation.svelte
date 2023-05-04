@@ -158,76 +158,78 @@
   <div id="sideList" class="px-3 pb-4 min-w-[300px] h-[calc(100vh_-_10rem)] overflow-y-auto scroll-light dark:scroll-dark bg-white dark:bg-gray-800">
     <ul class="space-y-2">
       {#each files as entry, i}
-        {@const packageName = entry.name.split("/").pop().split(".")[0]}
-        <li>
-          <a class="{custom.sidebar.expand.package}" href="#{packageName}" on:click={toggleSidebar}>{packageName}</a>
-          <ul class="py-2 space-y-2 ml-2">
-            {#if entry.hasServices}
-              <li>
-                <a href="#{packageName + ".services"}" on:click={toggleSidebar}>
-                  <button type="button" class="{custom.sidebar.expand.header}">
-                    <span class="{custom.sidebar.expand.icon} text-white bg-blue-600">S</span>
-                    <span class="ml-3 uppercase">Services</span>
-                  </button>
-                </a>
-                <ul class="{custom.sidebar.expand.content.border} border-blue-600">
-                  {#each entry.services as item}
-                    {@const loopName = i === 0 ? item.longName: item.fullName}
-                    <li><a href="#{loopName}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{loopName}</a></li>
-                  {/each}
-                </ul>
-              </li>
-            {/if}
-            {#if entry.hasMessages}
-              <li>
-                <a href="#{packageName + ".messages"}" on:click={toggleSidebar}>
-                  <button type="button" class="{custom.sidebar.expand.header}">
-                    <span class="{custom.sidebar.expand.icon} text-white bg-gray-400">M</span>
-                    <span class="ml-3 uppercase">Messages</span>
-                  </button>
-                </a>
-                <ul class="{custom.sidebar.expand.content.border} border-gray-400">
-                  {#each entry.messages as item}
-                    {@const hrefVal = i === 0 ? item.longName: item.fullName}
-                    <li><a href="#{hrefVal}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{item.longName}</a></li>
-                  {/each}
-                </ul>
-              </li>
-            {/if}
-            {#if entry.hasEnums}
-              <li>
-                <a href="#{packageName + ".enums"}" on:click={toggleSidebar}>
-                  <button type="button" class="{custom.sidebar.expand.header}">
-                    <span class="{custom.sidebar.expand.icon} text-white bg-slate-600">E</span>
-                    <span class="ml-3 uppercase">Enums</span>
-                  </button>
-                </a>
-                <ul class="{custom.sidebar.expand.content.border} border-slate-600">
-                  {#each entry.enums as item}
-                    {@const hrefVal = i === 0 ? item.longName: item.fullName}
-                    <li><a href="#{hrefVal}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{item.longName}</a></li>
-                  {/each}
-                </ul>
-              </li>
-            {/if}
-            {#if entry.hasExtensions}
-              <li>
-                <a href="#{packageName + ".extensions"}" on:click={toggleSidebar}>
-                  <button type="button" class="{custom.sidebar.expand.header}">
-                    <span class="{custom.sidebar.expand.icon} text-black bg-gray-200">X</span>
-                    <span class="ml-3 uppercase">Extensions</span>
-                  </button>
-                </a>
-                <ul class="{custom.sidebar.expand.content.border} border-gray-200">
-                  {#each entry.extensions as item}
-                    {@const hrefVal = i === 0 ? item.longName: item.fullName}
-                    <li><a href="#{hrefVal}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{item.longName}</a></li>
-                  {/each}
-                </ul>
-              </li>
-            {/if}
-          </ul>
-        </li>
+        {#if entry.hasServices || entry.hasMessages || entry.hasEnums || entry.hasExtensions }
+          {@const packageName = entry.name.split("/").pop().split(".")[0]}
+          <li>
+            <a class="{custom.sidebar.expand.package}" href="#{packageName}" on:click={toggleSidebar}>{packageName}</a>
+            <ul class="py-2 space-y-2 ml-2">
+              {#if entry.hasServices}
+                <li>
+                  <a href="#{packageName + ".services"}" on:click={toggleSidebar}>
+                    <button type="button" class="{custom.sidebar.expand.header}">
+                      <span class="{custom.sidebar.expand.icon} text-white bg-blue-600">S</span>
+                      <span class="ml-3 uppercase">Services</span>
+                    </button>
+                  </a>
+                  <ul class="{custom.sidebar.expand.content.border} border-blue-600">
+                    {#each entry.services as item}
+                      {@const loopName = i === 0 ? item.longName: item.fullName}
+                      <li><a href="#{loopName}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{loopName}</a></li>
+                    {/each}
+                  </ul>
+                </li>
+              {/if}
+              {#if entry.hasMessages}
+                <li>
+                  <a href="#{packageName + ".messages"}" on:click={toggleSidebar}>
+                    <button type="button" class="{custom.sidebar.expand.header}">
+                      <span class="{custom.sidebar.expand.icon} text-white bg-gray-400">M</span>
+                      <span class="ml-3 uppercase">Messages</span>
+                    </button>
+                  </a>
+                  <ul class="{custom.sidebar.expand.content.border} border-gray-400">
+                    {#each entry.messages as item}
+                      {@const hrefVal = i === 0 ? item.longName: item.fullName}
+                      <li><a href="#{hrefVal}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{item.longName}</a></li>
+                    {/each}
+                  </ul>
+                </li>
+              {/if}
+              {#if entry.hasEnums}
+                <li>
+                  <a href="#{packageName + ".enums"}" on:click={toggleSidebar}>
+                    <button type="button" class="{custom.sidebar.expand.header}">
+                      <span class="{custom.sidebar.expand.icon} text-white bg-slate-600">E</span>
+                      <span class="ml-3 uppercase">Enums</span>
+                    </button>
+                  </a>
+                  <ul class="{custom.sidebar.expand.content.border} border-slate-600">
+                    {#each entry.enums as item}
+                      {@const hrefVal = i === 0 ? item.longName: item.fullName}
+                      <li><a href="#{hrefVal}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{item.longName}</a></li>
+                    {/each}
+                  </ul>
+                </li>
+              {/if}
+              {#if entry.hasExtensions}
+                <li>
+                  <a href="#{packageName + ".extensions"}" on:click={toggleSidebar}>
+                    <button type="button" class="{custom.sidebar.expand.header}">
+                      <span class="{custom.sidebar.expand.icon} text-black bg-gray-200">X</span>
+                      <span class="ml-3 uppercase">Extensions</span>
+                    </button>
+                  </a>
+                  <ul class="{custom.sidebar.expand.content.border} border-gray-200">
+                    {#each entry.extensions as item}
+                      {@const hrefVal = i === 0 ? item.longName: item.fullName}
+                      <li><a href="#{hrefVal}" class="{custom.sidebar.expand.content.entry}" on:click={toggleSidebar}>{item.longName}</a></li>
+                    {/each}
+                  </ul>
+                </li>
+              {/if}
+            </ul>
+          </li>
+        {/if}
       {/each}
     </ul>
   </div>

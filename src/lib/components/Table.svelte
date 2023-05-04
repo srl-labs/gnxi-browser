@@ -111,7 +111,7 @@
               {/each}
             </tbody>
           {:else}
-            <p class="italic">Empty message</p>
+            <p class="italic text-sm">Empty message</p>
           {/if}
         {:else if sectionName == "enums"}
           {#if item.values.length > 0}
@@ -134,7 +134,7 @@
               {/each}
             </tbody>
           {:else}
-            <p class="italic">Empty enum</p>
+            <p class="italic text-sm">Empty enum</p>
           {/if}
         {:else if sectionName == "extensions"}
           <thead class="{custom.table.thead}">
