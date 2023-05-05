@@ -25,7 +25,7 @@
 </script>
 
 <svelte:head>
-  <title>{interfaces[p].name} - {interfaces[p].services[s].name} Service {v}</title>
+  <title>{interfaces[p].name} - {interfaces[p].services[s].name} {v}</title>
 </svelte:head>
 
 <div class="dark:bg-gray-800 pb-2">
