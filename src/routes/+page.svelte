@@ -36,7 +36,7 @@
 </script>
 
 <svelte:head>
-	<title>gNXI Protobuf Documentation</title>
+	<title>gNxI Protobuf Documentation</title>
 	<link rel="canonical" href="https://gnxi.srlinux.dev{$page.url.pathname}" />
 </svelte:head>
 
