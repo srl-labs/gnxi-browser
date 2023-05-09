@@ -2,7 +2,7 @@
 	<script
 		defer
 		src="https://static.cloudflareinsights.com/beacon.min.js"
-		data-cf-beacon={`{"token": "05b56bcf2a6e4e64abdf0081e18483b1"}`}></script>
+		data-cf-beacon={`{"token": "804a9dccdb08415f8c74a2722377b4ba"}`}></script>
 </svelte:head>
 
 <slot />
