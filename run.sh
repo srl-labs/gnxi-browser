@@ -24,20 +24,60 @@ _get_git_ref() {
   fi
 }
 
+# source the geneartor scripts per the passed task
+if [[ "$1" == "gen-gnoi-os" ]]; then
+  source ./gendoc/gnoi/os.sh
+fi
 
-source ./gendoc/gnmi/gnmi.sh
-source ./gendoc/gnoi/packet-link-qual.sh
-source ./gendoc/gnoi/healthz.sh
-source ./gendoc/gnoi/factory-reset.sh
-source ./gendoc/gnoi/os.sh
-source ./gendoc/gnoi/file.sh
-source ./gendoc/gnoi/system.sh
-source ./gendoc/gnsi/acct.sh
-source ./gendoc/gnsi/authz.sh
-source ./gendoc/gnsi/certz.sh
-source ./gendoc/gnsi/credentialz.sh
-source ./gendoc/gnsi/pathz.sh
-source ./gendoc/gribi/gribi.sh
+if [[ "$1" == "gen-gnoi-file" ]]; then
+  source ./gendoc/gnoi/file.sh
+fi
+
+if [[ "$1" == "gen-gnoi-system" ]]; then
+  source ./gendoc/gnoi/system.sh
+fi
+
+if [[ "$1" == "gen-gnoi-healthz" ]]; then
+  source ./gendoc/gnoi/healthz.sh
+fi
+
+if [[ "$1" == "gen-gnoi-factory-reset" ]]; then
+  source ./gendoc/gnoi/factory-reset.sh
+fi
+
+if [[ "$1" == "gen-gnoi-packet-link-qual" ]]; then
+  source ./gendoc/gnoi/packet-link-qual.sh
+fi
+
+if [[ "$1" == "gen-gnmi" ]]; then
+  source ./gendoc/gnmi/gnmi.sh
+fi
+
+# now repeat for gnsi
+if [[ "$1" == "gen-gnsi-acct" ]]; then
+  source ./gendoc/gnsi/acct.sh
+fi
+
+if [[ "$1" == "gen-gnsi-authz" ]]; then
+  source ./gendoc/gnsi/authz.sh
+fi
+
+if [[ "$1" == "gen-gnsi-certz" ]]; then
+  source ./gendoc/gnsi/certz.sh
+fi
+
+if [[ "$1" == "gen-gnsi-credentialz" ]]; then
+  source ./gendoc/gnsi/credentialz.sh
+fi
+
+if [[ "$1" == "gen-gnsi-pathz" ]]; then
+  source ./gendoc/gnsi/pathz.sh
+fi
+
+if [[ "$1" == "gen-gribi" ]]; then
+  source ./gendoc/gribi/gribi.sh
+fi
+
 
 function help {
   printf "%s <task> [args]\n\nTasks:\n" "${0}"
