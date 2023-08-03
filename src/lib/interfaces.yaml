@@ -39,12 +39,12 @@ gnoi:
       description: The OS service provides an interface for OS installation on a Target.
       name: OS
       versions:
-        v0.1.1:
-          documentation: null
-          source: https://github.com/openconfig/gnoi/blob/c553e567c5f917bc349952ea47b2c4df854962c9/os/os.proto
         v0.1.4:
           documentation: null
           source: https://github.com/openconfig/gnoi/blob/3df08ff738428a3c29db9052011a9b94c0be232b/os/os.proto
+        v0.1.1:
+          documentation: null
+          source: https://github.com/openconfig/gnoi/blob/c553e567c5f917bc349952ea47b2c4df854962c9/os/os.proto
     packet_link_qualification:
       description: The link qualification service is provides a way to certify link quality on two devices.
       name: Packet Link Qualification
@@ -56,10 +56,10 @@ gnoi:
       description: The System service is a collection of operational RPC's that allow for the management of a target outside of the configuration and telemetry pipeline.
       name: System
       versions:
-        v0.1.0:
-          source: https://github.com/openconfig/gnoi/blob/c553e567c5f917bc349952ea47b2c4df854962c9/system/system.proto
         v0.1.1:
           source: https://github.com/openconfig/gnoi/blob/1727ed93255496ca59683f8f557f9519026ed345/system/system.proto
+        v0.1.0:
+          source: https://github.com/openconfig/gnoi/blob/c553e567c5f917bc349952ea47b2c4df854962c9/system/system.proto
 gnsi:
   name: gNSI
   services:
