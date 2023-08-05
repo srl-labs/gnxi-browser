@@ -6,7 +6,7 @@
 		table: {
 			caption_cont: 'py-5 text-left font-nunito  overflow-x-auto',
 			caption: 'text-blue-600 dark:text-blue-500 hover:underline font-mono text-sm',
-			desc: 'mt-1 font-normal text-gray-500 dark:text-gray-400 text-xs lg:text-sm',
+			desc: 'mt-1 font-normal text-gray-500 dark:text-gray-400 text-xs font-mono',
 			container: 'overflow-x-auto max-w-full',
 			table: 'text-left text-gray-500 dark:text-gray-400 w-full font-nunito',
 			thead: 'text-xs uppercase text-gray-700 dark:text-gray-400 bg-gray-50 dark:bg-gray-700',
@@ -14,7 +14,7 @@
 			tr: 'bg-white border-b dark:bg-gray-800 dark:border-gray-700',
 			th_col: 'px-6 py-3',
 			th_row: 'px-6 py-4 text-gray-900 dark:text-white font-mono text-xs',
-			td: 'px-6 py-4 text-xs lg:text-sm',
+			td: 'px-6 py-4 text-xs font-mono',
 			small: 'text-gray-400'
 		}
 	};
@@ -149,7 +149,7 @@
 							{#each item.values as z, i}
 								<tr class={custom.table.tr}>
 									<th scope="row" class={custom.table.th_row}>{z.name}</th>
-									<td class="{custom.table.td} font-mono">{z.number}</td>
+									<td class="{custom.table.td}">{z.number}</td>
 									<td class={custom.table.td}>
 										<p>{@html fdesc(z.description)}</p>
 									</td>
@@ -172,17 +172,17 @@
 					<tbody>
 						<tr class={custom.table.tr}>
 							<th scope="row" class={custom.table.th_row}>{item.name}</th>
-							<td class="{custom.table.td} font-mono">
+							<td class="{custom.table.td}">
 								<a class={custom.table.link} href="#{imported ? item.fullType : item.longType}"
 									>{item.longType}</a>
 							</td>
-							<td class="{custom.table.td} font-mono">
+							<td class="{custom.table.td}">
 								<a
 									class={custom.table.link}
 									href="#{imported ? item.containingFullType : item.containingLongType}"
 									>{item.containingLongType}</a>
 							</td>
-							<td class="{custom.table.td} font-mono">{item.number}</td>
+							<td class="{custom.table.td}">{item.number}</td>
 							<td class={custom.table.td}>
 								<p>
 									{@html fdesc(item.description)}
