@@ -6,7 +6,7 @@ export default {
     extend: {},
     fontFamily: {
       nunito: ['Nunito', 'sans-serif'],
-      fira: ['Fira Code', 'monospace'],
+      mono: ['JetBrains Mono', 'monospace', 'ui-monospace', 'SFMono-Regular'],
     }
   },
   plugins: [],
