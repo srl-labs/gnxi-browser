@@ -33,8 +33,11 @@ export async function load({ url, fetch, params }) {
         }
       }
 
-      const protoDoc = import(`../../../lib/interfaces/${p}/${s}/${v}/proto-doc.json`);
       try {
+        const fetchUrl = `${pathUrl}/interfaces/${p}/${s}/${v}/proto-doc.json`;
+        const resp = await fetch(fetchUrl);
+        const protoDoc = await resp.json();
+      
         return {
           interface: p, service: s, version: v,
           protoDoc: await protoDoc
