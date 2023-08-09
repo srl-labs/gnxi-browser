@@ -6,7 +6,7 @@
 		table: {
 			caption_cont: 'py-5 text-left font-nunito  overflow-x-auto',
 			caption: 'text-blue-600 dark:text-blue-500 hover:underline font-mono text-sm',
-			desc: 'mt-1 font-normal text-gray-500 dark:text-gray-400 text-xs font-mono',
+			desc: 'mt-1 font-normal text-gray-500 dark:text-gray-400 text-xs font-mono whitespace-pre',
 			container: 'overflow-x-auto max-w-full',
 			table: 'text-left text-gray-500 dark:text-gray-400 w-full font-nunito',
 			thead: 'text-xs uppercase text-gray-700 dark:text-gray-400 bg-gray-50 dark:bg-gray-700',
@@ -76,7 +76,7 @@
 										{#if z.requestStreaming} stream {/if}
 									</td>
 									<td class={custom.table.td}>
-										<p>{@html fdesc(z.description)}</p>
+										<p class="whitespace-pre">{@html fdesc(z.description)}</p>
 									</td>
 								</tr>
 							{/each}
@@ -125,7 +125,7 @@
 												{#if item.options && item.options == 'deprecated'}
 													<strong>Deprecated.</strong>
 												{/if}
-												{@html fdesc(z.description)}
+												<span class="whitespace-pre">{@html fdesc(z.description)}</span>
 												{#if z.defaultValue} Default: {z.defaultValue} {/if}
 											</p>
 										</td>
@@ -151,7 +151,7 @@
 									<th scope="row" class={custom.table.th_row}>{z.name}</th>
 									<td class="{custom.table.td}">{z.number}</td>
 									<td class={custom.table.td}>
-										<p>{@html fdesc(z.description)}</p>
+										<p class="whitespace-pre">{@html fdesc(z.description)}</p>
 									</td>
 								</tr>
 							{/each}
@@ -185,7 +185,7 @@
 							<td class="{custom.table.td}">{item.number}</td>
 							<td class={custom.table.td}>
 								<p>
-									{@html fdesc(item.description)}
+									<span class="whitespace-pre">{@html fdesc(item.description)}</span>
 									{#if item.defaultValue} Default: {item.defaultValue} {/if}
 								</p>
 							</td>
