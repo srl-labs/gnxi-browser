@@ -3,6 +3,7 @@ GNMI_DIR=~/openconfig/gnmi
 # gnmi_git_refs is a map of git references to gnmi versions
 declare -A gnmi_git_refs
 gnmi_git_refs["v0.7.0"]="00369d9"
+gnmi_git_refs["v0.11.0-beta"]="nokia-commit-confirm"
 
 # genereate gNMI proto docs
 function gen-gnmi {
@@ -12,7 +13,7 @@ function gen-gnmi {
         exit 1
     fi
 
-    OUT_DIR=$(pwd)/src/lib/interfaces/gnmi/gnmi/"$1"
+    OUT_DIR=$(pwd)/static/interfaces/gnmi/gnmi/"$1"
     mkdir -p ${OUT_DIR}
 
     git_ref=$(_get_git_ref gnmi_git_refs "$1")

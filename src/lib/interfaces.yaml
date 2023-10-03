@@ -5,6 +5,9 @@ gnmi:
       name: gNMI
       description: A protocol for the modification and retrieval of configuration from a target device, as well as the control and generation of telemetry streams from a target device to a data collection system.
       versions:
+        v0.11.0-beta:
+          source: https://github.com/openconfig/gnmi/blob/v0.9.1/proto/gnmi/gnmi.proto
+          documentation: https://github.com/openconfig/reference/blob/5673235773d72bcbcf789584d69db98066c5303a/rpc/gnmi/gnmi-specification.md
         v0.9.1:
           source: https://github.com/openconfig/gnmi/blob/v0.9.1/proto/gnmi/gnmi.proto
           documentation: https://github.com/openconfig/reference/blob/5673235773d72bcbcf789584d69db98066c5303a/rpc/gnmi/gnmi-specification.md

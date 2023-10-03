@@ -1,0 +1,4534 @@
+{
+  "files": [
+    {
+      "name": "github.com/openconfig/gnmi/proto/gnmi/gnmi.proto",
+      "description": "Copyright 2016 Google Inc. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n   http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+      "package": "gnmi",
+      "hasEnums": true,
+      "hasExtensions": true,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [
+        {
+          "name": "Encoding",
+          "longName": "Encoding",
+          "fullName": "gnmi.Encoding",
+          "description": "Encoding defines the value encoding formats that are supported by the gNMI\nprotocol. These encodings are used by both the client (when sending Set\nmessages to modify the state of the target) and the target when serializing\ndata to be returned to the client (in both Subscribe and Get RPCs).\nReference: gNMI Specification Section 2.3",
+          "values": [
+            {
+              "name": "JSON",
+              "number": "0",
+              "description": "JSON encoded text."
+            },
+            {
+              "name": "BYTES",
+              "number": "1",
+              "description": "Arbitrarily encoded bytes."
+            },
+            {
+              "name": "PROTO",
+              "number": "2",
+              "description": "Encoded according to scalar values of TypedValue."
+            },
+            {
+              "name": "ASCII",
+              "number": "3",
+              "description": "ASCII text of an out-of-band agreed format."
+            },
+            {
+              "name": "JSON_IETF",
+              "number": "4",
+              "description": "JSON encoded text as per RFC7951."
+            }
+          ]
+        },
+        {
+          "name": "DataType",
+          "longName": "GetRequest.DataType",
+          "fullName": "gnmi.GetRequest.DataType",
+          "description": "Type of elements within the data tree.",
+          "values": [
+            {
+              "name": "ALL",
+              "number": "0",
+              "description": "All data elements."
+            },
+            {
+              "name": "CONFIG",
+              "number": "1",
+              "description": "Config (rw) only elements."
+            },
+            {
+              "name": "STATE",
+              "number": "2",
+              "description": "State (ro) only elements."
+            },
+            {
+              "name": "OPERATIONAL",
+              "number": "3",
+              "description": "Data elements marked in the schema as operational. This refers to data\nelements whose value relates to the state of processes or interactions\nrunning on the device."
+            }
+          ]
+        },
+        {
+          "name": "Mode",
+          "longName": "SubscriptionList.Mode",
+          "fullName": "gnmi.SubscriptionList.Mode",
+          "description": "Mode of the subscription.",
+          "values": [
+            {
+              "name": "STREAM",
+              "number": "0",
+              "description": "Values streamed by the target (Sec. 3.5.1.5.2)."
+            },
+            {
+              "name": "ONCE",
+              "number": "1",
+              "description": "Values sent once-off by the target (Sec. 3.5.1.5.1)."
+            },
+            {
+              "name": "POLL",
+              "number": "2",
+              "description": "Values sent in response to a poll request (Sec. 3.5.1.5.3)."
+            }
+          ]
+        },
+        {
+          "name": "SubscriptionMode",
+          "longName": "SubscriptionMode",
+          "fullName": "gnmi.SubscriptionMode",
+          "description": "SubscriptionMode is the mode of the subscription, specifying how the\ntarget must return values in a subscription.\nReference: gNMI Specification Section 3.5.1.3",
+          "values": [
+            {
+              "name": "TARGET_DEFINED",
+              "number": "0",
+              "description": "The target selects the relevant mode for each element."
+            },
+            {
+              "name": "ON_CHANGE",
+              "number": "1",
+              "description": "The target sends an update on element value change."
+            },
+            {
+              "name": "SAMPLE",
+              "number": "2",
+              "description": "The target samples values according to the interval."
+            }
+          ]
+        },
+        {
+          "name": "Operation",
+          "longName": "UpdateResult.Operation",
+          "fullName": "gnmi.UpdateResult.Operation",
+          "description": "The operation that was associated with the Path specified.",
+          "values": [
+            {
+              "name": "INVALID",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "DELETE",
+              "number": "1",
+              "description": "The result relates to a delete of Path."
+            },
+            {
+              "name": "REPLACE",
+              "number": "2",
+              "description": "The result relates to a replace of Path."
+            },
+            {
+              "name": "UPDATE",
+              "number": "3",
+              "description": "The result relates to an update of Path."
+            },
+            {
+              "name": "UNION_REPLACE",
+              "number": "4",
+              "description": "The result of a union_replace of Path or CLI origin."
+            }
+          ]
+        }
+      ],
+      "extensions": [
+        {
+          "name": "gnmi_service",
+          "longName": "FileOptions.gnmi_service",
+          "fullName": "gnmi.FileOptions.gnmi_service",
+          "description": "The gNMI service semantic version.",
+          "label": "",
+          "type": "string",
+          "longType": "string",
+          "fullType": "string",
+          "number": 1001,
+          "defaultValue": "",
+          "containingType": "FileOptions",
+          "containingLongType": ".google.protobuf.FileOptions",
+          "containingFullType": "google.protobuf.FileOptions"
+        }
+      ],
+      "messages": [
+        {
+          "name": "CapabilityRequest",
+          "longName": "CapabilityRequest",
+          "fullName": "gnmi.CapabilityRequest",
+          "description": "CapabilityRequest is sent by the client in the Capabilities RPC to request\nthat the target reports its capabilities.\nReference: gNMI Specification Section 3.2.1",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "extension",
+              "description": "Extension messages associated with the CapabilityRequest. See the\ngNMI extension specification for further definition.",
+              "label": "repeated",
+              "type": "Extension",
+              "longType": "gnmi_ext.Extension",
+              "fullType": "gnmi_ext.Extension",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CapabilityResponse",
+          "longName": "CapabilityResponse",
+          "fullName": "gnmi.CapabilityResponse",
+          "description": "CapabilityResponse is used by the target to report its capabilities to the\nclient within the Capabilities RPC.\nReference: gNMI Specification Section 3.2.2",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "supported_models",
+              "description": "Supported schema models.",
+              "label": "repeated",
+              "type": "ModelData",
+              "longType": "ModelData",
+              "fullType": "gnmi.ModelData",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "supported_encodings",
+              "description": "Supported encodings.",
+              "label": "repeated",
+              "type": "Encoding",
+              "longType": "Encoding",
+              "fullType": "gnmi.Encoding",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "gNMI_version",
+              "description": "Supported gNMI version.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extension",
+              "description": "Extension messages associated with the CapabilityResponse. See the\ngNMI extension specification for further definition.",
+              "label": "repeated",
+              "type": "Extension",
+              "longType": "gnmi_ext.Extension",
+              "fullType": "gnmi_ext.Extension",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Decimal64",
+          "longName": "Decimal64",
+          "fullName": "gnmi.Decimal64",
+          "description": "Decimal64 is used to encode a fixed precision decimal number. The value\nis expressed as a set of digits with the precision specifying the\nnumber of digits following the decimal point in the digit set.\nThis message is deprecated in favor of encoding all floating point types\nas double precision.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "digits",
+              "description": "Set of digits.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "precision",
+              "description": "Number of digits following the decimal point.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ],
+          "options": {
+            "deprecated": true
+          }
+        },
+        {
+          "name": "Error",
+          "longName": "Error",
+          "fullName": "gnmi.Error",
+          "description": "Error message previously utilised to return errors to the client. Deprecated\nin favour of using the google.golang.org/genproto/googleapis/rpc/status\nmessage in the RPC response.\nReference: gNMI Specification Section 2.5",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "code",
+              "description": "Canonical gRPC error code.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "message",
+              "description": "Human readable error.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "data",
+              "description": "Optional additional information.",
+              "label": "",
+              "type": "Any",
+              "longType": "google.protobuf.Any",
+              "fullType": "google.protobuf.Any",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ],
+          "options": {
+            "deprecated": true
+          }
+        },
+        {
+          "name": "GetRequest",
+          "longName": "GetRequest",
+          "fullName": "gnmi.GetRequest",
+          "description": "GetRequest is sent when a client initiates a Get RPC. It is used to specify\nthe set of data elements for which the target should return a snapshot of\ndata. The use_models field specifies the set of schema modules that are to\nbe used by the target - where use_models is not specified then the target\nmust use all schema models that it has.\nReference: gNMI Specification Section 3.3.1",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "prefix",
+              "description": "Prefix used for paths.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "path",
+              "description": "Paths requested by the client.",
+              "label": "repeated",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "type",
+              "description": "The type of data being requested.",
+              "label": "",
+              "type": "DataType",
+              "longType": "GetRequest.DataType",
+              "fullType": "gnmi.GetRequest.DataType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "encoding",
+              "description": "Encoding to be used.",
+              "label": "",
+              "type": "Encoding",
+              "longType": "Encoding",
+              "fullType": "gnmi.Encoding",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "use_models",
+              "description": "The schema models to be used.",
+              "label": "repeated",
+              "type": "ModelData",
+              "longType": "ModelData",
+              "fullType": "gnmi.ModelData",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extension",
+              "description": "Extension messages associated with the GetRequest. See the\ngNMI extension specification for further definition.",
+              "label": "repeated",
+              "type": "Extension",
+              "longType": "gnmi_ext.Extension",
+              "fullType": "gnmi_ext.Extension",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GetResponse",
+          "longName": "GetResponse",
+          "fullName": "gnmi.GetResponse",
+          "description": "GetResponse is used by the target to respond to a GetRequest from a client.\nThe set of Notifications corresponds to the data values that are requested\nby the client in the GetRequest.\nReference: gNMI Specification Section 3.3.2",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "notification",
+              "description": "Data values.",
+              "label": "repeated",
+              "type": "Notification",
+              "longType": "Notification",
+              "fullType": "gnmi.Notification",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "error",
+              "description": "Errors that occurred in the Get.",
+              "label": "",
+              "type": "Error",
+              "longType": "Error",
+              "fullType": "gnmi.Error",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "extension",
+              "description": "Extension messages associated with the GetResponse. See the\ngNMI extension specification for further definition.",
+              "label": "repeated",
+              "type": "Extension",
+              "longType": "gnmi_ext.Extension",
+              "fullType": "gnmi_ext.Extension",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ModelData",
+          "longName": "ModelData",
+          "fullName": "gnmi.ModelData",
+          "description": "ModelData is used to describe a set of schema modules. It can be used in a\nCapabilityResponse where a target reports the set of modules that it\nsupports, and within the SubscribeRequest and GetRequest messages to specify\nthe set of models from which data tree elements should be reported.\nReference: gNMI Specification Section 3.2.3",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "Name of the model.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "organization",
+              "description": "Organization publishing the model.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "version",
+              "description": "Semantic version of the model.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Notification",
+          "longName": "Notification",
+          "fullName": "gnmi.Notification",
+          "description": "Notification is a re-usable message that is used to encode data from the\ntarget to the client. A Notification carries two types of changes to the data\ntree:\n - Deleted values (delete) - a set of paths that have been removed from the\n   data tree.\n - Updated values (update) - a set of path-value pairs indicating the path\n   whose value has changed in the data tree.\nReference: gNMI Specification Section 2.1",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "timestamp",
+              "description": "Timestamp in nanoseconds since Epoch.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "prefix",
+              "description": "Prefix used for paths in the message.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "update",
+              "description": "Data elements that have changed values.",
+              "label": "repeated",
+              "type": "Update",
+              "longType": "Update",
+              "fullType": "gnmi.Update",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "delete",
+              "description": "Data elements that have been deleted.",
+              "label": "repeated",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "atomic",
+              "description": "This notification contains a set of paths that are always updated together\nreferenced by a globally unique prefix.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Path",
+          "longName": "Path",
+          "fullName": "gnmi.Path",
+          "description": "Path encodes a data tree path as a series of repeated strings, with\neach element of the path representing a data tree node name and the\nassociated attributes.\nReference: gNMI Specification Section 2.2.2.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "element",
+              "description": "Elements of the path are no longer encoded as a string, but rather within\nthe elem field as a PathElem message.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "origin",
+              "description": "Label to disambiguate path.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "elem",
+              "description": "Elements of the path.",
+              "label": "repeated",
+              "type": "PathElem",
+              "longType": "PathElem",
+              "fullType": "gnmi.PathElem",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "target",
+              "description": "The name of the target",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PathElem",
+          "longName": "PathElem",
+          "fullName": "gnmi.PathElem",
+          "description": "PathElem encodes an element of a gNMI path, along with any attributes (keys)\nthat may be associated with it.\nReference: gNMI Specification Section 2.2.2.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "The name of the element in the path.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key",
+              "description": "Map of key (attribute) name to value.",
+              "label": "repeated",
+              "type": "KeyEntry",
+              "longType": "PathElem.KeyEntry",
+              "fullType": "gnmi.PathElem.KeyEntry",
+              "ismap": true,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "KeyEntry",
+          "longName": "PathElem.KeyEntry",
+          "fullName": "gnmi.PathElem.KeyEntry",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Poll",
+          "longName": "Poll",
+          "fullName": "gnmi.Poll",
+          "description": "Poll is sent within a SubscribeRequest to trigger the device to\nsend telemetry updates for the paths that are associated with the\nsubscription.\nReference: gNMI Specification Section Section 3.5.1.4",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "QOSMarking",
+          "longName": "QOSMarking",
+          "fullName": "gnmi.QOSMarking",
+          "description": "QOSMarking specifies the DSCP value to be set on transmitted telemetry\nupdates from the target.\nReference: gNMI Specification Section 3.5.1.2",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "marking",
+              "description": "",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ScalarArray",
+          "longName": "ScalarArray",
+          "fullName": "gnmi.ScalarArray",
+          "description": "ScalarArray is used to encode a mixed-type array of values.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "element",
+              "description": "The set of elements within the array. Each TypedValue message should\nspecify only elements that have a field identifier of 1-7 (i.e., the\nvalues are scalar values).",
+              "label": "repeated",
+              "type": "TypedValue",
+              "longType": "TypedValue",
+              "fullType": "gnmi.TypedValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SetRequest",
+          "longName": "SetRequest",
+          "fullName": "gnmi.SetRequest",
+          "description": "SetRequest is sent from a client to the target to update values in the data\ntree. Paths are either deleted by the client, or modified by means of being\nupdated, or replaced. Where a replace is used, unspecified values are\nconsidered to be replaced, whereas when update is used the changes are\nconsidered to be incremental. The set of changes that are specified within\na single SetRequest are considered to be a transaction.\nReference: gNMI Specification Section 3.4.1",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "prefix",
+              "description": "Prefix used for paths in the message.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "delete",
+              "description": "Paths to be deleted from the data tree.",
+              "label": "repeated",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "replace",
+              "description": "Updates specifying elements to be replaced.",
+              "label": "repeated",
+              "type": "Update",
+              "longType": "Update",
+              "fullType": "gnmi.Update",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "update",
+              "description": "Updates specifying elements to updated.",
+              "label": "repeated",
+              "type": "Update",
+              "longType": "Update",
+              "fullType": "gnmi.Update",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "union_replace",
+              "description": "Updates specifying elements to union and then replace the data tree.  \nSee the gNMI specification at\nhttps://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md\nfor details.",
+              "label": "repeated",
+              "type": "Update",
+              "longType": "Update",
+              "fullType": "gnmi.Update",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extension",
+              "description": "Extension messages associated with the SetRequest. See the\ngNMI extension specification for further definition.",
+              "label": "repeated",
+              "type": "Extension",
+              "longType": "gnmi_ext.Extension",
+              "fullType": "gnmi_ext.Extension",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SetResponse",
+          "longName": "SetResponse",
+          "fullName": "gnmi.SetResponse",
+          "description": "SetResponse is the response to a SetRequest, sent from the target to the\nclient. It reports the result of the modifications to the data tree that were\nspecified by the client. Errors for this RPC should be reported using the\nhttps://github.com/googleapis/googleapis/blob/master/google/rpc/status.proto\nmessage in the RPC return. The gnmi.Error message can be used to add\nadditional details where required. Reference: gNMI Specification\nSection 3.4.2",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "prefix",
+              "description": "Prefix used for paths.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "response",
+              "description": "A set of responses specifying the result of the operations specified in\nthe SetRequest.",
+              "label": "repeated",
+              "type": "UpdateResult",
+              "longType": "UpdateResult",
+              "fullType": "gnmi.UpdateResult",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "message",
+              "description": "The overall status of the transaction.",
+              "label": "",
+              "type": "Error",
+              "longType": "Error",
+              "fullType": "gnmi.Error",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "timestamp",
+              "description": "Timestamp of transaction (ns since epoch).",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extension",
+              "description": "Extension messages associated with the SetResponse. See the\ngNMI extension specification for further definition.",
+              "label": "repeated",
+              "type": "Extension",
+              "longType": "gnmi_ext.Extension",
+              "fullType": "gnmi_ext.Extension",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SubscribeRequest",
+          "longName": "SubscribeRequest",
+          "fullName": "gnmi.SubscribeRequest",
+          "description": "SubscribeRequest is the message sent by the client to the target when\ninitiating a subscription to a set of paths within the data tree. The\nrequest field must be populated and the initial message must specify a\nSubscriptionList to initiate a subscription.\nReference: gNMI Specification Section 3.5.1.1",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "subscribe",
+              "description": "Specify the paths within a subscription.",
+              "label": "",
+              "type": "SubscriptionList",
+              "longType": "SubscriptionList",
+              "fullType": "gnmi.SubscriptionList",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "poll",
+              "description": "Trigger a polled update.",
+              "label": "",
+              "type": "Poll",
+              "longType": "Poll",
+              "fullType": "gnmi.Poll",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "extension",
+              "description": "Extension messages associated with the SubscribeRequest. See the\ngNMI extension specification for further definition.",
+              "label": "repeated",
+              "type": "Extension",
+              "longType": "gnmi_ext.Extension",
+              "fullType": "gnmi_ext.Extension",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SubscribeResponse",
+          "longName": "SubscribeResponse",
+          "fullName": "gnmi.SubscribeResponse",
+          "description": "SubscribeResponse is the message used by the target within a Subscribe RPC.\nThe target includes a Notification message which is used to transmit values\nof the path(s) that are associated with the subscription. The same message\nis to indicate that the target has sent all data values once (is\nsynchronized).\nReference: gNMI Specification Section 3.5.1.4",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "update",
+              "description": "Changed or sampled value for a path.",
+              "label": "",
+              "type": "Notification",
+              "longType": "Notification",
+              "fullType": "gnmi.Notification",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "sync_response",
+              "description": "Indicate target has sent all values associated with the subscription\nat least once.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": ""
+            },
+            {
+              "name": "error",
+              "description": "Deprecated in favour of google.golang.org/genproto/googleapis/rpc/status",
+              "label": "",
+              "type": "Error",
+              "longType": "Error",
+              "fullType": "gnmi.Error",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "response",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "extension",
+              "description": "Extension messages associated with the SubscribeResponse. See the\ngNMI extension specification for further definition.",
+              "label": "repeated",
+              "type": "Extension",
+              "longType": "gnmi_ext.Extension",
+              "fullType": "gnmi_ext.Extension",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Subscription",
+          "longName": "Subscription",
+          "fullName": "gnmi.Subscription",
+          "description": "Subscription is a single request within a SubscriptionList. The path\nspecified is interpreted (along with the prefix) as the elements of the data\ntree that the client is subscribing to. The mode determines how the target\nshould trigger updates to be sent.\nReference: gNMI Specification Section 3.5.1.3",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "path",
+              "description": "The data tree path.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "mode",
+              "description": "Subscription mode to be used.",
+              "label": "",
+              "type": "SubscriptionMode",
+              "longType": "SubscriptionMode",
+              "fullType": "gnmi.SubscriptionMode",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sample_interval",
+              "description": "ns between samples in SAMPLE mode.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "suppress_redundant",
+              "description": "Indicates whether values that have not changed should be sent in a SAMPLE\nsubscription.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "heartbeat_interval",
+              "description": "Specifies the maximum allowable silent period in nanoseconds when\nsuppress_redundant is in use. The target should send a value at least once\nin the period specified.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SubscriptionList",
+          "longName": "SubscriptionList",
+          "fullName": "gnmi.SubscriptionList",
+          "description": "SubscriptionList is used within a Subscribe message to specify the list of\npaths that the client wishes to subscribe to. The message consists of a\nlist of (possibly prefixed) paths, and options that relate to the\nsubscription.\nReference: gNMI Specification Section 3.5.1.2",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "prefix",
+              "description": "Prefix used for paths.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "subscription",
+              "description": "Set of subscriptions to create.",
+              "label": "repeated",
+              "type": "Subscription",
+              "longType": "Subscription",
+              "fullType": "gnmi.Subscription",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "qos",
+              "description": "DSCP marking to be used.",
+              "label": "",
+              "type": "QOSMarking",
+              "longType": "QOSMarking",
+              "fullType": "gnmi.QOSMarking",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "mode",
+              "description": "",
+              "label": "",
+              "type": "Mode",
+              "longType": "SubscriptionList.Mode",
+              "fullType": "gnmi.SubscriptionList.Mode",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "allow_aggregation",
+              "description": "Whether elements of the schema that are marked as eligible for aggregation\nshould be aggregated or not.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "use_models",
+              "description": "The set of schemas that define the elements of the data tree that should\nbe sent by the target.",
+              "label": "repeated",
+              "type": "ModelData",
+              "longType": "ModelData",
+              "fullType": "gnmi.ModelData",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "encoding",
+              "description": "The encoding that the target should use within the Notifications generated\ncorresponding to the SubscriptionList.",
+              "label": "",
+              "type": "Encoding",
+              "longType": "Encoding",
+              "fullType": "gnmi.Encoding",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "updates_only",
+              "description": "An optional field to specify that only updates to current state should be\nsent to a client. If set, the initial state is not sent to the client but\nrather only the sync message followed by any subsequent updates to the\ncurrent state. For ONCE and POLL modes, this causes the server to send only\nthe sync message (Sec. 3.5.2.3).",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TypedValue",
+          "longName": "TypedValue",
+          "fullName": "gnmi.TypedValue",
+          "description": "TypedValue is used to encode a value being sent between the client and\ntarget (originated by either entity).",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "string_val",
+              "description": "String value.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "int_val",
+              "description": "Integer value.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "uint_val",
+              "description": "Unsigned integer value.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "bool_val",
+              "description": "Bool value.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "bytes_val",
+              "description": "Arbitrary byte sequence value.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "float_val",
+              "description": "Deprecated - use double_val.",
+              "label": "",
+              "type": "float",
+              "longType": "float",
+              "fullType": "float",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "double_val",
+              "description": "Floating point value.",
+              "label": "",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "decimal_val",
+              "description": "Deprecated - use double_val.",
+              "label": "",
+              "type": "Decimal64",
+              "longType": "Decimal64",
+              "fullType": "gnmi.Decimal64",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "leaflist_val",
+              "description": "Mixed type scalar array value.",
+              "label": "",
+              "type": "ScalarArray",
+              "longType": "ScalarArray",
+              "fullType": "gnmi.ScalarArray",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "any_val",
+              "description": "protobuf.Any encoded bytes.",
+              "label": "",
+              "type": "Any",
+              "longType": "google.protobuf.Any",
+              "fullType": "google.protobuf.Any",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "json_val",
+              "description": "JSON-encoded text.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "json_ietf_val",
+              "description": "JSON-encoded text per RFC7951.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "ascii_val",
+              "description": "Arbitrary ASCII text.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            },
+            {
+              "name": "proto_bytes",
+              "description": "Protobuf binary encoded bytes. The message type is not included.\nSee the specification at\ngithub.com/openconfig/reference/blob/master/rpc/gnmi/protobuf-vals.md\nfor a complete specification. [Experimental]",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "value",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Update",
+          "longName": "Update",
+          "fullName": "gnmi.Update",
+          "description": "Update is a re-usable message that is used to store a particular Path,\nValue pair.\nReference: gNMI Specification Section 2.1",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "path",
+              "description": "The path (key) for the update.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "The value (value) for the update.",
+              "label": "",
+              "type": "Value",
+              "longType": "Value",
+              "fullType": "gnmi.Value",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "val",
+              "description": "The explicitly typed update value.",
+              "label": "",
+              "type": "TypedValue",
+              "longType": "TypedValue",
+              "fullType": "gnmi.TypedValue",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "duplicates",
+              "description": "Number of coalesced duplicates.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "UpdateResult",
+          "longName": "UpdateResult",
+          "fullName": "gnmi.UpdateResult",
+          "description": "UpdateResult is used within the SetResponse message to communicate the\nresult of an operation specified within a SetRequest message.\nReference: gNMI Specification Section 3.4.2",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "timestamp",
+              "description": "Deprecated timestamp for the UpdateResult, this field has been\nreplaced by the timestamp within the SetResponse message, since\nall mutations effected by a set should be applied as a single\ntransaction.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "path",
+              "description": "Path associated with the update.",
+              "label": "",
+              "type": "Path",
+              "longType": "Path",
+              "fullType": "gnmi.Path",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "message",
+              "description": "Status of the update operation.",
+              "label": "",
+              "type": "Error",
+              "longType": "Error",
+              "fullType": "gnmi.Error",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "op",
+              "description": "Update operation type.",
+              "label": "",
+              "type": "Operation",
+              "longType": "UpdateResult.Operation",
+              "fullType": "gnmi.UpdateResult.Operation",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Value",
+          "longName": "Value",
+          "fullName": "gnmi.Value",
+          "description": "Value encodes a data tree node's value - along with the way in which\nthe value is encoded. This message is deprecated by gNMI 0.3.0.\nReference: gNMI Specification Section 2.2.3.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "value",
+              "description": "Value of the variable being transmitted.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "type",
+              "description": "Encoding used for the value field.",
+              "label": "",
+              "type": "Encoding",
+              "longType": "Encoding",
+              "fullType": "gnmi.Encoding",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ],
+          "options": {
+            "deprecated": true
+          }
+        }
+      ],
+      "services": [
+        {
+          "name": "gNMI",
+          "longName": "gNMI",
+          "fullName": "gnmi.gNMI",
+          "description": "",
+          "methods": [
+            {
+              "name": "Capabilities",
+              "description": "Capabilities allows the client to retrieve the set of capabilities that\nis supported by the target. This allows the target to validate the\nservice version that is implemented and retrieve the set of models that\nthe target supports. The models can then be specified in subsequent RPCs\nto restrict the set of data that is utilized.\nReference: gNMI Specification Section 3.2",
+              "requestType": "CapabilityRequest",
+              "requestLongType": "CapabilityRequest",
+              "requestFullType": "gnmi.CapabilityRequest",
+              "requestStreaming": false,
+              "responseType": "CapabilityResponse",
+              "responseLongType": "CapabilityResponse",
+              "responseFullType": "gnmi.CapabilityResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "Get",
+              "description": "Retrieve a snapshot of data from the target. A Get RPC requests that the\ntarget snapshots a subset of the data tree as specified by the paths\nincluded in the message and serializes this to be returned to the\nclient using the specified encoding.\nReference: gNMI Specification Section 3.3",
+              "requestType": "GetRequest",
+              "requestLongType": "GetRequest",
+              "requestFullType": "gnmi.GetRequest",
+              "requestStreaming": false,
+              "responseType": "GetResponse",
+              "responseLongType": "GetResponse",
+              "responseFullType": "gnmi.GetResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "Set",
+              "description": "Set allows the client to modify the state of data on the target. The\npaths to modified along with the new values that the client wishes\nto set the value to.\nReference: gNMI Specification Section 3.4",
+              "requestType": "SetRequest",
+              "requestLongType": "SetRequest",
+              "requestFullType": "gnmi.SetRequest",
+              "requestStreaming": false,
+              "responseType": "SetResponse",
+              "responseLongType": "SetResponse",
+              "responseFullType": "gnmi.SetResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "Subscribe",
+              "description": "Subscribe allows a client to request the target to send it values\nof particular paths within the data tree. These values may be streamed\nat a particular cadence (STREAM), sent one off on a long-lived channel\n(POLL), or sent as a one-off retrieval (ONCE).\nReference: gNMI Specification Section 3.5",
+              "requestType": "SubscribeRequest",
+              "requestLongType": "SubscribeRequest",
+              "requestFullType": "gnmi.SubscribeRequest",
+              "requestStreaming": true,
+              "responseType": "SubscribeResponse",
+              "responseLongType": "SubscribeResponse",
+              "responseFullType": "gnmi.SubscribeResponse",
+              "responseStreaming": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "github.com/openconfig/gnmi/proto/gnmi_ext/gnmi_ext.proto",
+      "description": "Copyright 2018 Google Inc. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n   http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+      "package": "gnmi_ext",
+      "hasEnums": true,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [
+        {
+          "name": "CommitConfirmedAction",
+          "longName": "CommitConfirmedAction",
+          "fullName": "gnmi_ext.CommitConfirmedAction",
+          "description": "A COMMIT_CONFIRMED_ACTION_START starts a commit with a configured rollback\ntimeout and will return the CommitID assigned by the server. The CommitID is\nused to identify the current commit. The COMMIT_CONFIRMED_ACTION_CONFIRM and\nCOMMIT_CONFIRMED_ACTION_REJECT confirms or cancels a commit using the\ncommit_id.",
+          "values": [
+            {
+              "name": "COMMIT_CONFIRMED_ACTION_UNSPECIFIED",
+              "number": "0",
+              "description": "gNMI server should return InvalidArgument error if the action is not\nspecified for a CommitConfirmed extension."
+            },
+            {
+              "name": "COMMIT_CONFIRMED_ACTION_START",
+              "number": "1",
+              "description": "Start a commit with a specified rollback timeout."
+            },
+            {
+              "name": "COMMIT_CONFIRMED_ACTION_CONFIRM",
+              "number": "2",
+              "description": "Confirm a commit identified by CommitID."
+            },
+            {
+              "name": "COMMIT_CONFIRMED_ACTION_REJECT",
+              "number": "3",
+              "description": "Reject a commit identified by CommitID\nfor which rollback timeout has not expired.\nIf no active commit with the non expired rollback timeout is found,\ngNMI server should return InvalidArgument error."
+            }
+          ]
+        },
+        {
+          "name": "ExtensionID",
+          "longName": "ExtensionID",
+          "fullName": "gnmi_ext.ExtensionID",
+          "description": "RegisteredExtension is an enumeration acting as a registry for extensions\ndefined by external sources.",
+          "values": [
+            {
+              "name": "EID_UNSET",
+              "number": "0",
+              "description": "New extensions are to be defined within this enumeration - their definition\nMUST link to a reference describing their implementation."
+            },
+            {
+              "name": "EID_EXPERIMENTAL",
+              "number": "999",
+              "description": "An experimental extension that may be used during prototyping of a new\nextension."
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "CommitConfirmed",
+          "longName": "CommitConfirmed",
+          "fullName": "gnmi_ext.CommitConfirmed",
+          "description": "The CommitConfirmed allows automatic rollback of a commit\nif Set changes are not confirmed within timeout.\nThe commit will be rolled back if it is not confirmed within the\ntimeout.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "action",
+              "description": "",
+              "label": "",
+              "type": "CommitConfirmedAction",
+              "longType": "CommitConfirmedAction",
+              "fullType": "gnmi_ext.CommitConfirmedAction",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "timeout",
+              "description": "rollback timeout duration expressed in seconds and nanoseconds.\nIf timeout is not set (or seconds and ns are both 0), then\nthe default gNMI server's rollback timeout duration is used.",
+              "label": "",
+              "type": "Duration",
+              "longType": "google.protobuf.Duration",
+              "fullType": "google.protobuf.Duration",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "commit_id",
+              "description": "CommitID from commit for ACCEPT or REJECT",
+              "label": "",
+              "type": "CommitID",
+              "longType": "CommitID",
+              "fullType": "gnmi_ext.CommitID",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CommitID",
+          "longName": "CommitID",
+          "fullName": "gnmi_ext.CommitID",
+          "description": "The CommitID is returned by the gNMI server to indicate the ID of a commit.\nIt is returned in response to the Set Request with the CommitConfirm message\nthat had COMMIT_CONFIRMED_ACTION_START set.\nThe CommitID is used in the subsequent SetRequest/CommitConfirm messages\nto identify commit to be confirmed, reset or rejected.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Extension",
+          "longName": "Extension",
+          "fullName": "gnmi_ext.Extension",
+          "description": "The Extension message contains a single gNMI extension.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "registered_ext",
+              "description": "A registered extension.",
+              "label": "",
+              "type": "RegisteredExtension",
+              "longType": "RegisteredExtension",
+              "fullType": "gnmi_ext.RegisteredExtension",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "ext",
+              "defaultValue": ""
+            },
+            {
+              "name": "master_arbitration",
+              "description": "Well known extensions.\n\nMaster arbitration extension.",
+              "label": "",
+              "type": "MasterArbitration",
+              "longType": "MasterArbitration",
+              "fullType": "gnmi_ext.MasterArbitration",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "ext",
+              "defaultValue": ""
+            },
+            {
+              "name": "history",
+              "description": "History extension.",
+              "label": "",
+              "type": "History",
+              "longType": "History",
+              "fullType": "gnmi_ext.History",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "ext",
+              "defaultValue": ""
+            },
+            {
+              "name": "commit_confirmed",
+              "description": "Commit Confirmed extension.",
+              "label": "",
+              "type": "CommitConfirmed",
+              "longType": "CommitConfirmed",
+              "fullType": "gnmi_ext.CommitConfirmed",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "ext",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "History",
+          "longName": "History",
+          "fullName": "gnmi_ext.History",
+          "description": "The History extension allows clients to request historical data. Its\nspec can be found at\nhttps://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-history.md",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "snapshot_time",
+              "description": "Nanoseconds since the epoch",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            },
+            {
+              "name": "range",
+              "description": "",
+              "label": "",
+              "type": "TimeRange",
+              "longType": "TimeRange",
+              "fullType": "gnmi_ext.TimeRange",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "request",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MasterArbitration",
+          "longName": "MasterArbitration",
+          "fullName": "gnmi_ext.MasterArbitration",
+          "description": "MasterArbitration is used to select the master among multiple gNMI clients\nwith the same Roles. The client with the largest election_id is honored as\nthe master.\nThe document about gNMI master arbitration can be found at\nhttps://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-master-arbitration.md",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "role",
+              "description": "",
+              "label": "",
+              "type": "Role",
+              "longType": "Role",
+              "fullType": "gnmi_ext.Role",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "election_id",
+              "description": "",
+              "label": "",
+              "type": "Uint128",
+              "longType": "Uint128",
+              "fullType": "gnmi_ext.Uint128",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RegisteredExtension",
+          "longName": "RegisteredExtension",
+          "fullName": "gnmi_ext.RegisteredExtension",
+          "description": "The RegisteredExtension message defines an extension which is defined outside\nof this file.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "The unique ID assigned to this extension.",
+              "label": "",
+              "type": "ExtensionID",
+              "longType": "ExtensionID",
+              "fullType": "gnmi_ext.ExtensionID",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "msg",
+              "description": "The binary-marshalled protobuf extension payload.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Role",
+          "longName": "Role",
+          "fullName": "gnmi_ext.Role",
+          "description": "There can be one master for each role. The role is identified by its id.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "More fields can be added if needed, for example, to specify what paths the\nrole can read/write.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TimeRange",
+          "longName": "TimeRange",
+          "fullName": "gnmi_ext.TimeRange",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "start",
+              "description": "Nanoseconds since the epoch",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "end",
+              "description": "Nanoseconds since the epoch",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Uint128",
+          "longName": "Uint128",
+          "fullName": "gnmi_ext.Uint128",
+          "description": "Representation of unsigned 128-bit integer.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "high",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "low",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": []
+    },
+    {
+      "name": "google/protobuf/any.proto",
+      "description": "",
+      "package": "google.protobuf",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "Any",
+          "longName": "Any",
+          "fullName": "google.protobuf.Any",
+          "description": "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(\u0026foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\nExample 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\nExample 4: Pack and unpack a message in Go\n\n     foo := \u0026pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := \u0026pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": \u003cstring\u003e,\n      \"lastName\": \u003cstring\u003e\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "type_url",
+              "description": "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "Must be a valid serialized protocol buffer of the above specified type.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": []
+    },
+    {
+      "name": "google/protobuf/descriptor.proto",
+      "description": "",
+      "package": "google.protobuf",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [
+        {
+          "name": "Label",
+          "longName": "FieldDescriptorProto.Label",
+          "fullName": "google.protobuf.FieldDescriptorProto.Label",
+          "description": "",
+          "values": [
+            {
+              "name": "LABEL_OPTIONAL",
+              "number": "1",
+              "description": "0 is reserved for errors"
+            },
+            {
+              "name": "LABEL_REQUIRED",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "LABEL_REPEATED",
+              "number": "3",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Type",
+          "longName": "FieldDescriptorProto.Type",
+          "fullName": "google.protobuf.FieldDescriptorProto.Type",
+          "description": "",
+          "values": [
+            {
+              "name": "TYPE_DOUBLE",
+              "number": "1",
+              "description": "0 is reserved for errors.\nOrder is weird for historical reasons."
+            },
+            {
+              "name": "TYPE_FLOAT",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "TYPE_INT64",
+              "number": "3",
+              "description": "Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT64 if\nnegative values are likely."
+            },
+            {
+              "name": "TYPE_UINT64",
+              "number": "4",
+              "description": ""
+            },
+            {
+              "name": "TYPE_INT32",
+              "number": "5",
+              "description": "Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT32 if\nnegative values are likely."
+            },
+            {
+              "name": "TYPE_FIXED64",
+              "number": "6",
+              "description": ""
+            },
+            {
+              "name": "TYPE_FIXED32",
+              "number": "7",
+              "description": ""
+            },
+            {
+              "name": "TYPE_BOOL",
+              "number": "8",
+              "description": ""
+            },
+            {
+              "name": "TYPE_STRING",
+              "number": "9",
+              "description": ""
+            },
+            {
+              "name": "TYPE_GROUP",
+              "number": "10",
+              "description": "Tag-delimited aggregate.\nGroup type is deprecated and not supported in proto3. However, Proto3\nimplementations should still be able to parse the group wire format and\ntreat group fields as unknown fields."
+            },
+            {
+              "name": "TYPE_MESSAGE",
+              "number": "11",
+              "description": "Length-delimited aggregate."
+            },
+            {
+              "name": "TYPE_BYTES",
+              "number": "12",
+              "description": "New in version 2."
+            },
+            {
+              "name": "TYPE_UINT32",
+              "number": "13",
+              "description": ""
+            },
+            {
+              "name": "TYPE_ENUM",
+              "number": "14",
+              "description": ""
+            },
+            {
+              "name": "TYPE_SFIXED32",
+              "number": "15",
+              "description": ""
+            },
+            {
+              "name": "TYPE_SFIXED64",
+              "number": "16",
+              "description": ""
+            },
+            {
+              "name": "TYPE_SINT32",
+              "number": "17",
+              "description": "Uses ZigZag encoding."
+            },
+            {
+              "name": "TYPE_SINT64",
+              "number": "18",
+              "description": "Uses ZigZag encoding."
+            }
+          ]
+        },
+        {
+          "name": "CType",
+          "longName": "FieldOptions.CType",
+          "fullName": "google.protobuf.FieldOptions.CType",
+          "description": "",
+          "values": [
+            {
+              "name": "STRING",
+              "number": "0",
+              "description": "Default mode."
+            },
+            {
+              "name": "CORD",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "STRING_PIECE",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "JSType",
+          "longName": "FieldOptions.JSType",
+          "fullName": "google.protobuf.FieldOptions.JSType",
+          "description": "",
+          "values": [
+            {
+              "name": "JS_NORMAL",
+              "number": "0",
+              "description": "Use the default type."
+            },
+            {
+              "name": "JS_STRING",
+              "number": "1",
+              "description": "Use JavaScript strings."
+            },
+            {
+              "name": "JS_NUMBER",
+              "number": "2",
+              "description": "Use JavaScript numbers."
+            }
+          ]
+        },
+        {
+          "name": "OptionRetention",
+          "longName": "FieldOptions.OptionRetention",
+          "fullName": "google.protobuf.FieldOptions.OptionRetention",
+          "description": "If set to RETENTION_SOURCE, the option will be omitted from the binary.\nNote: as of January 2023, support for this is in progress and does not yet\nhave an effect (b/264593489).",
+          "values": [
+            {
+              "name": "RETENTION_UNKNOWN",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "RETENTION_RUNTIME",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "RETENTION_SOURCE",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "OptionTargetType",
+          "longName": "FieldOptions.OptionTargetType",
+          "fullName": "google.protobuf.FieldOptions.OptionTargetType",
+          "description": "This indicates the types of entities that the field may apply to when used\nas an option. If it is unset, then the field may be freely used as an\noption on any kind of entity. Note: as of January 2023, support for this is\nin progress and does not yet have an effect (b/264593489).",
+          "values": [
+            {
+              "name": "TARGET_TYPE_UNKNOWN",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_FILE",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_EXTENSION_RANGE",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_MESSAGE",
+              "number": "3",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_FIELD",
+              "number": "4",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_ONEOF",
+              "number": "5",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_ENUM",
+              "number": "6",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_ENUM_ENTRY",
+              "number": "7",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_SERVICE",
+              "number": "8",
+              "description": ""
+            },
+            {
+              "name": "TARGET_TYPE_METHOD",
+              "number": "9",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "OptimizeMode",
+          "longName": "FileOptions.OptimizeMode",
+          "fullName": "google.protobuf.FileOptions.OptimizeMode",
+          "description": "Generated classes can be optimized for speed or code size.",
+          "values": [
+            {
+              "name": "SPEED",
+              "number": "1",
+              "description": "Generate complete code for parsing, serialization,"
+            },
+            {
+              "name": "CODE_SIZE",
+              "number": "2",
+              "description": "etc.\n\nUse ReflectionOps to implement these methods."
+            },
+            {
+              "name": "LITE_RUNTIME",
+              "number": "3",
+              "description": "Generate code using MessageLite and the lite runtime."
+            }
+          ]
+        },
+        {
+          "name": "Semantic",
+          "longName": "GeneratedCodeInfo.Annotation.Semantic",
+          "fullName": "google.protobuf.GeneratedCodeInfo.Annotation.Semantic",
+          "description": "Represents the identified object's effect on the element in the original\n.proto file.",
+          "values": [
+            {
+              "name": "NONE",
+              "number": "0",
+              "description": "There is no effect or the effect is indescribable."
+            },
+            {
+              "name": "SET",
+              "number": "1",
+              "description": "The element is set or otherwise mutated."
+            },
+            {
+              "name": "ALIAS",
+              "number": "2",
+              "description": "An alias to the element is returned."
+            }
+          ]
+        },
+        {
+          "name": "IdempotencyLevel",
+          "longName": "MethodOptions.IdempotencyLevel",
+          "fullName": "google.protobuf.MethodOptions.IdempotencyLevel",
+          "description": "Is this method side-effect-free (or safe in HTTP parlance), or idempotent,\nor neither? HTTP based RPC implementation may choose GET verb for safe\nmethods, and PUT verb for idempotent methods instead of the default POST.",
+          "values": [
+            {
+              "name": "IDEMPOTENCY_UNKNOWN",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "NO_SIDE_EFFECTS",
+              "number": "1",
+              "description": "implies idempotent"
+            },
+            {
+              "name": "IDEMPOTENT",
+              "number": "2",
+              "description": "idempotent, but may have side effects"
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "DescriptorProto",
+          "longName": "DescriptorProto",
+          "fullName": "google.protobuf.DescriptorProto",
+          "description": "Describes a message type.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "field",
+              "description": "",
+              "label": "repeated",
+              "type": "FieldDescriptorProto",
+              "longType": "FieldDescriptorProto",
+              "fullType": "google.protobuf.FieldDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extension",
+              "description": "",
+              "label": "repeated",
+              "type": "FieldDescriptorProto",
+              "longType": "FieldDescriptorProto",
+              "fullType": "google.protobuf.FieldDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "nested_type",
+              "description": "",
+              "label": "repeated",
+              "type": "DescriptorProto",
+              "longType": "DescriptorProto",
+              "fullType": "google.protobuf.DescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "enum_type",
+              "description": "",
+              "label": "repeated",
+              "type": "EnumDescriptorProto",
+              "longType": "EnumDescriptorProto",
+              "fullType": "google.protobuf.EnumDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extension_range",
+              "description": "",
+              "label": "repeated",
+              "type": "ExtensionRange",
+              "longType": "DescriptorProto.ExtensionRange",
+              "fullType": "google.protobuf.DescriptorProto.ExtensionRange",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "oneof_decl",
+              "description": "",
+              "label": "repeated",
+              "type": "OneofDescriptorProto",
+              "longType": "OneofDescriptorProto",
+              "fullType": "google.protobuf.OneofDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "MessageOptions",
+              "longType": "MessageOptions",
+              "fullType": "google.protobuf.MessageOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "reserved_range",
+              "description": "",
+              "label": "repeated",
+              "type": "ReservedRange",
+              "longType": "DescriptorProto.ReservedRange",
+              "fullType": "google.protobuf.DescriptorProto.ReservedRange",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "reserved_name",
+              "description": "Reserved field names, which may not be used by fields in the same message.\nA given name may only be reserved once.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ExtensionRange",
+          "longName": "DescriptorProto.ExtensionRange",
+          "fullName": "google.protobuf.DescriptorProto.ExtensionRange",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "start",
+              "description": "Inclusive.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "end",
+              "description": "Exclusive.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "ExtensionRangeOptions",
+              "longType": "ExtensionRangeOptions",
+              "fullType": "google.protobuf.ExtensionRangeOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ReservedRange",
+          "longName": "DescriptorProto.ReservedRange",
+          "fullName": "google.protobuf.DescriptorProto.ReservedRange",
+          "description": "Range of reserved tag numbers. Reserved tag numbers may not be used by\nfields or extension ranges in the same message. Reserved ranges may\nnot overlap.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "start",
+              "description": "Inclusive.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "end",
+              "description": "Exclusive.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EnumDescriptorProto",
+          "longName": "EnumDescriptorProto",
+          "fullName": "google.protobuf.EnumDescriptorProto",
+          "description": "Describes an enum type.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "",
+              "label": "repeated",
+              "type": "EnumValueDescriptorProto",
+              "longType": "EnumValueDescriptorProto",
+              "fullType": "google.protobuf.EnumValueDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "EnumOptions",
+              "longType": "EnumOptions",
+              "fullType": "google.protobuf.EnumOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "reserved_range",
+              "description": "Range of reserved numeric values. Reserved numeric values may not be used\nby enum values in the same enum declaration. Reserved ranges may not\noverlap.",
+              "label": "repeated",
+              "type": "EnumReservedRange",
+              "longType": "EnumDescriptorProto.EnumReservedRange",
+              "fullType": "google.protobuf.EnumDescriptorProto.EnumReservedRange",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "reserved_name",
+              "description": "Reserved enum value names, which may not be reused. A given name may only\nbe reserved once.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EnumReservedRange",
+          "longName": "EnumDescriptorProto.EnumReservedRange",
+          "fullName": "google.protobuf.EnumDescriptorProto.EnumReservedRange",
+          "description": "Range of reserved numeric values. Reserved values may not be used by\nentries in the same enum. Reserved ranges may not overlap.\n\nNote that this is distinct from DescriptorProto.ReservedRange in that it\nis inclusive such that it can appropriately represent the entire int32\ndomain.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "start",
+              "description": "Inclusive.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "end",
+              "description": "Inclusive.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EnumOptions",
+          "longName": "EnumOptions",
+          "fullName": "google.protobuf.EnumOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "allow_alias",
+              "description": "Set this option to true to allow mapping different tag names to the same\nvalue.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "deprecated",
+              "description": "Is this enum deprecated?\nDepending on the target platform, this can emit Deprecated annotations\nfor the enum, or it will be completely ignored; in the very least, this\nis a formalization for deprecating enums.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "deprecated_legacy_json_field_conflicts",
+              "description": "Enable the legacy handling of JSON field name conflicts.  This lowercases\nand strips underscored from the fields before comparison in proto3 only.\nThe new behavior takes `json_name` into account and applies to proto2 as\nwell.\nTODO(b/261750190) Remove this legacy behavior once downstream teams have\nhad time to migrate.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here. See above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EnumValueDescriptorProto",
+          "longName": "EnumValueDescriptorProto",
+          "fullName": "google.protobuf.EnumValueDescriptorProto",
+          "description": "Describes a value within an enum.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "number",
+              "description": "",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "EnumValueOptions",
+              "longType": "EnumValueOptions",
+              "fullType": "google.protobuf.EnumValueOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EnumValueOptions",
+          "longName": "EnumValueOptions",
+          "fullName": "google.protobuf.EnumValueOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "deprecated",
+              "description": "Is this enum value deprecated?\nDepending on the target platform, this can emit Deprecated annotations\nfor the enum value, or it will be completely ignored; in the very least,\nthis is a formalization for deprecating enum values.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here. See above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ExtensionRangeOptions",
+          "longName": "ExtensionRangeOptions",
+          "fullName": "google.protobuf.ExtensionRangeOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here. See above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FieldDescriptorProto",
+          "longName": "FieldDescriptorProto",
+          "fullName": "google.protobuf.FieldDescriptorProto",
+          "description": "Describes a field within a message.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "number",
+              "description": "",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "label",
+              "description": "",
+              "label": "optional",
+              "type": "Label",
+              "longType": "FieldDescriptorProto.Label",
+              "fullType": "google.protobuf.FieldDescriptorProto.Label",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "type",
+              "description": "If type_name is set, this need not be set.  If both this and type_name\nare set, this must be one of TYPE_ENUM, TYPE_MESSAGE or TYPE_GROUP.",
+              "label": "optional",
+              "type": "Type",
+              "longType": "FieldDescriptorProto.Type",
+              "fullType": "google.protobuf.FieldDescriptorProto.Type",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "type_name",
+              "description": "For message and enum types, this is the name of the type.  If the name\nstarts with a '.', it is fully-qualified.  Otherwise, C++-like scoping\nrules are used to find the type (i.e. first the nested types within this\nmessage are searched, then within the parent, on up to the root\nnamespace).",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extendee",
+              "description": "For extensions, this is the name of the type being extended.  It is\nresolved in the same manner as type_name.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "default_value",
+              "description": "For numeric types, contains the original text representation of the value.\nFor booleans, \"true\" or \"false\".\nFor strings, contains the default text contents (not escaped in any way).\nFor bytes, contains the C escaped value.  All bytes \u003e= 128 are escaped.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "oneof_index",
+              "description": "If set, gives the index of a oneof in the containing type's oneof_decl\nlist.  This field is a member of that oneof.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "json_name",
+              "description": "JSON name of this field. The value is set by protocol compiler. If the\nuser has set a \"json_name\" option on this field, that option's value\nwill be used. Otherwise, it's deduced from the field's name by converting\nit to camelCase.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "FieldOptions",
+              "longType": "FieldOptions",
+              "fullType": "google.protobuf.FieldOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "proto3_optional",
+              "description": "If true, this is a proto3 \"optional\". When a proto3 field is optional, it\ntracks presence regardless of field type.\n\nWhen proto3_optional is true, this field must be belong to a oneof to\nsignal to old proto3 clients that presence is tracked for this field. This\noneof is known as a \"synthetic\" oneof, and this field must be its sole\nmember (each proto3 optional field gets its own synthetic oneof). Synthetic\noneofs exist in the descriptor only, and do not generate any API. Synthetic\noneofs must be ordered after all \"real\" oneofs.\n\nFor message fields, proto3_optional doesn't create any semantic change,\nsince non-repeated message fields always track presence. However it still\nindicates the semantic detail of whether the user wrote \"optional\" or not.\nThis can be useful for round-tripping the .proto file. For consistency we\ngive message fields a synthetic oneof also, even though it is not required\nto track presence. This is especially important because the parser can't\ntell if a field is a message or an enum, so it must always create a\nsynthetic oneof.\n\nProto2 optional fields do not set this flag, because they already indicate\noptional with `LABEL_OPTIONAL`.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FieldOptions",
+          "longName": "FieldOptions",
+          "fullName": "google.protobuf.FieldOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "ctype",
+              "description": "The ctype option instructs the C++ code generator to use a different\nrepresentation of the field than it normally would.  See the specific\noptions below.  This option is not yet implemented in the open source\nrelease -- sorry, we'll try to include it in a future version!",
+              "label": "optional",
+              "type": "CType",
+              "longType": "FieldOptions.CType",
+              "fullType": "google.protobuf.FieldOptions.CType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "STRING"
+            },
+            {
+              "name": "packed",
+              "description": "The packed option can be enabled for repeated primitive fields to enable\na more efficient representation on the wire. Rather than repeatedly\nwriting the tag and type for each element, the entire array is encoded as\na single length-delimited blob. In proto3, only explicit setting it to\nfalse will avoid using packed encoding.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "jstype",
+              "description": "The jstype option determines the JavaScript type used for values of the\nfield.  The option is permitted only for 64 bit integral and fixed types\n(int64, uint64, sint64, fixed64, sfixed64).  A field with jstype JS_STRING\nis represented as JavaScript string, which avoids loss of precision that\ncan happen when a large value is converted to a floating point JavaScript.\nSpecifying JS_NUMBER for the jstype causes the generated JavaScript code to\nuse the JavaScript \"number\" type.  The behavior of the default option\nJS_NORMAL is implementation dependent.\n\nThis option is an enum to permit additional types to be added, e.g.\ngoog.math.Integer.",
+              "label": "optional",
+              "type": "JSType",
+              "longType": "FieldOptions.JSType",
+              "fullType": "google.protobuf.FieldOptions.JSType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "JS_NORMAL"
+            },
+            {
+              "name": "lazy",
+              "description": "Should this field be parsed lazily?  Lazy applies only to message-type\nfields.  It means that when the outer message is initially parsed, the\ninner message's contents will not be parsed but instead stored in encoded\nform.  The inner message will actually be parsed when it is first accessed.\n\nThis is only a hint.  Implementations are free to choose whether to use\neager or lazy parsing regardless of the value of this option.  However,\nsetting this option true suggests that the protocol author believes that\nusing lazy parsing on this field is worth the additional bookkeeping\noverhead typically needed to implement it.\n\nThis option does not affect the public interface of any generated code;\nall method signatures remain the same.  Furthermore, thread-safety of the\ninterface is not affected by this option; const methods remain safe to\ncall from multiple threads concurrently, while non-const methods continue\nto require exclusive access.\n\nNote that implementations may choose not to check required fields within\na lazy sub-message.  That is, calling IsInitialized() on the outer message\nmay return true even if the inner message has missing required fields.\nThis is necessary because otherwise the inner message would have to be\nparsed in order to perform the check, defeating the purpose of lazy\nparsing.  An implementation which chooses not to check required fields\nmust be consistent about it.  That is, for any particular sub-message, the\nimplementation must either *always* check its required fields, or *never*\ncheck its required fields, regardless of whether or not the message has\nbeen parsed.\n\nAs of May 2022, lazy verifies the contents of the byte stream during\nparsing.  An invalid byte stream will cause the overall parsing to fail.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "unverified_lazy",
+              "description": "unverified_lazy does no correctness checks on the byte stream. This should\nonly be used where lazy with verification is prohibitive for performance\nreasons.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "deprecated",
+              "description": "Is this field deprecated?\nDepending on the target platform, this can emit Deprecated annotations\nfor accessors, or it will be completely ignored; in the very least, this\nis a formalization for deprecating fields.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "weak",
+              "description": "For Google-internal migration only. Do not use.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "debug_redact",
+              "description": "Indicate that the field value should not be printed out when using debug\nformats, e.g. when the field contains sensitive credentials.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "retention",
+              "description": "",
+              "label": "optional",
+              "type": "OptionRetention",
+              "longType": "FieldOptions.OptionRetention",
+              "fullType": "google.protobuf.FieldOptions.OptionRetention",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "target",
+              "description": "",
+              "label": "optional",
+              "type": "OptionTargetType",
+              "longType": "FieldOptions.OptionTargetType",
+              "fullType": "google.protobuf.FieldOptions.OptionTargetType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here. See above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FileDescriptorProto",
+          "longName": "FileDescriptorProto",
+          "fullName": "google.protobuf.FileDescriptorProto",
+          "description": "Describes a complete .proto file.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "file name, relative to root of source tree",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "package",
+              "description": "e.g. \"foo\", \"foo.bar\", etc.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "dependency",
+              "description": "Names of files imported by this file.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "public_dependency",
+              "description": "Indexes of the public imported files in the dependency list above.",
+              "label": "repeated",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "weak_dependency",
+              "description": "Indexes of the weak imported files in the dependency list.\nFor Google-internal migration only. Do not use.",
+              "label": "repeated",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "message_type",
+              "description": "All top-level definitions in this file.",
+              "label": "repeated",
+              "type": "DescriptorProto",
+              "longType": "DescriptorProto",
+              "fullType": "google.protobuf.DescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "enum_type",
+              "description": "",
+              "label": "repeated",
+              "type": "EnumDescriptorProto",
+              "longType": "EnumDescriptorProto",
+              "fullType": "google.protobuf.EnumDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "service",
+              "description": "",
+              "label": "repeated",
+              "type": "ServiceDescriptorProto",
+              "longType": "ServiceDescriptorProto",
+              "fullType": "google.protobuf.ServiceDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "extension",
+              "description": "",
+              "label": "repeated",
+              "type": "FieldDescriptorProto",
+              "longType": "FieldDescriptorProto",
+              "fullType": "google.protobuf.FieldDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "FileOptions",
+              "longType": "FileOptions",
+              "fullType": "google.protobuf.FileOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "source_code_info",
+              "description": "This field contains optional information about the original source code.\nYou may safely remove this entire field without harming runtime\nfunctionality of the descriptors -- the information is needed only by\ndevelopment tools.",
+              "label": "optional",
+              "type": "SourceCodeInfo",
+              "longType": "SourceCodeInfo",
+              "fullType": "google.protobuf.SourceCodeInfo",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "syntax",
+              "description": "The syntax of the proto file.\nThe supported values are \"proto2\", \"proto3\", and \"editions\".\n\nIf `edition` is present, this value must be \"editions\".",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "edition",
+              "description": "The edition of the proto file, which is an opaque string.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FileDescriptorSet",
+          "longName": "FileDescriptorSet",
+          "fullName": "google.protobuf.FileDescriptorSet",
+          "description": "The protocol compiler can output a FileDescriptorSet containing the .proto\nfiles it parses.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "file",
+              "description": "",
+              "label": "repeated",
+              "type": "FileDescriptorProto",
+              "longType": "FileDescriptorProto",
+              "fullType": "google.protobuf.FileDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FileOptions",
+          "longName": "FileOptions",
+          "fullName": "google.protobuf.FileOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "java_package",
+              "description": "Sets the Java package where classes generated from this .proto will be\nplaced.  By default, the proto package is used, but this is often\ninappropriate because proto packages do not normally start with backwards\ndomain names.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "java_outer_classname",
+              "description": "Controls the name of the wrapper Java class generated for the .proto file.\nThat class will always contain the .proto file's getDescriptor() method as\nwell as any top-level extensions defined in the .proto file.\nIf java_multiple_files is disabled, then all the other classes from the\n.proto file will be nested inside the single wrapper outer class.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "java_multiple_files",
+              "description": "If enabled, then the Java code generator will generate a separate .java\nfile for each top-level message, enum, and service defined in the .proto\nfile.  Thus, these types will *not* be nested inside the wrapper class\nnamed by java_outer_classname.  However, the wrapper class will still be\ngenerated to contain the file's getDescriptor() method as well as any\ntop-level extensions defined in the file.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "java_generate_equals_and_hash",
+              "description": "This option does nothing.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "java_string_check_utf8",
+              "description": "If set true, then the Java2 code generator will generate code that\nthrows an exception whenever an attempt is made to assign a non-UTF-8\nbyte sequence to a string field.\nMessage reflection will do the same.\nHowever, an extension field still accepts non-UTF-8 byte sequences.\nThis option has no effect on when used with the lite runtime.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "optimize_for",
+              "description": "",
+              "label": "optional",
+              "type": "OptimizeMode",
+              "longType": "FileOptions.OptimizeMode",
+              "fullType": "google.protobuf.FileOptions.OptimizeMode",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "SPEED"
+            },
+            {
+              "name": "go_package",
+              "description": "Sets the Go package where structs generated from this .proto will be\nplaced. If omitted, the Go package will be derived from the following:\n  - The basename of the package import path, if provided.\n  - Otherwise, the package statement in the .proto file, if present.\n  - Otherwise, the basename of the .proto file, without extension.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "cc_generic_services",
+              "description": "Should generic services be generated in each language?  \"Generic\" services\nare not specific to any particular RPC system.  They are generated by the\nmain code generators in each language (without additional plugins).\nGeneric services were the only kind of service generation supported by\nearly versions of google.protobuf.\n\nGeneric services are now considered deprecated in favor of using plugins\nthat generate code specific to your particular RPC system.  Therefore,\nthese default to false.  Old code which depends on generic services should\nexplicitly set them to true.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "java_generic_services",
+              "description": "",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "py_generic_services",
+              "description": "",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "php_generic_services",
+              "description": "",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "deprecated",
+              "description": "Is this file deprecated?\nDepending on the target platform, this can emit Deprecated annotations\nfor everything in the file, or it will be completely ignored; in the very\nleast, this is a formalization for deprecating files.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "cc_enable_arenas",
+              "description": "Enables the use of arenas for the proto messages in this file. This applies\nonly to generated classes for C++.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "true"
+            },
+            {
+              "name": "objc_class_prefix",
+              "description": "Sets the objective c class prefix which is prepended to all objective c\ngenerated classes from this .proto. There is no default.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "csharp_namespace",
+              "description": "Namespace for generated classes; defaults to the package.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "swift_prefix",
+              "description": "By default Swift generators will take the proto package and CamelCase it\nreplacing '.' with underscore and use that to prefix the types/symbols\ndefined. When this options is provided, they will use this value instead\nto prefix the types/symbols defined.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "php_class_prefix",
+              "description": "Sets the php class prefix which is prepended to all php generated classes\nfrom this .proto. Default is empty.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "php_namespace",
+              "description": "Use this option to change the namespace of php generated classes. Default\nis empty. When this option is empty, the package name will be used for\ndetermining the namespace.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "php_metadata_namespace",
+              "description": "Use this option to change the namespace of php generated metadata classes.\nDefault is empty. When this option is empty, the proto file name will be\nused for determining the namespace.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ruby_package",
+              "description": "Use this option to change the package of ruby generated classes. Default\nis empty. When this option is not set, the package name will be used for\ndetermining the ruby package.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here.\nSee the documentation for the \"Options\" section above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "GeneratedCodeInfo",
+          "longName": "GeneratedCodeInfo",
+          "fullName": "google.protobuf.GeneratedCodeInfo",
+          "description": "Describes the relationship between generated code and its original source\nfile. A GeneratedCodeInfo message is associated with only one generated\nsource file, but may contain references to different source .proto files.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "annotation",
+              "description": "An Annotation connects some span of text in generated code to an element\nof its generating .proto file.",
+              "label": "repeated",
+              "type": "Annotation",
+              "longType": "GeneratedCodeInfo.Annotation",
+              "fullType": "google.protobuf.GeneratedCodeInfo.Annotation",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Annotation",
+          "longName": "GeneratedCodeInfo.Annotation",
+          "fullName": "google.protobuf.GeneratedCodeInfo.Annotation",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "path",
+              "description": "Identifies the element in the original source .proto file. This field\nis formatted the same as SourceCodeInfo.Location.path.",
+              "label": "repeated",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "source_file",
+              "description": "Identifies the filesystem path to the original source .proto.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "begin",
+              "description": "Identifies the starting offset in bytes in the generated code\nthat relates to the identified object.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "end",
+              "description": "Identifies the ending offset in bytes in the generated code that\nrelates to the identified object. The end offset should be one past\nthe last relevant byte (so the length of the text = end - begin).",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "semantic",
+              "description": "",
+              "label": "optional",
+              "type": "Semantic",
+              "longType": "GeneratedCodeInfo.Annotation.Semantic",
+              "fullType": "google.protobuf.GeneratedCodeInfo.Annotation.Semantic",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MessageOptions",
+          "longName": "MessageOptions",
+          "fullName": "google.protobuf.MessageOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "message_set_wire_format",
+              "description": "Set true to use the old proto1 MessageSet wire format for extensions.\nThis is provided for backwards-compatibility with the MessageSet wire\nformat.  You should not use this for any other reason:  It's less\nefficient, has fewer features, and is more complicated.\n\nThe message must be defined exactly as follows:\n  message Foo {\n    option message_set_wire_format = true;\n    extensions 4 to max;\n  }\nNote that the message cannot have any defined fields; MessageSets only\nhave extensions.\n\nAll extensions of your type must be singular messages; e.g. they cannot\nbe int32s, enums, or repeated messages.\n\nBecause this is an option, the above two restrictions are not enforced by\nthe protocol compiler.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "no_standard_descriptor_accessor",
+              "description": "Disables the generation of the standard \"descriptor()\" accessor, which can\nconflict with a field of the same name.  This is meant to make migration\nfrom proto1 easier; new code should avoid fields named \"descriptor\".",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "deprecated",
+              "description": "Is this message deprecated?\nDepending on the target platform, this can emit Deprecated annotations\nfor the message, or it will be completely ignored; in the very least,\nthis is a formalization for deprecating messages.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "map_entry",
+              "description": "NOTE: Do not set the option in .proto files. Always use the maps syntax\ninstead. The option should only be implicitly set by the proto compiler\nparser.\n\nWhether the message is an automatically generated map entry type for the\nmaps field.\n\nFor maps fields:\n    map\u003cKeyType, ValueType\u003e map_field = 1;\nThe parsed descriptor looks like:\n    message MapFieldEntry {\n        option map_entry = true;\n        optional KeyType key = 1;\n        optional ValueType value = 2;\n    }\n    repeated MapFieldEntry map_field = 1;\n\nImplementations may choose not to generate the map_entry=true message, but\nuse a native map in the target language to hold the keys and values.\nThe reflection APIs in such implementations still need to work as\nif the field is a repeated message field.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "deprecated_legacy_json_field_conflicts",
+              "description": "Enable the legacy handling of JSON field name conflicts.  This lowercases\nand strips underscored from the fields before comparison in proto3 only.\nThe new behavior takes `json_name` into account and applies to proto2 as\nwell.\n\nThis should only be used as a temporary measure against broken builds due\nto the change in behavior for JSON field name conflicts.\n\nTODO(b/261750190) This is legacy behavior we plan to remove once downstream\nteams have had time to migrate.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here. See above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MethodDescriptorProto",
+          "longName": "MethodDescriptorProto",
+          "fullName": "google.protobuf.MethodDescriptorProto",
+          "description": "Describes a method of a service.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "input_type",
+              "description": "Input and output type names.  These are resolved in the same way as\nFieldDescriptorProto.type_name, but must refer to a message type.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "output_type",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "MethodOptions",
+              "longType": "MethodOptions",
+              "fullType": "google.protobuf.MethodOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "client_streaming",
+              "description": "Identifies if client streams multiple client messages",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "server_streaming",
+              "description": "Identifies if server streams multiple server messages",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            }
+          ]
+        },
+        {
+          "name": "MethodOptions",
+          "longName": "MethodOptions",
+          "fullName": "google.protobuf.MethodOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "deprecated",
+              "description": "Is this method deprecated?\nDepending on the target platform, this can emit Deprecated annotations\nfor the method, or it will be completely ignored; in the very least,\nthis is a formalization for deprecating methods.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "idempotency_level",
+              "description": "",
+              "label": "optional",
+              "type": "IdempotencyLevel",
+              "longType": "MethodOptions.IdempotencyLevel",
+              "fullType": "google.protobuf.MethodOptions.IdempotencyLevel",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "IDEMPOTENCY_UNKNOWN"
+            },
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here. See above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "OneofDescriptorProto",
+          "longName": "OneofDescriptorProto",
+          "fullName": "google.protobuf.OneofDescriptorProto",
+          "description": "Describes a oneof.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "OneofOptions",
+              "longType": "OneofOptions",
+              "fullType": "google.protobuf.OneofOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "OneofOptions",
+          "longName": "OneofOptions",
+          "fullName": "google.protobuf.OneofOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here. See above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ServiceDescriptorProto",
+          "longName": "ServiceDescriptorProto",
+          "fullName": "google.protobuf.ServiceDescriptorProto",
+          "description": "Describes a service.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "method",
+              "description": "",
+              "label": "repeated",
+              "type": "MethodDescriptorProto",
+              "longType": "MethodDescriptorProto",
+              "fullType": "google.protobuf.MethodDescriptorProto",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "optional",
+              "type": "ServiceOptions",
+              "longType": "ServiceOptions",
+              "fullType": "google.protobuf.ServiceOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ServiceOptions",
+          "longName": "ServiceOptions",
+          "fullName": "google.protobuf.ServiceOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "deprecated",
+              "description": "Is this service deprecated?\nDepending on the target platform, this can emit Deprecated annotations\nfor the service, or it will be completely ignored; in the very least,\nthis is a formalization for deprecating services.",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "false"
+            },
+            {
+              "name": "uninterpreted_option",
+              "description": "The parser stores options it doesn't recognize here. See above.",
+              "label": "repeated",
+              "type": "UninterpretedOption",
+              "longType": "UninterpretedOption",
+              "fullType": "google.protobuf.UninterpretedOption",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SourceCodeInfo",
+          "longName": "SourceCodeInfo",
+          "fullName": "google.protobuf.SourceCodeInfo",
+          "description": "Encapsulates information about the original source file from which a\nFileDescriptorProto was generated.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "location",
+              "description": "A Location identifies a piece of source code in a .proto file which\ncorresponds to a particular definition.  This information is intended\nto be useful to IDEs, code indexers, documentation generators, and similar\ntools.\n\nFor example, say we have a file like:\n  message Foo {\n    optional string foo = 1;\n  }\nLet's look at just the field definition:\n  optional string foo = 1;\n  ^       ^^     ^^  ^  ^^^\n  a       bc     de  f  ghi\nWe have the following locations:\n  span   path               represents\n  [a,i)  [ 4, 0, 2, 0 ]     The whole field definition.\n  [a,b)  [ 4, 0, 2, 0, 4 ]  The label (optional).\n  [c,d)  [ 4, 0, 2, 0, 5 ]  The type (string).\n  [e,f)  [ 4, 0, 2, 0, 1 ]  The name (foo).\n  [g,h)  [ 4, 0, 2, 0, 3 ]  The number (1).\n\nNotes:\n- A location may refer to a repeated field itself (i.e. not to any\n  particular index within it).  This is used whenever a set of elements are\n  logically enclosed in a single code segment.  For example, an entire\n  extend block (possibly containing multiple extension definitions) will\n  have an outer location whose path refers to the \"extensions\" repeated\n  field without an index.\n- Multiple locations may have the same path.  This happens when a single\n  logical declaration is spread out across multiple places.  The most\n  obvious example is the \"extend\" block again -- there may be multiple\n  extend blocks in the same scope, each of which will have the same path.\n- A location's span is not always a subset of its parent's span.  For\n  example, the \"extendee\" of an extension declaration appears at the\n  beginning of the \"extend\" block and is shared by all extensions within\n  the block.\n- Just because a location's span is a subset of some other location's span\n  does not mean that it is a descendant.  For example, a \"group\" defines\n  both a type and a field in a single declaration.  Thus, the locations\n  corresponding to the type and field and their components will overlap.\n- Code which tries to interpret locations should probably be designed to\n  ignore those that it doesn't understand, as more types of locations could\n  be recorded in the future.",
+              "label": "repeated",
+              "type": "Location",
+              "longType": "SourceCodeInfo.Location",
+              "fullType": "google.protobuf.SourceCodeInfo.Location",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Location",
+          "longName": "SourceCodeInfo.Location",
+          "fullName": "google.protobuf.SourceCodeInfo.Location",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "path",
+              "description": "Identifies which part of the FileDescriptorProto was defined at this\nlocation.\n\nEach element is a field number or an index.  They form a path from\nthe root FileDescriptorProto to the place where the definition occurs.\nFor example, this path:\n  [ 4, 3, 2, 7, 1 ]\nrefers to:\n  file.message_type(3)  // 4, 3\n      .field(7)         // 2, 7\n      .name()           // 1\nThis is because FileDescriptorProto.message_type has field number 4:\n  repeated DescriptorProto message_type = 4;\nand DescriptorProto.field has field number 2:\n  repeated FieldDescriptorProto field = 2;\nand FieldDescriptorProto.name has field number 1:\n  optional string name = 1;\n\nThus, the above path gives the location of a field name.  If we removed\nthe last element:\n  [ 4, 3, 2, 7 ]\nthis path refers to the whole field declaration (from the beginning\nof the label to the terminating semicolon).",
+              "label": "repeated",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "span",
+              "description": "Always has exactly three or four elements: start line, start column,\nend line (optional, otherwise assumed same as start line), end column.\nThese are packed into a single field for efficiency.  Note that line\nand column numbers are zero-based -- typically you will want to add\n1 to each before displaying to a user.",
+              "label": "repeated",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "leading_comments",
+              "description": "If this SourceCodeInfo represents a complete declaration, these are any\ncomments appearing before and after the declaration which appear to be\nattached to the declaration.\n\nA series of line comments appearing on consecutive lines, with no other\ntokens appearing on those lines, will be treated as a single comment.\n\nleading_detached_comments will keep paragraphs of comments that appear\nbefore (but not connected to) the current element. Each paragraph,\nseparated by empty lines, will be one comment element in the repeated\nfield.\n\nOnly the comment content is provided; comment markers (e.g. //) are\nstripped out.  For block comments, leading whitespace and an asterisk\nwill be stripped from the beginning of each line other than the first.\nNewlines are included in the output.\n\nExamples:\n\n  optional int32 foo = 1;  // Comment attached to foo.\n  // Comment attached to bar.\n  optional int32 bar = 2;\n\n  optional string baz = 3;\n  // Comment attached to baz.\n  // Another line attached to baz.\n\n  // Comment attached to moo.\n  //\n  // Another line attached to moo.\n  optional double moo = 4;\n\n  // Detached comment for corge. This is not leading or trailing comments\n  // to moo or corge because there are blank lines separating it from\n  // both.\n\n  // Detached comment for corge paragraph 2.\n\n  optional string corge = 5;\n  /* Block comment attached\n   * to corge.  Leading asterisks\n   * will be removed. */\n  /* Block comment attached to\n   * grault. */\n  optional int32 grault = 6;\n\n  // ignored detached comments.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "trailing_comments",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "leading_detached_comments",
+              "description": "",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "UninterpretedOption",
+          "longName": "UninterpretedOption",
+          "fullName": "google.protobuf.UninterpretedOption",
+          "description": "A message representing a option the parser does not recognize. This only\nappears in options protos created by the compiler::Parser class.\nDescriptorPool resolves these when building Descriptor objects. Therefore,\noptions protos in descriptor objects (e.g. returned by Descriptor::options(),\nor produced by Descriptor::CopyTo()) will never have UninterpretedOptions\nin them.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "repeated",
+              "type": "NamePart",
+              "longType": "UninterpretedOption.NamePart",
+              "fullType": "google.protobuf.UninterpretedOption.NamePart",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "identifier_value",
+              "description": "The value of the uninterpreted option, in whatever type the tokenizer\nidentified it as during parsing. Exactly one of these should be set.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "positive_int_value",
+              "description": "",
+              "label": "optional",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "negative_int_value",
+              "description": "",
+              "label": "optional",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "double_value",
+              "description": "",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "string_value",
+              "description": "",
+              "label": "optional",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "aggregate_value",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "NamePart",
+          "longName": "UninterpretedOption.NamePart",
+          "fullName": "google.protobuf.UninterpretedOption.NamePart",
+          "description": "The name of the uninterpreted option.  Each string represents a segment in\na dot-separated name.  is_extension is true iff a segment represents an\nextension (denoted with parentheses in options specs in .proto files).\nE.g.,{ [\"foo\", false], [\"bar.baz\", true], [\"moo\", false] } represents\n\"foo.(bar.baz).moo\".",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name_part",
+              "description": "",
+              "label": "required",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "is_extension",
+              "description": "",
+              "label": "required",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": []
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}
