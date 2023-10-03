@@ -1665,6 +1665,34 @@
       "hasServices": false,
       "enums": [
         {
+          "name": "CommitConfirmedAction",
+          "longName": "CommitConfirmedAction",
+          "fullName": "gnmi_ext.CommitConfirmedAction",
+          "description": "A COMMIT_CONFIRMED_ACTION_START starts a commit with a configured rollback\ntimeout and will return the CommitID assigned by the server. The CommitID is\nused to identify the current commit. The COMMIT_CONFIRMED_ACTION_ACCEPT and\nCOMMIT_CONFIRMED_ACTION_REJECT confirms or cancels a commit using the\ncommit_id.",
+          "values": [
+            {
+              "name": "COMMIT_CONFIRMED_ACTION_UNSPECIFIED",
+              "number": "0",
+              "description": "gNMI server should return InvalidArgument error if the action is not\nspecified for a CommitConfirmed extension."
+            },
+            {
+              "name": "COMMIT_CONFIRMED_ACTION_START",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "COMMIT_CONFIRMED_ACTION_ACCEPT",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "COMMIT_CONFIRMED_ACTION_REJECT",
+              "number": "3",
+              "description": ""
+            }
+          ]
+        },
+        {
           "name": "ExtensionID",
           "longName": "ExtensionID",
           "fullName": "gnmi_ext.ExtensionID",
@@ -1685,6 +1713,78 @@
       ],
       "extensions": [],
       "messages": [
+        {
+          "name": "CommitConfirmed",
+          "longName": "CommitConfirmed",
+          "fullName": "gnmi_ext.CommitConfirmed",
+          "description": "The CommitConfirmed allows automatic rollback of a commit\nif Set changes are not confirmed within timeout.\nThe commit will be rolled back if it is not confirmed within the\ntimeout.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "action",
+              "description": "",
+              "label": "",
+              "type": "CommitConfirmedAction",
+              "longType": "CommitConfirmedAction",
+              "fullType": "gnmi_ext.CommitConfirmedAction",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "timeout",
+              "description": "rollback timeout duration expressed in seconds and nanoseconds.\nIf timeout is not set (or seconds and ns are both 0), then\nthe default gNMI server's rollback timeout duration is used.",
+              "label": "",
+              "type": "Duration",
+              "longType": "google.protobuf.Duration",
+              "fullType": "google.protobuf.Duration",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "commit_id",
+              "description": "CommitID from commit for ACCEPT or REJECT",
+              "label": "",
+              "type": "CommitID",
+              "longType": "CommitID",
+              "fullType": "gnmi_ext.CommitID",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CommitID",
+          "longName": "CommitID",
+          "fullName": "gnmi_ext.CommitID",
+          "description": "The CommitID is returned by gNMI server to indicate the ID of a commit.\nIt is returned in the Set Response extension to indicate the associated\ncommit.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
         {
           "name": "Extension",
           "longName": "Extension",
@@ -1732,12 +1832,12 @@
               "defaultValue": ""
             },
             {
-              "name": "commit_confirmed_request",
+              "name": "commit_confirmed",
               "description": "Commit Confirmed extension.",
               "label": "",
-              "type": "CommitConfirmedRequest",
-              "longType": "CommitConfirmedRequest",
-              "fullType": "gnmi_ext.CommitConfirmedRequest",
+              "type": "CommitConfirmed",
+              "longType": "CommitConfirmed",
+              "fullType": "gnmi_ext.CommitConfirmed",
               "ismap": false,
               "isoneof": true,
               "oneofdecl": "ext",
@@ -1942,121 +2042,6 @@
               "type": "uint64",
               "longType": "uint64",
               "fullType": "uint64",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        }
-      ],
-      "services": []
-    },
-    {
-      "name": "github.com/openconfig/gnmi/proto/gnmi_ext/commit_confirmed.proto",
-      "description": "Copyright 2018 Google Inc. All Rights Reserved.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n   http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
-      "package": "gnmi_ext",
-      "hasEnums": true,
-      "hasExtensions": false,
-      "hasMessages": true,
-      "hasServices": false,
-      "enums": [
-        {
-          "name": "CommitConfirmedAction",
-          "longName": "CommitConfirmedAction",
-          "fullName": "gnmi_ext.CommitConfirmedAction",
-          "description": "A COMMIT_CONFIRMED_ACTION_START starts a commit with a configured rollback\ntimeout and will return the CommitID assigned by the server. The CommitID is\nused to identify the current commit. The COMMIT_CONFIRMED_ACTION_ACCEPT and\nCOMMIT_CONFIRMED_ACTION_REJECT confirms or cancels a commit using the\ncommit_id.",
-          "values": [
-            {
-              "name": "COMMIT_CONFIRMED_ACTION_UNSPECIFIED",
-              "number": "0",
-              "description": ""
-            },
-            {
-              "name": "COMMIT_CONFIRMED_ACTION_START",
-              "number": "1",
-              "description": ""
-            },
-            {
-              "name": "COMMIT_CONFIRMED_ACTION_ACCEPT",
-              "number": "2",
-              "description": ""
-            },
-            {
-              "name": "COMMIT_CONFIRMED_ACTION_REJECT",
-              "number": "3",
-              "description": ""
-            }
-          ]
-        }
-      ],
-      "extensions": [],
-      "messages": [
-        {
-          "name": "CommitConfirmedRequest",
-          "longName": "CommitConfirmedRequest",
-          "fullName": "gnmi_ext.CommitConfirmedRequest",
-          "description": "The CommitConfirmedRequest allows automatic rollback of a commit\nif Set changes are not confirmed within timeout.\nThe commit will be rolled back if it is not confirmed within the\ntimeout.",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "action",
-              "description": "",
-              "label": "",
-              "type": "CommitConfirmedAction",
-              "longType": "CommitConfirmedAction",
-              "fullType": "gnmi_ext.CommitConfirmedAction",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "timeout",
-              "description": "timeout for START, or new timeout value",
-              "label": "",
-              "type": "Duration",
-              "longType": "google.protobuf.Duration",
-              "fullType": "google.protobuf.Duration",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "commit_id",
-              "description": "CommitID from commit for ACCEPT or REJECT",
-              "label": "",
-              "type": "CommitID",
-              "longType": "CommitID",
-              "fullType": "gnmi_ext.CommitID",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "CommitID",
-          "longName": "CommitID",
-          "fullName": "gnmi_ext.CommitID",
-          "description": "The CommitID is returned by gNMI server to indicate the ID of a commit.\nIt is returned in the Set Response extension to indicate the associated\ncommit.",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "id",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
