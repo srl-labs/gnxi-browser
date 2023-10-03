@@ -1668,7 +1668,7 @@
           "name": "CommitConfirmedAction",
           "longName": "CommitConfirmedAction",
           "fullName": "gnmi_ext.CommitConfirmedAction",
-          "description": "A COMMIT_CONFIRMED_ACTION_START starts a commit with a configured rollback\ntimeout and will return the CommitID assigned by the server. The CommitID is\nused to identify the current commit. The COMMIT_CONFIRMED_ACTION_ACCEPT and\nCOMMIT_CONFIRMED_ACTION_REJECT confirms or cancels a commit using the\ncommit_id.",
+          "description": "A COMMIT_CONFIRMED_ACTION_START starts a commit with a configured rollback\ntimeout and will return the CommitID assigned by the server. The CommitID is\nused to identify the current commit. The COMMIT_CONFIRMED_ACTION_CONFIRM and\nCOMMIT_CONFIRMED_ACTION_REJECT confirms or cancels a commit using the\ncommit_id.",
           "values": [
             {
               "name": "COMMIT_CONFIRMED_ACTION_UNSPECIFIED",
@@ -1678,17 +1678,17 @@
             {
               "name": "COMMIT_CONFIRMED_ACTION_START",
               "number": "1",
-              "description": ""
+              "description": "Start a commit with a specified rollback timeout."
             },
             {
-              "name": "COMMIT_CONFIRMED_ACTION_ACCEPT",
+              "name": "COMMIT_CONFIRMED_ACTION_CONFIRM",
               "number": "2",
-              "description": ""
+              "description": "Confirm a commit identified by CommitID."
             },
             {
               "name": "COMMIT_CONFIRMED_ACTION_REJECT",
               "number": "3",
-              "description": ""
+              "description": "Reject a commit identified by CommitID\nfor which rollback timeout has not expired.\nIf no active commit with the non expired rollback timeout is found,\ngNMI server should return InvalidArgument error."
             }
           ]
         },
@@ -1765,7 +1765,7 @@
           "name": "CommitID",
           "longName": "CommitID",
           "fullName": "gnmi_ext.CommitID",
-          "description": "The CommitID is returned by gNMI server to indicate the ID of a commit.\nIt is returned in the Set Response extension to indicate the associated\ncommit.",
+          "description": "The CommitID is returned by the gNMI server to indicate the ID of a commit.\nIt is returned in response to the Set Request with the CommitConfirm message\nthat had COMMIT_CONFIRMED_ACTION_START set.\nThe CommitID is used in the subsequent SetRequest/CommitConfirm messages\nto identify commit to be confirmed, reset or rejected.",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
