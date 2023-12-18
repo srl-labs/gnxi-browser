@@ -64,11 +64,11 @@
     sidebar: {
       expand: {
         icon: "w-5 h-5 rounded-full",
-        package: "flex items-center w-full p-2 rounded-lg text-black dark:text-white bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-700",
+        package: "flex items-center w-full p-2 rounded-lg text-black dark:text-white bg-gray-200 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-700",
         header: "flex items-center w-full p-2 rounded-lg text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700",
         content: {
           border: "py-2 space-y-2 border-l ml-4",
-          entry: "flex mx-3 py-2 px-2 text-gray-900 dark:text-white rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+          entry: "flex mx-3 py-2 px-2 break-all md:break-normal text-gray-900 dark:text-white rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
         }
       }
     }
@@ -95,6 +95,10 @@
         <span>{interfaces[iKey].services[sKey].name} {version}</span>
       </div>
     </div>
+    <!-- navbar centre item -->
+    <div class="hidden lg:flex items-center">
+			<p class="dark:text-gray-200">{interfaces[iKey].name} Protobuf Documentation</p>
+		</div>
     <!-- navbar right item -->
     <div class="flex items-center">
       <button class="inline-flex px-2" on:click={toggleNavInterfaces}>
@@ -142,7 +146,7 @@
 </div>
 
 <!-- SIDEBAR -->
-<aside id="sidebar" class="text-sm font-nunito pt-[70px] fixed left-0 top-0 z-20 transition-transform -translate-x-full lg:-translate-x-0 lg:h-screen lg:sticky bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+<aside id="sidebar" class="text-sm font-nunito pt-[70px] fixed left-0 top-0 z-20 w-[300px] md:w-fit transition-transform -translate-x-full lg:-translate-x-0 lg:h-screen lg:sticky bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
   <div class="bg-white dark:bg-gray-800">
     <div class="px-6 text-right">
       <a href="{srcDoc.source}" class="text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase">Source</a>
@@ -155,7 +159,7 @@
       <input type="text" id="search" placeholder="Search..." bind:value={lookup} on:keyup={searchSide} class="w-full px-3 py-2 text-sm rounded-lg text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:placeholder-gray-400">
     </div>
   </div>
-  <div id="sideList" class="px-3 pb-4 min-w-[300px] h-[calc(100vh_-_10rem)] overflow-y-auto scroll-light dark:scroll-dark bg-white dark:bg-gray-800">
+  <div id="sideList" class="px-3 pb-4 h-[calc(100vh_-_10rem)] overflow-y-auto scroll-light dark:scroll-dark bg-white dark:bg-gray-800">
     <ul class="space-y-2">
       {#each files as entry, i}
         {#if entry.hasServices || entry.hasMessages || entry.hasEnums || entry.hasExtensions }

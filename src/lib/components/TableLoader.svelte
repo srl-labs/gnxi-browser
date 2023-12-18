@@ -25,15 +25,15 @@
   {#each files as entry, i}
     {#if entry.hasServices || entry.hasMessages || entry.hasEnums || entry.hasExtensions }
       {@const packageName = entry.name.split("/").pop().split(".")[0]}
-      <div class="container mx-auto mt-6 px-6 text-center">
-        <div class="bg-gray-100 dark:bg-gray-900 py-3">
+      <div class="mt-6 px-6 text-center">
+        <div class="bg-gray-200 dark:bg-gray-900 py-3">
           <a class="text-black dark:text-white hover:underline font-nunito scroll-mt-[90px]" id="{packageName}" href="#{packageName}">{packageName}</a>
         </div>
       </div>
       {#if entry.hasServices}
         {@const sectionName = "services"}
         {@const hrefSection = packageName + "." + sectionName}
-        <div class="container mx-auto p-6">
+        <div class="p-6">
           <div class="my-1">
             <a class="text-black dark:text-white hover:underline font-nunito uppercase scroll-mt-[70px]" id="{hrefSection}" href="#{hrefSection}">{sectionName}</a>
           </div>
@@ -43,7 +43,7 @@
       {#if entry.hasMessages}
         {@const sectionName = "messages"}
         {@const hrefSection = packageName + "." + sectionName}
-        <div class="container mx-auto p-6">
+        <div class="p-6">
           <div class="my-1">
             <a class="text-black dark:text-white hover:underline font-nunito uppercase scroll-mt-[70px]" id="{hrefSection}" href="#{hrefSection}">{sectionName}</a>
           </div>
@@ -53,7 +53,7 @@
       {#if entry.hasEnums}
         {@const sectionName = "enums"}
         {@const hrefSection = packageName + "." + sectionName}
-        <div class="container mx-auto p-6">
+        <div class="p-6">
           <div class="my-1">
             <a class="text-black dark:text-white hover:underline font-nunito uppercase scroll-mt-[70px]" id="{hrefSection}" href="#{hrefSection}">{sectionName}</a>
           </div>
@@ -63,7 +63,7 @@
       {#if entry.hasExtensions}
         {@const sectionName = "extensions"}
         {@const hrefSection = packageName + "." + sectionName}
-        <div class="container mx-auto p-6">
+        <div class="p-6">
           <div class="my-1">
             <a class="text-black dark:text-white hover:underline font-nunito uppercase scroll-mt-[70px]" id="{hrefSection}" href="#{hrefSection}">{sectionName}</a>
           </div>
@@ -72,7 +72,7 @@
       {/if}
     {/if}
   {/each}
-  <div class="container mx-auto p-6">
+  <div class="p-6">
     <Table entry={scalarValueTypes} sectionName="svt" imported={false}/>
   </div>
   

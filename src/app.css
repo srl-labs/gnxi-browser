@@ -4,13 +4,14 @@
 
 @layer components {
   .has-header-img {
-    background: url(/images/pattern.webp)center center;
+    background: url(/images/background.jpg)center center;
     background-size: cover;
   }
 
   /* Scroll Light */
   .scroll-light::-webkit-scrollbar {
-    width: 5px;
+    width: 2px;
+    height: 2px;
   }
 
   .scroll-light::-webkit-scrollbar-track {
@@ -27,7 +28,8 @@
 
   /* Scroll Dark */
   .scroll-dark::-webkit-scrollbar {
-    width: 5px;
+    width: 2px;
+    height: 2px;
   }
 
   .scroll-dark::-webkit-scrollbar-track {
