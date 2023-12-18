@@ -4,12 +4,12 @@
 	// TAILWIND CLASS DEFINITION
 	const custom = {
 		table: {
-			caption_cont: 'py-5 text-left font-nunito  overflow-x-auto',
-			caption: 'text-blue-600 dark:text-blue-500 hover:underline font-mono text-sm',
-			desc: 'mt-1 font-normal text-gray-500 dark:text-gray-400 text-xs font-mono whitespace-pre',
-			container: 'overflow-x-auto max-w-full',
+			caption_cont: 'py-5 text-left font-nunito',
+			caption: 'text-blue-600 dark:text-blue-500 hover:underline font-mono text-sm break-all',
+			desc: 'mt-1 font-normal text-gray-500 dark:text-gray-400 text-xs font-mono break-word',
+			container: 'overflow-x-auto max-w-full scroll-light dark:scroll-dark',
 			table: 'text-left text-gray-500 dark:text-gray-400 w-full font-nunito',
-			thead: 'text-xs uppercase text-gray-700 dark:text-gray-400 bg-gray-50 dark:bg-gray-700',
+			thead: 'text-xs uppercase text-gray-800 dark:text-gray-300 bg-gray-100 dark:bg-gray-700',
 			link: 'text-blue-600 dark:text-blue-500 hover:underline font-mono text-xs',
 			tr: 'bg-white border-b dark:bg-gray-800 dark:border-gray-700',
 			th_col: 'px-6 py-3',
