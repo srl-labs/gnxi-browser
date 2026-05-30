@@ -50,7 +50,7 @@
 					User interface for Openconfig's gRPC services <sup
 						><a
 							class="text-white-400 hover:text-blue-300"
-							href="https://learn.srlinux.dev/blog/2023/gnxi-browser-a-documentation-ui-for-openconfig-grpc-services/"
+							href="https://learn.srlinux.dev/blog/2023/gnxi-browser---a-documentation-ui-for-openconfig-grpc-services/"
 							><svg
 								class="w-4 h-4 inline-flex"
 								xmlns="http://www.w3.org/2000/svg"
@@ -61,6 +61,12 @@
 									d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z" /></svg
 							></a
 						></sup>
+				</p>
+				<p class="mt-2 max-w-[450px] text-sm font-light text-gray-300">
+					See
+					<strong><a class="text-gray-200 hover:text-blue-300" href="https://protomap.netdevops.me"
+						>protomap.netdevops.me</a></strong>
+					for a graph-based view of the OpenConfig services.
 				</p>
 			</div>
 			<div class="bg-white dark:bg-gray-800 rounded shadow-xl">
