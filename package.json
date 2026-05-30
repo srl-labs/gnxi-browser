@@ -39,6 +39,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"jquery": "^3.6.4"
+		"jquery": "^3.6.4",
+		"js-yaml": "^4.1.1"
 	}
 }
