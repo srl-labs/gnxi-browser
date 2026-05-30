@@ -5,8 +5,19 @@
 
   export let interfaces: any, iKey: string, sKey: string, version: string, files: any, srcDoc: {source: string, documentation: string};
 
+  const serviceMap: Record<string, Record<string, string>> = {
+    gnoi: {
+      packet_link_qualification: "linkqualification"
+    },
+    gnsi: {
+      accounting: "acctz"
+    }
+  };
+
   let darkMode = false;
   let lookup = "";
+  $: mapServiceKey = serviceMap[iKey]?.[sKey] ?? sKey.toLowerCase().replace(/[^a-z]/g, "");
+  $: mapUrl = `https://protomap.netdevops.me/${iKey}/${mapServiceKey}`;
 
   onMount(() => {
     jQuery.expr[':'].contains = function(a: any, i: any, m: string[]) {
@@ -148,12 +159,14 @@
 <!-- SIDEBAR -->
 <aside id="sidebar" class="text-sm font-nunito pt-[70px] fixed left-0 top-0 z-20 w-[300px] md:w-fit transition-transform -translate-x-full lg:-translate-x-0 lg:h-screen lg:sticky bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
   <div class="bg-white dark:bg-gray-800">
-    <div class="px-6 text-right">
+    <div class="px-6 text-right whitespace-nowrap w-max">
       <a href="{srcDoc.source}" class="text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase">Source</a>
       {#if srcDoc.documentation != null }
         <span class="text-black dark:text-gray-200">|</span> 
         <a href="{srcDoc.documentation}" class="text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase">Documentation</a>
       {/if}
+      <span class="text-black dark:text-gray-200">|</span>
+      <a href="{mapUrl}" class="text-blue-600 dark:text-blue-500 hover:underline text-[10px] uppercase">Map</a>
     </div>
     <div class="ml-5 mr-6 mt-2 mb-4">
       <input type="text" id="search" placeholder="Search..." bind:value={lookup} on:keyup={searchSide} class="w-full px-3 py-2 text-sm rounded-lg text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:placeholder-gray-400">
